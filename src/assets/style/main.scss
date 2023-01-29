@@ -4,3 +4,10 @@
   justify-content: flex-start;
   margin: 0.5rem;
 }
+.p-inputtext.ng-touched.ng-invalid{
+  border:  1px solid red;
+}
+.p-element.p-inputwrapper.ng-tns-c58-1.ng-pristine.ng-invalid.ng-star-inserted.ng-touched{
+  border:  1px solid red;
+  border-radius: 6px;
+}

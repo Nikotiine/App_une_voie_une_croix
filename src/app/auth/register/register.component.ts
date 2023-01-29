@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterDto } from '../../core/api/models/user-register-dto';
 import { UserService } from '../../core/api/services/user.service';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,13 +12,23 @@ import { UserService } from '../../core/api/services/user.service';
 })
 export class RegisterComponent {
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  //private attribute
+  private toastSummary: string = "Service d'inscription";
+  private toastDetail: string = 'Inscritption validée';
+  private loginUrl: string = 'auth/login';
+  private timeout: number = 2000;
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private messageService: MessageService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-      password: [''],
-      birthday: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      birthday: ['', Validators.required],
     });
   }
 
@@ -28,14 +40,27 @@ export class RegisterComponent {
       password: this.form.controls['password'].value,
       birthday: this.form.controls['birthday'].value,
     };
-    console.log(user);
     this.userService
       .userControllerCreateUser({
         body: user,
       })
       .subscribe({
         next: data => {
-          console.log(data);
+          this.messageService.add({
+            severity: 'success',
+            summary: this.toastSummary,
+            detail: this.toastDetail,
+          });
+          setTimeout(() => {
+            return this.router.navigate([this.loginUrl]);
+          }, this.timeout);
+        },
+        error: err => {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.toastSummary,
+            detail: err.error.message,
+          });
         },
       });
   }

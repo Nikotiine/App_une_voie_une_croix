@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <h1 class="has-text-centered title is-1 mt-6">Creer un compte</h1>
 <form [formGroup]="form">
   <div class="box form-register">
@@ -46,7 +47,8 @@
       <p-calendar
         id="birthday"
         [style]="{ minWidth: '20rem' }"
-        formControlName="birthday"></p-calendar>
+        formControlName="birthday"
+        [required]="true"></p-calendar>
     </div>
     <div class="is-flex mt-3 width-20 is-justify-content-space-between">
       <button
@@ -55,7 +57,10 @@
         label="Annuler"
         class="p-button-secondary mr-2"
         [routerLink]="['']"></button>
-      <p-button label="Valider" (click)="submit()"></p-button>
+      <p-button
+        label="Valider"
+        (click)="submit()"
+        [disabled]="form.invalid"></p-button>
     </div>
   </div>
 </form>
