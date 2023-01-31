@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterDto } from '../../core/api/models/user-register-dto';
-import { UserService } from '../../core/api/services/user.service';
+
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/api/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent {
   private timeout: number = 2000;
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private messageService: MessageService,
     private router: Router
   ) {
@@ -40,8 +41,8 @@ export class RegisterComponent {
       password: this.form.controls['password'].value,
       birthday: this.form.controls['birthday'].value,
     };
-    this.userService
-      .userControllerCreateUser({
+    this.authService
+      .authControllerCreateUser({
         body: user,
       })
       .subscribe({

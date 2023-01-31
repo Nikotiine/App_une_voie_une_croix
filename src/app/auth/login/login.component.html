@@ -1,1 +1,36 @@
-<p>login works!</p>
+<div class="form-register">
+  <h1 class="has-text-centered title is-1 mt-6">Connexion</h1>
+  <a [routerLink]="[registerUrl]">pas encore de compte ?</a>
+  <form [formGroup]="form">
+    <div class="input-label">
+      <label for="email" class="label">Email</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input type="text" pInputText id="email" formControlName="email" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="password" class="label">Password</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input
+          type="password"
+          pInputText
+          id="password"
+          formControlName="password" />
+      </span>
+    </div>
+    <div class="is-flex mt-5 is-justify-content-space-between">
+      <button
+        pButton
+        type="button"
+        label="Annuler"
+        class="p-button-secondary mr-2"
+        [routerLink]="['']"></button>
+      <p-button
+        label="Connexion"
+        (click)="submit()"
+        [disabled]="form.invalid"></p-button>
+    </div>
+  </form>
+</div>
