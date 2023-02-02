@@ -59,8 +59,19 @@
             icon="pi pi-sign-in"
             label="Connexion"
             iconPos="left"
+            *ngIf="!isLogged"
             class="p-button-outlined p-button-danger"
             [routerLink]="[loginUrl]"></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-sign-in"
+            label="Logout"
+            iconPos="left"
+            *ngIf="isLogged"
+            class="p-button-outlined p-button-danger"
+            (click)="logout()"
+            [routerLink]="[homeUrl]"></button>
         </div>
       </div>
     </div>

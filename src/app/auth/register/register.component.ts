@@ -5,6 +5,7 @@ import { UserRegisterDto } from '../../core/api/models/user-register-dto';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/api/services/auth.service';
+import {UserService} from "../../core/api/services/user.service";
 
 @Component({
   selector: 'app-register',
@@ -16,11 +17,11 @@ export class RegisterComponent {
   //private attribute
   private toastSummary: string = "Service d'inscription";
   private toastDetail: string = 'Inscritption validée';
-  private loginUrl: string = 'auth/login';
+  private loginUrl: string = '/auth/login';
   private timeout: number = 2000;
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private userService:UserService,
     private messageService: MessageService,
     private router: Router
   ) {
@@ -41,8 +42,8 @@ export class RegisterComponent {
       password: this.form.controls['password'].value,
       birthday: this.form.controls['birthday'].value,
     };
-    this.authService
-      .authControllerCreateUser({
+    this.userService
+      .userControllerCreateUser({
         body: user,
       })
       .subscribe({

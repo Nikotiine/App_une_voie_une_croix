@@ -12,8 +12,14 @@ export class SecurityService {
   public saveToken(token: TokenDto): void {
     this.cookieService.put(this.accessTokenValue, token.access_token);
   }
+  public logout(): void {
+    this.cookieService.remove(this.accessTokenValue);
+  }
   public isLogged(): boolean {
     const token = this.cookieService.get(this.accessTokenValue);
     return !!token;
+  }
+  public getToken(): string | undefined {
+    return this.cookieService.get(this.accessTokenValue);
   }
 }

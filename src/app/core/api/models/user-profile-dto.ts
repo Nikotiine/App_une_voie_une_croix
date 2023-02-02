@@ -4,6 +4,6 @@ export interface UserProfileDto {
   birthday: string;
   email: string;
   fistName: string;
-  isActive: boolean;
+  id: number;
   lastName: string;
 }

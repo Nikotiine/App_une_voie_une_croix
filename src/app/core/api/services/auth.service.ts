@@ -12,7 +12,6 @@ import { map, filter } from 'rxjs/operators';
 import { TokenDto } from '../models/token-dto';
 import { UserCredentialsDto } from '../models/user-credentials-dto';
 import { UserProfileDto } from '../models/user-profile-dto';
-import { UserRegisterDto } from '../models/user-register-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -39,9 +38,10 @@ export class AuthService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   authControllerLogin$Response(params: {
-    context?: HttpContext
     body: UserCredentialsDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<TokenDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.AuthControllerLoginPath, 'post');
@@ -52,7 +52,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -64,48 +64,48 @@ export class AuthService extends BaseService {
   /**
    * login path
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `authControllerLogin$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   authControllerLogin(params: {
-    context?: HttpContext
     body: UserCredentialsDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<TokenDto> {
 
-    return this.authControllerLogin$Response(params).pipe(
+    return this.authControllerLogin$Response(params,context).pipe(
       map((r: StrictHttpResponse<TokenDto>) => r.body as TokenDto)
     );
   }
 
   /**
-   * Path part for operation authControllerCreateUser
+   * Path part for operation authControllerMe
    */
-  static readonly AuthControllerCreateUserPath = '/api/auth/register';
+  static readonly AuthControllerMePath = '/api/auth/me';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `authControllerCreateUser()` instead.
+   * To access only the response body, use `authControllerMe()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
-  authControllerCreateUser$Response(params: {
-    context?: HttpContext
-    body: UserRegisterDto
-  }
+  authControllerMe$Response(params?: {
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UserProfileDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, AuthService.AuthControllerCreateUserPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, AuthService.AuthControllerMePath, 'get');
     if (params) {
-      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -115,18 +115,18 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `authControllerCreateUser$Response()` instead.
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `authControllerMe$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
-  authControllerCreateUser(params: {
-    context?: HttpContext
-    body: UserRegisterDto
-  }
+  authControllerMe(params?: {
+  },
+  context?: HttpContext
+
 ): Observable<UserProfileDto> {
 
-    return this.authControllerCreateUser$Response(params).pipe(
+    return this.authControllerMe$Response(params,context).pipe(
       map((r: StrictHttpResponse<UserProfileDto>) => r.body as UserProfileDto)
     );
   }

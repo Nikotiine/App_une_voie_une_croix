@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
+import { ApiInterceptorProvider } from './core/app/interceptor/api.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,7 @@ import { CookieModule } from 'ngx-cookie';
     HttpClientModule,
     CookieModule.withOptions(),
   ],
-  providers: [],
+  providers: [ApiInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
