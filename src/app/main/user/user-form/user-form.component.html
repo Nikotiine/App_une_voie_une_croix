@@ -1,1 +1,60 @@
-<p>user-form works!</p>
+<h1 class="title is-3 mt-5 has-text-centered">Edition du profil</h1>
+<form [formGroup]="form">
+  <div class="form-register">
+    <div class="input-label">
+      <label for="lastName" class="label">Nom</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input
+          type="text"
+          pInputText
+          id="lastName"
+          formControlName="lastName" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="firstName" class="label">Prenom</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input
+          type="text"
+          pInputText
+          id="firstName"
+          formControlName="firstName" />
+      </span>
+    </div>
+
+    <div class="input-label">
+      <label for="password" class="label">Password</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input
+          type="password"
+          pInputText
+          id="password"
+          formControlName="password" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="birthday" class="label">Date de naissance</label>
+      <p-calendar
+        id="birthday"
+        [style]="{ minWidth: '20rem' }"
+        formControlName="birthday"
+        dateFormat="dd/mm/yy"
+        [required]="true"></p-calendar>
+    </div>
+    <div class="is-flex mt-3 width-20 is-justify-content-space-between">
+      <button
+        pButton
+        type="button"
+        label="Annuler"
+        class="p-button-secondary mr-2"
+        [routerLink]="['']"></button>
+      <p-button
+        label="Valider"
+        (click)="submit()"
+        [disabled]="form.invalid"></p-button>
+    </div>
+  </div>
+</form>

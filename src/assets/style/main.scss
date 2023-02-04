@@ -11,3 +11,12 @@
   border:  1px solid red;
   border-radius: 6px;
 }
+.form-register{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & input {
+    width: 20rem;
+  }
+}

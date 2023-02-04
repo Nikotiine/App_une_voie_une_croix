@@ -3,7 +3,7 @@
 export interface UserProfileDto {
   birthday: string;
   email: string;
-  fistName: string;
+  firstName: string;
   id: number;
   lastName: string;
 }

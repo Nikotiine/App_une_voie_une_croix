@@ -65,6 +65,15 @@
           <button
             pButton
             type="button"
+            icon="pi pi-user"
+            label="Profile"
+            iconPos="left"
+            *ngIf="isLogged"
+            class="p-button-outlined p-button-primary mr-2"
+            [routerLink]="[userProfileUrl]"></button>
+          <button
+            pButton
+            type="button"
             icon="pi pi-sign-in"
             label="Logout"
             iconPos="left"

@@ -5,7 +5,7 @@ import { UserRegisterDto } from '../../core/api/models/user-register-dto';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/api/services/auth.service';
-import {UserService} from "../../core/api/services/user.service";
+import { UserService } from '../../core/api/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,7 @@ export class RegisterComponent {
   private timeout: number = 2000;
   constructor(
     private fb: FormBuilder,
-    private userService:UserService,
+    private userService: UserService,
     private messageService: MessageService,
     private router: Router
   ) {
@@ -36,7 +36,7 @@ export class RegisterComponent {
 
   public submit(): void {
     const user: UserRegisterDto = {
-      fistName: this.form.controls['firstName'].value,
+      firstName: this.form.controls['firstName'].value,
       lastName: this.form.controls['lastName'].value,
       email: this.form.controls['email'].value,
       password: this.form.controls['password'].value,

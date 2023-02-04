@@ -33,9 +33,8 @@ export class ApiService extends BaseService {
    * This method doesn't expect any request body.
    */
   appControllerGetHello$Response(params?: {
-  },
-  context?: HttpContext
-
+    context?: HttpContext
+  }
 ): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApiService.AppControllerGetHelloPath, 'get');
@@ -45,7 +44,7 @@ export class ApiService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'text',
       accept: '*/*',
-      context: context
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -55,18 +54,17 @@ export class ApiService extends BaseService {
   }
 
   /**
-   * This method provides access only to the response body.
+   * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `appControllerGetHello$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   appControllerGetHello(params?: {
-  },
-  context?: HttpContext
-
+    context?: HttpContext
+  }
 ): Observable<void> {
 
-    return this.appControllerGetHello$Response(params,context).pipe(
+    return this.appControllerGetHello$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

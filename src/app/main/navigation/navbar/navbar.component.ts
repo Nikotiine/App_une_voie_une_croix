@@ -12,32 +12,20 @@ export class NavbarComponent implements OnInit {
 
   public loginUrl: string = '/auth/login';
   public homeUrl: string = '/home';
+  public userProfileUrl: string = '/user/profile';
   public isLogged: boolean = false;
 
-  constructor(
-    private readonly securityService: SecurityService,
-    private readonly authService: AuthService
-  ) {}
+  constructor(private readonly securityService: SecurityService) {}
   ngOnInit(): void {
-    this.getProfile();
+    this.userIsLogged();
   }
 
   public logout(): void {
     this.securityService.logout();
     this.isLogged = false;
-    this.getProfile();
+    this.userIsLogged();
   }
-  public getProfile(): void {
+  public userIsLogged(): void {
     this.isLogged = this.securityService.isLogged();
-    if (this.isLogged) {
-      this.authService.authControllerMe().subscribe({
-        next: data => {
-          console.log(data);
-        },
-        error: err => {
-          console.log(err);
-        },
-      });
-    }
   }
 }

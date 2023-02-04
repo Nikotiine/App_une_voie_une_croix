@@ -3,7 +3,7 @@
 export interface UserRegisterDto {
   birthday: string;
   email: string;
-  fistName: string;
+  firstName: string;
   lastName: string;
   password: string;
 }
