@@ -20,7 +20,7 @@ export class SecurityService {
   public logout(): void {
     this.cookieService.remove(this.accessTokenValue);
   }
-  public isLogged(): any {
+  public isLogged(): boolean {
     const access_token = this.getToken();
     return !!access_token;
   }

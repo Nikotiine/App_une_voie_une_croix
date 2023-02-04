@@ -15,7 +15,7 @@ export class UserViewComponent implements OnInit {
     this.getProfile();
   }
 
-  private getProfile() {
+  private getProfile(): void {
     this.authService.authControllerMe().subscribe({
       next: data => {
         this.user = data;

@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { UserEditPasswordDto } from '../models/user-edit-password-dto';
 import { UserProfileDto } from '../models/user-profile-dto';
 import { UserRegisterDto } from '../models/user-register-dto';
 
@@ -175,6 +176,60 @@ export class UserService extends BaseService {
 ): Observable<UserProfileDto> {
 
     return this.userControllerEditUser$Response(params).pipe(
+      map((r: StrictHttpResponse<UserProfileDto>) => r.body as UserProfileDto)
+    );
+  }
+
+  /**
+   * Path part for operation userControllerEditUserPassword
+   */
+  static readonly UserControllerEditUserPasswordPath = '/api/user/password/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userControllerEditUserPassword()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userControllerEditUserPassword$Response(params: {
+    id: number;
+    context?: HttpContext
+    body: UserEditPasswordDto
+  }
+): Observable<StrictHttpResponse<UserProfileDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserControllerEditUserPasswordPath, 'put');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<UserProfileDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `userControllerEditUserPassword$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userControllerEditUserPassword(params: {
+    id: number;
+    context?: HttpContext
+    body: UserEditPasswordDto
+  }
+): Observable<UserProfileDto> {
+
+    return this.userControllerEditUserPassword$Response(params).pipe(
       map((r: StrictHttpResponse<UserProfileDto>) => r.body as UserProfileDto)
     );
   }

@@ -4,6 +4,7 @@ import { UserService } from '../../../core/api/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserRegisterDto } from '../../../core/api/models/user-register-dto';
 import { MessageService } from 'primeng/api';
+import { UserEditPasswordDto } from '../../../core/api/models/user-edit-password-dto';
 
 @Component({
   selector: 'app-user-form',
@@ -13,19 +14,21 @@ import { MessageService } from 'primeng/api';
 export class UserFormComponent implements OnInit {
   public form: FormGroup;
   public formNewPassword: FormGroup;
-  displayDialog: boolean = false;
+  public userProfileUrl: string = '/user/profile';
+  public displayDialog: boolean = false;
   private userId: number = 0;
   private userEmail: string = '';
   private toastSummary: string = 'Profil utlisateur';
   private toastDetail: string = 'Mise a jour reussie';
-  private userProfileUrl: string = '/user/profile';
-  private timeout: number = 2000;
+  private toastDetailWrongPassword: string =
+    'Les mots de passe ne correspondent pas';
+  private toastDetailNewPassword: string = 'Mot de passe modifié';
   constructor(
     private fb: FormBuilder,
     private readonly userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private messageService: MessageService
+    private readonly messageService: MessageService
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
@@ -44,7 +47,7 @@ export class UserFormComponent implements OnInit {
     this.getProfile();
   }
 
-  submit() {
+  public submit(): void {
     const editUserProfile: UserRegisterDto = {
       firstName: this.form.controls['firstName'].value,
       lastName: this.form.controls['lastName'].value,
@@ -77,7 +80,7 @@ export class UserFormComponent implements OnInit {
       });
   }
 
-  private getProfile() {
+  private getProfile(): void {
     this.userService
       .userControllerGetUser({
         id: this.userId,
@@ -102,5 +105,50 @@ export class UserFormComponent implements OnInit {
     this.displayDialog = !this.displayDialog;
   }
 
-  submitNewPassword() {}
+  public submitNewPassword(): void {
+    const confirmPassword =
+      this.formNewPassword.controls['confirmNewPassword'].value;
+    const passwords: UserEditPasswordDto = {
+      oldPassword: this.formNewPassword.controls['oldPassword'].value,
+      newPassword: this.formNewPassword.controls['newPassword'].value,
+    };
+    if (passwords.newPassword !== confirmPassword) {
+      this.messageService.add({
+        severity: 'error',
+        summary: this.toastSummary,
+        detail: this.toastDetailWrongPassword,
+      });
+      this.formNewPassword.controls['newPassword'].setValue('');
+      this.formNewPassword.controls['confirmNewPassword'].setValue('');
+    } else {
+      this.userService
+        .userControllerEditUserPassword({
+          id: this.userId,
+          body: passwords,
+        })
+        .subscribe({
+          next: data => {
+            this.displayDialog = !this.displayDialog;
+            this.messageService.add({
+              severity: 'success',
+              summary: this.toastSummary,
+              detail: this.toastDetailNewPassword,
+            });
+          },
+          error: err => {
+            this.resetFormNewPassword();
+            this.messageService.add({
+              severity: 'error',
+              summary: this.toastSummary,
+              detail: err.error.message,
+            });
+          },
+        });
+    }
+  }
+  private resetFormNewPassword(): void {
+    this.formNewPassword.controls['oldPassword'].setValue('');
+    this.formNewPassword.controls['newPassword'].setValue('');
+    this.formNewPassword.controls['confirmNewPassword'].setValue('');
+  }
 }
