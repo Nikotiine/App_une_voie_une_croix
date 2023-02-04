@@ -9,6 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [UserViewComponent, UserFormComponent],
@@ -20,6 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CalendarModule,
     ButtonModule,
     ReactiveFormsModule,
+    ToastModule,
+    DialogModule,
   ],
 })
 export class UserModule {}

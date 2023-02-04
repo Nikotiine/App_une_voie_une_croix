@@ -1,3 +1,50 @@
+<p-dialog
+  header="Changer votre mot de passe"
+  [(visible)]="displayDialog"
+  [style]="{ width: '40vw' }">
+  <form [formGroup]="formNewPassword">
+    <div class="input-label">
+      <label for="oldPassword">Ancien mot de passe</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input
+          type="password"
+          pInputText
+          id="oldPassword"
+          [style]="{ width: '30vw' }"
+          formControlName="oldPassword" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="newPassword">Nouveau mot de passe</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input
+          type="password"
+          pInputText
+          id="newPassword"
+          [style]="{ width: '30vw' }"
+          formControlName="newPassword" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="confirmNewPassword">Confirmer nouveau mot de passe</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input
+          type="password"
+          pInputText
+          id="confirmNewPassword"
+          [style]="{ width: '30vw' }"
+          formControlName="confirmNewPassword" />
+      </span>
+    </div>
+    <p-button
+      label="Valider"
+      (click)="submitNewPassword()"
+      [disabled]="formNewPassword.invalid"></p-button>
+  </form>
+</p-dialog>
 <h1 class="title is-3 mt-5 has-text-centered">Edition du profil</h1>
 <form [formGroup]="form">
   <div class="form-register">
@@ -25,7 +72,17 @@
     </div>
 
     <div class="input-label">
-      <label for="password" class="label">Password</label>
+      <label for="password" class="label"
+        >Mot de passe
+        <span
+          ><button
+            pButton
+            type="button"
+            label="(Modifer)"
+            (click)="showDialog()"
+            class="p-button-link p-0 ml-2"></button>
+        </span>
+      </label>
       <span class="p-input-icon-left">
         <i class="pi pi-user"></i>
         <input
