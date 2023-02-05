@@ -9,9 +9,11 @@ import { AuthService } from '../../../core/api/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   // attributs publics
-  public loginUrl: string = '/auth/login';
   public homeUrl: string = '/home';
+  public loginUrl: string = '/auth/login';
   public userProfileUrl: string = '/user/profile';
+  public siteListUrl: string = '/site';
+  public siteFormUrl: string = '/site/new';
   public isLogged: boolean = false;
 
   // attributs prives

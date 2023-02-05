@@ -1,0 +1,70 @@
+<form [formGroup]="form">
+  <div class="form-register">
+    <app-map [geolocSite]="geolocSite"></app-map>
+    <div class="input-label">
+      <label for="lastName" class="label">Nom</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input type="text" pInputText id="lastName" formControlName="name" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="firstName" class="label">Lat1</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input
+          type="text"
+          pInputText
+          id="firstName"
+          formControlName="latitudeP1" />
+      </span>
+    </div>
+
+    <div class="input-label">
+      <label for="password" class="label">lat2 </label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-lock"></i>
+        <input
+          type="text"
+          pInputText
+          id="password"
+          formControlName="longitudeP1" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="averageRouteHeight" class="label">hauteur moyenne </label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-lock"></i>
+        <input
+          type="text"
+          pInputText
+          id="averageRouteHeight"
+          formControlName="averageRouteHeight" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="approachTime" class="label">apporche </label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-lock"></i>
+        <input
+          type="text"
+          pInputText
+          id="approachTime"
+          formControlName="approachTime" />
+      </span>
+    </div>
+
+    <div class="is-flex mt-3 width-20 is-justify-content-space-between">
+      <button
+        pButton
+        type="button"
+        label="Annuler"
+        class="p-button-secondary mr-2"
+        [routerLink]="['']"></button>
+      <p-button
+        label="Valider"
+        (click)="submit()"
+        [disabled]="form.invalid"></p-button>
+    </div>
+  </div>
+</form>
