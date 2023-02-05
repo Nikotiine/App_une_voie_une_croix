@@ -9,10 +9,7 @@ import { AuthService } from '../../api/services/auth.service';
 })
 export class SecurityService {
   private accessTokenValue: string = 'access_token';
-  constructor(
-    private readonly cookieService: CookieService,
-    private readonly authService: AuthService
-  ) {}
+  constructor(private readonly cookieService: CookieService) {}
 
   public saveToken(token: TokenDto): void {
     this.cookieService.put(this.accessTokenValue, token.access_token);

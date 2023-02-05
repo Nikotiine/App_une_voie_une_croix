@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterDto } from '../../core/api/models/user-register-dto';
-
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/api/services/auth.service';
 import { UserService } from '../../core/api/services/user.service';
 
 @Component({
@@ -14,14 +12,15 @@ import { UserService } from '../../core/api/services/user.service';
 })
 export class RegisterComponent {
   public form: FormGroup;
+  public loginUrl: string = '/auth/login';
   //private attribute
   private toastSummary: string = "Service d'inscription";
   private toastDetail: string = 'Inscritption validée';
-  private loginUrl: string = '/auth/login';
+
   private timeout: number = 2000;
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private readonly userService: UserService,
     private messageService: MessageService,
     private router: Router
   ) {

@@ -9,12 +9,12 @@ import { AuthService } from '../../../core/api/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   // attributs publics
-
   public loginUrl: string = '/auth/login';
   public homeUrl: string = '/home';
   public userProfileUrl: string = '/user/profile';
   public isLogged: boolean = false;
 
+  // attributs prives
   constructor(private readonly securityService: SecurityService) {}
   ngOnInit(): void {
     this.userIsLogged();

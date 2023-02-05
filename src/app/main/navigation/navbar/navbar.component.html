@@ -14,7 +14,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item subtitle m-2 p-3">
+      <a class="navbar-item subtitle m-2 p-3" [routerLink]="[homeUrl]">
         <span class="icon mr-1">
           <i class="fas fa-home"></i>
         </span>
@@ -66,7 +66,7 @@
             pButton
             type="button"
             icon="pi pi-user"
-            label="Profile"
+            label="Compte"
             iconPos="left"
             *ngIf="isLogged"
             class="p-button-outlined p-button-primary mr-2"

@@ -1,18 +1,22 @@
+<p-toast></p-toast>
 <div class="form-register">
-  <h1 class="has-text-centered title is-1 mt-6">Connexion</h1>
-  <a [routerLink]="[registerUrl]">pas encore de compte ?</a>
+  <h1 class="has-text-centered title is-2 mt-6 has-text-info">
+    Une Voie Une Croix
+  </h1>
+  <h2 class="has-text-centered title is-3 mt-3">Connexion</h2>
+  <a [routerLink]="[registerUrl]">Pas encore de compte ?</a>
   <form [formGroup]="form">
     <div class="input-label">
       <label for="email" class="label">Email</label>
       <span class="p-input-icon-left">
-        <i class="pi pi-user"></i>
+        <i class="pi pi-envelope"></i>
         <input type="text" pInputText id="email" formControlName="email" />
       </span>
     </div>
     <div class="input-label">
-      <label for="password" class="label">Password</label>
+      <label for="password" class="label">Mot de passe</label>
       <span class="p-input-icon-left">
-        <i class="pi pi-user"></i>
+        <i class="pi pi-lock"></i>
         <input
           type="password"
           pInputText

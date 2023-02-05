@@ -12,13 +12,16 @@ import { UserEditPasswordDto } from '../../../core/api/models/user-edit-password
   styleUrls: ['./user-form.component.scss'],
 })
 export class UserFormComponent implements OnInit {
+  // attributs publics
   public form: FormGroup;
   public formNewPassword: FormGroup;
   public userProfileUrl: string = '/user/profile';
   public displayDialog: boolean = false;
+
+  // attributs prives
   private userId: number = 0;
   private userEmail: string = '';
-  private toastSummary: string = 'Profil utlisateur';
+  private toastSummary: string = 'Profil utilisateur';
   private toastDetail: string = 'Mise a jour reussie';
   private toastDetailWrongPassword: string =
     'Les mots de passe ne correspondent pas';
