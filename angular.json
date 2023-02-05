@@ -52,6 +52,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -85,6 +88,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "app_une_voie_une_croix:build",
+            "proxyConfig": "src/proxy.conf.json"
+          },
+
           "configurations": {
             "production": {
               "browserTarget": "app_une_voie_une_croix:build:production"
@@ -119,8 +127,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ],
+    "analytics": "e61776a3-b9c4-4d30-9285-735565a17b50"
   }
 }

@@ -1,0 +1,36 @@
+<div class="mt-4">
+  <h1 class="title has-text-centered mt-3 p-3">Mon compte</h1>
+  <p-accordion>
+    <p-accordionTab header="Information generale" [selected]="true">
+      <div class="box" *ngIf="user">
+        <div class="subtitle">
+          <span class="has-text-info mr-2">Prenom :</span> {{ user.firstName }}
+        </div>
+        <div class="subtitle">
+          <span class="has-text-info mr-2">Nom :</span>{{ user.lastName }}
+        </div>
+        <div class="subtitle">
+          <span class="has-text-info mr-2">Email :</span>{{ user.email }}
+        </div>
+        <div class="subtitle is-flex is-justify-content-space-between">
+          <div class="">
+            <span class="has-text-info mr-2">Date de naissance :</span
+            >{{ user.birthday | date : 'dd/MM/yyyy' }}
+          </div>
+          <div class="">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-user-edit"
+              label="Editer"
+              iconPos="left"
+              class="p-button-outlined p-button-warning"
+              [routerLink]="[editUserUrl + user.id]"></button>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Header 2"> Content 2 </p-accordionTab>
+    <p-accordionTab header="Header 3"> Content 3 </p-accordionTab>
+  </p-accordion>
+</div>
