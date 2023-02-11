@@ -1,20 +1,24 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
-  OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import * as Leaflet from 'leaflet';
+
 Leaflet.Icon.Default.imagePath = 'assets/';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent {
-  @Input() geolocSite: number[] = [];
-  map!: Leaflet.Map;
+  @Output() coordinates = new EventEmitter<number[]>();
+
+  public map!: Leaflet.Map;
 
   markers: Leaflet.Marker[] = [];
   options = {
@@ -28,9 +32,7 @@ export class MapComponent {
     center: { lat: 45.199398, lng: 5.667857 },
   };
 
-  constructor() {}
-
-  initMarkers() {
+  public initMarkers(): void {
     const initialMarkers = [
       {
         position: { lat: 45.199398, lng: 5.667857 },
@@ -47,15 +49,14 @@ export class MapComponent {
       this.markers.push(marker);
     }
   }
-  generateMarker(data: any, index: number) {
+  private generateMarker(data: any, index: number): Leaflet.Marker {
     return Leaflet.marker(data.position, {
       draggable: data.draggable,
     })
       .on('click', event => this.markerClicked(event, index))
       .on('dragend', event => this.markerDragEnd(event, index));
   }
-  onMapReady($event: Leaflet.Map) {
-    console.log($event);
+  public onMapReady($event: Leaflet.Map): void {
     this.map = $event;
     this.initMarkers();
   }
@@ -69,6 +70,9 @@ export class MapComponent {
   }
 
   markerDragEnd($event: any, index: number) {
-    console.log($event.target.getLatLng());
+    this.coordinates.emit([
+      $event.target.getLatLng().lat,
+      $event.target.getLatLng().lng,
+    ]);
   }
 }

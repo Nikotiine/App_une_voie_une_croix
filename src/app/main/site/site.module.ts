@@ -9,6 +9,9 @@ import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { UtilsModule } from '../../shared/utils/utils.module';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [SiteListComponent, SiteViewComponent, SiteFormComponent],
@@ -19,6 +22,9 @@ import { UtilsModule } from '../../shared/utils/utils.module';
     ReactiveFormsModule,
     InputTextModule,
     UtilsModule,
+    DialogModule,
+    MultiSelectModule,
+    DropdownModule,
   ],
 })
 export class SiteModule {}

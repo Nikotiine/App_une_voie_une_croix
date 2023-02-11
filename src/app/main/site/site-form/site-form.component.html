@@ -1,40 +1,102 @@
+<p-dialog
+  header="{{ dialogMapHeader }}"
+  [(visible)]="displayMap"
+  *ngIf="displayMap">
+  <app-map (coordinates)="addCoordinates($event)"></app-map>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      label="Valider localisation"
+      class="p-button-icon mt-2"
+      (click)="validate()"></button>
+  </ng-template>
+</p-dialog>
 <form [formGroup]="form">
   <div class="form-register">
-    <app-map [geolocSite]="geolocSite"></app-map>
     <div class="input-label">
-      <label for="lastName" class="label">Nom</label>
+      <label for="lastName" class="label">Nom du site</label>
       <span class="p-input-icon-left">
         <i class="pi pi-user"></i>
         <input type="text" pInputText id="lastName" formControlName="name" />
       </span>
     </div>
     <div class="input-label">
-      <label for="firstName" class="label">Lat1</label>
-      <span class="p-input-icon-left">
-        <i class="pi pi-user"></i>
-        <input
-          type="text"
-          pInputText
-          id="firstName"
-          formControlName="latitudeP1" />
-      </span>
-    </div>
-
-    <div class="input-label">
-      <label for="password" class="label">lat2 </label>
-      <span class="p-input-icon-left">
-        <i class="pi pi-lock"></i>
-        <input
-          type="text"
-          pInputText
-          id="password"
-          formControlName="longitudeP1" />
-      </span>
+      <label for="exposition" class="label">Exposition </label>
+      <p-multiSelect
+        [options]="expositions"
+        optionLabel="label"
+        placeholder="Expositions"
+        formControlName="expositions"
+        id="exposition"></p-multiSelect>
     </div>
     <div class="input-label">
-      <label for="averageRouteHeight" class="label">hauteur moyenne </label>
+      <label for="routeProfiles" class="label">Type de voies </label>
+      <p-multiSelect
+        [options]="routeProfiles"
+        optionLabel="label"
+        placeholder="Type de voies"
+        id="routeProfiles"></p-multiSelect>
+    </div>
+    <div class="input-label">
+      <label for="rockTypes" class="label">Type de rocher </label>
+      <p-multiSelect
+        [options]="rockTypes"
+        optionLabel="label"
+        placeholder="Type de rocher"
+        id="rockTypes"></p-multiSelect>
+    </div>
+    <div class="input-label">
+      <label for="equipments" class="label">Equipement </label>
+      <p-dropdown
+        [options]="equipments"
+        optionLabel="label"
+        formControlName="equipment"
+        placeholder="Equipement"
+        id="equipments"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="engagements" class="label">Engagement </label>
+      <p-dropdown
+        [options]="engagements"
+        optionLabel="label"
+        formControlName="engagement"
+        placeholder="Engagement"
+        id="engagements"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="approachTypes" class="label">Type d'approche </label>
+      <p-dropdown
+        [options]="approachTypes"
+        optionLabel="label"
+        formControlName="approachType"
+        placeholder="Approche"
+        id="approachTypes"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="minLevel" class="label">Niveau mini </label>
+      <p-dropdown
+        [options]="levels"
+        optionLabel="label"
+        placeholder="Niveau mini"
+        formControlName="minLevel"
+        id="minLevel"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="maxLevel" class="label">Niveau maxi </label>
+      <p-dropdown
+        [options]="levels"
+        optionLabel="label"
+        formControlName="maxLevel"
+        placeholder="Niveau maxi"
+        id="maxLevel"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="averageRouteHeight" class="label"
+        >Hauteur moyenne des voies
+      </label>
       <span class="p-input-icon-left">
-        <i class="pi pi-lock"></i>
+        <i class="pi pi-sort-amount-up"></i>
         <input
           type="text"
           pInputText
@@ -43,9 +105,20 @@
       </span>
     </div>
     <div class="input-label">
-      <label for="approachTime" class="label">apporche </label>
+      <label for="averageRouteNumber" class="label">Nombre de voies</label>
       <span class="p-input-icon-left">
-        <i class="pi pi-lock"></i>
+        <i class="pi pi-sort-numeric-up"></i>
+        <input
+          type="text"
+          pInputText
+          id="averageRouteNumber"
+          formControlName="averageRouteNumber" />
+      </span>
+    </div>
+    <div class="input-label">
+      <label for="approachTime" class="label">Temps d'approche </label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-stopwatch"></i>
         <input
           type="text"
           pInputText
@@ -53,7 +126,32 @@
           formControlName="approachTime" />
       </span>
     </div>
-
+    <div class="input-label">
+      <button
+        pButton
+        type="button"
+        label="{{ dialogMapHeader }}  1"
+        icon="pi pi-search"
+        iconPos="right"
+        (click)="chooseLocalisation(1)"
+        class="p-button-text"></button>
+      <p *ngIf="coordinateP1.length > 0">
+        lat : {{ coordinateP1[0] }} - long :{{ coordinateP1[1] }}
+      </p>
+    </div>
+    <div class="input-label">
+      <button
+        pButton
+        type="button"
+        label="{{ dialogMapHeader }} 2"
+        icon="pi pi-search"
+        iconPos="right"
+        (click)="chooseLocalisation(2)"
+        class="p-button-text"></button>
+      <p *ngIf="coordinateP2.length > 0">
+        lat : {{ coordinateP2[0] }} - long :{{ coordinateP2[1] }}
+      </p>
+    </div>
     <div class="is-flex mt-3 width-20 is-justify-content-space-between">
       <button
         pButton

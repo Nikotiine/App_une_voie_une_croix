@@ -25,7 +25,7 @@ export class SiteService extends BaseService {
   /**
    * Path part for operation siteControllerCreateSite
    */
-  static readonly SiteControllerCreateSitePath = '/site';
+  static readonly SiteControllerCreateSitePath = '/api/site';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

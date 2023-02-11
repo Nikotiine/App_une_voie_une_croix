@@ -8,6 +8,13 @@ import { ApiService } from './services/api.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { SiteService } from './services/site.service';
+import { ExpositionService } from './services/exposition.service';
+import { LevelService } from './services/level.service';
+import { RockTypeService } from './services/rock-type.service';
+import { RouteProfileService } from './services/route-profile.service';
+import { EquipmentService } from './services/equipment.service';
+import { EngagmentService } from './services/engagment.service';
+import { ApproachTypeService } from './services/approach-type.service';
 
 /**
  * Module that provides all services and configuration.
@@ -21,6 +28,13 @@ import { SiteService } from './services/site.service';
     UserService,
     AuthService,
     SiteService,
+    ExpositionService,
+    LevelService,
+    RockTypeService,
+    RouteProfileService,
+    EquipmentService,
+    EngagmentService,
+    ApproachTypeService,
     ApiConfiguration
   ],
 })
