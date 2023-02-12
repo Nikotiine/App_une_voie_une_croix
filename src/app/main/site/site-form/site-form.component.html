@@ -201,7 +201,7 @@
           class="mt-2"></p-inputSwitch>
       </div>
 
-      <div class="input-label">
+      <div class="input-label width-20">
         <button
           pButton
           type="button"
@@ -216,6 +216,31 @@
           <span class="has-text-info">Longitude :</span>{{ coordinateP2[1] }}
         </p>
       </div>
+    </div>
+    <div class="is-flex is-flex-direction-column">
+      <h3 class="subtitle has-text-info has-text-centered">Secteurs</h3>
+      <ng-container formArrayName="secteurArray">
+        <div
+          class="input-label"
+          *ngFor="let secteur of secteurArray.controls; let i = index"
+          [formGroupName]="i">
+          <label for="secteur-{{ i }}">Secteur n°{{ i + 1 }}</label>
+          <input
+            type="text"
+            pInputText
+            formControlName="name"
+            id="secteur-{{ i }}" />
+        </div>
+        <div class="is-flex is-justify-content-center">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-plus"
+            [disabled]="secteurArray.invalid"
+            (click)="addSecteur()"
+            iconPos="left"></button>
+        </div>
+      </ng-container>
     </div>
     <div class="is-flex mt-3 width-20 is-justify-content-space-between mb-3">
       <button

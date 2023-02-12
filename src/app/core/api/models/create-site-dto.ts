@@ -25,6 +25,7 @@ export interface CreateSiteDto {
   routeProfiles: Array<string>;
   secondaryParkingLat: string;
   secondaryParkingLng: string;
+  secteurs: Array<string>;
   water: boolean;
   wc: boolean;
   zipCode: string;

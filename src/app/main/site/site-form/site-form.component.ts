@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CreateSiteDto } from '../../../core/api/models/create-site-dto';
 import { SiteService } from '../../../core/api/services/site.service';
 import { ApiAddressService } from '../../../core/app/services/api-address.service';
@@ -24,7 +30,6 @@ export class SiteFormComponent implements OnInit {
   public coordinateP1: number[] = [];
   public regions: any[] = [];
   public departement: any[] = [];
-
   public coordinateP2: number[] = [];
   private selectedParking: number = 0;
 
@@ -53,10 +58,15 @@ export class SiteFormComponent implements OnInit {
       wc: [false],
       network: [false],
       river: [false],
+      secteurArray: this.fb.array([]),
     });
   }
   ngOnInit(): void {
     this.loadData();
+    this.addSecteur();
+  }
+  get secteurArray(): FormArray {
+    return this.form.controls['secteurArray'] as FormArray;
   }
   public chooseLocalisation(parking: number): void {
     this.selectedParking = parking;
@@ -114,6 +124,7 @@ export class SiteFormComponent implements OnInit {
       wc: this.form.controls['wc'].value,
       network: this.form.controls['network'].value,
       river: this.form.controls['river'].value,
+      secteurs: this.form.controls['secteurArray'].value,
     };
     console.log(site);
     this.siteService
@@ -153,5 +164,13 @@ export class SiteFormComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  public addSecteur() {
+    this.secteurArray.push(
+      this.fb.group({
+        name: ['', Validators.required],
+      })
+    );
   }
 }
