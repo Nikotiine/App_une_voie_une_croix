@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CreateSiteDto } from '../../../core/api/models/create-site-dto';
 import { SiteService } from '../../../core/api/services/site.service';
-import { SiteDataDto } from '../../../core/api/models/site-data-dto';
+import { ApiAddressService } from '../../../core/app/services/api-address.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-site-form',
@@ -20,15 +21,18 @@ export class SiteFormComponent implements OnInit {
   public levels: string[] = [];
   public rockTypes: string[] = [];
   public routeProfiles: string[] = [];
-
   public coordinateP1: number[] = [];
+  public regions: any[] = [];
+  public departement: any[] = [];
+
   public coordinateP2: number[] = [];
   private selectedParking: number = 0;
 
   constructor(
     private fb: FormBuilder,
-
-    private readonly siteService: SiteService
+    private readonly siteService: SiteService,
+    private readonly apiAddressService: ApiAddressService,
+    private readonly messageService: MessageService
   ) {
     this.form = this.fb.group({
       name: [''],
@@ -43,6 +47,12 @@ export class SiteFormComponent implements OnInit {
       expositions: [''],
       routeProfiles: [''],
       rockType: [''],
+      regionCode: [''],
+      zipCode: [''],
+      water: [false],
+      wc: [false],
+      network: [false],
+      river: [false],
     });
   }
   ngOnInit(): void {
@@ -65,6 +75,18 @@ export class SiteFormComponent implements OnInit {
         this.engagements = data.engagements;
         this.routeProfiles = data.routeProfiles;
       },
+      error: err => {
+        console.log(err);
+      },
+    });
+    this.apiAddressService.getRegions().subscribe({
+      next: data => {
+        console.log(data);
+        this.regions = data;
+      },
+      error: err => {
+        console.log(err);
+      },
     });
   }
 
@@ -86,6 +108,12 @@ export class SiteFormComponent implements OnInit {
       expositions: this.form.controls['expositions'].value,
       rockType: this.form.controls['rockType'].value,
       routeProfiles: this.form.controls['routeProfiles'].value,
+      zipCode: this.form.controls['zipCode'].value,
+      regionCode: this.form.controls['regionCode'].value,
+      water: this.form.controls['water'].value,
+      wc: this.form.controls['wc'].value,
+      network: this.form.controls['network'].value,
+      river: this.form.controls['river'].value,
     };
     console.log(site);
     this.siteService
@@ -113,5 +141,17 @@ export class SiteFormComponent implements OnInit {
 
   public validate(): void {
     this.displayMap = !this.displayMap;
+  }
+
+  public getDepartement($event: any) {
+    this.apiAddressService.getDepartement($event.value).subscribe({
+      next: data => {
+        this.departement = data;
+        console.log(data);
+      },
+      error: err => {
+        console.log(err);
+      },
+    });
   }
 }

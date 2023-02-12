@@ -6,13 +6,14 @@ import { SiteListComponent } from './site-list/site-list.component';
 import { SiteViewComponent } from './site-view/site-view.component';
 import { SiteFormComponent } from './site-form/site-form.component';
 import { ButtonModule } from 'primeng/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [SiteListComponent, SiteViewComponent, SiteFormComponent],
@@ -27,6 +28,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     MultiSelectModule,
     DropdownModule,
     InputNumberModule,
+    InputSwitchModule,
   ],
 })
 export class SiteModule {}

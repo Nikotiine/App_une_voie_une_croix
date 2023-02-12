@@ -133,8 +133,29 @@
       </div>
     </div>
 
-    <div class="container-geoloc-flex">
+    <div class="container-input-flex">
       <div class="input-label">
+        <label for="region" class="label">Region</label>
+        <p-dropdown
+          [options]="regions"
+          optionLabel="nom"
+          optionValue="code"
+          (onChange)="getDepartement($event)"
+          formControlName="regionCode"
+          placeholder="Choisir la region"
+          id="region"></p-dropdown>
+      </div>
+      <div class="input-label">
+        <label for="departement" class="label">Departement</label>
+        <p-dropdown
+          [options]="departement"
+          optionLabel="nom"
+          optionValue="code"
+          formControlName="zipCode"
+          placeholder="Choisir le departement"
+          id="departement"></p-dropdown>
+      </div>
+      <div class="input-label width-20">
         <button
           pButton
           type="button"
@@ -144,9 +165,42 @@
           (click)="chooseLocalisation(1)"
           class="p-button-text"></button>
         <p *ngIf="coordinateP1.length > 0">
-          lat : {{ coordinateP1[0] }} - long :{{ coordinateP1[1] }}
+          <span class="has-text-info">Latitude :</span>{{ coordinateP1[0] }}
+          <br />
+          <span class="has-text-info">Longitude :</span>{{ coordinateP1[1] }}
         </p>
       </div>
+    </div>
+    <div class="container-input-flex">
+      <div class="input-label">
+        <label for="water">Eau potable</label>
+        <p-inputSwitch
+          formControlName="water"
+          id="water"
+          class="mt-2"></p-inputSwitch>
+      </div>
+      <div class="input-label">
+        <label for="network">Reseau 4G</label>
+        <p-inputSwitch
+          formControlName="network"
+          id="network"
+          class="mt-2"></p-inputSwitch>
+      </div>
+      <div class="input-label">
+        <label for="wc">Toilettes</label>
+        <p-inputSwitch
+          formControlName="wc"
+          id="wc"
+          class="mt-2"></p-inputSwitch>
+      </div>
+      <div class="input-label">
+        <label for="river">Eau a proximite</label>
+        <p-inputSwitch
+          formControlName="river"
+          id="river"
+          class="mt-2"></p-inputSwitch>
+      </div>
+
       <div class="input-label">
         <button
           pButton
@@ -157,7 +211,9 @@
           (click)="chooseLocalisation(2)"
           class="p-button-text"></button>
         <p *ngIf="coordinateP2.length > 0">
-          lat : {{ coordinateP2[0] }} - long :{{ coordinateP2[1] }}
+          <span class="has-text-info">Latitude :</span>{{ coordinateP2[0] }}
+          <br />
+          <span class="has-text-info">Longitude :</span>{{ coordinateP2[1] }}
         </p>
       </div>
     </div>

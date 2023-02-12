@@ -19,6 +19,8 @@ export class ApiInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const access_token: string | undefined = this.securityService.getToken();
 
+    request.headers.set('Access-Control-Allow-Origin', '*');
+    console.log(request.headers);
     if (access_token) {
       let requestClone = request.clone({
         headers: request.headers.set('Authorization', 'bearer ' + access_token),

@@ -24,6 +24,54 @@ export class SiteService extends BaseService {
   }
 
   /**
+   * Path part for operation siteControllerGetAllSites
+   */
+  static readonly SiteControllerGetAllSitesPath = '/api/site';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `siteControllerGetAllSites()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  siteControllerGetAllSites$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerGetAllSitesPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `siteControllerGetAllSites$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  siteControllerGetAllSites(params?: {
+    context?: HttpContext
+  }
+): Observable<void> {
+
+    return this.siteControllerGetAllSites$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation siteControllerCreateSite
    */
   static readonly SiteControllerCreateSitePath = '/api/site';

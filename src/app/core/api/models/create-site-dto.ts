@@ -18,8 +18,14 @@ export interface CreateSiteDto {
   maxLevel: Level;
   minLevel: Level;
   name: string;
+  network: boolean;
+  regionCode: string;
+  river: boolean;
   rockType: RockType;
   routeProfiles: Array<string>;
   secondaryParkingLat: string;
   secondaryParkingLng: string;
+  water: boolean;
+  wc: boolean;
+  zipCode: string;
 }
