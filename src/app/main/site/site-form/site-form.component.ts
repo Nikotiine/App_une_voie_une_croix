@@ -1,22 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Marker } from 'leaflet';
-import { ExpositionsDto } from '../../../core/api/models/expositions-dto';
-import { ExpositionService } from '../../../core/api/services/exposition.service';
-import { ApproachTypeService } from '../../../core/api/services/approach-type.service';
-import { ApproachTypeDto } from '../../../core/api/models/approach-type-dto';
-import { EngagmentService } from '../../../core/api/services/engagment.service';
-import { EngagementDto } from '../../../core/api/models/engagement-dto';
-import { EquipmentService } from '../../../core/api/services/equipment.service';
-import { EquipmentDto } from '../../../core/api/models/equipment-dto';
-import { LevelsDto } from '../../../core/api/models/levels-dto';
-import { LevelService } from '../../../core/api/services/level.service';
-import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
-import { RockTypeService } from '../../../core/api/services/rock-type.service';
-import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
-import { RouteProfileService } from '../../../core/api/services/route-profile.service';
 import { CreateSiteDto } from '../../../core/api/models/create-site-dto';
 import { SiteService } from '../../../core/api/services/site.service';
+import { SiteDataDto } from '../../../core/api/models/site-data-dto';
 
 @Component({
   selector: 'app-site-form',
@@ -27,26 +13,21 @@ export class SiteFormComponent implements OnInit {
   public form: FormGroup;
   public dialogMapHeader: string = 'Parking';
   public displayMap: boolean = false;
-  public expositions: ExpositionsDto[] = [];
-  public approachTypes: ApproachTypeDto[] = [];
-  public engagements: EngagementDto[] = [];
-  public equipments: EquipmentDto[] = [];
-  public levels: LevelsDto[] = [];
-  public rockTypes: RockTypeDto[] = [];
-  public routeProfiles: RouteProfileDto[] = [];
+  public expositions: string[] = [];
+  public approachTypes: string[] = [];
+  public engagements: string[] = [];
+  public equipments: string[] = [];
+  public levels: string[] = [];
+  public rockTypes: string[] = [];
+  public routeProfiles: string[] = [];
+
   public coordinateP1: number[] = [];
   public coordinateP2: number[] = [];
   private selectedParking: number = 0;
 
   constructor(
     private fb: FormBuilder,
-    private readonly expositionService: ExpositionService,
-    private readonly approachTypeService: ApproachTypeService,
-    private readonly engagementService: EngagmentService,
-    private readonly equipmentService: EquipmentService,
-    private readonly levelService: LevelService,
-    private readonly rockTypeService: RockTypeService,
-    private readonly routeProfileService: RouteProfileService,
+
     private readonly siteService: SiteService
   ) {
     this.form = this.fb.group({
@@ -60,6 +41,8 @@ export class SiteFormComponent implements OnInit {
       engagement: [0],
       approachType: [0],
       expositions: [''],
+      routeProfiles: [''],
+      rockType: [''],
     });
   }
   ngOnInit(): void {
@@ -71,13 +54,18 @@ export class SiteFormComponent implements OnInit {
   }
 
   private loadData() {
-    this.loadExposition();
-    this.loadApproachTypes();
-    this.loadEngagements();
-    this.loadEquipments();
-    this.loadLevels();
-    this.loadRockTypes();
-    this.loadRouteProfiles();
+    this.siteService.siteControllerGetData().subscribe({
+      next: data => {
+        console.log(data.levels);
+        this.levels = data.levels;
+        this.rockTypes = data.rockTypes;
+        this.approachTypes = data.approachTypes;
+        this.expositions = data.expostions;
+        this.equipments = data.equipments;
+        this.engagements = data.engagements;
+        this.routeProfiles = data.routeProfiles;
+      },
+    });
   }
 
   public submit(): void {
@@ -87,16 +75,19 @@ export class SiteFormComponent implements OnInit {
       minLevel: this.form.controls['minLevel'].value,
       averageRouteNumber: this.form.controls['averageRouteNumber'].value,
       averageRouteHeight: this.form.controls['averageRouteHeight'].value,
-      mainParkingLat: '4.454545',
-      mainParkingLng: '5.454545',
-      secondaryParkingLat: '6.454545',
-      secondaryParkingLng: '7.45454545',
+      mainParkingLat: String(this.coordinateP1[1]),
+      mainParkingLng: String(this.coordinateP1[0]),
+      secondaryParkingLat: String(this.coordinateP2[1]),
+      secondaryParkingLng: String(this.coordinateP2[0]),
       engagement: this.form.controls['engagement'].value,
       equipment: this.form.controls['equipment'].value,
       approachType: this.form.controls['approachType'].value,
       maxLevel: this.form.controls['maxLevel'].value,
+      expositions: this.form.controls['expositions'].value,
+      rockType: this.form.controls['rockType'].value,
+      routeProfiles: this.form.controls['routeProfiles'].value,
     };
-    console.log(this.form.controls['expositions'].value);
+    console.log(site);
     this.siteService
       .siteControllerCreateSite({
         body: site,
@@ -122,86 +113,5 @@ export class SiteFormComponent implements OnInit {
 
   public validate(): void {
     this.displayMap = !this.displayMap;
-  }
-
-  private loadExposition() {
-    this.expositionService.expositionControllerGetAllExpositions().subscribe({
-      next: data => {
-        this.expositions = data;
-      },
-      error: err => {
-        console.log(err);
-      },
-    });
-  }
-
-  private loadApproachTypes() {
-    this.approachTypeService
-      .approachTypeControllerGetAllApproachTypes()
-      .subscribe({
-        next: data => {
-          this.approachTypes = data;
-        },
-        error: err => {
-          console.log(err);
-        },
-      });
-  }
-
-  private loadEngagements() {
-    this.engagementService.engagementControllerGetAllEngagements().subscribe({
-      next: data => {
-        this.engagements = data;
-      },
-      error: err => {
-        console.log(err);
-      },
-    });
-  }
-
-  private loadEquipments() {
-    this.equipmentService.equipmentControllerGetAllEquipments().subscribe({
-      next: data => {
-        this.equipments = data;
-      },
-      error: err => {
-        console.log(err);
-      },
-    });
-  }
-
-  private loadLevels() {
-    this.levelService.levelControllerGetAllLevels().subscribe({
-      next: data => {
-        this.levels = data;
-      },
-      error: err => {
-        console.log(err);
-      },
-    });
-  }
-
-  private loadRockTypes() {
-    this.rockTypeService.rockTypeControllerGetAllRockTypes().subscribe({
-      next: data => {
-        this.rockTypes = data;
-      },
-      error: err => {
-        console.log(err);
-      },
-    });
-  }
-
-  private loadRouteProfiles() {
-    this.routeProfileService
-      .routeProfileControllerGetAllRouteProfile()
-      .subscribe({
-        next: data => {
-          this.routeProfiles = data;
-        },
-        error: err => {
-          console.log(err);
-        },
-      });
   }
 }

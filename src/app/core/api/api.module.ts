@@ -9,11 +9,11 @@ import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { SiteService } from './services/site.service';
 import { ExpositionService } from './services/exposition.service';
-import { LevelService } from './services/level.service';
-import { RockTypeService } from './services/rock-type.service';
 import { RouteProfileService } from './services/route-profile.service';
-import { EquipmentService } from './services/equipment.service';
+import { RockTypeService } from './services/rock-type.service';
 import { EngagmentService } from './services/engagment.service';
+import { EquipmentService } from './services/equipment.service';
+import { LevelService } from './services/level.service';
 import { ApproachTypeService } from './services/approach-type.service';
 
 /**
@@ -29,11 +29,11 @@ import { ApproachTypeService } from './services/approach-type.service';
     AuthService,
     SiteService,
     ExpositionService,
-    LevelService,
-    RockTypeService,
     RouteProfileService,
-    EquipmentService,
+    RockTypeService,
     EngagmentService,
+    EquipmentService,
+    LevelService,
     ApproachTypeService,
     ApiConfiguration
   ],

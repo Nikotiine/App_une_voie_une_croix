@@ -12,6 +12,7 @@ import { UtilsModule } from '../../shared/utils/utils.module';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [SiteListComponent, SiteViewComponent, SiteFormComponent],
@@ -25,6 +26,7 @@ import { DropdownModule } from 'primeng/dropdown';
     DialogModule,
     MultiSelectModule,
     DropdownModule,
+    InputNumberModule,
   ],
 })
 export class SiteModule {}

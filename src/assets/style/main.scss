@@ -16,7 +16,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 80%;
+  margin: auto;
   & input {
     width: 20rem;
   }
+  & .p-element .p-multiselect-label-container{
+    width: 20rem;
+  }
+  .p-dropdown{
+    width: 20rem;
+  }
+
+  .p-inputnumber .p-component .p-inputnumber-buttons-stacked{
+    width: 20rem;
+  }
+
 }
+

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CreateSiteDto } from '../models/create-site-dto';
+import { SiteDataDto } from '../models/site-data-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +71,54 @@ export class SiteService extends BaseService {
 
     return this.siteControllerCreateSite$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation siteControllerGetData
+   */
+  static readonly SiteControllerGetDataPath = '/api/site/data';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `siteControllerGetData()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  siteControllerGetData$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<SiteDataDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerGetDataPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<SiteDataDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `siteControllerGetData$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  siteControllerGetData(params?: {
+    context?: HttpContext
+  }
+): Observable<SiteDataDto> {
+
+    return this.siteControllerGetData$Response(params).pipe(
+      map((r: StrictHttpResponse<SiteDataDto>) => r.body as SiteDataDto)
     );
   }
 
