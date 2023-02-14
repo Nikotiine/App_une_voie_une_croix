@@ -1,1 +1,21 @@
-<p>site-view works!</p>
+<div class="" *ngIf="site">
+  <h1 class="title has-text-centered">{{ site.name }}</h1>
+  <p-tabView>
+    <p-tabPanel header="Information generale">
+      <div class="is-flex is-flex-direction-column">
+        <p class="subtitle">Nombre de lignes : {{ site.averageRouteNumber }}</p>
+        <p class="subtitle">
+          Exposition :
+          <span *ngFor="let expo of site.expositions" class="mr-1">{{
+            expo.label
+          }}</span>
+        </p>
+        <p class="subtitle">Type de rocher : {{ site.rockType.label }}</p>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="Localisation"> Content 2 </p-tabPanel>
+    <p-tabPanel header="Parking camion"> Content 3 </p-tabPanel>
+    <p-tabPanel header="Voies"> Content 3 </p-tabPanel>
+    <p-tabPanel header="Topo"> Content 3 </p-tabPanel>
+  </p-tabView>
+</div>

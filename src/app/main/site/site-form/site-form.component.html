@@ -140,7 +140,7 @@
           [options]="regions"
           optionLabel="nom"
           optionValue="code"
-          (onChange)="getDepartement($event)"
+          (onChange)="getDepartment($event)"
           formControlName="regionCode"
           placeholder="Choisir la region"
           id="region"></p-dropdown>
@@ -148,7 +148,7 @@
       <div class="input-label">
         <label for="departement" class="label">Departement</label>
         <p-dropdown
-          [options]="departement"
+          [options]="departments"
           optionLabel="nom"
           optionValue="code"
           formControlName="zipCode"
@@ -219,10 +219,10 @@
     </div>
     <div class="is-flex is-flex-direction-column">
       <h3 class="subtitle has-text-info has-text-centered">Secteurs</h3>
-      <ng-container formArrayName="secteurArray">
+      <ng-container formArrayName="sectorArray">
         <div
           class="input-label"
-          *ngFor="let secteur of secteurArray.controls; let i = index"
+          *ngFor="let sector of sectorArray.controls; let i = index"
           [formGroupName]="i">
           <label for="secteur-{{ i }}">Secteur n°{{ i + 1 }}</label>
           <input
@@ -236,8 +236,8 @@
             pButton
             type="button"
             icon="pi pi-plus"
-            [disabled]="secteurArray.invalid"
-            (click)="addSecteur()"
+            [disabled]="sectorArray.invalid"
+            (click)="addSector()"
             iconPos="left"></button>
         </div>
       </ng-container>

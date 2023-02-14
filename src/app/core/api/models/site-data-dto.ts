@@ -1,11 +1,18 @@
 /* tslint:disable */
 /* eslint-disable */
+import { ApproachTypeDto } from './approach-type-dto';
+import { EngagementDto } from './engagement-dto';
+import { EquipmentDto } from './equipment-dto';
+import { ExpositionsDto } from './expositions-dto';
+import { LevelsDto } from './levels-dto';
+import { RockTypeDto } from './rock-type-dto';
+import { RouteProfileDto } from './route-profile-dto';
 export interface SiteDataDto {
-  approachTypes: Array<string>;
-  engagements: Array<string>;
-  equipments: Array<string>;
-  expostions: Array<string>;
-  levels: Array<string>;
-  rockTypes: Array<string>;
-  routeProfiles: Array<string>;
+  approachTypes: Array<ApproachTypeDto>;
+  engagements: Array<EngagementDto>;
+  equipments: Array<EquipmentDto>;
+  expositions: Array<ExpositionsDto>;
+  levels: Array<LevelsDto>;
+  rockTypes: Array<RockTypeDto>;
+  routeProfiles: Array<RouteProfileDto>;
 }

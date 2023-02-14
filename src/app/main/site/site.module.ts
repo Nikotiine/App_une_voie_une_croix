@@ -14,6 +14,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { TableModule } from 'primeng/table';
+import { RippleModule } from 'primeng/ripple';
+
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
   declarations: [SiteListComponent, SiteViewComponent, SiteFormComponent],
@@ -29,6 +33,10 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     DropdownModule,
     InputNumberModule,
     InputSwitchModule,
+    TableModule,
+    FormsModule,
+    RippleModule,
+    TabViewModule,
   ],
 })
 export class SiteModule {}

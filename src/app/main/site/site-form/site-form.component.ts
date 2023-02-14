@@ -10,6 +10,14 @@ import { CreateSiteDto } from '../../../core/api/models/create-site-dto';
 import { SiteService } from '../../../core/api/services/site.service';
 import { ApiAddressService } from '../../../core/app/services/api-address.service';
 import { MessageService } from 'primeng/api';
+import { LevelsDto } from '../../../core/api/models/levels-dto';
+import { ExpositionsDto } from '../../../core/api/models/expositions-dto';
+import { ApproachTypeDto } from '../../../core/api/models/approach-type-dto';
+import { EngagementDto } from '../../../core/api/models/engagement-dto';
+import { EquipmentDto } from '../../../core/api/models/equipment-dto';
+import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
+import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-site-form',
@@ -20,53 +28,59 @@ export class SiteFormComponent implements OnInit {
   public form: FormGroup;
   public dialogMapHeader: string = 'Parking';
   public displayMap: boolean = false;
-  public expositions: string[] = [];
-  public approachTypes: string[] = [];
-  public engagements: string[] = [];
-  public equipments: string[] = [];
-  public levels: string[] = [];
-  public rockTypes: string[] = [];
-  public routeProfiles: string[] = [];
+  public expositions: ExpositionsDto[] = [];
+  public approachTypes: ApproachTypeDto[] = [];
+  public engagements: EngagementDto[] = [];
+  public equipments: EquipmentDto[] = [];
+  public levels: LevelsDto[] = [];
+  public rockTypes: RockTypeDto[] = [];
+  public routeProfiles: RouteProfileDto[] = [];
   public coordinateP1: number[] = [];
   public regions: any[] = [];
-  public departement: any[] = [];
+  public departments: any[] = [];
   public coordinateP2: number[] = [];
   private selectedParking: number = 0;
+  private toastSummary: string = 'Site';
+  private toastDetailLoadDataError: string =
+    'Erreur lors du chargement des donnees';
+  private toastDetailSuccess: string = 'Nouveau site enregistrer :';
+  private siteListUrl: string = '/site/list';
 
   constructor(
     private fb: FormBuilder,
     private readonly siteService: SiteService,
     private readonly apiAddressService: ApiAddressService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private router: Router
   ) {
     this.form = this.fb.group({
-      name: [''],
-      approachTime: [0],
-      averageRouteHeight: [0],
-      averageRouteNumber: [0],
-      minLevel: [0],
-      maxLevel: [0],
-      equipment: [0],
-      engagement: [0],
-      approachType: [0],
-      expositions: [''],
-      routeProfiles: [''],
-      rockType: [''],
-      regionCode: [''],
-      zipCode: [''],
+      name: ['', Validators.required],
+      approachTime: [0, Validators.required],
+      averageRouteHeight: [0, Validators.required],
+      averageRouteNumber: [0, Validators.required],
+      minLevel: ['', Validators.required],
+      maxLevel: ['', Validators.required],
+      equipment: ['', Validators.required],
+      engagement: ['', Validators.required],
+      approachType: ['', Validators.required],
+      expositions: ['', Validators.required],
+      routeProfiles: ['', Validators.required],
+      rockType: ['', Validators.required],
+      regionCode: ['', Validators.required],
+      zipCode: ['', Validators.required],
       water: [false],
       wc: [false],
       network: [false],
       river: [false],
-      secteurArray: this.fb.array([]),
+      sectorArray: this.fb.array([]),
     });
   }
   ngOnInit(): void {
     this.loadData();
-    this.addSecteur();
+    this.addSector();
   }
-  get secteurArray(): FormArray {
-    return this.form.controls['secteurArray'] as FormArray;
+  get sectorArray(): FormArray {
+    return this.form.controls['sectorArray'] as FormArray;
   }
   public chooseLocalisation(parking: number): void {
     this.selectedParking = parking;
@@ -76,26 +90,32 @@ export class SiteFormComponent implements OnInit {
   private loadData() {
     this.siteService.siteControllerGetData().subscribe({
       next: data => {
-        console.log(data.levels);
         this.levels = data.levels;
         this.rockTypes = data.rockTypes;
         this.approachTypes = data.approachTypes;
-        this.expositions = data.expostions;
+        this.expositions = data.expositions;
         this.equipments = data.equipments;
         this.engagements = data.engagements;
         this.routeProfiles = data.routeProfiles;
       },
       error: err => {
-        console.log(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: this.toastSummary,
+          detail: this.toastDetailLoadDataError,
+        });
       },
     });
     this.apiAddressService.getRegions().subscribe({
       next: data => {
-        console.log(data);
         this.regions = data;
       },
       error: err => {
-        console.log(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: this.toastSummary,
+          detail: this.toastDetailLoadDataError,
+        });
       },
     });
   }
@@ -124,19 +144,28 @@ export class SiteFormComponent implements OnInit {
       wc: this.form.controls['wc'].value,
       network: this.form.controls['network'].value,
       river: this.form.controls['river'].value,
-      secteurs: this.form.controls['secteurArray'].value,
+      secteurs: this.form.controls['sectorArray'].value,
     };
-    console.log(site);
+
     this.siteService
       .siteControllerCreateSite({
         body: site,
       })
       .subscribe({
         next: data => {
-          console.log(data);
+          this.messageService.add({
+            severity: 'success',
+            summary: this.toastSummary,
+            detail: this.toastDetailSuccess + '' + data.name,
+          });
+          return this.router.navigate([this.siteListUrl]);
         },
         error: err => {
-          console.log(err);
+          this.messageService.add({
+            severity: 'error',
+            summary: this.toastSummary,
+            detail: err.error.message,
+          });
         },
       });
   }
@@ -154,20 +183,23 @@ export class SiteFormComponent implements OnInit {
     this.displayMap = !this.displayMap;
   }
 
-  public getDepartement($event: any) {
-    this.apiAddressService.getDepartement($event.value).subscribe({
+  public getDepartment($event: any) {
+    this.apiAddressService.getDepartment($event.value).subscribe({
       next: data => {
-        this.departement = data;
-        console.log(data);
+        this.departments = data;
       },
       error: err => {
-        console.log(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: this.toastSummary,
+          detail: this.toastDetailLoadDataError,
+        });
       },
     });
   }
 
-  public addSecteur() {
-    this.secteurArray.push(
+  public addSector() {
+    this.sectorArray.push(
       this.fb.group({
         name: ['', Validators.required],
       })

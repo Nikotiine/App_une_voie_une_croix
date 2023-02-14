@@ -11,6 +11,8 @@ import { map, filter } from 'rxjs/operators';
 
 import { CreateSiteDto } from '../models/create-site-dto';
 import { SiteDataDto } from '../models/site-data-dto';
+import { SiteListDto } from '../models/site-list-dto';
+import { SiteViewDto } from '../models/site-view-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -37,20 +39,20 @@ export class SiteService extends BaseService {
   siteControllerGetAllSites$Response(params?: {
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<Array<SiteListDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerGetAllSitesPath, 'get');
     if (params) {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
+      responseType: 'json',
+      accept: 'application/json',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<Array<SiteListDto>>;
       })
     );
   }
@@ -64,10 +66,10 @@ export class SiteService extends BaseService {
   siteControllerGetAllSites(params?: {
     context?: HttpContext
   }
-): Observable<void> {
+): Observable<Array<SiteListDto>> {
 
     return this.siteControllerGetAllSites$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<Array<SiteListDto>>) => r.body as Array<SiteListDto>)
     );
   }
 
@@ -86,7 +88,7 @@ export class SiteService extends BaseService {
     context?: HttpContext
     body: CreateSiteDto
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<SiteListDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerCreateSitePath, 'post');
     if (params) {
@@ -94,13 +96,13 @@ export class SiteService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
+      responseType: 'json',
+      accept: 'application/json',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<SiteListDto>;
       })
     );
   }
@@ -115,10 +117,61 @@ export class SiteService extends BaseService {
     context?: HttpContext
     body: CreateSiteDto
   }
-): Observable<void> {
+): Observable<SiteListDto> {
 
     return this.siteControllerCreateSite$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<SiteListDto>) => r.body as SiteListDto)
+    );
+  }
+
+  /**
+   * Path part for operation siteControllerGetSite
+   */
+  static readonly SiteControllerGetSitePath = '/api/site/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `siteControllerGetSite()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  siteControllerGetSite$Response(params: {
+    id: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<SiteViewDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerGetSitePath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<SiteViewDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `siteControllerGetSite$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  siteControllerGetSite(params: {
+    id: number;
+    context?: HttpContext
+  }
+): Observable<SiteViewDto> {
+
+    return this.siteControllerGetSite$Response(params).pipe(
+      map((r: StrictHttpResponse<SiteViewDto>) => r.body as SiteViewDto)
     );
   }
 
