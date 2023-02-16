@@ -6,10 +6,11 @@ export interface SiteListDto {
   approachTime: number;
   averageRouteHeight: number;
   averageRouteNumber: number;
+  department: string;
   expositions: Array<ExpositionsDto>;
   id: number;
   maxLevel: Level;
   minLevel: Level;
   name: string;
-  zipCode: string;
+  region: string;
 }

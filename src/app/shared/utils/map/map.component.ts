@@ -7,6 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as Leaflet from 'leaflet';
+import { MapOptions } from '../../../core/app/models/MapOptions';
 
 Leaflet.Icon.Default.imagePath = 'assets/';
 
@@ -17,6 +18,7 @@ Leaflet.Icon.Default.imagePath = 'assets/';
 })
 export class MapComponent {
   @Output() coordinates = new EventEmitter<number[]>();
+  @Input() mapOption!: MapOptions;
 
   public map!: Leaflet.Map;
 
@@ -35,8 +37,8 @@ export class MapComponent {
   public initMarkers(): void {
     const initialMarkers = [
       {
-        position: { lat: 45.199398, lng: 5.667857 },
-        draggable: true,
+        position: { lat: this.mapOption.lat, lng: this.mapOption.lat },
+        draggable: this.mapOption.draggable,
       },
     ];
     for (let index = 0; index < initialMarkers.length; index++) {

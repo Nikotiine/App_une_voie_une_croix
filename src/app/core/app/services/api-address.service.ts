@@ -9,6 +9,7 @@ export class ApiAddressService {
   private departementUrl: string = '/departements';
   private regionUrl: string = 'https://geo.api.gouv.fr/regions';
   private listDeptUrl: string = 'https://geo.api.gouv.fr/departements';
+
   arrayDept!: Observable<any>;
   private static readonly REFRESH_INTERVAL = 1000 * 60 * 15;
 

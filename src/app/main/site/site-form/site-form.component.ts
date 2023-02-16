@@ -18,6 +18,11 @@ import { EquipmentDto } from '../../../core/api/models/equipment-dto';
 import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
 import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
 import { Router } from '@angular/router';
+import { Region } from '../../../core/app/models/Region';
+import { MapOptions } from '../../../core/app/models/MapOptions';
+import { RegionDto } from '../../../core/api/models/region-dto';
+import { DepartmentService } from '../../../core/api/services/department.service';
+import { DepartmentDto } from '../../../core/api/models/department-dto';
 
 @Component({
   selector: 'app-site-form',
@@ -36,21 +41,26 @@ export class SiteFormComponent implements OnInit {
   public rockTypes: RockTypeDto[] = [];
   public routeProfiles: RouteProfileDto[] = [];
   public coordinateP1: number[] = [];
-  public regions: any[] = [];
-  public departments: any[] = [];
+  public regions: RegionDto[] = [];
+  public mapOptions: MapOptions;
+  public departments: DepartmentDto[] = [];
   public coordinateP2: number[] = [];
-  private selectedParking: number = 0;
+  public selectedParking: number = 0;
+  public displayP1: boolean = false;
+  public displayP2: boolean = false;
   private toastSummary: string = 'Site';
   private toastDetailLoadDataError: string =
     'Erreur lors du chargement des donnees';
   private toastDetailSuccess: string = 'Nouveau site enregistrer :';
   private siteListUrl: string = '/site/list';
+  public showMainParking: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private readonly siteService: SiteService,
     private readonly apiAddressService: ApiAddressService,
     private readonly messageService: MessageService,
+    private readonly departmentService: DepartmentService,
     private router: Router
   ) {
     this.form = this.fb.group({
@@ -74,6 +84,11 @@ export class SiteFormComponent implements OnInit {
       river: [false],
       sectorArray: this.fb.array([]),
     });
+    this.mapOptions = {
+      draggable: true,
+      lat: 45.199398,
+      lng: 5.667857,
+    };
   }
   ngOnInit(): void {
     this.loadData();
@@ -87,7 +102,7 @@ export class SiteFormComponent implements OnInit {
     this.displayMap = !this.displayMap;
   }
 
-  private loadData() {
+  private loadData(): void {
     this.siteService.siteControllerGetData().subscribe({
       next: data => {
         this.levels = data.levels;
@@ -97,18 +112,7 @@ export class SiteFormComponent implements OnInit {
         this.equipments = data.equipments;
         this.engagements = data.engagements;
         this.routeProfiles = data.routeProfiles;
-      },
-      error: err => {
-        this.messageService.add({
-          severity: 'error',
-          summary: this.toastSummary,
-          detail: this.toastDetailLoadDataError,
-        });
-      },
-    });
-    this.apiAddressService.getRegions().subscribe({
-      next: data => {
-        this.regions = data;
+        this.regions = data.regions;
       },
       error: err => {
         this.messageService.add({
@@ -138,15 +142,14 @@ export class SiteFormComponent implements OnInit {
       expositions: this.form.controls['expositions'].value,
       rockType: this.form.controls['rockType'].value,
       routeProfiles: this.form.controls['routeProfiles'].value,
-      zipCode: this.form.controls['zipCode'].value,
-      regionCode: this.form.controls['regionCode'].value,
+      department: this.form.controls['zipCode'].value.nom,
+      region: this.form.controls['regionCode'].value.code,
       water: this.form.controls['water'].value,
       wc: this.form.controls['wc'].value,
       network: this.form.controls['network'].value,
       river: this.form.controls['river'].value,
       secteurs: this.form.controls['sectorArray'].value,
     };
-
     this.siteService
       .siteControllerCreateSite({
         body: site,
@@ -170,7 +173,7 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
-  public addCoordinates($event: number[]) {
+  public addCoordinates($event: number[]): void {
     if (this.selectedParking === 1) {
       this.coordinateP1 = $event;
     }
@@ -179,30 +182,42 @@ export class SiteFormComponent implements OnInit {
     }
   }
 
-  public validate(): void {
+  public validate(parking: number): void {
+    if (parking === 1) {
+      this.displayP1 = true;
+    }
+    if (parking === 2) {
+      this.displayP2 = true;
+    }
     this.displayMap = !this.displayMap;
   }
 
-  public getDepartment($event: any) {
-    this.apiAddressService.getDepartment($event.value).subscribe({
-      next: data => {
-        this.departments = data;
-      },
-      error: err => {
-        this.messageService.add({
-          severity: 'error',
-          summary: this.toastSummary,
-          detail: this.toastDetailLoadDataError,
-        });
-      },
-    });
+  public getDepartment($event: any): void {
+    this.departmentService
+      .departmentControllerFindByRegion({
+        region: $event.value.id,
+      })
+      .subscribe({
+        next: data => {
+          this.departments = data;
+        },
+        error: err => {
+          console.log(err);
+        },
+      });
   }
 
-  public addSector() {
+  public addSector(): void {
     this.sectorArray.push(
       this.fb.group({
         name: ['', Validators.required],
       })
     );
+  }
+
+  public sendMarker($event: any): void {
+    this.mapOptions.lat = $event.value.lat;
+    this.mapOptions.lng = $event.value.lng;
+    this.showMainParking = !this.showMainParking;
   }
 }

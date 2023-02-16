@@ -15,6 +15,7 @@ import { EngagmentService } from './services/engagment.service';
 import { EquipmentService } from './services/equipment.service';
 import { LevelService } from './services/level.service';
 import { ApproachTypeService } from './services/approach-type.service';
+import { DepartmentService } from './services/department.service';
 
 /**
  * Module that provides all services and configuration.
@@ -35,6 +36,7 @@ import { ApproachTypeService } from './services/approach-type.service';
     EquipmentService,
     LevelService,
     ApproachTypeService,
+    DepartmentService,
     ApiConfiguration
   ],
 })

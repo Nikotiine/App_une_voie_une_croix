@@ -2,14 +2,16 @@
   header="{{ dialogMapHeader }}"
   [(visible)]="displayMap"
   *ngIf="displayMap">
-  <app-map (coordinates)="addCoordinates($event)"></app-map>
+  <app-map
+    (coordinates)="addCoordinates($event)"
+    [mapOption]="mapOptions"></app-map>
   <ng-template pTemplate="footer">
     <button
       pButton
       type="button"
       label="Valider localisation"
       class="p-button-icon mt-2"
-      (click)="validate()"></button>
+      (click)="validate(selectedParking)"></button>
   </ng-template>
 </p-dialog>
 <h1 class="has-text-centered title mt-5">Nouveau site</h1>
@@ -138,25 +140,25 @@
         <label for="region" class="label">Region</label>
         <p-dropdown
           [options]="regions"
-          optionLabel="nom"
-          optionValue="code"
+          optionLabel="name"
           (onChange)="getDepartment($event)"
           formControlName="regionCode"
           placeholder="Choisir la region"
           id="region"></p-dropdown>
       </div>
       <div class="input-label">
-        <label for="departement" class="label">Departement</label>
+        <label for="department" class="label">Departement</label>
         <p-dropdown
           [options]="departments"
-          optionLabel="nom"
-          optionValue="code"
+          optionLabel="name"
           formControlName="zipCode"
+          (onChange)="sendMarker($event)"
           placeholder="Choisir le departement"
-          id="departement"></p-dropdown>
+          id="department"></p-dropdown>
       </div>
       <div class="input-label width-20">
         <button
+          *ngIf="showMainParking"
           pButton
           type="button"
           label="{{ dialogMapHeader }}  1"
@@ -164,7 +166,7 @@
           iconPos="right"
           (click)="chooseLocalisation(1)"
           class="p-button-text"></button>
-        <p *ngIf="coordinateP1.length > 0">
+        <p *ngIf="coordinateP1.length > 0 && displayP1">
           <span class="has-text-info">Latitude :</span>{{ coordinateP1[0] }}
           <br />
           <span class="has-text-info">Longitude :</span>{{ coordinateP1[1] }}
@@ -210,7 +212,7 @@
           iconPos="right"
           (click)="chooseLocalisation(2)"
           class="p-button-text"></button>
-        <p *ngIf="coordinateP2.length > 0">
+        <p *ngIf="coordinateP2.length > 0 && displayP2">
           <span class="has-text-info">Latitude :</span>{{ coordinateP2[0] }}
           <br />
           <span class="has-text-info">Longitude :</span>{{ coordinateP2[1] }}

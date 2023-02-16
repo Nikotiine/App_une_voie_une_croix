@@ -10,6 +10,7 @@ export interface CreateSiteDto {
   approachType: ApproachType;
   averageRouteHeight: number;
   averageRouteNumber: number;
+  department: string;
   engagement: Engagement;
   equipment: Equipment;
   expositions: Array<string>;
@@ -19,7 +20,7 @@ export interface CreateSiteDto {
   minLevel: Level;
   name: string;
   network: boolean;
-  regionCode: string;
+  region: string;
   river: boolean;
   rockType: RockType;
   routeProfiles: Array<string>;
@@ -28,5 +29,4 @@ export interface CreateSiteDto {
   secteurs: Array<string>;
   water: boolean;
   wc: boolean;
-  zipCode: string;
 }

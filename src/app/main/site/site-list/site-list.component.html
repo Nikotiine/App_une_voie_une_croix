@@ -1,8 +1,18 @@
 <div class="site-table">
   <h1 class="title has-text-centered">Liste des sites</h1>
+  <div class="input-label is-align-items-center">
+    <label for="region" class="label">Region</label>
+    <p-dropdown
+      [options]="regions"
+      optionLabel="nom"
+      optionValue="code"
+      placeholder="Choisir la region"
+      (onChange)="loadSiteWithRegion($event.value)"
+      id="region"></p-dropdown>
+  </div>
   <p-table
     #dt
-    [value]="sites"
+    [value]="filteredSites"
     [rows]="25"
     [paginator]="true"
     [rowsPerPageOptions]="[25, 50, 100]"
@@ -220,7 +230,7 @@
           <a [routerLink]="[siteViewUrl + site.id]">{{ site.name }}</a>
         </td>
         <td>
-          <span class="mb-2"> {{ site.zipCode }}</span>
+          <span class="mb-2"> {{ site.department }}</span>
         </td>
         <td>{{ site.averageRouteNumber }}</td>
         <td>{{ site.minLevel.label }}</td>

@@ -11,9 +11,34 @@
           }}</span>
         </p>
         <p class="subtitle">Type de rocher : {{ site.rockType.label }}</p>
+        <p class="subtitle">
+          Niveau mini : {{ site.minLevel.label }} -- Niveau max :
+          {{ site.maxLevel.label }}
+        </p>
+        <p class="subtitle">
+          Hauteur des voies : {{ site.averageRouteHeight }} metres
+        </p>
+        <p class="subtitle">
+          Profil des voies :
+          <span *ngFor="let profile of site.routeProfiles" class="mr-1">{{
+            profile.label
+          }}</span>
+        </p>
+        <p class="subtitle">
+          Equipements : {{ site.equipment.label }} -- Engagement :
+          {{ site.engagement.label }}
+        </p>
+        <p class="subtitle">
+          Temps d'approche : {{ site.approachTime }} Type d'approche :
+          {{ site.approachType.label }}
+        </p>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="Localisation"> Content 2 </p-tabPanel>
+    <p-tabPanel header="Localisation">
+      <p class="subtitle">Region : {{ getRegionName(site.region) }}</p>
+      <p class="subtitle">Departement : {{ site.department }}</p>
+      <p class="subtitle"></p>
+    </p-tabPanel>
     <p-tabPanel header="Parking camion"> Content 3 </p-tabPanel>
     <p-tabPanel header="Voies"> Content 3 </p-tabPanel>
     <p-tabPanel header="Topo"> Content 3 </p-tabPanel>
