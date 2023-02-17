@@ -28,6 +28,10 @@ export class RegionService extends BaseService {
   static readonly RegionControllerGetAllRegionsPath = '/api/region';
 
   /**
+   * Get all regions resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `regionControllerGetAllRegions()` instead.
    *
@@ -55,6 +59,10 @@ export class RegionService extends BaseService {
   }
 
   /**
+   * Get all regions resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `regionControllerGetAllRegions$Response()` instead.
    *

@@ -30,6 +30,10 @@ export class UserService extends BaseService {
   static readonly UserControllerCreateUserPath = '/api/user/register';
 
   /**
+   * Register new user.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerCreateUser()` instead.
    *
@@ -37,6 +41,10 @@ export class UserService extends BaseService {
    */
   userControllerCreateUser$Response(params: {
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO UserRegisterDto
+     */
     body: UserRegisterDto
   }
 ): Observable<StrictHttpResponse<UserProfileDto>> {
@@ -59,6 +67,10 @@ export class UserService extends BaseService {
   }
 
   /**
+   * Register new user.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `userControllerCreateUser$Response()` instead.
    *
@@ -66,6 +78,10 @@ export class UserService extends BaseService {
    */
   userControllerCreateUser(params: {
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO UserRegisterDto
+     */
     body: UserRegisterDto
   }
 ): Observable<UserProfileDto> {
@@ -81,12 +97,20 @@ export class UserService extends BaseService {
   static readonly UserControllerGetUserPath = '/api/user/{id}';
 
   /**
+   * Get user resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerGetUser()` instead.
    *
    * This method doesn't expect any request body.
    */
   userControllerGetUser$Response(params: {
+
+    /**
+     * id of user
+     */
     id: number;
     context?: HttpContext
   }
@@ -110,12 +134,20 @@ export class UserService extends BaseService {
   }
 
   /**
+   * Get user resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `userControllerGetUser$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   userControllerGetUser(params: {
+
+    /**
+     * id of user
+     */
     id: number;
     context?: HttpContext
   }
@@ -132,14 +164,26 @@ export class UserService extends BaseService {
   static readonly UserControllerEditUserPath = '/api/user/{id}';
 
   /**
+   * Edit user resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerEditUser()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userControllerEditUser$Response(params: {
+
+    /**
+     * id of user
+     */
     id: number;
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO UserRegisterDto
+     */
     body: UserRegisterDto
   }
 ): Observable<StrictHttpResponse<UserProfileDto>> {
@@ -163,14 +207,26 @@ export class UserService extends BaseService {
   }
 
   /**
+   * Edit user resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `userControllerEditUser$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userControllerEditUser(params: {
+
+    /**
+     * id of user
+     */
     id: number;
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO UserRegisterDto
+     */
     body: UserRegisterDto
   }
 ): Observable<UserProfileDto> {
@@ -186,14 +242,26 @@ export class UserService extends BaseService {
   static readonly UserControllerEditUserPasswordPath = '/api/user/password/{id}';
 
   /**
+   * Edit user password resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerEditUserPassword()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userControllerEditUserPassword$Response(params: {
+
+    /**
+     * id of user
+     */
     id: number;
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO UserRegisterDto
+     */
     body: UserEditPasswordDto
   }
 ): Observable<StrictHttpResponse<UserProfileDto>> {
@@ -217,14 +285,26 @@ export class UserService extends BaseService {
   }
 
   /**
+   * Edit user password resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `userControllerEditUserPassword$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userControllerEditUserPassword(params: {
+
+    /**
+     * id of user
+     */
     id: number;
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO UserRegisterDto
+     */
     body: UserEditPasswordDto
   }
 ): Observable<UserProfileDto> {

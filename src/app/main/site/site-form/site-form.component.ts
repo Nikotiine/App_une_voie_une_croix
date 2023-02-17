@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 import { SiteService } from '../../../core/api/services/site.service';
-import { ApiAddressService } from '../../../core/app/services/api-address.service';
+
 import { MessageService } from 'primeng/api';
 import { LevelsDto } from '../../../core/api/models/levels-dto';
 import { ExpositionsDto } from '../../../core/api/models/expositions-dto';
@@ -60,7 +60,6 @@ export class SiteFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private readonly siteService: SiteService,
-    private readonly apiAddressService: ApiAddressService,
     private readonly messageService: MessageService,
     private readonly departmentService: DepartmentService,
     private router: Router
@@ -133,10 +132,10 @@ export class SiteFormComponent implements OnInit {
       minLevel: this.form.controls['minLevel'].value,
       averageRouteNumber: this.form.controls['averageRouteNumber'].value,
       averageRouteHeight: this.form.controls['averageRouteHeight'].value,
-      mainParkingLat: this.coordinateP1[1],
-      mainParkingLng: this.coordinateP1[0],
-      secondaryParkingLat: this.coordinateP2[1],
-      secondaryParkingLng: this.coordinateP2[0],
+      mainParkingLat: this.coordinateP1[0],
+      mainParkingLng: this.coordinateP1[1],
+      secondaryParkingLat: this.coordinateP2[0],
+      secondaryParkingLng: this.coordinateP2[1],
       engagement: this.form.controls['engagement'].value,
       equipment: this.form.controls['equipment'].value,
       approachType: this.form.controls['approachType'].value,

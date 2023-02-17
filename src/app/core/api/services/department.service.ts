@@ -28,12 +28,20 @@ export class DepartmentService extends BaseService {
   static readonly DepartmentControllerFindByRegionPath = '/api/department/{region}';
 
   /**
+   * Get filtered collection department resource.
+   *
+   * Filter department with region id
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `departmentControllerFindByRegion()` instead.
    *
    * This method doesn't expect any request body.
    */
   departmentControllerFindByRegion$Response(params: {
+
+    /**
+     * id of region where are department
+     */
     region: number;
     context?: HttpContext
   }
@@ -57,12 +65,20 @@ export class DepartmentService extends BaseService {
   }
 
   /**
+   * Get filtered collection department resource.
+   *
+   * Filter department with region id
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `departmentControllerFindByRegion$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   departmentControllerFindByRegion(params: {
+
+    /**
+     * id of region where are department
+     */
     region: number;
     context?: HttpContext
   }

@@ -31,6 +31,10 @@ export class SiteService extends BaseService {
   static readonly SiteControllerGetAllSitesPath = '/api/site';
 
   /**
+   * Get all site resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `siteControllerGetAllSites()` instead.
    *
@@ -58,6 +62,10 @@ export class SiteService extends BaseService {
   }
 
   /**
+   * Get all site resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `siteControllerGetAllSites$Response()` instead.
    *
@@ -79,6 +87,10 @@ export class SiteService extends BaseService {
   static readonly SiteControllerCreateSitePath = '/api/site';
 
   /**
+   * Create site resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `siteControllerCreateSite()` instead.
    *
@@ -86,6 +98,10 @@ export class SiteService extends BaseService {
    */
   siteControllerCreateSite$Response(params: {
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO SiteCreateDto
+     */
     body: SiteCreateDto
   }
 ): Observable<StrictHttpResponse<SiteListDto>> {
@@ -108,6 +124,10 @@ export class SiteService extends BaseService {
   }
 
   /**
+   * Create site resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `siteControllerCreateSite$Response()` instead.
    *
@@ -115,6 +135,10 @@ export class SiteService extends BaseService {
    */
   siteControllerCreateSite(params: {
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO SiteCreateDto
+     */
     body: SiteCreateDto
   }
 ): Observable<SiteListDto> {
@@ -130,12 +154,20 @@ export class SiteService extends BaseService {
   static readonly SiteControllerGetSitePath = '/api/site/one/{id}';
 
   /**
+   * Get one site resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `siteControllerGetSite()` instead.
    *
    * This method doesn't expect any request body.
    */
   siteControllerGetSite$Response(params: {
+
+    /**
+     * id of site resource
+     */
     id: number;
     context?: HttpContext
   }
@@ -159,12 +191,20 @@ export class SiteService extends BaseService {
   }
 
   /**
+   * Get one site resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `siteControllerGetSite$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   siteControllerGetSite(params: {
+
+    /**
+     * id of site resource
+     */
     id: number;
     context?: HttpContext
   }
@@ -181,6 +221,10 @@ export class SiteService extends BaseService {
   static readonly SiteControllerGetDataPath = '/api/site/data';
 
   /**
+   * Get data for create site resource.
+   *
+   * Returns all the data necessary for the creation of a site
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `siteControllerGetData()` instead.
    *
@@ -208,6 +252,10 @@ export class SiteService extends BaseService {
   }
 
   /**
+   * Get data for create site resource.
+   *
+   * Returns all the data necessary for the creation of a site
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `siteControllerGetData$Response()` instead.
    *

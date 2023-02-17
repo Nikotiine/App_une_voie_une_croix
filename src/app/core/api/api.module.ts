@@ -4,17 +4,9 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { ApiService } from './services/api.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { SiteService } from './services/site.service';
-import { ExpositionService } from './services/exposition.service';
-import { RouteProfileService } from './services/route-profile.service';
-import { RockTypeService } from './services/rock-type.service';
-import { EngagmentService } from './services/engagment.service';
-import { EquipmentService } from './services/equipment.service';
-import { LevelService } from './services/level.service';
-import { ApproachTypeService } from './services/approach-type.service';
 import { RegionService } from './services/region.service';
 import { DepartmentService } from './services/department.service';
 
@@ -26,17 +18,9 @@ import { DepartmentService } from './services/department.service';
   exports: [],
   declarations: [],
   providers: [
-    ApiService,
     UserService,
     AuthService,
     SiteService,
-    ExpositionService,
-    RouteProfileService,
-    RockTypeService,
-    EngagmentService,
-    EquipmentService,
-    LevelService,
-    ApproachTypeService,
     RegionService,
     DepartmentService,
     ApiConfiguration

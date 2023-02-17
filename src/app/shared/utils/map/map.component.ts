@@ -37,7 +37,7 @@ export class MapComponent {
   public initMarkers(): void {
     const initialMarkers = [
       {
-        position: { lat: this.mapOption.lat, lng: this.mapOption.lat },
+        position: { lat: this.mapOption.lat, lng: this.mapOption.lng },
         draggable: this.mapOption.draggable,
       },
     ];
@@ -61,7 +61,6 @@ export class MapComponent {
   public onMapReady($event: Leaflet.Map): void {
     this.map = $event;
     this.initMarkers();
-    console.log('ready');
   }
 
   mapClicked($event: any) {

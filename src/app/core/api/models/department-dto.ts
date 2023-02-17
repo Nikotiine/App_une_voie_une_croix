@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Region } from './region';
+import { RegionDto } from './region-dto';
 export interface DepartmentDto {
   id: number;
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
   name: string;
-  region: Region;
+  region: RegionDto;
 }

@@ -58,6 +58,7 @@ export class SiteViewComponent implements OnInit {
   }
 
   public showMapMainParking(): void {
+    this.mapSecondaryParking = false;
     this.mapOption.lng = this.site.mainParkingLng;
     this.mapOption.lat = this.site.mainParkingLat;
     setTimeout(() => {
@@ -65,6 +66,7 @@ export class SiteViewComponent implements OnInit {
     }, 100);
   }
   public showMapSecondaryParking(): void {
+    this.mapMainParking = false;
     this.mapOption.lng = this.site.secondaryParkingLng;
     this.mapOption.lat = this.site.secondaryParkingLat;
     setTimeout(() => {

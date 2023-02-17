@@ -1,13 +1,5 @@
-export { ApiService } from './services/api.service';
 export { UserService } from './services/user.service';
 export { AuthService } from './services/auth.service';
 export { SiteService } from './services/site.service';
-export { ExpositionService } from './services/exposition.service';
-export { RouteProfileService } from './services/route-profile.service';
-export { RockTypeService } from './services/rock-type.service';
-export { EngagmentService } from './services/engagment.service';
-export { EquipmentService } from './services/equipment.service';
-export { LevelService } from './services/level.service';
-export { ApproachTypeService } from './services/approach-type.service';
 export { RegionService } from './services/region.service';
 export { DepartmentService } from './services/department.service';

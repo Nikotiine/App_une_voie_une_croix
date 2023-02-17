@@ -1,7 +1,7 @@
 <div class="site-table">
   <h1 class="title has-text-centered">Liste des sites</h1>
   <div class="input-label is-align-items-center">
-    <label for="region" class="label">Region</label>
+    <label for="region" class="label">Trier par region</label>
     <p-dropdown
       [options]="regions"
       optionLabel="name"
@@ -17,6 +17,8 @@
     [paginator]="true"
     [rowsPerPageOptions]="[25, 50, 100]"
     styleClass="p-datatable-striped"
+    [tableStyle]="{ 'vertical-align': 'center' }"
+    class="mt-2"
     [loading]="loading">
     <ng-template pTemplate="header">
       <tr>
@@ -230,9 +232,11 @@
           <a [routerLink]="[siteViewUrl + site.id]">{{ site.name }}</a>
         </td>
         <td>
-          <span class="mb-2"> {{ site.department.name }}</span>
+          <span class=""> {{ site.department.name }}</span>
         </td>
-        <td>{{ site.averageRouteNumber }}</td>
+        <td>
+          <span class="">{{ site.averageRouteNumber }}</span>
+        </td>
         <td>{{ site.minLevel.label }}</td>
         <td>{{ site.maxLevel.label }}</td>
 
