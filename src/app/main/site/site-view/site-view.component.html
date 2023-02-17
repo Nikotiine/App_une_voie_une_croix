@@ -1,7 +1,10 @@
-<div class="" *ngIf="site">
+<div class="site-view" *ngIf="site">
   <h1 class="title has-text-centered">{{ site.name }}</h1>
   <p-tabView>
-    <p-tabPanel header="Information generale">
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span>Information generale</span>
+      </ng-template>
       <div class="is-flex is-flex-direction-column">
         <p class="subtitle">Nombre de lignes : {{ site.averageRouteNumber }}</p>
         <p class="subtitle">
@@ -34,13 +37,63 @@
         </p>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="Localisation">
-      <p class="subtitle">Region : {{ getRegionName(site.region) }}</p>
-      <p class="subtitle">Departement : {{ site.department }}</p>
-      <p class="subtitle"></p>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span (click)="showMapMainParking()">Localisation</span>
+      </ng-template>
+      <p class="subtitle">Region : {{ site.region.name }}</p>
+      <p class="subtitle">Departement : {{ site.department.name }}</p>
+      <div class="is-flex is-justify-content-center" *ngIf="mapMainParking">
+        <app-map [mapOption]="mapOption"></app-map>
+      </div>
     </p-tabPanel>
-    <p-tabPanel header="Parking camion"> Content 3 </p-tabPanel>
-    <p-tabPanel header="Voies"> Content 3 </p-tabPanel>
-    <p-tabPanel header="Topo"> Content 3 </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span (click)="showMapSecondaryParking()">Parking camion</span>
+      </ng-template>
+      <p class="subtitle">
+        {{ site.network ? 'Reseau 4g ok' : 'Pas de reseau' }}
+      </p>
+      <p class="subtitle">
+        {{ site.wc ? 'Toilette a proximite' : 'Pas de toilette' }}
+      </p>
+      <p class="subtitle">
+        {{ site.water ? 'Eau potable a proximite' : 'Pas d eau potable' }}
+      </p>
+      <p class="subtitle">
+        {{ site.river ? 'Riviere ou lac a proximite' : 'Pas de point d eau' }}
+      </p>
+      <div
+        class="is-flex is-justify-content-center"
+        *ngIf="mapSecondaryParking">
+        <app-map [mapOption]="mapOption"></app-map>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span>Secteurs</span>
+      </ng-template>
+      <p class="subtitle">Nombre de secteurs : {{ site.secteurs.length }}</p>
+      <p class="subtitle" *ngFor="let secteur of site.secteurs; let i = index">
+        Secteur {{ i + 1 }} : {{ secteur.name }}
+      </p>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span>Voies</span>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span>Topo</span>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <a [routerLink]="[siteListUrl]" class="has-text-info"
+          >Retour a la liste</a
+        >
+      </ng-template>
+    </p-tabPanel>
   </p-tabView>
 </div>

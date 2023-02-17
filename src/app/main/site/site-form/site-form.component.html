@@ -152,7 +152,7 @@
           [options]="departments"
           optionLabel="name"
           formControlName="zipCode"
-          (onChange)="sendMarker($event)"
+          (onChange)="initMarker($event)"
           placeholder="Choisir le departement"
           id="department"></p-dropdown>
       </div>
@@ -206,6 +206,7 @@
       <div class="input-label width-20">
         <button
           pButton
+          *ngIf="showSecondaryParking"
           type="button"
           label="{{ dialogMapHeader }} 2"
           icon="pi pi-search"
@@ -254,7 +255,7 @@
       <p-button
         label="Valider"
         (click)="submit()"
-        [disabled]="form.invalid"></p-button>
+        [disabled]="formIsInvalid()"></p-button>
     </div>
   </div>
 </form>

@@ -61,6 +61,7 @@ export class MapComponent {
   public onMapReady($event: Leaflet.Map): void {
     this.map = $event;
     this.initMarkers();
+    console.log('ready');
   }
 
   mapClicked($event: any) {

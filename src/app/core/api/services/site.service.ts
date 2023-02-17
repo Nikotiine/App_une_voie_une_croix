@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { CreateSiteDto } from '../models/create-site-dto';
+import { SiteCreateDto } from '../models/site-create-dto';
 import { SiteDataDto } from '../models/site-data-dto';
 import { SiteListDto } from '../models/site-list-dto';
 import { SiteViewDto } from '../models/site-view-dto';
@@ -86,7 +86,7 @@ export class SiteService extends BaseService {
    */
   siteControllerCreateSite$Response(params: {
     context?: HttpContext
-    body: CreateSiteDto
+    body: SiteCreateDto
   }
 ): Observable<StrictHttpResponse<SiteListDto>> {
 
@@ -115,7 +115,7 @@ export class SiteService extends BaseService {
    */
   siteControllerCreateSite(params: {
     context?: HttpContext
-    body: CreateSiteDto
+    body: SiteCreateDto
   }
 ): Observable<SiteListDto> {
 

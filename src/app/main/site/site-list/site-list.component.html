@@ -4,10 +4,10 @@
     <label for="region" class="label">Region</label>
     <p-dropdown
       [options]="regions"
-      optionLabel="nom"
-      optionValue="code"
+      optionLabel="name"
+      optionValue="id"
       placeholder="Choisir la region"
-      (onChange)="loadSiteWithRegion($event.value)"
+      (onChange)="filterWithRegion($event.value)"
       id="region"></p-dropdown>
   </div>
   <p-table
@@ -23,8 +23,8 @@
         <th pSortableColumn="name">
           Nom <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="zipCode">
-          Departement <p-sortIcon field="zipCode"></p-sortIcon>
+        <th pSortableColumn="department.name">
+          Departement <p-sortIcon field="department.name"></p-sortIcon>
         </th>
         <th pSortableColumn="averageRouteNumber">
           Nombre de voies <p-sortIcon field="averageRouteNumber"></p-sortIcon>
@@ -72,7 +72,7 @@
           <p-columnFilter
             [showMenu]="false"
             [showClearButton]="false"
-            field="zipCode"
+            field="department.name"
             matchMode="contains">
             <ng-template
               pTemplate="filter"
@@ -230,7 +230,7 @@
           <a [routerLink]="[siteViewUrl + site.id]">{{ site.name }}</a>
         </td>
         <td>
-          <span class="mb-2"> {{ site.department }}</span>
+          <span class="mb-2"> {{ site.department.name }}</span>
         </td>
         <td>{{ site.averageRouteNumber }}</td>
         <td>{{ site.minLevel.label }}</td>

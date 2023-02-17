@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { CreateSiteDto } from '../../../core/api/models/create-site-dto';
+
 import { SiteService } from '../../../core/api/services/site.service';
 import { ApiAddressService } from '../../../core/app/services/api-address.service';
 import { MessageService } from 'primeng/api';
@@ -18,11 +18,12 @@ import { EquipmentDto } from '../../../core/api/models/equipment-dto';
 import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
 import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
 import { Router } from '@angular/router';
-import { Region } from '../../../core/app/models/Region';
+
 import { MapOptions } from '../../../core/app/models/MapOptions';
 import { RegionDto } from '../../../core/api/models/region-dto';
 import { DepartmentService } from '../../../core/api/services/department.service';
 import { DepartmentDto } from '../../../core/api/models/department-dto';
+import { SiteCreateDto } from '../../../core/api/models/site-create-dto';
 
 @Component({
   selector: 'app-site-form',
@@ -54,6 +55,7 @@ export class SiteFormComponent implements OnInit {
   private toastDetailSuccess: string = 'Nouveau site enregistrer :';
   private siteListUrl: string = '/site/list';
   public showMainParking: boolean = false;
+  public showSecondaryParking: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -125,16 +127,16 @@ export class SiteFormComponent implements OnInit {
   }
 
   public submit(): void {
-    const site: CreateSiteDto = {
+    const site: SiteCreateDto = {
       name: this.form.controls['name'].value,
       approachTime: this.form.controls['approachTime'].value,
       minLevel: this.form.controls['minLevel'].value,
       averageRouteNumber: this.form.controls['averageRouteNumber'].value,
       averageRouteHeight: this.form.controls['averageRouteHeight'].value,
-      mainParkingLat: String(this.coordinateP1[1]),
-      mainParkingLng: String(this.coordinateP1[0]),
-      secondaryParkingLat: String(this.coordinateP2[1]),
-      secondaryParkingLng: String(this.coordinateP2[0]),
+      mainParkingLat: this.coordinateP1[1],
+      mainParkingLng: this.coordinateP1[0],
+      secondaryParkingLat: this.coordinateP2[1],
+      secondaryParkingLng: this.coordinateP2[0],
       engagement: this.form.controls['engagement'].value,
       equipment: this.form.controls['equipment'].value,
       approachType: this.form.controls['approachType'].value,
@@ -142,14 +144,18 @@ export class SiteFormComponent implements OnInit {
       expositions: this.form.controls['expositions'].value,
       rockType: this.form.controls['rockType'].value,
       routeProfiles: this.form.controls['routeProfiles'].value,
-      department: this.form.controls['zipCode'].value.nom,
-      region: this.form.controls['regionCode'].value.code,
+      department: this.form.controls['zipCode'].value,
+      region: this.form.controls['regionCode'].value,
       water: this.form.controls['water'].value,
       wc: this.form.controls['wc'].value,
       network: this.form.controls['network'].value,
       river: this.form.controls['river'].value,
       secteurs: this.form.controls['sectorArray'].value,
     };
+    if (!this.displayP2) {
+      site.secondaryParkingLat = site.mainParkingLat;
+      site.secondaryParkingLng = site.mainParkingLng;
+    }
     this.siteService
       .siteControllerCreateSite({
         body: site,
@@ -185,6 +191,7 @@ export class SiteFormComponent implements OnInit {
   public validate(parking: number): void {
     if (parking === 1) {
       this.displayP1 = true;
+      this.showSecondaryParking = true;
     }
     if (parking === 2) {
       this.displayP2 = true;
@@ -215,9 +222,16 @@ export class SiteFormComponent implements OnInit {
     );
   }
 
-  public sendMarker($event: any): void {
+  public initMarker($event: any): void {
     this.mapOptions.lat = $event.value.lat;
     this.mapOptions.lng = $event.value.lng;
     this.showMainParking = !this.showMainParking;
+  }
+  public formIsInvalid(): boolean {
+    let isInvalid: boolean = true;
+    if (this.coordinateP1.length > 1 && this.form.valid) {
+      isInvalid = !isInvalid;
+    }
+    return isInvalid;
   }
 }

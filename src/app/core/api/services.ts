@@ -9,4 +9,5 @@ export { EngagmentService } from './services/engagment.service';
 export { EquipmentService } from './services/equipment.service';
 export { LevelService } from './services/level.service';
 export { ApproachTypeService } from './services/approach-type.service';
+export { RegionService } from './services/region.service';
 export { DepartmentService } from './services/department.service';

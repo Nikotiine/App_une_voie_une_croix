@@ -15,6 +15,7 @@ import { EngagmentService } from './services/engagment.service';
 import { EquipmentService } from './services/equipment.service';
 import { LevelService } from './services/level.service';
 import { ApproachTypeService } from './services/approach-type.service';
+import { RegionService } from './services/region.service';
 import { DepartmentService } from './services/department.service';
 
 /**
@@ -36,6 +37,7 @@ import { DepartmentService } from './services/department.service';
     EquipmentService,
     LevelService,
     ApproachTypeService,
+    RegionService,
     DepartmentService,
     ApiConfiguration
   ],

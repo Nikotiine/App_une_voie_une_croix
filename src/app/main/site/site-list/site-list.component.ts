@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SiteService } from '../../../core/api/services/site.service';
 import { SiteListDto } from '../../../core/api/models/site-list-dto';
-import { ApiAddressService } from '../../../core/app/services/api-address.service';
+
 import { MessageService } from 'primeng/api';
-import { Region } from '../../../core/app/models/Region';
+import { RegionDto } from '../../../core/api/models/region-dto';
+import { RegionService } from '../../../core/api/services/region.service';
 
 @Component({
   selector: 'app-site-list',
@@ -15,23 +16,24 @@ export class SiteListComponent implements OnInit {
   public siteViewUrl: string = '/site/view/';
   public sites: SiteListDto[] = [];
   public filteredSites: SiteListDto[] = [];
-  public regions: Region[] = [];
+  public regions: RegionDto[] = [];
   private toastSummary: string = 'Liste des sites';
   private toastDetailLoadDataError: string =
     'Erreur lors du chargement des donnees';
 
   constructor(
     private readonly siteService: SiteService,
-    private readonly apiAddressService: ApiAddressService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly regionService: RegionService
   ) {}
   ngOnInit(): void {
     this.loadData();
   }
 
-  private loadData() {
+  private loadData(): void {
     this.siteService.siteControllerGetAllSites().subscribe({
       next: data => {
+        console.log(data);
         this.sites = data;
         this.filteredSites = this.sites;
       },
@@ -43,14 +45,14 @@ export class SiteListComponent implements OnInit {
         });
       },
     });
-    this.apiAddressService.getRegions().subscribe({
+    this.regionService.regionControllerGetAllRegions().subscribe({
       next: data => {
         this.regions = data;
-        const allRegion: Region = {
-          nom: 'Toutes les regions',
-          code: '0',
+        const genericRegion: RegionDto = {
+          id: 0,
+          name: 'All region',
         };
-        this.regions.push(allRegion);
+        this.regions.push(genericRegion);
       },
       error: err => {
         this.messageService.add({
@@ -62,11 +64,11 @@ export class SiteListComponent implements OnInit {
     });
   }
 
-  public loadSiteWithRegion(code: string) {
-    if (code === '0') {
-      this.filteredSites = this.sites;
+  public filterWithRegion(id: string): void {
+    if (String(id) !== '0') {
+      this.filteredSites = this.sites.filter(s => String(s.region.id) === id);
     } else {
-      this.filteredSites = this.sites.filter(s => s.region === code);
+      this.filteredSites = this.sites;
     }
   }
 }
