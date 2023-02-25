@@ -271,4 +271,74 @@ export class SiteService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation siteControllerEditSite
+   */
+  static readonly SiteControllerEditSitePath = '/api/site/edit/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `siteControllerEditSite()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  siteControllerEditSite$Response(params: {
+
+    /**
+     * id of site resource
+     */
+    id: number;
+    context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO SiteCreateDto
+     */
+    body: SiteCreateDto
+  }
+): Observable<StrictHttpResponse<SiteViewDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerEditSitePath, 'put');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<SiteViewDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `siteControllerEditSite$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  siteControllerEditSite(params: {
+
+    /**
+     * id of site resource
+     */
+    id: number;
+    context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO SiteCreateDto
+     */
+    body: SiteCreateDto
+  }
+): Observable<SiteViewDto> {
+
+    return this.siteControllerEditSite$Response(params).pipe(
+      map((r: StrictHttpResponse<SiteViewDto>) => r.body as SiteViewDto)
+    );
+  }
+
 }

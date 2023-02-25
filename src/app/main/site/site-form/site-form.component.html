@@ -14,7 +14,7 @@
       (click)="validate(selectedParking)"></button>
   </ng-template>
 </p-dialog>
-<h1 class="has-text-centered title mt-5">Nouveau site</h1>
+<h1 class="has-text-centered title mt-5">{{ title }}</h1>
 <form [formGroup]="form">
   <div class="form-register">
     <div class="container-input-flex">
@@ -141,8 +141,8 @@
         <p-dropdown
           [options]="regions"
           optionLabel="name"
-          (onChange)="getDepartment($event)"
-          formControlName="regionCode"
+          (onChange)="onChangeRegion($event)"
+          formControlName="region"
           placeholder="Choisir la region"
           id="region"></p-dropdown>
       </div>
@@ -151,8 +151,8 @@
         <p-dropdown
           [options]="departments"
           optionLabel="name"
-          formControlName="zipCode"
-          (onChange)="initMarker($event)"
+          formControlName="department"
+          (onChange)="onChangeDepartment($event)"
           placeholder="Choisir le departement"
           id="department"></p-dropdown>
       </div>
@@ -240,7 +240,7 @@
             type="button"
             icon="pi pi-plus"
             [disabled]="sectorArray.invalid"
-            (click)="addSector()"
+            (click)="addNewSector()"
             iconPos="left"></button>
         </div>
       </ng-container>

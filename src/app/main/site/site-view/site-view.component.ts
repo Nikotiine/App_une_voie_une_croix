@@ -13,9 +13,8 @@ import { MessageService } from 'primeng/api';
 export class SiteViewComponent implements OnInit {
   public site!: SiteViewDto;
   public mapOption: MapOptions;
-  public mapMainParking: boolean = false;
-  public mapSecondaryParking: boolean = false;
   public siteListUrl: string = '/site/list/';
+  public siteEditUrl: string = '/site/edit/';
   private toastSummary: string = 'Site';
   private toastDetailLoadDataError: string =
     'Erreur lors du chargement des donnees';
@@ -58,19 +57,11 @@ export class SiteViewComponent implements OnInit {
   }
 
   public showMapMainParking(): void {
-    this.mapSecondaryParking = false;
     this.mapOption.lng = this.site.mainParkingLng;
     this.mapOption.lat = this.site.mainParkingLat;
-    setTimeout(() => {
-      this.mapMainParking = !this.mapMainParking;
-    }, 100);
   }
   public showMapSecondaryParking(): void {
-    this.mapMainParking = false;
     this.mapOption.lng = this.site.secondaryParkingLng;
     this.mapOption.lat = this.site.secondaryParkingLat;
-    setTimeout(() => {
-      this.mapSecondaryParking = !this.mapSecondaryParking;
-    }, 100);
   }
 }

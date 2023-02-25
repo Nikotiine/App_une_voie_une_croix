@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'view/:id',
     component: SiteViewComponent,
   },
+  {
+    path: 'edit/:id',
+    component: SiteFormComponent,
+  },
 ];
 
 @NgModule({

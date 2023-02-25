@@ -41,33 +41,33 @@
       <ng-template pTemplate="header">
         <span (click)="showMapMainParking()">Localisation</span>
       </ng-template>
-      <p class="subtitle">Region : {{ site.region.name }}</p>
-      <p class="subtitle">Departement : {{ site.department.name }}</p>
-      <div class="is-flex is-justify-content-center" *ngIf="mapMainParking">
+      <ng-template pTemplate="content">
+        <p class="subtitle">Region : {{ site.region.name }}</p>
+        <p class="subtitle">Departement : {{ site.department.name }}</p>
         <app-map [mapOption]="mapOption"></app-map>
-      </div>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
         <span (click)="showMapSecondaryParking()">Parking camion</span>
       </ng-template>
-      <p class="subtitle">
-        {{ site.network ? 'Reseau 4g ok' : 'Pas de reseau' }}
-      </p>
-      <p class="subtitle">
-        {{ site.wc ? 'Toilette a proximite' : 'Pas de toilette' }}
-      </p>
-      <p class="subtitle">
-        {{ site.water ? 'Eau potable a proximite' : 'Pas d eau potable' }}
-      </p>
-      <p class="subtitle">
-        {{ site.river ? 'Riviere ou lac a proximite' : 'Pas de point d eau' }}
-      </p>
-      <div
-        class="is-flex is-justify-content-center"
-        *ngIf="mapSecondaryParking">
-        <app-map [mapOption]="mapOption"></app-map>
-      </div>
+      <ng-template pTemplate="content">
+        <p class="subtitle">
+          {{ site.network ? 'Reseau 4g ok' : 'Pas de reseau' }}
+        </p>
+        <p class="subtitle">
+          {{ site.wc ? 'Toilette a proximite' : 'Pas de toilette' }}
+        </p>
+        <p class="subtitle">
+          {{ site.water ? 'Eau potable a proximite' : 'Pas d eau potable' }}
+        </p>
+        <p class="subtitle">
+          {{ site.river ? 'Riviere ou lac a proximite' : 'Pas de point d eau' }}
+        </p>
+        <div class="is-flex is-justify-content-center">
+          <app-map [mapOption]="mapOption"></app-map>
+        </div>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
@@ -92,6 +92,13 @@
       <ng-template pTemplate="header">
         <a [routerLink]="[siteListUrl]" class="has-text-info"
           >Retour a la liste</a
+        >
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <a [routerLink]="[siteEditUrl + site.id]" class="has-text-danger"
+          >Editer</a
         >
       </ng-template>
     </p-tabPanel>
