@@ -13,24 +13,27 @@
 }
 .form-register{
   display:flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
   margin: auto;
+
   & input {
-    width: 20rem;
+    width: 100%;
   }
   & .p-element .p-multiselect-label-container{
-    width: 20rem;
+    width: 100%;
   }
   .p-dropdown{
-    width: 20rem;
+    width: 100%;
   }
 
   .p-inputnumber .p-component .p-inputnumber-buttons-stacked{
-    width: 20rem;
+    width: 100%;
   }
 
+.p-multiselect{
+  width: 100%;
 }
 
+
+}
