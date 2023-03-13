@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SiteListComponent } from './site-list/site-list.component';
 import { SiteFormComponent } from './site-form/site-form.component';
 import { SiteViewComponent } from './site-view/site-view.component';
+import { SiteListMapComponent } from './site-list-map/site-list-map.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'edit/:id',
     component: SiteFormComponent,
   },
+  {
+    path: 'map',
+    component: SiteListMapComponent,
+  },
 ];
 
 @NgModule({
@@ -37,4 +42,5 @@ export class SiteRoutingModule {
   static SITE_NEW: string = '/site/new';
   static SITE_EDIT: string = '/site/edit/';
   static SITE_VIEW: string = '/site/view/';
+  static SITES_MAP: string = '/site/map';
 }

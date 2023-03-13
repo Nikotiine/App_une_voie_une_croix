@@ -1,6 +1,8 @@
 export class AppIcon {
   static LOGIN: string = 'fas fa-power-off';
   static HOME: string = 'fas fa-shuttle-van';
+  static REGION: string = 'fas fa-globe-europe';
+  static DEPARTMENT: string = 'fas fa-map-marker-alt';
   static SITE: string = 'fas fa-mountain';
   static LIST: string = 'fas fa-list';
   static MAP: string = 'fas fa-map';
@@ -16,4 +18,9 @@ export class AppIcon {
   static ENGAGMENT: string = 'fas fa-bomb';
   static APPROACH_TIME: string = 'fas fa-stopwatch';
   static APPROACH_TYPE: string = 'fas fa-hiking';
+  static WATER: string = 'fas fa-faucet';
+  static NETWORK: string = 'fas fa-wifi';
+  static RIVER: string = 'fas fa-water';
+  static WC: string = 'fas fa-toilet';
+  static INFORMATION: string = 'fas fa-info-circle';
 }

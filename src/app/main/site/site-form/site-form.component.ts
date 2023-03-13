@@ -22,6 +22,8 @@ import { RegionListDto } from '../../../core/api/models/region-list-dto';
 import { DepartmentListDto } from '../../../core/api/models/department-list-dto';
 import { SecteurListDto } from '../../../core/api/models/secteur-list-dto';
 import { AppIcon } from '../../../core/app/config/app-icon.config';
+import { ToastConfig } from '../../../core/app/config/toast.config';
+import { SiteRoutingModule } from '../site-routing.module';
 
 @Component({
   selector: 'app-site-form',
@@ -31,6 +33,8 @@ import { AppIcon } from '../../../core/app/config/app-icon.config';
 export class SiteFormComponent implements OnInit {
   public form: FormGroup;
   public dialogMapHeader: string = 'Parking';
+  public titleEdit: string = 'Edition du site';
+  public titleCreate: string = "Ajout d'un site";
   public displayMap: boolean = false;
   public expositions: ExpositionListDto[] = [];
   public approachTypes: ApproachTypeListDto[] = [];
@@ -48,11 +52,6 @@ export class SiteFormComponent implements OnInit {
   public displayP1: boolean = false;
   public displayP2: boolean = false;
   public title: string;
-  private toastSummary: string = 'Site';
-  private toastDetailLoadDataError: string =
-    'Erreur lors du chargement des donnees';
-  private toastDetailSuccess: string = 'Nouveau site enregistrer :';
-  private siteListUrl: string = '/site/list';
   public showMainParking: boolean = false;
   public showSecondaryParking: boolean = false;
   private readonly siteId: number;
@@ -67,6 +66,13 @@ export class SiteFormComponent implements OnInit {
   public iconEngagement: string;
   public iconApproachTime: string;
   public iconApproachType: string;
+  public iconRegion: string;
+  public iconDepartment: string;
+  public iconWater: string;
+  public iconNetwork: string;
+  public iconRiver: string;
+  public iconWc: string;
+  public iconSite: string;
 
   constructor(
     private fb: FormBuilder,
@@ -104,7 +110,7 @@ export class SiteFormComponent implements OnInit {
     };
 
     this.siteId = parseInt(this.activatedRoute.snapshot.params['id']);
-    this.title = this.siteId ? 'Editer le site' : 'Nouveau site';
+    this.title = this.siteId ? this.titleEdit : this.titleCreate;
     this.iconRoute = AppIcon.ROUTE;
     this.iconRouteNumber = AppIcon.ROUTE_NUMBER;
     this.iconRouteHeight = AppIcon.ROUTE_HEIGHT;
@@ -116,6 +122,13 @@ export class SiteFormComponent implements OnInit {
     this.iconEngagement = AppIcon.ENGAGMENT;
     this.iconApproachTime = AppIcon.APPROACH_TIME;
     this.iconApproachType = AppIcon.APPROACH_TYPE;
+    this.iconRegion = AppIcon.REGION;
+    this.iconDepartment = AppIcon.DEPARTMENT;
+    this.iconWater = AppIcon.WATER;
+    this.iconNetwork = AppIcon.NETWORK;
+    this.iconRiver = AppIcon.RIVER;
+    this.iconWc = AppIcon.WC;
+    this.iconSite = AppIcon.SITE;
   }
   ngOnInit(): void {
     this.loadData();
@@ -145,9 +158,9 @@ export class SiteFormComponent implements OnInit {
       },
       error: err => {
         this.messageService.add({
-          severity: 'error',
-          summary: this.toastSummary,
-          detail: this.toastDetailLoadDataError,
+          severity: ToastConfig.TYPE_ERROR,
+          summary: ToastConfig.SITE_SUMMARY,
+          detail: err.error.message,
         });
       },
       complete: () => {
@@ -225,7 +238,11 @@ export class SiteFormComponent implements OnInit {
           this.departments = data;
         },
         error: err => {
-          console.log(err);
+          this.messageService.add({
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.SITE_SUMMARY,
+            detail: err.error.message,
+          });
         },
       });
   }
@@ -259,7 +276,7 @@ export class SiteFormComponent implements OnInit {
     return isInvalid;
   }
 
-  private loadSite() {
+  private loadSite(): void {
     this.siteService
       .siteControllerGetSite({
         id: this.siteId,
@@ -306,7 +323,11 @@ export class SiteFormComponent implements OnInit {
           });
         },
         error: err => {
-          console.log(err);
+          this.messageService.add({
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.SITE_SUMMARY,
+            detail: err.error.message,
+          });
         },
       });
   }
@@ -319,16 +340,16 @@ export class SiteFormComponent implements OnInit {
       .subscribe({
         next: data => {
           this.messageService.add({
-            severity: 'success',
-            summary: this.toastSummary,
-            detail: this.toastDetailSuccess + '' + data.name,
+            severity: ToastConfig.TYPE_SUCCESS,
+            summary: ToastConfig.SITE_SUMMARY,
+            detail: ToastConfig.SITE_DETAIL_NEW + '' + data.name,
           });
-          return this.router.navigate([this.siteListUrl]);
+          return this.router.navigate([SiteRoutingModule.SITE_LIST]);
         },
         error: err => {
           this.messageService.add({
-            severity: 'error',
-            summary: this.toastSummary,
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.SITE_SUMMARY,
             detail: err.error.message,
           });
         },
@@ -344,19 +365,28 @@ export class SiteFormComponent implements OnInit {
       })
       .subscribe({
         next: data => {
-          console.log(data);
+          this.messageService.add({
+            severity: ToastConfig.TYPE_SUCCESS,
+            summary: ToastConfig.SITE_SUMMARY,
+            detail: ToastConfig.SITE_DETAIL_EDIT + '' + data.name,
+          });
+          return this.router.navigate([SiteRoutingModule.SITE_LIST]);
         },
         error: err => {
-          console.log(err);
+          this.messageService.add({
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.SITE_SUMMARY,
+            detail: err.error.message,
+          });
         },
       });
   }
 
-  onChangeRegion($event: any) {
+  public onChangeRegion($event: any): void {
     this.getDepartment($event.value.id);
   }
 
-  onChangeDepartment($event: any) {
+  public onChangeDepartment($event: any): void {
     this.initMarker($event.value.lat, $event.value.lng);
   }
 }

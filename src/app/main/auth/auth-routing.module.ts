@@ -20,4 +20,5 @@ const routes: Routes = [
 })
 export class AuthRoutingModule {
   static LOGIN: string = '/auth/login';
+  static REGISTER: string = '/auth/register';
 }

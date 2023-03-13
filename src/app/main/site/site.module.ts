@@ -18,9 +18,10 @@ import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
 
 import { TabViewModule } from 'primeng/tabview';
+import { SiteListMapComponent } from './site-list-map/site-list-map.component';
 
 @NgModule({
-  declarations: [SiteListComponent, SiteViewComponent, SiteFormComponent],
+  declarations: [SiteListComponent, SiteViewComponent, SiteFormComponent, SiteListMapComponent],
   imports: [
     CommonModule,
     SiteRoutingModule,

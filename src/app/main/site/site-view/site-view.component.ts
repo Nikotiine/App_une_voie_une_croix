@@ -28,6 +28,7 @@ export class SiteViewComponent implements OnInit {
   public iconEngagement: string;
   public iconApproachTime: string;
   public iconApproachType: string;
+  public iconInformation: string = AppIcon.INFORMATION;
   private toastSummary: string = 'Site';
   private toastDetailLoadDataError: string =
     'Erreur lors du chargement des donnees';

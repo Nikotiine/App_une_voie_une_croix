@@ -3,7 +3,7 @@ import { SecurityService } from '../../../core/app/services/security.service';
 
 import { MenuItem } from 'primeng/api';
 import { SiteRoutingModule } from '../../site/site-routing.module';
-import { AuthRoutingModule } from '../../../auth/auth-routing.module';
+import { AuthRoutingModule } from '../../auth/auth-routing.module';
 import { AppIcon } from '../../../core/app/config/app-icon.config';
 import { MainRoutingModule } from '../../main-routing.module';
 
@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   // attributs publics
   public loginAppIcon: string;
   public loginUrl: string;
-  public userProfileUrl: string = '/user/profile';
+
   public isLogged: boolean = false;
   items: MenuItem[] = [];
 
@@ -45,6 +45,7 @@ export class NavbarComponent implements OnInit {
           {
             label: 'Carte des sites',
             icon: AppIcon.MAP,
+            routerLink: [SiteRoutingModule.SITES_MAP],
           },
           {
             separator: true,

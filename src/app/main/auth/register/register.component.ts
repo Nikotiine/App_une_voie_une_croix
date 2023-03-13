@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserRegisterDto } from '../../core/api/models/user-register-dto';
+import { UserRegisterDto } from '../../../core/api/models/user-register-dto';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { UserService } from '../../core/api/services/user.service';
+import { UserService } from '../../../core/api/services/user.service';
+import { AuthRoutingModule } from '../auth-routing.module';
+import { ToastConfig } from '../../../core/app/config/toast.config';
 
 @Component({
   selector: 'app-register',
@@ -12,12 +14,9 @@ import { UserService } from '../../core/api/services/user.service';
 })
 export class RegisterComponent {
   public form: FormGroup;
-  public loginUrl: string = '/auth/login';
+  public loginUrl: string;
   //private attribute
-  private toastSummary: string = "Service d'inscription";
-  private toastDetail: string = 'Inscritption validée';
 
-  private timeout: number = 2000;
   constructor(
     private fb: FormBuilder,
     private readonly userService: UserService,
@@ -31,6 +30,7 @@ export class RegisterComponent {
       password: ['', Validators.required],
       birthday: ['', Validators.required],
     });
+    this.loginUrl = AuthRoutingModule.LOGIN;
   }
 
   public submit(): void {
@@ -48,18 +48,16 @@ export class RegisterComponent {
       .subscribe({
         next: data => {
           this.messageService.add({
-            severity: 'success',
-            summary: this.toastSummary,
-            detail: this.toastDetail,
+            severity: ToastConfig.TYPE_SUCCESS,
+            summary: ToastConfig.AUTH_SUMMARY,
+            detail: ToastConfig.AUTH_REGISTER_DETAIL,
           });
-          setTimeout(() => {
-            return this.router.navigate([this.loginUrl]);
-          }, this.timeout);
+          return this.router.navigate([this.loginUrl]);
         },
         error: err => {
           this.messageService.add({
-            severity: 'error',
-            summary: this.toastSummary,
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.AUTH_SUMMARY,
             detail: err.error.message,
           });
         },

@@ -8,8 +8,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
@@ -20,8 +18,6 @@ import { MessageService } from 'primeng/api';
     CalendarModule,
     ButtonModule,
     ReactiveFormsModule,
-    ToastModule,
   ],
-  providers: [MessageService],
 })
 export class AuthModule {}
