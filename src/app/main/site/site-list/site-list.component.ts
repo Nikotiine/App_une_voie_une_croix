@@ -3,8 +3,11 @@ import { SiteService } from '../../../core/api/services/site.service';
 import { SiteListDto } from '../../../core/api/models/site-list-dto';
 
 import { MessageService } from 'primeng/api';
-import { RegionDto } from '../../../core/api/models/region-dto';
+
 import { RegionService } from '../../../core/api/services/region.service';
+import { RegionListDto } from '../../../core/api/models/region-list-dto';
+import { SiteRoutingModule } from '../site-routing.module';
+import { ToastConfig } from '../../../core/app/config/toast.config';
 
 @Component({
   selector: 'app-site-list',
@@ -12,20 +15,20 @@ import { RegionService } from '../../../core/api/services/region.service';
   styleUrls: ['./site-list.component.scss'],
 })
 export class SiteListComponent implements OnInit {
-  public loading: boolean = false;
-  public siteViewUrl: string = '/site/view/';
+  public loading: boolean = true;
+  public siteViewUrl: string;
   public sites: SiteListDto[] = [];
   public filteredSites: SiteListDto[] = [];
-  public regions: RegionDto[] = [];
-  private toastSummary: string = 'Liste des sites';
-  private toastDetailLoadDataError: string =
-    'Erreur lors du chargement des donnees';
+  public regions: RegionListDto[] = [];
+  public genericRegionName: string = 'Toutes les regions';
 
   constructor(
     private readonly siteService: SiteService,
     private readonly messageService: MessageService,
     private readonly regionService: RegionService
-  ) {}
+  ) {
+    this.siteViewUrl = SiteRoutingModule.SITE_VIEW;
+  }
   ngOnInit(): void {
     this.loadData();
   }
@@ -33,32 +36,30 @@ export class SiteListComponent implements OnInit {
   private loadData(): void {
     this.siteService.siteControllerGetAllSites().subscribe({
       next: data => {
-        console.log(data);
         this.sites = data;
         this.filteredSites = this.sites;
       },
       error: err => {
         this.messageService.add({
-          severity: 'error',
-          summary: this.toastSummary,
-          detail: this.toastDetailLoadDataError,
+          severity: ToastConfig.TYPE_ERROR,
+          summary: ToastConfig.SITE_SUMMARY,
+          detail: err.error.message,
         });
+      },
+      complete: () => {
+        this.loading = !this.loading;
       },
     });
     this.regionService.regionControllerGetAllRegions().subscribe({
       next: data => {
         this.regions = data;
-        const genericRegion: RegionDto = {
-          id: 0,
-          name: 'All region',
-        };
-        this.regions.push(genericRegion);
+        this.addGenericRegion();
       },
       error: err => {
         this.messageService.add({
-          severity: 'error',
-          summary: this.toastSummary,
-          detail: this.toastDetailLoadDataError,
+          severity: ToastConfig.TYPE_ERROR,
+          summary: ToastConfig.SITE_SUMMARY,
+          detail: err.error.message,
         });
       },
     });
@@ -70,5 +71,13 @@ export class SiteListComponent implements OnInit {
     } else {
       this.filteredSites = this.sites;
     }
+  }
+
+  private addGenericRegion() {
+    const genericRegion: RegionListDto = {
+      id: 0,
+      name: this.genericRegionName,
+    };
+    this.regions.push(genericRegion);
   }
 }

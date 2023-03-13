@@ -1,12 +1,12 @@
 <div class="site-table">
-  <h1 class="title has-text-centered">Liste des sites</h1>
-  <div class="input-label is-align-items-center">
-    <label for="region" class="label">Trier par region</label>
+  <h1 class="title has-text-centered has-text-info">Liste des sites</h1>
+  <div class="input-label is-align-items-center mb-4">
+    <!--  <label for="region" class="label">Trier par region</label>-->
     <p-dropdown
       [options]="regions"
       optionLabel="name"
       optionValue="id"
-      placeholder="Choisir la region"
+      placeholder="Trier par region"
       (onChange)="filterWithRegion($event.value)"
       id="region"></p-dropdown>
   </div>
@@ -18,7 +18,6 @@
     [rowsPerPageOptions]="[25, 50, 100]"
     styleClass="p-datatable-striped"
     [tableStyle]="{ 'vertical-align': 'center' }"
-    class="mt-2"
     [loading]="loading">
     <ng-template pTemplate="header">
       <tr>
@@ -65,7 +64,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search keyword" />
+                  placeholder="Search" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -87,7 +86,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search keyword" />
+                  placeholder="Search" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -109,7 +108,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search keyword" />
+                  placeholder="Search" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -243,8 +242,8 @@
         <td>
           <span *ngFor="let expo of site.expositions">{{ expo.label }} - </span>
         </td>
-        <td>{{ site.averageRouteHeight }}</td>
-        <td>{{ site.approachTime }}</td>
+        <td>{{ site.averageRouteHeight }} metres</td>
+        <td>{{ site.approachTime }} minutes</td>
       </tr>
     </ng-template>
   </p-table>

@@ -32,4 +32,9 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SiteRoutingModule {}
+export class SiteRoutingModule {
+  static SITE_LIST: string = '/site/list';
+  static SITE_NEW: string = '/site/new';
+  static SITE_EDIT: string = '/site/edit/';
+  static SITE_VIEW: string = '/site/view/';
+}

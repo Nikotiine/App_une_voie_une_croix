@@ -1,3 +1,4 @@
+<!--
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a
@@ -90,3 +91,16 @@
     </div>
   </div>
 </nav>
+-->
+<p-menubar [model]="items">
+  <ng-template pTemplate="start"> </ng-template>
+  <ng-template pTemplate="end">
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="fas fa-power-off"
+      [routerLink]="[loginUrl]"
+      class="p-button p-button-rounded p-button-outlined"></button
+  ></ng-template>
+</p-menubar>

@@ -1,20 +1,20 @@
 /* tslint:disable */
 /* eslint-disable */
-import { ApproachTypeDto } from './approach-type-dto';
-import { EngagementDto } from './engagement-dto';
-import { EquipmentDto } from './equipment-dto';
-import { ExpositionsDto } from './expositions-dto';
-import { LevelsDto } from './levels-dto';
-import { RegionDto } from './region-dto';
-import { RockTypeDto } from './rock-type-dto';
-import { RouteProfileDto } from './route-profile-dto';
+import { ApproachTypeListDto } from './approach-type-list-dto';
+import { EngagementListDto } from './engagement-list-dto';
+import { EquipmentListDto } from './equipment-list-dto';
+import { ExpositionListDto } from './exposition-list-dto';
+import { LevelListDto } from './level-list-dto';
+import { RegionListDto } from './region-list-dto';
+import { RockTypeListDto } from './rock-type-list-dto';
+import { RouteProfileListDto } from './route-profile-list-dto';
 export interface SiteDataDto {
-  approachTypes: Array<ApproachTypeDto>;
-  engagements: Array<EngagementDto>;
-  equipments: Array<EquipmentDto>;
-  expositions: Array<ExpositionsDto>;
-  levels: Array<LevelsDto>;
-  regions: Array<RegionDto>;
-  rockTypes: Array<RockTypeDto>;
-  routeProfiles: Array<RouteProfileDto>;
+  approachTypes: Array<ApproachTypeListDto>;
+  engagements: Array<EngagementListDto>;
+  equipments: Array<EquipmentListDto>;
+  expositions: Array<ExpositionListDto>;
+  levels: Array<LevelListDto>;
+  regions: Array<RegionListDto>;
+  rockTypes: Array<RockTypeListDto>;
+  routeProfiles: Array<RouteProfileListDto>;
 }

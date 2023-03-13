@@ -7,8 +7,8 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { SiteService } from './services/site.service';
-import { RegionService } from './services/region.service';
 import { DepartmentService } from './services/department.service';
+import { RegionService } from './services/region.service';
 
 /**
  * Module that provides all services and configuration.
@@ -21,8 +21,8 @@ import { DepartmentService } from './services/department.service';
     UserService,
     AuthService,
     SiteService,
-    RegionService,
     DepartmentService,
+    RegionService,
     ApiConfiguration
   ],
 })

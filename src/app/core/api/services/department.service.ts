@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { DepartmentDto } from '../models/department-dto';
+import { DepartmentListDto } from '../models/department-list-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +45,7 @@ export class DepartmentService extends BaseService {
     region: number;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<Array<DepartmentDto>>> {
+): Observable<StrictHttpResponse<Array<DepartmentListDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DepartmentService.DepartmentControllerFindByRegionPath, 'get');
     if (params) {
@@ -59,7 +59,7 @@ export class DepartmentService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<DepartmentDto>>;
+        return r as StrictHttpResponse<Array<DepartmentListDto>>;
       })
     );
   }
@@ -82,10 +82,10 @@ export class DepartmentService extends BaseService {
     region: number;
     context?: HttpContext
   }
-): Observable<Array<DepartmentDto>> {
+): Observable<Array<DepartmentListDto>> {
 
     return this.departmentControllerFindByRegion$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<DepartmentDto>>) => r.body as Array<DepartmentDto>)
+      map((r: StrictHttpResponse<Array<DepartmentListDto>>) => r.body as Array<DepartmentListDto>)
     );
   }
 

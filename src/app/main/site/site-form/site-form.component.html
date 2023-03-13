@@ -18,16 +18,20 @@
 <form [formGroup]="form">
   <div class="form-register">
     <div class="input-label">
-        <label for="lastName" class="label">Nom du site</label>
-        <span class="p-input-icon-left">
-          <i class="pi pi-user"></i>
-          <input type="text" pInputText id="lastName" formControlName="name" />
-        </span>
-      </div>
+      <label for="lastName" class="label">Nom du site</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input type="text" pInputText id="lastName" formControlName="name" />
+      </span>
+    </div>
 
-      <div class="wrapper-input">
-        <div class="input-label">
-        <label for="exposition" class="label">Exposition </label>
+    <div class="wrapper-input">
+      <div class="input-label">
+        <label for="exposition" class="label">
+          <span class="has-text-info">
+            <i class="{{ iconExposition }} mr-1"></i>Exposition :
+          </span>
+        </label>
         <p-multiSelect
           [options]="expositions"
           optionLabel="label"
@@ -36,7 +40,11 @@
           id="exposition"></p-multiSelect>
       </div>
       <div class="input-label">
-        <label for="routeProfiles" class="label">Type de voies </label>
+        <label for="routeProfiles" class="label">
+          <span class="has-text-info">
+            <i class="{{ iconRoute }} mr-1"></i>Type de voies :
+          </span>
+        </label>
         <p-multiSelect
           [options]="routeProfiles"
           optionLabel="label"
@@ -45,7 +53,11 @@
           id="routeProfiles"></p-multiSelect>
       </div>
       <div class="input-label">
-        <label for="minLevel" class="label">Niveau mini </label>
+        <label for="minLevel" class="label">
+          <span class="has-text-info">
+            <i class="{{ iconMinLevel }} mr-1"></i> Niveau mini :
+          </span>
+        </label>
         <p-dropdown
           [options]="levels"
           optionLabel="label"
@@ -54,7 +66,11 @@
           id="minLevel"></p-dropdown>
       </div>
       <div class="input-label">
-        <label for="maxLevel" class="label">Niveau maxi </label>
+        <label for="maxLevel" class="label">
+          <span class="has-text-info">
+            <i class="{{ iconMaxLevel }} mr-1"></i> Niveau maxi :
+          </span>
+        </label>
         <p-dropdown
           [options]="levels"
           optionLabel="label"
@@ -62,47 +78,67 @@
           placeholder="Niveau maxi"
           id="maxLevel"></p-dropdown>
       </div>
-      </div>
+    </div>
 
+    <div class="input-label">
+      <label for="rockType" class="label">
+        <span class="has-text-info">
+          <i class="{{ iconRockType }} mr-1"></i> Type de rocher :
+        </span>
+      </label>
+      <p-dropdown
+        [options]="rockTypes"
+        optionLabel="label"
+        placeholder="Type de rocher"
+        formControlName="rockType"
+        id="rockType"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="equipments" class="label">
+        <span class="has-text-info">
+          <i class="{{ iconEquipment }} mr-1"></i> Equipement :
+        </span>
+      </label>
+      <p-dropdown
+        [options]="equipments"
+        optionLabel="label"
+        formControlName="equipment"
+        placeholder="Equipement"
+        id="equipments"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="engagements" class="label"
+        ><span class="has-text-info">
+          <i class="{{ iconEngagement }} mr-1"></i> Engagement :
+        </span>
+      </label>
+      <p-dropdown
+        [options]="engagements"
+        optionLabel="label"
+        formControlName="engagement"
+        placeholder="Engagement"
+        id="engagements"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="approachTypes" class="label"
+        ><span class="has-text-info">
+          <i class="{{ iconApproachType }} mr-1"></i>Type d'approche :
+        </span>
+      </label>
+      <p-dropdown
+        [options]="approachTypes"
+        optionLabel="label"
+        formControlName="approachType"
+        placeholder="Approche"
+        id="approachTypes"></p-dropdown>
+    </div>
+    <div class="wrapper-input">
       <div class="input-label">
-        <label for="rockType" class="label">Type de rocher </label>
-        <p-dropdown
-          [options]="rockTypes"
-          optionLabel="label"
-          placeholder="Type de rocher"
-          formControlName="rockType"
-          id="rockType"></p-dropdown>
-      </div>
-      <div class="input-label">
-        <label for="equipments" class="label">Equipement </label>
-        <p-dropdown
-          [options]="equipments"
-          optionLabel="label"
-          formControlName="equipment"
-          placeholder="Equipement"
-          id="equipments"></p-dropdown>
-      </div>
-      <div class="input-label">
-        <label for="engagements" class="label">Engagement </label>
-        <p-dropdown
-          [options]="engagements"
-          optionLabel="label"
-          formControlName="engagement"
-          placeholder="Engagement"
-          id="engagements"></p-dropdown>
-      </div>
-      <div class="input-label">
-        <label for="approachTypes" class="label">Type d'approche </label>
-        <p-dropdown
-          [options]="approachTypes"
-          optionLabel="label"
-          formControlName="approachType"
-          placeholder="Approche"
-          id="approachTypes"></p-dropdown>
-      </div>
-      <div class="wrapper-input">
-         <div class="input-label">
-        <label for="averageRouteNumber" class="label">Nombre de voies</label>
+        <label for="averageRouteNumber" class="label">
+          <span class="has-text-info">
+            <i class="{{ iconRouteNumber }} mr-1"></i>Nombre de voies :
+          </span>
+        </label>
 
         <p-inputNumber
           id="averageRouteNumber"
@@ -111,7 +147,11 @@
       </div>
 
       <div class="input-label">
-        <label for="approachTime" class="label">Temps d'approche </label>
+        <label for="approachTime" class="label"
+          ><span class="has-text-info">
+            <i class="{{ iconApproachTime }} mr-1"></i>Temps d'approche :
+          </span>
+        </label>
 
         <p-inputNumber
           id="approachTime"
@@ -119,100 +159,98 @@
           suffix=" minute"
           formControlName="approachTime"></p-inputNumber>
       </div>
-        </div>
+    </div>
 
+    <div class="input-label">
+      <label for="averageRouteHeight" class="label"
+        ><span class="has-text-info">
+          <i class="{{ iconRouteHeight }} mr-1"></i>Hauteur moyenne des voies :
+        </span></label
+      >
+      <p-inputNumber
+        id="averageRouteHeight"
+        [showButtons]="true"
+        suffix=" metre"
+        formControlName="averageRouteHeight"></p-inputNumber>
+    </div>
+    <div class="input-label">
+      <label for="region" class="label">Region</label>
+      <p-dropdown
+        [options]="regions"
+        optionLabel="name"
+        (onChange)="onChangeRegion($event)"
+        formControlName="region"
+        placeholder="Choisir la region"
+        id="region"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="department" class="label">Departement</label>
+      <p-dropdown
+        [options]="departments"
+        optionLabel="name"
+        formControlName="department"
+        (onChange)="onChangeDepartment($event)"
+        placeholder="Choisir le departement"
+        id="department"></p-dropdown>
+    </div>
+    <div class="input-label width-20">
+      <button
+        *ngIf="showMainParking"
+        pButton
+        type="button"
+        label="{{ dialogMapHeader }} du site"
+        icon="pi pi-search"
+        iconPos="right"
+        (click)="chooseLocalisation(1)"
+        class="p-button-text"></button>
+      <p *ngIf="coordinateP1.length > 0 && displayP1">
+        <span class="has-text-info">Latitude :</span>{{ coordinateP1[0] }}
+        <br />
+        <span class="has-text-info">Longitude :</span>{{ coordinateP1[1] }}
+      </p>
+    </div>
+    <div class="input-label">
+      <label for="water">Eau potable</label>
+      <p-inputSwitch
+        formControlName="water"
+        id="water"
+        class="mt-2"></p-inputSwitch>
+    </div>
+    <div class="input-label">
+      <label for="network">Reseau 4G</label>
+      <p-inputSwitch
+        formControlName="network"
+        id="network"
+        class="mt-2"></p-inputSwitch>
+    </div>
+    <div class="input-label">
+      <label for="wc">Toilettes</label>
+      <p-inputSwitch formControlName="wc" id="wc" class="mt-2"></p-inputSwitch>
+    </div>
+    <div class="input-label">
+      <label for="river">Eau a proximite</label>
+      <p-inputSwitch
+        formControlName="river"
+        id="river"
+        class="mt-2"></p-inputSwitch>
+    </div>
 
-      <div class="input-label">
-        <label for="averageRouteHeight" class="label"
-          >Hauteur moyenne des voies</label
-        >
-        <p-inputNumber
-          id="averageRouteHeight"
-          [showButtons]="true"
-          suffix=" metre"
-          formControlName="averageRouteHeight"></p-inputNumber>
-      </div>
-      <div class="input-label">
-        <label for="region" class="label">Region</label>
-        <p-dropdown
-          [options]="regions"
-          optionLabel="name"
-          (onChange)="onChangeRegion($event)"
-          formControlName="region"
-          placeholder="Choisir la region"
-          id="region"></p-dropdown>
-      </div>
-      <div class="input-label">
-        <label for="department" class="label">Departement</label>
-        <p-dropdown
-          [options]="departments"
-          optionLabel="name"
-          formControlName="department"
-          (onChange)="onChangeDepartment($event)"
-          placeholder="Choisir le departement"
-          id="department"></p-dropdown>
-      </div>
-      <div class="input-label width-20">
-        <button
-          *ngIf="showMainParking"
-          pButton
-          type="button"
-          label="{{ dialogMapHeader }} du site"
-          icon="pi pi-search"
-          iconPos="right"
-          (click)="chooseLocalisation(1)"
-          class="p-button-text"></button>
-        <p *ngIf="coordinateP1.length > 0 && displayP1">
-          <span class="has-text-info">Latitude :</span>{{ coordinateP1[0] }}
-          <br />
-          <span class="has-text-info">Longitude :</span>{{ coordinateP1[1] }}
-        </p>
-      </div>
-      <div class="input-label">
-        <label for="water">Eau potable</label>
-        <p-inputSwitch
-          formControlName="water"
-          id="water"
-          class="mt-2"></p-inputSwitch>
-      </div>
-      <div class="input-label">
-        <label for="network">Reseau 4G</label>
-        <p-inputSwitch
-          formControlName="network"
-          id="network"
-          class="mt-2"></p-inputSwitch>
-      </div>
-      <div class="input-label">
-        <label for="wc">Toilettes</label>
-        <p-inputSwitch
-          formControlName="wc"
-          id="wc"
-          class="mt-2"></p-inputSwitch>
-      </div>
-      <div class="input-label">
-        <label for="river">Eau a proximite</label>
-        <p-inputSwitch
-          formControlName="river"
-          id="river"
-          class="mt-2"></p-inputSwitch>
-      </div>
-
-      <div class="input-label width-20">
-        <button
-          pButton
-          *ngIf="showSecondaryParking"
-          type="button"
-          label="{{ dialogMapHeader }} pour la nuit"
-          icon="pi pi-search"
-          iconPos="right"
-          (click)="chooseLocalisation(2)"
-          class="p-button-text"></button>
-        <p *ngIf="coordinateP2.length > 0 && displayP2">
-          <span class="has-text-info">Latitude :</span>{{ coordinateP2[0] }}
-          <br />
-          <span class="has-text-info">Longitude :</span>{{ coordinateP2[1] }}
-        </p>
-      </div>
+    <div class="input-label width-20">
+      <button
+        pButton
+        *ngIf="showSecondaryParking"
+        type="button"
+        label="{{ dialogMapHeader }} pour la nuit"
+        icon="pi pi-search"
+        iconPos="right"
+        (click)="chooseLocalisation(2)"
+        class="p-button-text"></button>
+      <p *ngIf="coordinateP2.length > 0 && displayP2">
+        <span class="has-text-info">Latitude :</span>{{ coordinateP2[0] }}
+        <br />
+        <span class="has-text-info">Longitude :</span>{{ coordinateP2[1] }}
+      </p>
+    </div>
     <div class="is-flex is-flex-direction-column">
       <h3 class="subtitle has-text-info has-text-centered">Secteurs</h3>
       <ng-container formArrayName="sectorArray">

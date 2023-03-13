@@ -3,20 +3,25 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { SiteService } from '../../../core/api/services/site.service';
 import { MessageService } from 'primeng/api';
-import { LevelsDto } from '../../../core/api/models/levels-dto';
-import { ExpositionsDto } from '../../../core/api/models/expositions-dto';
-import { ApproachTypeDto } from '../../../core/api/models/approach-type-dto';
-import { EngagementDto } from '../../../core/api/models/engagement-dto';
-import { EquipmentDto } from '../../../core/api/models/equipment-dto';
-import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
-import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { MapOptions } from '../../../core/app/models/MapOptions';
-import { RegionDto } from '../../../core/api/models/region-dto';
+
 import { DepartmentService } from '../../../core/api/services/department.service';
-import { DepartmentDto } from '../../../core/api/models/department-dto';
+
 import { SiteCreateDto } from '../../../core/api/models/site-create-dto';
-import { SecteurDto } from '../../../core/api/models/secteur-dto';
+
+import { ExpositionListDto } from '../../../core/api/models/exposition-list-dto';
+import { ApproachTypeListDto } from '../../../core/api/models/approach-type-list-dto';
+import { EngagementListDto } from '../../../core/api/models/engagement-list-dto';
+import { EquipmentListDto } from '../../../core/api/models/equipment-list-dto';
+import { LevelListDto } from '../../../core/api/models/level-list-dto';
+import { RockTypeListDto } from '../../../core/api/models/rock-type-list-dto';
+import { RouteProfileListDto } from '../../../core/api/models/route-profile-list-dto';
+import { RegionListDto } from '../../../core/api/models/region-list-dto';
+import { DepartmentListDto } from '../../../core/api/models/department-list-dto';
+import { SecteurListDto } from '../../../core/api/models/secteur-list-dto';
+import { AppIcon } from '../../../core/app/config/app-icon.config';
 
 @Component({
   selector: 'app-site-form',
@@ -27,17 +32,17 @@ export class SiteFormComponent implements OnInit {
   public form: FormGroup;
   public dialogMapHeader: string = 'Parking';
   public displayMap: boolean = false;
-  public expositions: ExpositionsDto[] = [];
-  public approachTypes: ApproachTypeDto[] = [];
-  public engagements: EngagementDto[] = [];
-  public equipments: EquipmentDto[] = [];
-  public levels: LevelsDto[] = [];
-  public rockTypes: RockTypeDto[] = [];
-  public routeProfiles: RouteProfileDto[] = [];
+  public expositions: ExpositionListDto[] = [];
+  public approachTypes: ApproachTypeListDto[] = [];
+  public engagements: EngagementListDto[] = [];
+  public equipments: EquipmentListDto[] = [];
+  public levels: LevelListDto[] = [];
+  public rockTypes: RockTypeListDto[] = [];
+  public routeProfiles: RouteProfileListDto[] = [];
   public coordinateP1: number[] = [];
-  public regions: RegionDto[] = [];
+  public regions: RegionListDto[] = [];
   public mapOptions: MapOptions;
-  public departments: DepartmentDto[] = [];
+  public departments: DepartmentListDto[] = [];
   public coordinateP2: number[] = [];
   public selectedParking: number = 0;
   public displayP1: boolean = false;
@@ -50,7 +55,18 @@ export class SiteFormComponent implements OnInit {
   private siteListUrl: string = '/site/list';
   public showMainParking: boolean = false;
   public showSecondaryParking: boolean = false;
-  private siteId: number;
+  private readonly siteId: number;
+  public iconRoute: string;
+  public iconRouteNumber: string;
+  public iconRouteHeight: string;
+  public iconExposition: string;
+  public iconRockType: string;
+  public iconMinLevel: string;
+  public iconMaxLevel: string;
+  public iconEquipment: string;
+  public iconEngagement: string;
+  public iconApproachTime: string;
+  public iconApproachType: string;
 
   constructor(
     private fb: FormBuilder,
@@ -89,6 +105,17 @@ export class SiteFormComponent implements OnInit {
 
     this.siteId = parseInt(this.activatedRoute.snapshot.params['id']);
     this.title = this.siteId ? 'Editer le site' : 'Nouveau site';
+    this.iconRoute = AppIcon.ROUTE;
+    this.iconRouteNumber = AppIcon.ROUTE_NUMBER;
+    this.iconRouteHeight = AppIcon.ROUTE_HEIGHT;
+    this.iconExposition = AppIcon.EXPOSITION;
+    this.iconRockType = AppIcon.ROCK_TYPE;
+    this.iconMinLevel = AppIcon.MIN_LEVEL;
+    this.iconEquipment = AppIcon.EQUIPMENT;
+    this.iconMaxLevel = AppIcon.MAX_LEVEL;
+    this.iconEngagement = AppIcon.ENGAGMENT;
+    this.iconApproachTime = AppIcon.APPROACH_TIME;
+    this.iconApproachType = AppIcon.APPROACH_TYPE;
   }
   ngOnInit(): void {
     this.loadData();
@@ -210,7 +237,7 @@ export class SiteFormComponent implements OnInit {
       })
     );
   }
-  private addExistingSector(secteur: SecteurDto): void {
+  private addExistingSector(secteur: SecteurListDto): void {
     this.sectorArray.push(
       this.fb.group({
         id: [secteur.id],
