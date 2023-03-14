@@ -1,9 +1,13 @@
 export class AppIcon {
   static LOGIN: string = 'fas fa-power-off';
-  static HOME: string = 'fas fa-shuttle-van';
+  static VAN: string = 'fas fa-shuttle-van';
+  static LOCATION: string = 'fas fa-location-arrow';
   static REGION: string = 'fas fa-globe-europe';
   static DEPARTMENT: string = 'fas fa-map-marker-alt';
   static SITE: string = 'fas fa-mountain';
+  static SECTOR: string = 'fas fa-file';
+  static TOPO: string = 'fas fa-book';
+  static EDIT: string = 'fas fa-edit';
   static LIST: string = 'fas fa-list';
   static MAP: string = 'fas fa-map';
   static ADD: string = 'fas fa-plus';

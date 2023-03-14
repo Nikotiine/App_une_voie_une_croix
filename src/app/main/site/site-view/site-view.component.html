@@ -82,30 +82,59 @@
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span (click)="showMapMainParking()">Localisation</span>
+        <span (click)="showMapMainParking()">
+          <i class="{{ iconLocation }} mr-2"></i>Localisation</span
+        >
       </ng-template>
       <ng-template pTemplate="content">
-        <p class="subtitle">Region : {{ site.region.name }}</p>
-        <p class="subtitle">Departement : {{ site.department.name }}</p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconRegion }} mr-1"></i> Region :
+          </span>
+          {{ site.region.name }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconDepartment }} mr-1"></i> Departement :
+          </span>
+          {{ site.department.name }}
+        </p>
         <app-map [mapOption]="mapOption"></app-map>
       </ng-template>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span (click)="showMapSecondaryParking()">Parking camion</span>
+        <span (click)="showMapSecondaryParking()">
+          <i class="{{ iconVan }} mr-2"></i>Parking camion</span
+        >
       </ng-template>
       <ng-template pTemplate="content">
         <p class="subtitle">
-          {{ site.network ? 'Reseau 4g ok' : 'Pas de reseau' }}
+          <span
+            class="{{ site.network ? 'has-text-info' : 'has-text-danger' }}">
+            <i class="{{ iconNetwork }} mr-1"></i>
+            {{ site.network ? 'Reseau 4g ok' : 'Pas de reseau' }}
+          </span>
         </p>
         <p class="subtitle">
-          {{ site.wc ? 'Toilette a proximite' : 'Pas de toilette' }}
+          <span class="{{ site.wc ? 'has-text-info' : 'has-text-danger' }}">
+            <i class="{{ iconWc }} mr-1"></i>
+            {{ site.wc ? 'Toilette a proximite' : 'Pas de toilette' }}
+          </span>
         </p>
         <p class="subtitle">
-          {{ site.water ? 'Eau potable a proximite' : 'Pas d eau potable' }}
+          <span class="{{ site.water ? 'has-text-info' : 'has-text-danger' }}">
+            <i class="{{ iconWater }} mr-1"></i>
+            {{ site.water ? 'Eau potable a proximite' : 'Pas d eau potable' }}
+          </span>
         </p>
         <p class="subtitle">
-          {{ site.river ? 'Riviere ou lac a proximite' : 'Pas de point d eau' }}
+          <span class="{{ site.river ? 'has-text-info' : 'has-text-danger' }}">
+            <i class="{{ iconRiver }} mr-1"></i>
+            {{
+              site.river ? 'Riviere ou lac a proximite' : 'Pas de point d eau'
+            }}
+          </span>
         </p>
         <div class="is-flex is-justify-content-center">
           <app-map [mapOption]="mapOption"></app-map>
@@ -114,34 +143,39 @@
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span>Secteurs</span>
+        <span> <i class="{{ iconSector }} mr-2"></i>Secteurs</span>
       </ng-template>
-      <p class="subtitle">Nombre de secteurs : {{ site.secteurs.length }}</p>
+      <p class="subtitle">
+        <span class="has-text-info">
+          <i class="{{ iconSector }} mr-1"></i> Nombre de secteurs :
+        </span>
+        {{ site.secteurs.length }}
+      </p>
       <p class="subtitle" *ngFor="let secteur of site.secteurs; let i = index">
-        Secteur {{ i + 1 }} : {{ secteur.name }}
+        <span class="has-text-info"> Secteur {{ i + 1 }} : </span>
+        {{ secteur.name }}
       </p>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span>Voies</span>
+        <span> <i class="{{ iconRoute }} mr-2"></i>Voies</span>
       </ng-template>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span>Topo</span>
-      </ng-template>
-    </p-tabPanel>
-    <p-tabPanel>
+        <span> <i class="{{ iconTopo }} mr-2"></i>Topo</span>
+      </ng-template> </p-tabPanel
+    ><p-tabPanel>
       <ng-template pTemplate="header">
-        <a [routerLink]="[siteListUrl]" class="has-text-info"
-          >Retour a la liste</a
+        <a [routerLink]="[siteEditUrl + site.id]" class="has-text-danger">
+          <i class="{{ iconEdit }} mr-2"></i>Editer</a
         >
       </ng-template>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <a [routerLink]="[siteEditUrl + site.id]" class="has-text-danger"
-          >Editer</a
+        <a [routerLink]="[siteListUrl]" class="has-text-info">
+          <i class="{{ iconVan }} mr-2"></i>Retour a la liste</a
         >
       </ng-template>
     </p-tabPanel>

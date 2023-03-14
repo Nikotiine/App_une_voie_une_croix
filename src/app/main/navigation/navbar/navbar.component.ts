@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     this.items = [
       {
         label: 'Home',
-        icon: AppIcon.HOME,
+        icon: AppIcon.VAN,
         routerLink: [MainRoutingModule.HOME],
       },
       {
