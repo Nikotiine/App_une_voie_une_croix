@@ -4,8 +4,8 @@ import { SecurityService } from '../../../core/app/services/security.service';
 import { MenuItem } from 'primeng/api';
 import { SiteRoutingModule } from '../../site/site-routing.module';
 import { AuthRoutingModule } from '../../auth/auth-routing.module';
-import { AppIcon } from '../../../core/app/config/app-icon.config';
 import { MainRoutingModule } from '../../main-routing.module';
+import { Icons } from '../../../core/app/enum/Icons.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -13,38 +13,34 @@ import { MainRoutingModule } from '../../main-routing.module';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  // attributs publics
-  public loginAppIcon: string;
+  public loginAppIcon: string = Icons.LOGIN;
   public loginUrl: string;
-
   public isLogged: boolean = false;
-  items: MenuItem[] = [];
+  public items: MenuItem[] = [];
 
-  // attributs prives
   constructor(private readonly securityService: SecurityService) {
     this.loginUrl = AuthRoutingModule.LOGIN;
-    this.loginAppIcon = AppIcon.LOGIN;
   }
   ngOnInit(): void {
     this.userIsLogged();
     this.items = [
       {
         label: 'Home',
-        icon: AppIcon.VAN,
+        icon: Icons.VAN,
         routerLink: [MainRoutingModule.HOME],
       },
       {
         label: 'Site',
-        icon: AppIcon.SITE,
+        icon: Icons.SITE,
         items: [
           {
             label: 'Liste',
-            icon: AppIcon.LIST,
+            icon: Icons.LIST,
             routerLink: [SiteRoutingModule.SITE_LIST],
           },
           {
             label: 'Carte des sites',
-            icon: AppIcon.MAP,
+            icon: Icons.MAP,
             routerLink: [SiteRoutingModule.SITES_MAP],
           },
           {
@@ -52,18 +48,18 @@ export class NavbarComponent implements OnInit {
           },
           {
             label: 'Ajouter',
-            icon: AppIcon.ADD,
+            icon: Icons.ADD,
             routerLink: [SiteRoutingModule.SITE_NEW],
           },
         ],
       },
       {
         label: 'Voies',
-        icon: AppIcon.ROUTE,
+        icon: Icons.ROUTE,
         items: [
           {
             label: 'Toutes les voies',
-            icon: AppIcon.LIST,
+            icon: Icons.LIST,
           },
           {
             label: 'Rechercher',
@@ -74,13 +70,13 @@ export class NavbarComponent implements OnInit {
           },
           {
             label: 'Ajouter',
-            icon: 'pi pi-fw pi-align-center',
+            icon: Icons.ADD,
           },
         ],
       },
       {
         label: 'Topos',
-        icon: 'pi pi-fw pi-user',
+        icon: Icons.TOPO,
         items: [
           {
             label: 'Chercher',

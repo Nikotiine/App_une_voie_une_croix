@@ -5,7 +5,9 @@ import { SiteViewDto } from '../../../core/api/models/site-view-dto';
 import { MapOptions } from '../../../core/app/models/MapOptions';
 import { MessageService } from 'primeng/api';
 import { SiteRoutingModule } from '../site-routing.module';
-import { AppIcon } from '../../../core/app/config/app-icon.config';
+
+import { Icons } from '../../../core/app/enum/Icons.enum';
+import { ToastConfig } from '../../../core/app/config/toast.config';
 
 @Component({
   selector: 'app-site-view',
@@ -17,32 +19,29 @@ export class SiteViewComponent implements OnInit {
   public mapOption: MapOptions;
   public siteListUrl: string;
   public siteEditUrl: string;
-  public iconRoute: string;
-  public iconRouteNumber: string;
-  public iconRouteHeight: string;
-  public iconExposition: string;
-  public iconRockType: string;
-  public iconMinLevel: string;
-  public iconMaxLevel: string;
-  public iconEquipment: string;
-  public iconEngagement: string;
-  public iconApproachTime: string;
-  public iconApproachType: string;
-  public iconInformation: string = AppIcon.INFORMATION;
-  public iconLocation: string = AppIcon.LOCATION;
-  public iconVan: string = AppIcon.VAN;
-  public iconSector: string = AppIcon.SECTOR;
-  public iconTopo: string = AppIcon.TOPO;
-  public iconEdit: string = AppIcon.EDIT;
-  public iconDepartment: string = AppIcon.DEPARTMENT;
-  public iconRegion: string = AppIcon.REGION;
-  public iconWater: string = AppIcon.WATER;
-  public iconNetwork: string = AppIcon.NETWORK;
-  public iconRiver: string = AppIcon.RIVER;
-  public iconWc: string = AppIcon.WC;
-  private toastSummary: string = 'Site';
-  private toastDetailLoadDataError: string =
-    'Erreur lors du chargement des donnees';
+  public iconRoute: string = Icons.ROUTE;
+  public iconRouteNumber: string = Icons.ROUTE_NUMBER;
+  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
+  public iconExposition: string = Icons.EXPOSITION;
+  public iconRockType: string = Icons.ROCK_TYPE;
+  public iconMinLevel: string = Icons.MIN_LEVEL;
+  public iconMaxLevel: string = Icons.MAX_LEVEL;
+  public iconEquipment: string = Icons.EQUIPMENT;
+  public iconEngagement: string = Icons.ENGAGMENT;
+  public iconApproachTime: string = Icons.APPROACH_TIME;
+  public iconApproachType: string = Icons.APPROACH_TYPE;
+  public iconRegion: string = Icons.REGION;
+  public iconDepartment: string = Icons.DEPARTMENT;
+  public iconWater: string = Icons.WATER;
+  public iconNetwork: string = Icons.NETWORK;
+  public iconRiver: string = Icons.RIVER;
+  public iconWc: string = Icons.WC;
+  public iconVan: string = Icons.VAN;
+  public iconSector: string = Icons.SECTOR;
+  public iconLocation: string = Icons.LOCATION;
+  public iconTopo: string = Icons.TOPO;
+  public iconEdit: string = Icons.EDIT;
+  public iconInformation: string = Icons.INFORMATION;
 
   constructor(
     private readonly siteService: SiteService,
@@ -57,17 +56,6 @@ export class SiteViewComponent implements OnInit {
     };
     this.siteListUrl = SiteRoutingModule.SITE_LIST;
     this.siteEditUrl = SiteRoutingModule.SITE_EDIT;
-    this.iconRoute = AppIcon.ROUTE;
-    this.iconRouteNumber = AppIcon.ROUTE_NUMBER;
-    this.iconRouteHeight = AppIcon.ROUTE_HEIGHT;
-    this.iconExposition = AppIcon.EXPOSITION;
-    this.iconRockType = AppIcon.ROCK_TYPE;
-    this.iconMinLevel = AppIcon.MIN_LEVEL;
-    this.iconEquipment = AppIcon.EQUIPMENT;
-    this.iconMaxLevel = AppIcon.MAX_LEVEL;
-    this.iconEngagement = AppIcon.ENGAGMENT;
-    this.iconApproachTime = AppIcon.APPROACH_TIME;
-    this.iconApproachType = AppIcon.APPROACH_TYPE;
   }
   ngOnInit(): void {
     const id = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -85,9 +73,9 @@ export class SiteViewComponent implements OnInit {
         },
         error: err => {
           this.messageService.add({
-            severity: 'error',
-            summary: this.toastSummary,
-            detail: this.toastDetailLoadDataError,
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.SITE_SUMMARY,
+            detail: err.error.message,
           });
           return this.router.navigate([this.siteListUrl]);
         },

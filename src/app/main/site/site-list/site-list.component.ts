@@ -8,6 +8,7 @@ import { RegionService } from '../../../core/api/services/region.service';
 import { RegionListDto } from '../../../core/api/models/region-list-dto';
 import { SiteRoutingModule } from '../site-routing.module';
 import { ToastConfig } from '../../../core/app/config/toast.config';
+import { Icons } from '../../../core/app/enum/Icons.enum';
 
 @Component({
   selector: 'app-site-list',
@@ -21,6 +22,14 @@ export class SiteListComponent implements OnInit {
   public filteredSites: SiteListDto[] = [];
   public regions: RegionListDto[] = [];
   public genericRegionName: string = 'Toutes les regions';
+  public iconRouteNumber: string = Icons.ROUTE_NUMBER;
+  public iconMinLevel: string = Icons.MIN_LEVEL;
+  public iconMaxLevel: string = Icons.MAX_LEVEL;
+  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
+  public iconExposition: string = Icons.EXPOSITION;
+  public iconDepartment: string = Icons.DEPARTMENT;
+  public iconApproachTime: string = Icons.APPROACH_TIME;
+  public iconSite: string = Icons.SITE;
 
   constructor(
     private readonly siteService: SiteService,
@@ -65,6 +74,10 @@ export class SiteListComponent implements OnInit {
     });
   }
 
+  /**
+   * Filtre les sites par rapport a leur region
+   * @param id de la region
+   */
   public filterWithRegion(id: string): void {
     if (String(id) !== '0') {
       this.filteredSites = this.sites.filter(s => String(s.region.id) === id);
@@ -73,6 +86,10 @@ export class SiteListComponent implements OnInit {
     }
   }
 
+  /**
+   * Ajoute une region generique qui permet de selectioner tous les site de toutes les regions
+   * @private
+   */
   private addGenericRegion() {
     const genericRegion: RegionListDto = {
       id: 0,

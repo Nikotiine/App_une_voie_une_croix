@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ɵFormArrayRawValue,
+} from '@angular/forms';
 
 import { SiteService } from '../../../core/api/services/site.service';
 import { MessageService } from 'primeng/api';
@@ -21,9 +27,10 @@ import { RouteProfileListDto } from '../../../core/api/models/route-profile-list
 import { RegionListDto } from '../../../core/api/models/region-list-dto';
 import { DepartmentListDto } from '../../../core/api/models/department-list-dto';
 import { SecteurListDto } from '../../../core/api/models/secteur-list-dto';
-import { AppIcon } from '../../../core/app/config/app-icon.config';
+
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { SiteRoutingModule } from '../site-routing.module';
+import { Icons } from '../../../core/app/enum/Icons.enum';
 
 @Component({
   selector: 'app-site-form',
@@ -36,6 +43,7 @@ export class SiteFormComponent implements OnInit {
   public titleEdit: string = 'Edition du site';
   public titleCreate: string = "Ajout d'un site";
   public displayMap: boolean = false;
+  // ******** DropDown & MutliSelect ********
   public expositions: ExpositionListDto[] = [];
   public approachTypes: ApproachTypeListDto[] = [];
   public engagements: EngagementListDto[] = [];
@@ -43,10 +51,12 @@ export class SiteFormComponent implements OnInit {
   public levels: LevelListDto[] = [];
   public rockTypes: RockTypeListDto[] = [];
   public routeProfiles: RouteProfileListDto[] = [];
-  public coordinateP1: number[] = [];
   public regions: RegionListDto[] = [];
-  public mapOptions: MapOptions;
   public departments: DepartmentListDto[] = [];
+
+  // ******** DropDown & MutliSelect ********
+  public mapOptions: MapOptions;
+  public coordinateP1: number[] = [];
   public coordinateP2: number[] = [];
   public selectedParking: number = 0;
   public displayP1: boolean = false;
@@ -55,25 +65,26 @@ export class SiteFormComponent implements OnInit {
   public showMainParking: boolean = false;
   public showSecondaryParking: boolean = false;
   private readonly siteId: number;
-  public iconRoute: string;
-  public iconRouteNumber: string;
-  public iconRouteHeight: string;
-  public iconExposition: string;
-  public iconRockType: string;
-  public iconMinLevel: string;
-  public iconMaxLevel: string;
-  public iconEquipment: string;
-  public iconEngagement: string;
-  public iconApproachTime: string;
-  public iconApproachType: string;
-  public iconRegion: string;
-  public iconDepartment: string;
-  public iconWater: string;
-  public iconNetwork: string;
-  public iconRiver: string;
-  public iconWc: string;
-  public iconSite: string;
-
+  // **************ICONS*************************
+  public iconRoute: string = Icons.ROUTE;
+  public iconRouteNumber: string = Icons.ROUTE_NUMBER;
+  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
+  public iconExposition: string = Icons.EXPOSITION;
+  public iconRockType: string = Icons.ROCK_TYPE;
+  public iconMinLevel: string = Icons.MIN_LEVEL;
+  public iconMaxLevel: string = Icons.MAX_LEVEL;
+  public iconEquipment: string = Icons.EQUIPMENT;
+  public iconEngagement: string = Icons.ENGAGMENT;
+  public iconApproachTime: string = Icons.APPROACH_TIME;
+  public iconApproachType: string = Icons.APPROACH_TYPE;
+  public iconRegion: string = Icons.REGION;
+  public iconDepartment: string = Icons.DEPARTMENT;
+  public iconWater: string = Icons.WATER;
+  public iconNetwork: string = Icons.NETWORK;
+  public iconRiver: string = Icons.RIVER;
+  public iconWc: string = Icons.WC;
+  public iconSite: string = Icons.SITE;
+  // **************ICONS*************************
   constructor(
     private fb: FormBuilder,
     private readonly siteService: SiteService,
@@ -108,27 +119,8 @@ export class SiteFormComponent implements OnInit {
       lat: 45.199398,
       lng: 5.667857,
     };
-
     this.siteId = parseInt(this.activatedRoute.snapshot.params['id']);
     this.title = this.siteId ? this.titleEdit : this.titleCreate;
-    this.iconRoute = AppIcon.ROUTE;
-    this.iconRouteNumber = AppIcon.ROUTE_NUMBER;
-    this.iconRouteHeight = AppIcon.ROUTE_HEIGHT;
-    this.iconExposition = AppIcon.EXPOSITION;
-    this.iconRockType = AppIcon.ROCK_TYPE;
-    this.iconMinLevel = AppIcon.MIN_LEVEL;
-    this.iconEquipment = AppIcon.EQUIPMENT;
-    this.iconMaxLevel = AppIcon.MAX_LEVEL;
-    this.iconEngagement = AppIcon.ENGAGMENT;
-    this.iconApproachTime = AppIcon.APPROACH_TIME;
-    this.iconApproachType = AppIcon.APPROACH_TYPE;
-    this.iconRegion = AppIcon.REGION;
-    this.iconDepartment = AppIcon.DEPARTMENT;
-    this.iconWater = AppIcon.WATER;
-    this.iconNetwork = AppIcon.NETWORK;
-    this.iconRiver = AppIcon.RIVER;
-    this.iconWc = AppIcon.WC;
-    this.iconSite = AppIcon.SITE;
   }
   ngOnInit(): void {
     this.loadData();
@@ -136,14 +128,13 @@ export class SiteFormComponent implements OnInit {
       this.addNewSector();
     }
   }
-  get sectorArray(): FormArray {
-    return this.form.controls['sectorArray'] as FormArray;
-  }
+
   public chooseLocalisation(parking: number): void {
     this.selectedParking = parking;
     this.displayMap = !this.displayMap;
   }
 
+  // Charge les donnee necessaire pour les different dropdown / Mutliselect
   private loadData(): void {
     this.siteService.siteControllerGetData().subscribe({
       next: data => {
@@ -208,6 +199,10 @@ export class SiteFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Ajout les coordonnees GPS choisi dans la modale
+   * @param $event
+   */
   public addCoordinates($event: number[]): void {
     if (this.selectedParking === 1) {
       this.coordinateP1 = $event;
@@ -217,6 +212,10 @@ export class SiteFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Valide les coordonne du marker de carte
+   * @param parking
+   */
   public validate(parking: number): void {
     if (parking === 1) {
       this.displayP1 = true;
@@ -247,22 +246,6 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
-  public addNewSector(): void {
-    this.sectorArray.push(
-      this.fb.group({
-        name: ['', Validators.required],
-      })
-    );
-  }
-  private addExistingSector(secteur: SecteurListDto): void {
-    this.sectorArray.push(
-      this.fb.group({
-        id: [secteur.id],
-        name: [secteur.name],
-      })
-    );
-  }
-
   public initMarker(lat: number, lng: number): void {
     this.mapOptions.lat = lat;
     this.mapOptions.lng = lng;
@@ -283,7 +266,6 @@ export class SiteFormComponent implements OnInit {
       })
       .subscribe({
         next: data => {
-          console.log(data);
           this.form.controls['name'].setValue(data.name);
           this.form.controls['expositions'].setValue(data.expositions);
           this.form.controls['equipment'].setValue(data.equipment);
@@ -296,7 +278,6 @@ export class SiteFormComponent implements OnInit {
           this.form.controls['approachTime'].setValue(data.approachTime);
           this.form.controls['region'].setValue(data.region);
           this.form.controls['river'].setValue(data.river);
-
           this.form.controls['averageRouteHeight'].setValue(
             data.averageRouteHeight
           );
@@ -317,7 +298,6 @@ export class SiteFormComponent implements OnInit {
             data.secondaryParkingLng,
           ];
           this.displayP2 = !this.displayP2;
-
           data.secteurs.forEach(s => {
             this.addExistingSector(s);
           });
@@ -328,6 +308,7 @@ export class SiteFormComponent implements OnInit {
             summary: ToastConfig.SITE_SUMMARY,
             detail: err.error.message,
           });
+          return this.router.navigate([SiteRoutingModule.SITE_NEW]);
         },
       });
   }
@@ -342,7 +323,7 @@ export class SiteFormComponent implements OnInit {
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
             summary: ToastConfig.SITE_SUMMARY,
-            detail: ToastConfig.SITE_DETAIL_NEW + '' + data.name,
+            detail: ToastConfig.SITE_DETAIL_NEW + ' ' + data.name,
           });
           return this.router.navigate([SiteRoutingModule.SITE_LIST]);
         },
@@ -357,7 +338,6 @@ export class SiteFormComponent implements OnInit {
   }
 
   private editSite(site: SiteCreateDto) {
-    console.log(site);
     this.siteService
       .siteControllerEditSite({
         id: this.siteId,
@@ -368,7 +348,7 @@ export class SiteFormComponent implements OnInit {
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
             summary: ToastConfig.SITE_SUMMARY,
-            detail: ToastConfig.SITE_DETAIL_EDIT + '' + data.name,
+            detail: ToastConfig.SITE_DETAIL_EDIT + ' ' + data.name,
           });
           return this.router.navigate([SiteRoutingModule.SITE_LIST]);
         },
@@ -382,11 +362,46 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
+  // Charges les departements en fonction de la region choisie
   public onChangeRegion($event: any): void {
     this.getDepartment($event.value.id);
   }
 
+  // Initialise le marker de carte par rapport a la prefecture du departement choisi (lat/lng renseigner en bdd)
   public onChangeDepartment($event: any): void {
     this.initMarker($event.value.lat, $event.value.lng);
+  }
+  /**
+   * Creation du Array pour les differents secteur du site
+   */
+  get sectorArray(): FormArray {
+    return this.form.controls['sectorArray'] as FormArray;
+  }
+
+  // Ajout d'un nouveau secteur
+  public addNewSector(): void {
+    this.sectorArray.push(
+      this.fb.group({
+        name: ['', Validators.required],
+      })
+    );
+  }
+  // Suppression d'un secteur ( sauf le 1 obligatoire )
+  public removeSector(i: number): void {
+    this.sectorArray.removeAt(i);
+  }
+
+  /**
+   * Quand le site est en edition, rempli le formArray avec les secteurs deja existants
+   * @param secteur SecteurListDto
+   * @private
+   */
+  private addExistingSector(secteur: SecteurListDto): void {
+    this.sectorArray.push(
+      this.fb.group({
+        id: [secteur.id],
+        name: [secteur.name],
+      })
+    );
   }
 }
