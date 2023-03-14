@@ -1,0 +1,183 @@
+<div class="site-view" *ngIf="site">
+  <h1 class="title has-text-centered">{{ site.name }}</h1>
+  <p-tabView>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span class="">
+          <i class="{{ iconInformation }} mr-2"></i>Informations generales</span
+        >
+      </ng-template>
+      <div class="is-flex is-flex-direction-column">
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconRouteNumber }} mr-1"></i>Nombre de voies :
+          </span>
+          {{ site.averageRouteNumber }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconExposition }} mr-1"></i>Exposition :
+          </span>
+          <span *ngFor="let expo of site.expositions" class="mr-1">{{
+            expo.label
+          }}</span>
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconRockType }} mr-1"></i>Type de rocher : </span
+          >{{ site.rockType.label }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconMinLevel }} mr-1"></i>Niveau mini :
+          </span>
+          {{ site.minLevel.label }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconMaxLevel }} mr-1"></i>Niveau max :
+          </span>
+          {{ site.maxLevel.label }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconRouteHeight }} mr-1"></i> Hauteur des voies :
+          </span>
+          {{ site.averageRouteHeight }} metres
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconRoute }} mr-1"></i> Profil des voies :
+          </span>
+
+          <span *ngFor="let profile of site.routeProfiles" class="mr-1">{{
+            profile.label
+          }}</span>
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconEquipment }} mr-1"></i> Equipements :
+          </span>
+          {{ site.equipment.label }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconEngagement }} mr-1"></i> Engagement :
+          </span>
+          {{ site.engagement.label }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconApproachTime }} mr-1"></i> Temps d'approche :
+          </span>
+          {{ site.approachTime }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconApproachType }} mr-1"></i> Type d'approche :
+          </span>
+          {{ site.approachType.label }}
+        </p>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span (click)="showMapMainParking()">
+          <i class="{{ iconLocation }} mr-2"></i>Localisation</span
+        >
+      </ng-template>
+      <ng-template pTemplate="content">
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconRegion }} mr-1"></i> Region :
+          </span>
+          {{ site.region.name }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
+            <i class="{{ iconDepartment }} mr-1"></i> Departement :
+          </span>
+          {{ site.department.name }}
+        </p>
+        <app-map [mapOption]="mapOption"></app-map>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span (click)="showMapSecondaryParking()">
+          <i class="{{ iconVan }} mr-2"></i>Parking camion</span
+        >
+      </ng-template>
+      <ng-template pTemplate="content">
+        <p class="subtitle">
+          <span
+            class="{{ site.network ? 'has-text-info' : 'has-text-danger' }}">
+            <i class="{{ iconNetwork }} mr-1"></i>
+            {{ site.network ? 'Reseau 4g ok' : 'Pas de reseau' }}
+          </span>
+        </p>
+        <p class="subtitle">
+          <span class="{{ site.wc ? 'has-text-info' : 'has-text-danger' }}">
+            <i class="{{ iconWc }} mr-1"></i>
+            {{ site.wc ? 'Toilette a proximite' : 'Pas de toilette' }}
+          </span>
+        </p>
+        <p class="subtitle">
+          <span class="{{ site.water ? 'has-text-info' : 'has-text-danger' }}">
+            <i class="{{ iconWater }} mr-1"></i>
+            {{ site.water ? 'Eau potable a proximite' : 'Pas d eau potable' }}
+          </span>
+        </p>
+        <p class="subtitle">
+          <span class="{{ site.river ? 'has-text-info' : 'has-text-danger' }}">
+            <i class="{{ iconRiver }} mr-1"></i>
+            {{
+              site.river ? 'Riviere ou lac a proximite' : 'Pas de point d eau'
+            }}
+          </span>
+        </p>
+        <div class="is-flex is-justify-content-center">
+          <app-map [mapOption]="mapOption"></app-map>
+        </div>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span> <i class="{{ iconSector }} mr-2"></i>Secteurs</span>
+      </ng-template>
+      <p class="subtitle">
+        <span class="has-text-info">
+          <i class="{{ iconSector }} mr-1"></i> Nombre de secteurs :
+        </span>
+        {{ site.secteurs.length }}
+      </p>
+      <p class="subtitle" *ngFor="let secteur of site.secteurs; let i = index">
+        <span class="has-text-info"> Secteur {{ i + 1 }} : </span>
+        {{ secteur.name }}
+      </p>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span> <i class="{{ iconRoute }} mr-2"></i>Voies</span>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span> <i class="{{ iconTopo }} mr-2"></i>Topo</span>
+      </ng-template> </p-tabPanel
+    ><p-tabPanel>
+      <ng-template pTemplate="header">
+        <a [routerLink]="[siteEditUrl + site.id]" class="has-text-danger">
+          <i class="{{ iconEdit }} mr-2"></i>Editer</a
+        >
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <a [routerLink]="[siteListUrl]" class="has-text-info">
+          <i class="{{ iconVan }} mr-2"></i>Retour a la liste</a
+        >
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+</div>

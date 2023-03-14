@@ -22,6 +22,16 @@ const routes: Routes = [
         loadChildren: () =>
           import('./user/user.module').then(m => m.UserModule),
       },
+      {
+        path: 'site',
+        loadChildren: () =>
+          import('./site/site.module').then(m => m.SiteModule),
+      },
+      {
+        path: 'auth',
+        loadChildren: () =>
+          import('./auth/auth.module').then(m => m.AuthModule),
+      },
     ],
   },
 ];
@@ -30,4 +40,6 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MainRoutingModule {}
+export class MainRoutingModule {
+  static HOME: string = '/';
+}

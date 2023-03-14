@@ -9,11 +9,12 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { RegionListDto } from '../models/region-list-dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService extends BaseService {
+export class RegionService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -22,50 +23,58 @@ export class ApiService extends BaseService {
   }
 
   /**
-   * Path part for operation appControllerGetHello
+   * Path part for operation regionControllerGetAllRegions
    */
-  static readonly AppControllerGetHelloPath = '/';
+  static readonly RegionControllerGetAllRegionsPath = '/api/region';
 
   /**
+   * Get all regions resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `appControllerGetHello()` instead.
+   * To access only the response body, use `regionControllerGetAllRegions()` instead.
    *
    * This method doesn't expect any request body.
    */
-  appControllerGetHello$Response(params?: {
+  regionControllerGetAllRegions$Response(params?: {
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<Array<RegionListDto>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ApiService.AppControllerGetHelloPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, RegionService.RegionControllerGetAllRegionsPath, 'get');
     if (params) {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
+      responseType: 'json',
+      accept: 'application/json',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<Array<RegionListDto>>;
       })
     );
   }
 
   /**
+   * Get all regions resource.
+   *
+   * Mettre la description
+   *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `appControllerGetHello$Response()` instead.
+   * To access the full response (for headers, for example), `regionControllerGetAllRegions$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  appControllerGetHello(params?: {
+  regionControllerGetAllRegions(params?: {
     context?: HttpContext
   }
-): Observable<void> {
+): Observable<Array<RegionListDto>> {
 
-    return this.appControllerGetHello$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.regionControllerGetAllRegions$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<RegionListDto>>) => r.body as Array<RegionListDto>)
     );
   }
 

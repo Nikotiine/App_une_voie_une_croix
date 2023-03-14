@@ -4,9 +4,11 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { ApiService } from './services/api.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
+import { SiteService } from './services/site.service';
+import { DepartmentService } from './services/department.service';
+import { RegionService } from './services/region.service';
 
 /**
  * Module that provides all services and configuration.
@@ -16,9 +18,11 @@ import { AuthService } from './services/auth.service';
   exports: [],
   declarations: [],
   providers: [
-    ApiService,
     UserService,
     AuthService,
+    SiteService,
+    DepartmentService,
+    RegionService,
     ApiConfiguration
   ],
 })

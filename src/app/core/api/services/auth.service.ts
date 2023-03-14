@@ -30,7 +30,9 @@ export class AuthService extends BaseService {
   static readonly AuthControllerLoginPath = '/api/auth/login';
 
   /**
-   * login path
+   * login path.
+   *
+   * Point d'entree de la connexion
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `authControllerLogin()` instead.
@@ -39,6 +41,10 @@ export class AuthService extends BaseService {
    */
   authControllerLogin$Response(params: {
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO UserCredentialDto
+     */
     body: UserCredentialsDto
   }
 ): Observable<StrictHttpResponse<TokenDto>> {
@@ -61,7 +67,9 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * login path
+   * login path.
+   *
+   * Point d'entree de la connexion
    *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `authControllerLogin$Response()` instead.
@@ -70,6 +78,10 @@ export class AuthService extends BaseService {
    */
   authControllerLogin(params: {
     context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO UserCredentialDto
+     */
     body: UserCredentialsDto
   }
 ): Observable<TokenDto> {
@@ -85,6 +97,10 @@ export class AuthService extends BaseService {
   static readonly AuthControllerMePath = '/api/auth/me';
 
   /**
+   * Jwt authentifacation.
+   *
+   * Point d'entree pour l'autentification du token
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `authControllerMe()` instead.
    *
@@ -112,6 +128,10 @@ export class AuthService extends BaseService {
   }
 
   /**
+   * Jwt authentifacation.
+   *
+   * Point d'entree pour l'autentification du token
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `authControllerMe$Response()` instead.
    *
