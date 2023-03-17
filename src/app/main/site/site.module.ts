@@ -21,7 +21,12 @@ import { TabViewModule } from 'primeng/tabview';
 import { SiteListMapComponent } from './site-list-map/site-list-map.component';
 
 @NgModule({
-  declarations: [SiteListComponent, SiteViewComponent, SiteFormComponent, SiteListMapComponent],
+  declarations: [
+    SiteListComponent,
+    SiteViewComponent,
+    SiteFormComponent,
+    SiteListMapComponent,
+  ],
   imports: [
     CommonModule,
     SiteRoutingModule,

@@ -6,6 +6,7 @@ import { SiteRoutingModule } from '../../site/site-routing.module';
 import { AuthRoutingModule } from '../../auth/auth-routing.module';
 import { MainRoutingModule } from '../../main-routing.module';
 import { Icons } from '../../../core/app/enum/Icons.enum';
+import { RouteRoutingModule } from '../../route/route-routing.module';
 
 @Component({
   selector: 'app-navbar',
@@ -60,6 +61,7 @@ export class NavbarComponent implements OnInit {
           {
             label: 'Toutes les voies',
             icon: Icons.LIST,
+            routerLink: [RouteRoutingModule.ROUTE_LIST],
           },
           {
             label: 'Rechercher',
@@ -71,6 +73,7 @@ export class NavbarComponent implements OnInit {
           {
             label: 'Ajouter',
             icon: Icons.ADD,
+            routerLink: [RouteRoutingModule.ROUTE_NEW],
           },
         ],
       },

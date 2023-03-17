@@ -69,6 +69,7 @@ export class SiteViewComponent implements OnInit {
       })
       .subscribe({
         next: data => {
+          console.log(data);
           this.site = data;
         },
         error: err => {

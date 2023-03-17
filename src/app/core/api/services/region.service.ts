@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { RegionListDto } from '../models/region-list-dto';
+import { RegionDto } from '../models/region-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +40,7 @@ export class RegionService extends BaseService {
   regionControllerGetAllRegions$Response(params?: {
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<Array<RegionListDto>>> {
+): Observable<StrictHttpResponse<Array<RegionDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, RegionService.RegionControllerGetAllRegionsPath, 'get');
     if (params) {
@@ -53,7 +53,7 @@ export class RegionService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<RegionListDto>>;
+        return r as StrictHttpResponse<Array<RegionDto>>;
       })
     );
   }
@@ -71,10 +71,10 @@ export class RegionService extends BaseService {
   regionControllerGetAllRegions(params?: {
     context?: HttpContext
   }
-): Observable<Array<RegionListDto>> {
+): Observable<Array<RegionDto>> {
 
     return this.regionControllerGetAllRegions$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<RegionListDto>>) => r.body as Array<RegionListDto>)
+      map((r: StrictHttpResponse<Array<RegionDto>>) => r.body as Array<RegionDto>)
     );
   }
 

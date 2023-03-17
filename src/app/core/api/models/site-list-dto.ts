@@ -1,18 +1,18 @@
 /* tslint:disable */
 /* eslint-disable */
-import { DepartmentListDto } from './department-list-dto';
-import { ExpositionListDto } from './exposition-list-dto';
-import { Level } from './level';
-import { RegionListDto } from './region-list-dto';
+import { DepartmentDataDto } from './department-data-dto';
+import { ExpositionDto } from './exposition-dto';
+import { LevelDto } from './level-dto';
+import { RegionDto } from './region-dto';
 export interface SiteListDto {
   approachTime: number;
   averageRouteHeight: number;
   averageRouteNumber: number;
-  department: DepartmentListDto;
-  expositions: Array<ExpositionListDto>;
+  department: DepartmentDataDto;
+  expositions: Array<ExpositionDto>;
   id: number;
-  maxLevel: Level;
-  minLevel: Level;
+  maxLevel: LevelDto;
+  minLevel: LevelDto;
   name: string;
-  region: RegionListDto;
+  region: RegionDto;
 }

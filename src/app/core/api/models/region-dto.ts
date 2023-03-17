@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface ExpositionListDto {
+export interface RegionDto {
   id: number;
-  label: string;
+  name: string;
 }
