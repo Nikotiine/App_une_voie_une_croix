@@ -46,7 +46,6 @@ export class SiteListComponent implements OnInit {
   private loadData(): void {
     this.siteService.siteControllerGetAllSites().subscribe({
       next: data => {
-        console.log(data);
         this.sites = data;
         this.filteredSites = this.sites;
       },

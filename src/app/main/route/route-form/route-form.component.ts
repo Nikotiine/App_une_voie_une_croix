@@ -103,6 +103,7 @@ export class RouteFormComponent implements OnInit {
       engagement: this.engagement,
       level: this.level,
       secteur: this.secteur,
+      exposition: this.exposition,
     };
     console.log(route);
     this.routeService
@@ -145,5 +146,10 @@ export class RouteFormComponent implements OnInit {
   }
   get level(): LevelDto {
     return this.levels.find(l => l.id === this.form.controls['level'].value);
+  }
+  get exposition(): ExpositionDto {
+    return this.expositions.find(
+      e => e.id === this.form.controls['exposition'].value
+    );
   }
 }

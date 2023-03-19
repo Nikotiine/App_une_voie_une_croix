@@ -225,7 +225,7 @@ export class SiteFormComponent implements OnInit {
 
   public getDepartment(regionId: number): void {
     this.departmentService
-      .departmentControllerFindByRegion({
+      .departmentControllerGetByRegion({
         region: regionId,
       })
       .subscribe({

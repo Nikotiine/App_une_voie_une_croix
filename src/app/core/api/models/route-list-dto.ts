@@ -3,8 +3,9 @@
 import { EngagementDto } from './engagement-dto';
 import { EquipmentDto } from './equipment-dto';
 import { LevelDto } from './level-dto';
-import { SecteurDto } from './secteur-dto';
+import { SecteurSiteDto } from './secteur-site-dto';
 export interface RouteListDto {
+  createdAt: string;
   engagement: EngagementDto;
   equipment: EquipmentDto;
   height: number;
@@ -12,5 +13,5 @@ export interface RouteListDto {
   level: LevelDto;
   name: string;
   quickdraw: number;
-  secteur: SecteurDto;
+  secteur: SecteurSiteDto;
 }

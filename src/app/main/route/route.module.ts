@@ -10,7 +10,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [RouteFormComponent, RouteViewComponent, RouteListComponent],
@@ -23,6 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     InputNumberModule,
     ButtonModule,
     ReactiveFormsModule,
+    TableModule,
+    FormsModule,
   ],
 })
 export class RouteModule {}
