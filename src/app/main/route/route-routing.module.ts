@@ -35,6 +35,6 @@ const routes: Routes = [
 export class RouteRoutingModule {
   static ROUTE_LIST: string = '/route/list';
   static ROUTE_NEW: string = '/route/new';
-  static ROUTE_EDIT: string = '/route/edit/:id';
-  static ROUTE_VIEW: string = '/route/view/:id';
+  static ROUTE_EDIT: string = '/route/edit/';
+  static ROUTE_VIEW: string = '/route/view/';
 }

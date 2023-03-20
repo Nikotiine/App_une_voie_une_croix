@@ -1,16 +1,18 @@
 <h1 class="has-text-centered title mt-5">{{ title }}</h1>
-<div class="wrapper-dropdown">
-  <p-dropdown
-    [options]="sites"
-    optionLabel="name"
-    placeholder="Choisir un site"
-    [filter]="true"
-    filterBy="name"
-    (onChange)="onChangeSite($event)"
-    optionValue="id"></p-dropdown>
-</div>
-<form [formGroup]="form" *ngIf="showForm">
-  <div class="form-register is-flex-direction-column">
+
+<form [formGroup]="form">
+  <div class="wrapper-dropdown">
+    <p-dropdown
+      [options]="sites"
+      optionLabel="name"
+      placeholder="Choisir un site"
+      [filter]="true"
+      filterBy="name"
+      formControlName="site"
+      (onChange)="onChangeSite($event.value)"
+      optionValue="id"></p-dropdown>
+  </div>
+  <div class="form-register is-flex-direction-column" *ngIf="showForm">
     <div class="input-label">
       <label for="exposition" class="label">
         <span class="has-text-info">
@@ -130,7 +132,7 @@
     <div class="input-label">
       <label for="quickdraw" class="label"
         ><span class="has-text-info">
-          <i class="{{ iconRouteHeight }} mr-1"></i>Degaine :
+          <i class="{{ iconQuickdraw }} mr-1"></i>Degaine :
         </span></label
       >
       <p-inputNumber
@@ -151,6 +153,7 @@
         type="button"
         label="Valider"
         (click)="submit()"
+        [disabled]="form.invalid"
         class="p-button p-button-outlined"></button>
     </div>
   </div>

@@ -230,6 +230,7 @@ export class SiteFormComponent implements OnInit {
       })
       .subscribe({
         next: data => {
+          console.log(data);
           this.departments = data;
         },
         error: err => {
@@ -364,8 +365,8 @@ export class SiteFormComponent implements OnInit {
   }
 
   // Initialise le marker de carte par rapport a la prefecture du departement choisi (lat/lng renseigner en bdd)
-  public onChangeDepartment($event: any): void {
-    this.initMarker($event.value.lat, $event.value.lng);
+  public onChangeDepartment(): void {
+    this.initMarker(this.department.lat, this.department.lng);
   }
   /**
    * Creation du Array pour les differents secteur du site

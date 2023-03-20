@@ -20,6 +20,7 @@ export { RouteCreateDto } from './models/route-create-dto';
 export { SiteDto } from './models/site-dto';
 export { SecteurSiteDto } from './models/secteur-site-dto';
 export { RouteListDto } from './models/route-list-dto';
+export { RouteViewDto } from './models/route-view-dto';
 export { DepartmentDto } from './models/department-dto';
 export { DataSiteDto } from './models/data-site-dto';
 export { DataRouteDto } from './models/data-route-dto';

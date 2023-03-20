@@ -12,6 +12,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
   declarations: [RouteFormComponent, RouteViewComponent, RouteListComponent],
@@ -26,6 +27,7 @@ import { TableModule } from 'primeng/table';
     ReactiveFormsModule,
     TableModule,
     FormsModule,
+    TabViewModule,
   ],
 })
 export class RouteModule {}

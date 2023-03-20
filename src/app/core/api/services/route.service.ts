@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { RouteCreateDto } from '../models/route-create-dto';
 import { RouteListDto } from '../models/route-list-dto';
+import { RouteViewDto } from '../models/route-view-dto';
 import { SiteDto } from '../models/site-dto';
 
 @Injectable({
@@ -170,7 +171,7 @@ export class RouteService extends BaseService {
     id: number;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<RouteListDto>> {
+): Observable<StrictHttpResponse<RouteViewDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, RouteService.RouteControllerGetRoutePath, 'get');
     if (params) {
@@ -184,7 +185,7 @@ export class RouteService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<RouteListDto>;
+        return r as StrictHttpResponse<RouteViewDto>;
       })
     );
   }
@@ -207,10 +208,88 @@ export class RouteService extends BaseService {
     id: number;
     context?: HttpContext
   }
-): Observable<RouteListDto> {
+): Observable<RouteViewDto> {
 
     return this.routeControllerGetRoute$Response(params).pipe(
-      map((r: StrictHttpResponse<RouteListDto>) => r.body as RouteListDto)
+      map((r: StrictHttpResponse<RouteViewDto>) => r.body as RouteViewDto)
+    );
+  }
+
+  /**
+   * Path part for operation routeControllerEditRoute
+   */
+  static readonly RouteControllerEditRoutePath = '/api/route/{id}';
+
+  /**
+   * Create route resource.
+   *
+   * Add new route for a site
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `routeControllerEditRoute()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  routeControllerEditRoute$Response(params: {
+
+    /**
+     * id of the route
+     */
+    id: number;
+    context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO RouteCreateDto
+     */
+    body: RouteCreateDto
+  }
+): Observable<StrictHttpResponse<RouteViewDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RouteService.RouteControllerEditRoutePath, 'put');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<RouteViewDto>;
+      })
+    );
+  }
+
+  /**
+   * Create route resource.
+   *
+   * Add new route for a site
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `routeControllerEditRoute$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  routeControllerEditRoute(params: {
+
+    /**
+     * id of the route
+     */
+    id: number;
+    context?: HttpContext
+
+    /**
+     * The Description for the Post Body. Please look into the DTO RouteCreateDto
+     */
+    body: RouteCreateDto
+  }
+): Observable<RouteViewDto> {
+
+    return this.routeControllerEditRoute$Response(params).pipe(
+      map((r: StrictHttpResponse<RouteViewDto>) => r.body as RouteViewDto)
     );
   }
 
