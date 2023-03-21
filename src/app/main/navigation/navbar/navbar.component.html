@@ -4,9 +4,18 @@
     <button
       pButton
       pRipple
+      *ngIf="!isLogged"
       type="button"
       icon="{{ loginAppIcon }}"
       [routerLink]="[loginUrl]"
-      class="p-button p-button-rounded p-button-outlined"></button
+      class="p-button p-button-rounded p-button-outlined"></button>
+    <button
+      pButton
+      pRipple
+      *ngIf="isLogged"
+      type="button"
+      icon="{{ loginAppIcon }}"
+      (click)="logout()"
+      class="p-button-danger p-button-rounded p-button-outlined"></button
   ></ng-template>
 </p-menubar>

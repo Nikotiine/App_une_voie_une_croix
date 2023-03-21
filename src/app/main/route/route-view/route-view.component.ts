@@ -5,6 +5,9 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../route-routing.module';
 import { RouteViewDto } from '../../../core/api/models/route-view-dto';
 import { ActivatedRoute } from '@angular/router';
+import { SecurityService } from '../../../core/app/services/security.service';
+import { ToastConfig } from '../../../core/app/config/toast.config';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-route-view',
@@ -27,12 +30,16 @@ export class RouteViewComponent implements OnInit {
   public iconEngagement: string = Icons.ENGAGMENT;
   public routeListUrl: string = RouteRoutingModule.ROUTE_LIST;
   public routeEditUrl: string = RouteRoutingModule.ROUTE_EDIT;
-
+  public isLogged: boolean;
   public iconVan: string = Icons.VAN;
   constructor(
     private readonly routeService: RouteService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private readonly securityService: SecurityService,
+    private readonly messageService: MessageService
+  ) {
+    this.isLogged = this.securityService.isLogged();
+  }
   ngOnInit(): void {
     const id = parseInt(this.activatedRoute.snapshot.params['id']);
     this.loadSite(id);
@@ -45,8 +52,14 @@ export class RouteViewComponent implements OnInit {
       })
       .subscribe({
         next: data => {
-          console.log(data);
           this.route = data;
+        },
+        error: err => {
+          this.messageService.add({
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.ROUTE_SUMMARY,
+            detail: err.error.message,
+          });
         },
       });
   }

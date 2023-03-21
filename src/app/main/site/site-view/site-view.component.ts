@@ -8,6 +8,9 @@ import { SiteRoutingModule } from '../site-routing.module';
 
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { ToastConfig } from '../../../core/app/config/toast.config';
+import { SecurityService } from '../../../core/app/services/security.service';
+import { SiteRouteDto } from '../../../core/api/models/site-route-dto';
+import { RouteRoutingModule } from '../../route/route-routing.module';
 
 @Component({
   selector: 'app-site-view',
@@ -16,9 +19,12 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 })
 export class SiteViewComponent implements OnInit {
   public site!: SiteViewDto;
+  public routes: SiteRouteDto[] = [];
   public mapOption: MapOptions;
-  public siteListUrl: string;
-  public siteEditUrl: string;
+  public loading: boolean = true;
+  public siteListUrl: string = SiteRoutingModule.SITE_LIST;
+  public siteEditUrl: string = SiteRoutingModule.SITE_EDIT;
+  public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
   public iconRoute: string = Icons.ROUTE;
   public iconRouteNumber: string = Icons.ROUTE_NUMBER;
   public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
@@ -42,20 +48,22 @@ export class SiteViewComponent implements OnInit {
   public iconTopo: string = Icons.TOPO;
   public iconEdit: string = Icons.EDIT;
   public iconInformation: string = Icons.INFORMATION;
+  public isLogged: boolean;
 
   constructor(
     private readonly siteService: SiteService,
     private activatedRoute: ActivatedRoute,
     private readonly messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private readonly securityService: SecurityService
   ) {
     this.mapOption = {
       draggable: false,
       lat: 45.151515,
       lng: 5.454545,
     };
-    this.siteListUrl = SiteRoutingModule.SITE_LIST;
-    this.siteEditUrl = SiteRoutingModule.SITE_EDIT;
+
+    this.isLogged = this.securityService.isLogged();
   }
   ngOnInit(): void {
     const id = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -90,5 +98,23 @@ export class SiteViewComponent implements OnInit {
   public showMapSecondaryParking(): void {
     this.mapOption.lng = this.site.secondaryParkingLng;
     this.mapOption.lat = this.site.secondaryParkingLat;
+  }
+
+  public loadRoutes(): void {
+    this.siteService
+      .siteControllerGetRoutesOfSite({
+        id: this.site.id,
+      })
+      .subscribe({
+        next: data => {
+          this.routes = data;
+        },
+        error: err => {
+          console.log(err);
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      });
   }
 }

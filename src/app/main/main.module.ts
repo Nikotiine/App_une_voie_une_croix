@@ -12,5 +12,6 @@ import { MessageService } from 'primeng/api';
   declarations: [LayoutComponent, HomepageComponent],
   imports: [CommonModule, MainRoutingModule, NavigationModule, ToastModule],
   providers: [MessageService],
+  exports: [HomepageComponent],
 })
 export class MainModule {}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SecurityService } from '../../../core/app/services/security.service';
 
 import { MenuItem } from 'primeng/api';
@@ -7,6 +7,7 @@ import { AuthRoutingModule } from '../../auth/auth-routing.module';
 import { MainRoutingModule } from '../../main-routing.module';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../../route/route-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -16,14 +17,30 @@ import { RouteRoutingModule } from '../../route/route-routing.module';
 export class NavbarComponent implements OnInit {
   public loginAppIcon: string = Icons.LOGIN;
   public loginUrl: string;
-  public isLogged: boolean = false;
+  public isLogged: boolean;
   public items: MenuItem[] = [];
 
   constructor(private readonly securityService: SecurityService) {
     this.loginUrl = AuthRoutingModule.LOGIN;
+    this.isLogged = this.securityService.isLogged();
   }
+
   ngOnInit(): void {
-    this.userIsLogged();
+    if (this.isLogged) {
+      this.loadConnectedNavbar();
+    } else {
+      this.loadVisitorNavbar();
+    }
+  }
+
+  public logout(): void {
+    this.securityService.logout().then(logged => {
+      this.isLogged = !logged;
+      this.loadVisitorNavbar();
+    });
+  }
+
+  private loadConnectedNavbar() {
     this.items = [
       {
         label: 'Home',
@@ -94,12 +111,44 @@ export class NavbarComponent implements OnInit {
     ];
   }
 
-  public logout(): void {
-    this.securityService.logout();
-    this.isLogged = false;
-    this.userIsLogged();
-  }
-  public userIsLogged(): void {
-    this.isLogged = this.securityService.isLogged();
+  private loadVisitorNavbar() {
+    this.items = [
+      {
+        label: 'Home',
+        icon: Icons.VAN,
+        routerLink: [MainRoutingModule.HOME],
+      },
+      {
+        label: 'Site',
+        icon: Icons.SITE,
+        items: [
+          {
+            label: 'Liste',
+            icon: Icons.LIST,
+            routerLink: [SiteRoutingModule.SITE_LIST],
+          },
+          {
+            label: 'Carte des sites',
+            icon: Icons.MAP,
+            routerLink: [SiteRoutingModule.SITES_MAP],
+          },
+        ],
+      },
+      {
+        label: 'Voies',
+        icon: Icons.ROUTE,
+        items: [
+          {
+            label: 'Toutes les voies',
+            icon: Icons.LIST,
+            routerLink: [RouteRoutingModule.ROUTE_LIST],
+          },
+          {
+            label: 'Rechercher',
+            icon: 'pi pi-fw pi-align-right',
+          },
+        ],
+      },
+    ];
   }
 }

@@ -16,6 +16,7 @@ export { SiteCreateDto } from './models/site-create-dto';
 export { SiteListDto } from './models/site-list-dto';
 export { SecteurDto } from './models/secteur-dto';
 export { SiteViewDto } from './models/site-view-dto';
+export { SiteRouteDto } from './models/site-route-dto';
 export { RouteCreateDto } from './models/route-create-dto';
 export { SiteDto } from './models/site-dto';
 export { SecteurSiteDto } from './models/secteur-site-dto';

@@ -19,15 +19,15 @@ export class ApiInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const access_token: string | undefined = this.securityService.getToken();
     request.headers.set('Access-Control-Allow-Origin', '*');
-    return next.handle(request);
+    //return next.handle(request);
 
-    /* if (access_token) {
+    if (access_token) {
       let requestClone = request.clone({
         headers: request.headers.set('Authorization', 'bearer ' + access_token),
       });
       return next.handle(requestClone);
     }
-    return next.handle(request);*/
+    return next.handle(request);
   }
 }
 export const ApiInterceptorProvider = {

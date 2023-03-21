@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RouteListComponent } from './route-list/route-list.component';
 import { RouteFormComponent } from './route-form/route-form.component';
 import { RouteViewComponent } from './route-view/route-view.component';
+import { AuthGuard } from '../../core/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -17,10 +18,12 @@ const routes: Routes = [
   {
     path: 'new',
     component: RouteFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'edit/:id',
     component: RouteFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'view/:id',

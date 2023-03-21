@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserCredentialsDto } from '../../../core/api/models/user-credentials-dto';
 import { AuthService } from '../../../core/api/services/auth.service';

@@ -7,6 +7,8 @@ import { SiteRoutingModule } from '../../site/site-routing.module';
 import { RouteRoutingModule } from '../route-routing.module';
 
 import { SiteDto } from '../../../core/api/models/site-dto';
+import { MessageService } from 'primeng/api';
+import { ToastConfig } from '../../../core/app/config/toast.config';
 
 @Component({
   selector: 'app-route-list',
@@ -26,7 +28,10 @@ export class RouteListComponent implements OnInit {
   public iconExposition: string = Icons.EXPOSITION;
   public siteViewUrl: string = SiteRoutingModule.SITE_VIEW;
   public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
-  constructor(private readonly routeService: RouteService) {}
+  constructor(
+    private readonly routeService: RouteService,
+    private readonly messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.loadRoutes();
@@ -36,11 +41,14 @@ export class RouteListComponent implements OnInit {
   private loadRoutes() {
     this.routeService.routeControllerGetAllRoutes().subscribe({
       next: data => {
-        console.log(data);
         this.routes = data;
       },
       error: err => {
-        console.log(err);
+        this.messageService.add({
+          severity: ToastConfig.TYPE_ERROR,
+          summary: ToastConfig.ROUTE_SUMMARY,
+          detail: err.error.message,
+        });
       },
       complete: () => {
         this.filteredRoutes = this.routes;
@@ -52,8 +60,14 @@ export class RouteListComponent implements OnInit {
   private loadSites() {
     this.routeService.routeControllerGetSites().subscribe({
       next: data => {
-        console.log(data);
         this.sites = data;
+      },
+      error: err => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_ERROR,
+          summary: ToastConfig.ROUTE_SUMMARY,
+          detail: err.error.message,
+        });
       },
     });
   }
