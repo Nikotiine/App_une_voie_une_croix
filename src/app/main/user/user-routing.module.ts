@@ -18,4 +18,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule {
+  static USER_VIEW: string = '/user/profile';
+  static USER_EDIT: string = '/user/edit/';
+}

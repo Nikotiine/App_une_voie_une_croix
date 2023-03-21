@@ -1,7 +1,7 @@
 enum Icons {
   VAN = 'fas fa-shuttle-van',
   LOGIN = 'fas fa-power-off',
-
+  USER = 'far fa-user',
   LOCATION = 'fas fa-location-arrow',
   REGION = 'fas fa-globe-europe',
   DEPARTMENT = 'fas fa-map-marker-alt',

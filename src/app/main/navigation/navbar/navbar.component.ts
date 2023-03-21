@@ -8,6 +8,7 @@ import { MainRoutingModule } from '../../main-routing.module';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../../route/route-routing.module';
 import { Router } from '@angular/router';
+import { UserRoutingModule } from '../../user/user-routing.module';
 
 @Component({
   selector: 'app-navbar',
@@ -15,22 +16,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  public loginAppIcon: string = Icons.LOGIN;
-  public loginUrl: string;
+  public iconLogin: string = Icons.LOGIN;
+  public iconUser: string = Icons.USER;
+  public loginUrl = AuthRoutingModule.LOGIN;
+  public userProfileUrl = UserRoutingModule.USER_VIEW;
   public isLogged: boolean;
   public items: MenuItem[] = [];
 
   constructor(private readonly securityService: SecurityService) {
-    this.loginUrl = AuthRoutingModule.LOGIN;
     this.isLogged = this.securityService.isLogged();
   }
 
   ngOnInit(): void {
+    this.securityService.authenticated$.subscribe({
+      next: data => {
+        console.log(data);
+        this.isLogged = data;
+        data ? this.loadConnectedNavbar() : this.loadVisitorNavbar();
+      },
+    });
+    /*
     if (this.isLogged) {
       this.loadConnectedNavbar();
     } else {
       this.loadVisitorNavbar();
-    }
+    }*/
   }
 
   public logout(): void {
