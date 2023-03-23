@@ -7,6 +7,7 @@ import { UserRoutingModule } from '../user-routing.module';
 import { MainRoutingModule } from '../../main-routing.module';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { Icons } from '../../../core/app/enum/Icons.enum';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
 
 @Component({
   selector: 'app-user-view',
@@ -22,6 +23,7 @@ export class UserViewComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly messageService: MessageService,
+    private readonly userProfileService: UserProfileService,
     private router: Router
   ) {}
   ngOnInit(): void {
@@ -29,18 +31,6 @@ export class UserViewComponent implements OnInit {
   }
 
   private getProfile(): void {
-    this.authService.authControllerMe().subscribe({
-      next: data => {
-        this.user = data;
-      },
-      error: err => {
-        this.messageService.add({
-          severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.USER_SUMMARY,
-          detail: err.error.message,
-        });
-        return this.router.navigate([this.homeUrl]);
-      },
-    });
+    this.user = this.userProfileService.getUserProfile();
   }
 }

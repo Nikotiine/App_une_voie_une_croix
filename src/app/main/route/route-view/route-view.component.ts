@@ -5,9 +5,9 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../route-routing.module';
 import { RouteViewDto } from '../../../core/api/models/route-view-dto';
 import { ActivatedRoute } from '@angular/router';
-import { SecurityService } from '../../../core/app/services/security.service';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { MessageService } from 'primeng/api';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
 
 @Component({
   selector: 'app-route-view',
@@ -30,15 +30,15 @@ export class RouteViewComponent implements OnInit {
   public iconEngagement: string = Icons.ENGAGMENT;
   public routeListUrl: string = RouteRoutingModule.ROUTE_LIST;
   public routeEditUrl: string = RouteRoutingModule.ROUTE_EDIT;
-  public isLogged: boolean;
+  public isAdmin: boolean;
   public iconVan: string = Icons.VAN;
   constructor(
     private readonly routeService: RouteService,
     private activatedRoute: ActivatedRoute,
-    private readonly securityService: SecurityService,
+    private userProfileService: UserProfileService,
     private readonly messageService: MessageService
   ) {
-    this.isLogged = this.securityService.isLogged();
+    this.isAdmin = this.userProfileService.isAdmin();
   }
   ngOnInit(): void {
     const id = parseInt(this.activatedRoute.snapshot.params['id']);

@@ -9,6 +9,7 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../../route/route-routing.module';
 import { Router } from '@angular/router';
 import { UserRoutingModule } from '../../user/user-routing.module';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,31 +24,29 @@ export class NavbarComponent implements OnInit {
   public isLogged: boolean;
   public items: MenuItem[] = [];
 
-  constructor(private readonly securityService: SecurityService) {
+  constructor(
+    private readonly securityService: SecurityService,
+    private readonly router: Router
+  ) {
     this.isLogged = this.securityService.isLogged();
   }
 
   ngOnInit(): void {
     this.securityService.authenticated$.subscribe({
       next: data => {
-        console.log(data);
         this.isLogged = data;
         data ? this.loadConnectedNavbar() : this.loadVisitorNavbar();
       },
     });
-    /*
-    if (this.isLogged) {
-      this.loadConnectedNavbar();
-    } else {
-      this.loadVisitorNavbar();
-    }*/
   }
 
-  public logout(): void {
-    this.securityService.logout().then(logged => {
-      this.isLogged = !logged;
-      this.loadVisitorNavbar();
-    });
+  public logout(): Promise<boolean> {
+    this.securityService.logout();
+
+    this.isLogged = false;
+
+    this.loadVisitorNavbar();
+    return this.router.navigate([MainRoutingModule.HOME]);
   }
 
   private loadConnectedNavbar() {

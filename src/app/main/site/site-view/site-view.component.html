@@ -102,7 +102,7 @@
         <app-map [mapOption]="mapOption"></app-map>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel *ngIf="isLogged">
+    <p-tabPanel *ngIf="isAdmin">
       <ng-template pTemplate="header">
         <span (click)="showMapSecondaryParking()">
           <i class="{{ iconVan }} mr-2"></i>Parking camion</span
@@ -158,9 +158,7 @@
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span (click)="loadRoutes()">
-          <i class="{{ iconRoute }} mr-2"></i>Voies</span
-        >
+        <span> <i class="{{ iconRoute }} mr-2"></i>Voies</span>
       </ng-template>
       <div *ngIf="routes.length > 0">
         <h2 class="subtitle has-text-centered">
@@ -204,12 +202,12 @@
         </p-table>
       </div>
     </p-tabPanel>
-    <p-tabPanel *ngIf="isLogged">
+    <p-tabPanel *ngIf="isAdmin">
       <ng-template pTemplate="header">
         <span> <i class="{{ iconTopo }} mr-2"></i>Topo</span>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel *ngIf="isLogged">
+    <p-tabPanel *ngIf="isAdmin">
       <ng-template pTemplate="header">
         <a [routerLink]="[siteEditUrl + site.id]" class="has-text-danger">
           <i class="{{ iconEdit }} mr-2"></i>Editer</a

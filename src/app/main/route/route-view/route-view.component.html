@@ -76,12 +76,12 @@
         {{ route.secteur.name }}
       </p>
     </p-tabPanel>
-    <p-tabPanel *ngIf="isLogged">
+    <p-tabPanel *ngIf="isAdmin">
       <ng-template pTemplate="header">
         <span> <i class="{{ iconVan }} mr-2"></i>Topo</span>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel *ngIf="isLogged">
+    <p-tabPanel *ngIf="isAdmin">
       <ng-template pTemplate="header">
         <a [routerLink]="[routeEditUrl + route.id]" class="has-text-danger">
           <i class="{{ iconEdit }} mr-2"></i>Editer</a

@@ -8,6 +8,8 @@ import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { MainRoutingModule } from '../../main-routing.module';
 import { AuthRoutingModule } from '../auth-routing.module';
+import { mergeMap } from 'rxjs';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,7 @@ export class LoginComponent {
     private readonly authService: AuthService,
     private readonly securityService: SecurityService,
     private messageService: MessageService,
+    private userProfileService: UserProfileService,
     private router: Router
   ) {
     this.form = this.fb.group({
@@ -37,13 +40,20 @@ export class LoginComponent {
       email: this.form.controls['email'].value,
       password: this.form.controls['password'].value,
     };
+
     this.authService
       .authControllerLogin({
         body: credentials,
       })
+      .pipe(
+        mergeMap(token => {
+          this.securityService.saveToken(token);
+          return this.authService.authControllerMe();
+        })
+      )
       .subscribe({
         next: data => {
-          this.securityService.saveToken(data);
+          this.userProfileService.setUserProfile(data);
           return this.router.navigate([MainRoutingModule.HOME]);
         },
         error: err => {

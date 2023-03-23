@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 import { TokenDto } from '../../api/models/token-dto';
-import { UserService } from '../../api/services/user.service';
 import { AuthService } from '../../api/services/auth.service';
 import { Router } from '@angular/router';
 import { MainRoutingModule } from '../../../main/main-routing.module';
 import { BehaviorSubject } from 'rxjs';
+import { AuthRoutingModule } from '../../../main/auth/auth-routing.module';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +13,10 @@ import { BehaviorSubject } from 'rxjs';
 export class SecurityService {
   private accessTokenValue: string = 'access_token';
   authenticated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(
     private readonly cookieService: CookieService,
+    private readonly authService: AuthService,
     private router: Router
   ) {}
 
@@ -22,10 +24,14 @@ export class SecurityService {
     this.cookieService.put(this.accessTokenValue, token.access_token);
     this.authenticated$.next(true);
   }
-  public logout(): Promise<boolean> {
+  public logout(): void {
     this.cookieService.remove(this.accessTokenValue);
     this.authenticated$.next(false);
-    return this.router.navigate([MainRoutingModule.HOME]);
+  }
+
+  public logoutByGuard(): Promise<boolean> {
+    this.logout();
+    return this.router.navigate([AuthRoutingModule.LOGIN]);
   }
   public isLogged(): boolean {
     const access_token = this.getToken();

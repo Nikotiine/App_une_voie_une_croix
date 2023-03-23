@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate {
     } else {
       return this.authService.authControllerMe().pipe(
         catchError(e => {
-          return this.router.navigate([AuthRoutingModule.LOGIN]);
+          return this.securityService.logoutByGuard();
         }),
         map(data => !!data)
       );

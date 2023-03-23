@@ -5,12 +5,12 @@ import { SiteViewDto } from '../../../core/api/models/site-view-dto';
 import { MapOptions } from '../../../core/app/models/MapOptions';
 import { MessageService } from 'primeng/api';
 import { SiteRoutingModule } from '../site-routing.module';
-
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { ToastConfig } from '../../../core/app/config/toast.config';
-import { SecurityService } from '../../../core/app/services/security.service';
 import { SiteRouteDto } from '../../../core/api/models/site-route-dto';
 import { RouteRoutingModule } from '../../route/route-routing.module';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
+import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-site-view',
@@ -48,22 +48,21 @@ export class SiteViewComponent implements OnInit {
   public iconTopo: string = Icons.TOPO;
   public iconEdit: string = Icons.EDIT;
   public iconInformation: string = Icons.INFORMATION;
-  public isLogged: boolean;
+  public isAdmin: boolean;
 
   constructor(
     private readonly siteService: SiteService,
     private activatedRoute: ActivatedRoute,
     private readonly messageService: MessageService,
     private router: Router,
-    private readonly securityService: SecurityService
+    private readonly userProfileService: UserProfileService
   ) {
     this.mapOption = {
       draggable: false,
       lat: 45.151515,
       lng: 5.454545,
     };
-
-    this.isLogged = this.securityService.isLogged();
+    this.isAdmin = this.userProfileService.isAdmin();
   }
   ngOnInit(): void {
     const id = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -75,10 +74,18 @@ export class SiteViewComponent implements OnInit {
       .siteControllerGetSite({
         id: id,
       })
+      .pipe(
+        mergeMap(site => {
+          this.site = site;
+          return this.siteService.siteControllerGetRoutesOfSite({
+            id: id,
+          });
+        })
+      )
       .subscribe({
         next: data => {
-          console.log(data);
-          this.site = data;
+          this.routes = data;
+          this.loading = !this.loading;
         },
         error: err => {
           this.messageService.add({
@@ -86,7 +93,6 @@ export class SiteViewComponent implements OnInit {
             summary: ToastConfig.SITE_SUMMARY,
             detail: err.error.message,
           });
-          return this.router.navigate([this.siteListUrl]);
         },
       });
   }
@@ -98,23 +104,5 @@ export class SiteViewComponent implements OnInit {
   public showMapSecondaryParking(): void {
     this.mapOption.lng = this.site.secondaryParkingLng;
     this.mapOption.lat = this.site.secondaryParkingLat;
-  }
-
-  public loadRoutes(): void {
-    this.siteService
-      .siteControllerGetRoutesOfSite({
-        id: this.site.id,
-      })
-      .subscribe({
-        next: data => {
-          this.routes = data;
-        },
-        error: err => {
-          console.log(err);
-        },
-        complete: () => {
-          this.loading = false;
-        },
-      });
   }
 }
