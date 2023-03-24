@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface SecteurListDto {
+export interface RockTypeDto {
   id: number;
-  name: string;
+  label: string;
 }

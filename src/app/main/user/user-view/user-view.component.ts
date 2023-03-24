@@ -3,6 +3,11 @@ import { AuthService } from '../../../core/api/services/auth.service';
 import { UserProfileDto } from '../../../core/api/models/user-profile-dto';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { UserRoutingModule } from '../user-routing.module';
+import { MainRoutingModule } from '../../main-routing.module';
+import { ToastConfig } from '../../../core/app/config/toast.config';
+import { Icons } from '../../../core/app/enum/Icons.enum';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
 
 @Component({
   selector: 'app-user-view',
@@ -10,35 +15,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-view.component.scss'],
 })
 export class UserViewComponent implements OnInit {
-  // attributs publics
   public user: UserProfileDto | null = null;
-  public editUserUrl: string = '/user/edit/';
+  public editUserUrl: string = UserRoutingModule.USER_EDIT;
+  public iconEdit: string = Icons.EDIT;
+  public iconAdmin: string = Icons.ADMIN;
+  private homeUrl: string = MainRoutingModule.HOME;
+  public isAdmin: boolean;
 
-  // attributs prives
-  private toastSummary: string = 'Mon compte';
-  private homeUrl: string = '/home';
   constructor(
     private readonly authService: AuthService,
     private readonly messageService: MessageService,
+    private readonly userProfileService: UserProfileService,
     private router: Router
-  ) {}
+  ) {
+    this.isAdmin = this.userProfileService.isAdmin();
+  }
   ngOnInit(): void {
     this.getProfile();
   }
 
   private getProfile(): void {
-    this.authService.authControllerMe().subscribe({
-      next: data => {
-        this.user = data;
-      },
-      error: err => {
-        this.messageService.add({
-          severity: 'error',
-          summary: this.toastSummary,
-          detail: err.error.message,
-        });
-        return this.router.navigate([this.homeUrl]);
-      },
-    });
+    this.user = this.userProfileService.getUserProfile();
   }
 }

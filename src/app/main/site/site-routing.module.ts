@@ -4,6 +4,7 @@ import { SiteListComponent } from './site-list/site-list.component';
 import { SiteFormComponent } from './site-form/site-form.component';
 import { SiteViewComponent } from './site-view/site-view.component';
 import { SiteListMapComponent } from './site-list-map/site-list-map.component';
+import { AuthGuard } from '../../core/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
   {
     path: 'new',
     component: SiteFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'view/:id',
@@ -26,6 +28,7 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: SiteFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'map',

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface ExpositionListDto {
+export interface ApproachTypeDto {
   id: number;
   label: string;
 }

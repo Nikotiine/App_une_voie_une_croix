@@ -5,9 +5,12 @@ import { SiteViewDto } from '../../../core/api/models/site-view-dto';
 import { MapOptions } from '../../../core/app/models/MapOptions';
 import { MessageService } from 'primeng/api';
 import { SiteRoutingModule } from '../site-routing.module';
-
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { ToastConfig } from '../../../core/app/config/toast.config';
+import { SiteRouteDto } from '../../../core/api/models/site-route-dto';
+import { RouteRoutingModule } from '../../route/route-routing.module';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
+import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-site-view',
@@ -16,9 +19,12 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 })
 export class SiteViewComponent implements OnInit {
   public site!: SiteViewDto;
+  public routes: SiteRouteDto[] = [];
   public mapOption: MapOptions;
-  public siteListUrl: string;
-  public siteEditUrl: string;
+  public loading: boolean = true;
+  public siteListUrl: string = SiteRoutingModule.SITE_LIST;
+  public siteEditUrl: string = SiteRoutingModule.SITE_EDIT;
+  public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
   public iconRoute: string = Icons.ROUTE;
   public iconRouteNumber: string = Icons.ROUTE_NUMBER;
   public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
@@ -42,20 +48,21 @@ export class SiteViewComponent implements OnInit {
   public iconTopo: string = Icons.TOPO;
   public iconEdit: string = Icons.EDIT;
   public iconInformation: string = Icons.INFORMATION;
+  public isAdmin: boolean;
 
   constructor(
     private readonly siteService: SiteService,
     private activatedRoute: ActivatedRoute,
     private readonly messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private readonly userProfileService: UserProfileService
   ) {
     this.mapOption = {
       draggable: false,
       lat: 45.151515,
       lng: 5.454545,
     };
-    this.siteListUrl = SiteRoutingModule.SITE_LIST;
-    this.siteEditUrl = SiteRoutingModule.SITE_EDIT;
+    this.isAdmin = this.userProfileService.isAdmin();
   }
   ngOnInit(): void {
     const id = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -67,9 +74,18 @@ export class SiteViewComponent implements OnInit {
       .siteControllerGetSite({
         id: id,
       })
+      .pipe(
+        mergeMap(site => {
+          this.site = site;
+          return this.siteService.siteControllerGetRoutesOfSite({
+            id: id,
+          });
+        })
+      )
       .subscribe({
         next: data => {
-          this.site = data;
+          this.routes = data;
+          this.loading = !this.loading;
         },
         error: err => {
           this.messageService.add({
@@ -77,7 +93,6 @@ export class SiteViewComponent implements OnInit {
             summary: ToastConfig.SITE_SUMMARY,
             detail: err.error.message,
           });
-          return this.router.navigate([this.siteListUrl]);
         },
       });
   }

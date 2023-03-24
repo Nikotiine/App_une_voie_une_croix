@@ -11,6 +11,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
   declarations: [UserViewComponent, UserFormComponent],
@@ -24,6 +25,7 @@ import { DialogModule } from 'primeng/dialog';
     ReactiveFormsModule,
     ToastModule,
     DialogModule,
+    TabViewModule,
   ],
 })
 export class UserModule {}

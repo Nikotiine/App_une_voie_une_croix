@@ -5,10 +5,11 @@ import { SiteListDto } from '../../../core/api/models/site-list-dto';
 import { MessageService } from 'primeng/api';
 
 import { RegionService } from '../../../core/api/services/region.service';
-import { RegionListDto } from '../../../core/api/models/region-list-dto';
+
 import { SiteRoutingModule } from '../site-routing.module';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { Icons } from '../../../core/app/enum/Icons.enum';
+import { RegionDto } from '../../../core/api/models/region-dto';
 
 @Component({
   selector: 'app-site-list',
@@ -20,7 +21,7 @@ export class SiteListComponent implements OnInit {
   public siteViewUrl: string;
   public sites: SiteListDto[] = [];
   public filteredSites: SiteListDto[] = [];
-  public regions: RegionListDto[] = [];
+  public regions: RegionDto[] = [];
   public genericRegionName: string = 'Toutes les regions';
   public iconRouteNumber: string = Icons.ROUTE_NUMBER;
   public iconMinLevel: string = Icons.MIN_LEVEL;
@@ -91,7 +92,7 @@ export class SiteListComponent implements OnInit {
    * @private
    */
   private addGenericRegion() {
-    const genericRegion: RegionListDto = {
+    const genericRegion: RegionDto = {
       id: 0,
       name: this.genericRegionName,
     };

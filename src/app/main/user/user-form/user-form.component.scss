@@ -1,3 +1,9 @@
 .p-button-link{
   margin-bottom: 0.2rem;
 }
+.form-register{
+  flex-direction: column;
+  & input{
+    width: 20rem;
+  }
+}

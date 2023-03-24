@@ -1,6 +1,8 @@
 enum Icons {
   VAN = 'fas fa-shuttle-van',
   LOGIN = 'fas fa-power-off',
+  USER = 'far fa-user',
+  ADMIN = 'fas fa-cogs',
   LOCATION = 'fas fa-location-arrow',
   REGION = 'fas fa-globe-europe',
   DEPARTMENT = 'fas fa-map-marker-alt',
@@ -14,6 +16,7 @@ enum Icons {
   ROUTE = 'fas fa-route',
   EXPOSITION = 'fas fa-compass',
   ROCK_TYPE = 'fas fa-angle-double-up',
+  LEVEL = 'fas fa-hand-rock',
   MIN_LEVEL = 'fas fa-search-minus',
   MAX_LEVEL = 'fas fa-search-plus',
   ROUTE_NUMBER = 'fas fa-list-ol',
@@ -27,5 +30,6 @@ enum Icons {
   RIVER = 'fas fa-water',
   WC = 'fas fa-toilet',
   INFORMATION = 'fas fa-info-circle',
+  QUICK_DRAW = 'fas fa-yin-yang',
 }
 export { Icons };

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface EquipmentListDto {
+export interface LevelDto {
   id: number;
   label: string;
 }

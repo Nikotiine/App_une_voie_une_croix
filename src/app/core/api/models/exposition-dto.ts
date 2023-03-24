@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface RouteProfileListDto {
+export interface ExpositionDto {
   id: number;
   label: string;
 }

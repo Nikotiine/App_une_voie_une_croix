@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ɵFormArrayRawValue,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { SiteService } from '../../../core/api/services/site.service';
 import { MessageService } from 'primeng/api';
@@ -17,20 +11,21 @@ import { DepartmentService } from '../../../core/api/services/department.service
 
 import { SiteCreateDto } from '../../../core/api/models/site-create-dto';
 
-import { ExpositionListDto } from '../../../core/api/models/exposition-list-dto';
-import { ApproachTypeListDto } from '../../../core/api/models/approach-type-list-dto';
-import { EngagementListDto } from '../../../core/api/models/engagement-list-dto';
-import { EquipmentListDto } from '../../../core/api/models/equipment-list-dto';
-import { LevelListDto } from '../../../core/api/models/level-list-dto';
-import { RockTypeListDto } from '../../../core/api/models/rock-type-list-dto';
-import { RouteProfileListDto } from '../../../core/api/models/route-profile-list-dto';
-import { RegionListDto } from '../../../core/api/models/region-list-dto';
-import { DepartmentListDto } from '../../../core/api/models/department-list-dto';
-import { SecteurListDto } from '../../../core/api/models/secteur-list-dto';
-
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { SiteRoutingModule } from '../site-routing.module';
 import { Icons } from '../../../core/app/enum/Icons.enum';
+import { ExpositionDto } from '../../../core/api/models/exposition-dto';
+import { ApproachTypeDto } from '../../../core/api/models/approach-type-dto';
+import { EngagementDto } from '../../../core/api/models/engagement-dto';
+import { EquipmentDto } from '../../../core/api/models/equipment-dto';
+import { LevelDto } from '../../../core/api/models/level-dto';
+import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
+import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
+import { RegionDto } from '../../../core/api/models/region-dto';
+
+import { CommonService } from '../../../core/api/services/common.service';
+import { SecteurDto } from '../../../core/api/models/secteur-dto';
+import { DepartmentDataDto } from '../../../core/api/models/department-data-dto';
 
 @Component({
   selector: 'app-site-form',
@@ -44,15 +39,15 @@ export class SiteFormComponent implements OnInit {
   public titleCreate: string = "Ajout d'un site";
   public displayMap: boolean = false;
   // ******** DropDown & MutliSelect ********
-  public expositions: ExpositionListDto[] = [];
-  public approachTypes: ApproachTypeListDto[] = [];
-  public engagements: EngagementListDto[] = [];
-  public equipments: EquipmentListDto[] = [];
-  public levels: LevelListDto[] = [];
-  public rockTypes: RockTypeListDto[] = [];
-  public routeProfiles: RouteProfileListDto[] = [];
-  public regions: RegionListDto[] = [];
-  public departments: DepartmentListDto[] = [];
+  public expositions: ExpositionDto[] = [];
+  public approachTypes: ApproachTypeDto[] = [];
+  public engagements: EngagementDto[] = [];
+  public equipments: EquipmentDto[] = [];
+  public levels: LevelDto[] = [];
+  public rockTypes: RockTypeDto[] = [];
+  public routeProfiles: RouteProfileDto[] = [];
+  public regions: RegionDto[] = [];
+  public departments: DepartmentDataDto[] = [];
 
   // ******** DropDown & MutliSelect ********
   public mapOptions: MapOptions;
@@ -88,6 +83,7 @@ export class SiteFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private readonly siteService: SiteService,
+    private readonly commonService: CommonService,
     private readonly messageService: MessageService,
     private readonly departmentService: DepartmentService,
     private activatedRoute: ActivatedRoute,
@@ -136,7 +132,7 @@ export class SiteFormComponent implements OnInit {
 
   // Charge les donnee necessaire pour les different dropdown / Mutliselect
   private loadData(): void {
-    this.siteService.siteControllerGetData().subscribe({
+    this.commonService.commonControllerGetDataForSite().subscribe({
       next: data => {
         this.levels = data.levels;
         this.rockTypes = data.rockTypes;
@@ -180,7 +176,7 @@ export class SiteFormComponent implements OnInit {
       expositions: this.form.controls['expositions'].value,
       rockType: this.form.controls['rockType'].value,
       routeProfiles: this.form.controls['routeProfiles'].value,
-      department: this.form.controls['department'].value,
+      department: this.department,
       region: this.form.controls['region'].value,
       water: this.form.controls['water'].value,
       wc: this.form.controls['wc'].value,
@@ -229,11 +225,12 @@ export class SiteFormComponent implements OnInit {
 
   public getDepartment(regionId: number): void {
     this.departmentService
-      .departmentControllerFindByRegion({
+      .departmentControllerGetByRegion({
         region: regionId,
       })
       .subscribe({
         next: data => {
+          console.log(data);
           this.departments = data;
         },
         error: err => {
@@ -288,7 +285,7 @@ export class SiteFormComponent implements OnInit {
           this.form.controls['water'].setValue(data.water);
           this.form.controls['network'].setValue(data.network);
           this.getDepartment(data.region.id);
-          this.form.controls['department'].setValue(data.department);
+          this.form.controls['department'].setValue(data.department.id);
           this.initMarker(data.department.lat, data.department.lng);
           this.coordinateP1 = [data.mainParkingLat, data.mainParkingLng];
           this.displayP1 = !this.displayP1;
@@ -368,8 +365,8 @@ export class SiteFormComponent implements OnInit {
   }
 
   // Initialise le marker de carte par rapport a la prefecture du departement choisi (lat/lng renseigner en bdd)
-  public onChangeDepartment($event: any): void {
-    this.initMarker($event.value.lat, $event.value.lng);
+  public onChangeDepartment(): void {
+    this.initMarker(this.department.lat, this.department.lng);
   }
   /**
    * Creation du Array pour les differents secteur du site
@@ -396,12 +393,17 @@ export class SiteFormComponent implements OnInit {
    * @param secteur SecteurListDto
    * @private
    */
-  private addExistingSector(secteur: SecteurListDto): void {
+  private addExistingSector(secteur: SecteurDto): void {
     this.sectorArray.push(
       this.fb.group({
         id: [secteur.id],
         name: [secteur.name],
       })
+    );
+  }
+  get department(): DepartmentDataDto {
+    return this.departments.find(
+      d => d.id === this.form.controls['department'].value
     );
   }
 }
