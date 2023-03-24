@@ -18,14 +18,18 @@ export class UserViewComponent implements OnInit {
   public user: UserProfileDto | null = null;
   public editUserUrl: string = UserRoutingModule.USER_EDIT;
   public iconEdit: string = Icons.EDIT;
+  public iconAdmin: string = Icons.ADMIN;
   private homeUrl: string = MainRoutingModule.HOME;
+  public isAdmin: boolean;
 
   constructor(
     private readonly authService: AuthService,
     private readonly messageService: MessageService,
     private readonly userProfileService: UserProfileService,
     private router: Router
-  ) {}
+  ) {
+    this.isAdmin = this.userProfileService.isAdmin();
+  }
   ngOnInit(): void {
     this.getProfile();
   }

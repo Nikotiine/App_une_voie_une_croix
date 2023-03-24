@@ -1,7 +1,8 @@
 <div class="mt-4 user-view">
   <h1 class="title has-text-centered mt-3 p-3">Mon compte</h1>
   <p-tabView>
-    <p-tabPanel header="Information generale">
+    <p-tabPanel>
+      <ng-template pTemplate="header"> Information generale </ng-template>
       <div *ngIf="user">
         <div class="subtitle">
           <span class="has-text-info mr-2">Prenom :</span> {{ user.firstName }}
@@ -28,7 +29,18 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="Mes contributions"> Content 2 </p-tabPanel>
-    <p-tabPanel header="Voies realisées"> Content 3 </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header"> Mes contributions </ng-template>Content 3
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header"> Voies realisées </ng-template>Content 3
+    </p-tabPanel>
+    <p-tabPanel header="Administration" *ngIf="isAdmin">
+      <ng-template pTemplate="header">
+        <a class="has-text-danger">
+          <i class="{{ iconAdmin }} mr-2"></i>Administration</a
+        >
+      </ng-template>
+    </p-tabPanel>
   </p-tabView>
 </div>

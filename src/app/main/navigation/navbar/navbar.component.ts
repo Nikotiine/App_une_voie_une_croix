@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SecurityService } from '../../../core/app/services/security.service';
 
 import { MenuItem } from 'primeng/api';
@@ -9,7 +9,6 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../../route/route-routing.module';
 import { Router } from '@angular/router';
 import { UserRoutingModule } from '../../user/user-routing.module';
-import { UserProfileService } from '../../../core/app/services/user-profile.service';
 
 @Component({
   selector: 'app-navbar',
@@ -42,9 +41,7 @@ export class NavbarComponent implements OnInit {
 
   public logout(): Promise<boolean> {
     this.securityService.logout();
-
     this.isLogged = false;
-
     this.loadVisitorNavbar();
     return this.router.navigate([MainRoutingModule.HOME]);
   }
