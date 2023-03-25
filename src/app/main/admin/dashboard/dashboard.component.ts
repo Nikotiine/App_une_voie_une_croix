@@ -7,6 +7,9 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { UserRoles } from '../../../core/app/enum/UserRoles.enum';
 import { ToastConfig } from '../../../core/app/config/toast.config';
+import { SiteRoutingModule } from '../../site/site-routing.module';
+import { AdminRoutesDto } from '../../../core/api/models/admin-routes-dto';
+import { RouteRoutingModule } from '../../route/route-routing.module';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,9 +17,11 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  public loading: boolean = false;
+  public loading: boolean = true;
   public users: AdminUsersDto[] = [];
   public sites: AdminSitesDto[] = [];
+  private routes: AdminRoutesDto[] = [];
+  public filteredRoutes: AdminRoutesDto[] = [];
   public iconRouteNumber: string = Icons.ROUTE_NUMBER;
   public iconMinLevel: string = Icons.MIN_LEVEL;
   public iconMaxLevel: string = Icons.MAX_LEVEL;
@@ -27,6 +32,11 @@ export class DashboardComponent implements OnInit {
   public iconSite: string = Icons.SITE;
   public iconLock: string = Icons.LOCK;
   public iconUnlock: string = Icons.UNLOCK;
+  public iconRoute: string = Icons.ROUTE;
+  public iconSector: string = Icons.SECTOR;
+  public siteViewUrl: string = SiteRoutingModule.SITE_VIEW;
+  public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
+
   public inactiveStatus: string = 'Inactif';
   public activeStatus: string = 'Actif';
   constructor(
@@ -34,29 +44,39 @@ export class DashboardComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private readonly messageService: MessageService
   ) {}
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadData();
   }
 
-  private loadData() {
+  private loadData(): void {
+    this.loading = true;
     this.adminService
       .adminControllerGetAllUsers()
       .pipe(
         mergeMap(users => {
           this.users = users;
           return this.adminService.adminControllerGetAllSites();
+        }),
+        mergeMap(sites => {
+          this.sites = sites;
+          return this.adminService.adminControllerGetAllRoutes();
         })
       )
       .subscribe({
-        next: data => {
-          this.sites = data;
+        next: routes => {
+          console.log(routes);
+          this.routes = routes;
         },
         error: err => {
-          console.log(err);
+          this.messageService.add({
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.ADMIN_SUMMARY,
+            detail: err.error.message,
+          });
         },
         complete: () => {
-          console.log(this.sites);
-          console.log(this.users);
+          this.filteredRoutes = this.routes;
+          this.loading = !this.loading;
         },
       });
   }
@@ -115,7 +135,7 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  public confirmEditRole(id: number) {
+  public confirmEditRole(id: number): void {
     this.confirmationService.confirm({
       message: this.messageUserRole(id),
       header: 'Modification des droits',
@@ -180,7 +200,105 @@ export class DashboardComponent implements OnInit {
   private selectedUser(id: number): AdminUsersDto {
     return this.users.find(u => u.id === id);
   }
+
+  public confirmToggleSiteStatus(id: number): void {
+    this.confirmationService.confirm({
+      message: this.messageSiteStatus(id),
+      header: 'Modification du site',
+      accept: () => {
+        this.toggleSiteStatus(id);
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_WARNING,
+          summary: ToastConfig.ADMIN_SUMMARY,
+          detail: ToastConfig.CANCEL,
+        });
+      },
+    });
+  }
   public toggleSiteStatus(id: number): void {
-    console.log(id);
+    this.adminService
+      .adminControllerToggleSiteStatus({
+        id: id,
+      })
+      .subscribe({
+        next: res => {
+          if (res.isUpdated) {
+            this.loadData();
+            this.messageService.add({
+              severity: ToastConfig.TYPE_SUCCESS,
+              summary: ToastConfig.ADMIN_SUMMARY,
+              detail: ToastConfig.ADMIN_USER_STATUS,
+            });
+          }
+        },
+        error: err => {
+          this.messageService.add({
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.ADMIN_SUMMARY,
+            detail: err.error.message,
+          });
+        },
+      });
+  }
+  private messageSiteStatus(id: number): string {
+    const site = this.selectedSite(id);
+    const newStatus = site.isActive ? this.inactiveStatus : this.activeStatus;
+    return 'Mettre le status ' + newStatus + ' au site ' + site.name;
+  }
+  private selectedSite(id: number): AdminSitesDto {
+    return this.sites.find(s => s.id === id);
+  }
+
+  public confirmToggleRouteStatus(id: number): void {
+    this.confirmationService.confirm({
+      message: this.messageRouteStatus(id),
+      header: 'Modification de la voie',
+      accept: () => {
+        this.toggleRouteStatus(id);
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_WARNING,
+          summary: ToastConfig.ADMIN_SUMMARY,
+          detail: ToastConfig.CANCEL,
+        });
+      },
+    });
+  }
+
+  private toggleRouteStatus(id: number): void {
+    this.adminService
+      .adminControllerToggleRouteStatus({
+        id: id,
+      })
+      .subscribe({
+        next: res => {
+          if (res.isUpdated) {
+            this.loadData();
+            this.messageService.add({
+              severity: ToastConfig.TYPE_SUCCESS,
+              summary: ToastConfig.ADMIN_SUMMARY,
+              detail: ToastConfig.ADMIN_USER_STATUS,
+            });
+          }
+        },
+        error: err => {
+          this.messageService.add({
+            severity: ToastConfig.TYPE_ERROR,
+            summary: ToastConfig.ADMIN_SUMMARY,
+            detail: err.error.message,
+          });
+        },
+      });
+  }
+  private messageRouteStatus(id: number): string {
+    const route = this.selectedRoute(id);
+    const newStatus = route.isActive ? this.inactiveStatus : this.activeStatus;
+    return 'Mettre le status ' + newStatus + ' a la voie ' + route.name;
+  }
+  private selectedRoute(id: number): AdminRoutesDto {
+    return this.routes.find(r => r.id === id);
   }
 }

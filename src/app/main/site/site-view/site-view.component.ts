@@ -93,6 +93,7 @@ export class SiteViewComponent implements OnInit {
             summary: ToastConfig.SITE_SUMMARY,
             detail: err.error.message,
           });
+          return this.router.navigate([this.siteListUrl]);
         },
       });
   }

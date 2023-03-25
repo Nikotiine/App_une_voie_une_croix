@@ -1,8 +1,7 @@
-<!--
-<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
--->
 <div class="mt-4 user-view">
-  <h1 class="title has-text-centered mt-3 p-3">Mon compte</h1>
+  <h1 class="title has-text-centered mt-3 p-3 has-text-info">
+    Panneau d'administration
+  </h1>
   <p-tabView>
     <p-tabPanel>
       <ng-template pTemplate="header"> Utilisateurs </ng-template>
@@ -416,7 +415,7 @@
         <ng-template pTemplate="body" let-site>
           <tr>
             <td>
-              <a>{{ site.name }}</a>
+              <a [routerLink]="[siteViewUrl + site.id]">{{ site.name }}</a>
             </td>
             <td>
               <span class=""> {{ site.department.name }}</span>
@@ -437,7 +436,7 @@
               >
             </td>
             <td>
-              <span (click)="toggleSiteStatus(site.id)"
+              <span (click)="confirmToggleSiteStatus(site.id)"
                 ><i class="{{ site.isActive ? iconLock : iconUnlock }} mr-1"></i
               ></span>
               {{ site.isActive ? activeStatus : inactiveStatus }}
@@ -447,7 +446,235 @@
       </p-table>
     </p-tabPanel>
     <p-tabPanel>
-      <ng-template pTemplate="header"> Voies </ng-template>Content 3
+      <ng-template pTemplate="header"> Voies </ng-template>
+      <p-table
+        #dt
+        [value]="filteredRoutes"
+        [rows]="25"
+        [paginator]="true"
+        [rowsPerPageOptions]="[25, 50, 100]"
+        styleClass="p-datatable-striped"
+        [tableStyle]="{ 'vertical-align': 'center' }"
+        [loading]="loading">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="secteur.site.name">
+              <i class="{{ iconSite }} mr-1"></i> Site
+              <p-sortIcon field="secteur.site.name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="name">
+              <i class="{{ iconRoute }} mr-1"></i> Nom de la voie
+              <p-sortIcon field="name"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="secteur.name">
+              <i class="{{ iconSector }} mr-1"></i> Secteur
+              <p-sortIcon field="secteur.name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="height">
+              <i class="{{ iconRouteHeight }} mr-1"></i> Hauteur
+              <p-sortIcon field="height"></p-sortIcon>
+            </th>
+            <th pSortableColumn="level.label">
+              <i class="{{ iconMaxLevel }} mr-1"></i>Niveau
+              <p-sortIcon field="level.label"></p-sortIcon>
+            </th>
+            <th pSortableColumn="exposition.label">
+              <i class="{{ iconExposition }} mr-1"></i>Exposition
+              <p-sortIcon field="maxLevel.label"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="createdAt">
+              Date d'ajout
+              <p-sortIcon field="createdAt"></p-sortIcon>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="secteur.site.name"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                field="name"
+                matchMode="contains"
+                [showMenu]="false"
+                [showClearButton]="false">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="secteur.name"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="height"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="level.label"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="exposition.label"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="createdAt"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-route>
+          <tr>
+            <td>
+              <a [routerLink]="[siteViewUrl + route.secteur.site.id]">{{
+                route.secteur.site.name
+              }}</a>
+            </td>
+            <td>
+              <a [routerLink]="[routeViewUrl + route.id]"> {{ route.name }}</a>
+            </td>
+
+            <td>{{ route.secteur.name }}</td>
+            <td>
+              <span class="">{{ route.height }}</span>
+            </td>
+            <td>{{ route.level.label }}</td>
+
+            <td>
+              <span (click)="confirmToggleRouteStatus(route.id)"
+                ><i
+                  class="{{ route.isActive ? iconLock : iconUnlock }} mr-1"></i
+              ></span>
+              {{ route.isActive ? activeStatus : inactiveStatus }}
+            </td>
+            <td>{{ route.createdAt | date : 'dd/MM/yyyy' }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </p-tabPanel>
     <p-tabPanel header="Administration">
       <ng-template pTemplate="header">
