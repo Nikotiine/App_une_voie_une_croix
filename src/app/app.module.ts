@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
 import { ApiInterceptorProvider } from './core/app/interceptor/api.interceptor';
 import { UtilsModule } from './shared/utils/utils.module';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +20,7 @@ import { MessageService } from 'primeng/api';
     CookieModule.withOptions(),
     UtilsModule,
   ],
-  providers: [ApiInterceptorProvider, MessageService],
+  providers: [ApiInterceptorProvider, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

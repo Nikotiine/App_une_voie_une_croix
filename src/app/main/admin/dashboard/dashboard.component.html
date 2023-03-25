@@ -1,0 +1,458 @@
+<!--
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+-->
+<div class="mt-4 user-view">
+  <h1 class="title has-text-centered mt-3 p-3">Mon compte</h1>
+  <p-tabView>
+    <p-tabPanel>
+      <ng-template pTemplate="header"> Utilisateurs </ng-template>
+      <p-table
+        #dt
+        [value]="users"
+        [rows]="25"
+        [paginator]="true"
+        [rowsPerPageOptions]="[25, 50, 100]"
+        styleClass="p-datatable-striped"
+        [tableStyle]="{ 'vertical-align': 'center' }"
+        [loading]="loading">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="id">
+              Id
+              <p-sortIcon field="id"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="lastName">
+              Nom
+              <p-sortIcon field="averageRouteNumber"></p-sortIcon>
+            </th>
+            <th pSortableColumn="email">
+              Email
+              <p-sortIcon field="email"></p-sortIcon>
+            </th>
+            <th pSortableColumn="role">
+              Role
+              <p-sortIcon field="role"></p-sortIcon>
+            </th>
+            <th pSortableColumn="expo.label">
+              Status
+              <p-sortIcon field="expo.label"></p-sortIcon>
+            </th>
+            <th pSortableColumn="firstName">
+              Mise a jour
+              <p-sortIcon field="firstName"></p-sortIcon>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <p-columnFilter
+                field="name"
+                matchMode="contains"
+                [showMenu]="false"
+                [showClearButton]="false">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="department.name"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="averageRouteNumber"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="minLevel.label"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="maxLevel.label"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="expo.label"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+          <tr>
+            <td>
+              <a>{{ user.id }}</a>
+            </td>
+
+            <td>
+              <span class="">{{ user.lastName }}</span>
+            </td>
+            <td>{{ user.email }}</td>
+            <td>
+              <span (click)="confirmEditRole(user.id)">
+                <i class="{{ iconEdit }} mr-1"></i>
+              </span>
+              {{ user.role }}
+            </td>
+
+            <td>
+              <span (click)="confirmToggleUserStatus(user.id)"
+                ><i class="{{ user.isActive ? iconLock : iconUnlock }} mr-1"></i
+              ></span>
+              {{ user.isActive ? activeStatus : inactiveStatus }}
+            </td>
+            <td>
+              <span class="">
+                {{
+                  user.updatedAt
+                    ? (user.updatedAt | date : 'dd/MM/yyyy')
+                    : (user.createdAt | date : 'dd/MM/yyyy')
+                }}</span
+              >
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header"> Sites </ng-template>
+      <p-table
+        #dt
+        [value]="sites"
+        [rows]="25"
+        [paginator]="true"
+        [rowsPerPageOptions]="[25, 50, 100]"
+        styleClass="p-datatable-striped"
+        [tableStyle]="{ 'vertical-align': 'center' }"
+        [loading]="loading">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="name">
+              <i class="{{ iconSite }} mr-1"></i> Nom
+              <p-sortIcon field="name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="department.name">
+              <i class="{{ iconDepartment }} mr-1"></i>Departement
+              <p-sortIcon field="department.name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="averageRouteNumber">
+              <i class="{{ iconRouteNumber }} mr-1"></i> Nombre de voies
+              <p-sortIcon field="averageRouteNumber"></p-sortIcon>
+            </th>
+            <th pSortableColumn="minLevel.label">
+              <i class="{{ iconMinLevel }} mr-1"></i>Niveau Mini
+              <p-sortIcon field="minLevel.label"></p-sortIcon>
+            </th>
+            <th pSortableColumn="maxLevel.label">
+              <i class="{{ iconMaxLevel }} mr-1"></i>Niveau Maxi
+              <p-sortIcon field="maxLevel.label"></p-sortIcon>
+            </th>
+            <th pSortableColumn="expo.label">
+              <i class="{{ iconExposition }} mr-1"></i> Mise a jour
+              <p-sortIcon field="expo.label"></p-sortIcon>
+            </th>
+            <th pSortableColumn="averageRouteHeight">
+              <i class="{{ iconRouteHeight }} mr-1"></i> Status
+              <p-sortIcon field="averageRouteHeight"></p-sortIcon>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <p-columnFilter
+                field="name"
+                matchMode="contains"
+                [showMenu]="false"
+                [showClearButton]="false">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="department.name"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="averageRouteNumber"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="minLevel.label"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="maxLevel.label"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="expo.label"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter
+                [showMenu]="false"
+                [showClearButton]="false"
+                field="averageRouteHeight"
+                matchMode="contains">
+                <ng-template
+                  pTemplate="filter"
+                  let-value
+                  let-filter="filterCallback">
+                  <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      pInputText
+                      type="text"
+                      [ngModel]="value"
+                      (ngModelChange)="filter($event)"
+                      placeholder="Search" />
+                  </span>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-site>
+          <tr>
+            <td>
+              <a>{{ site.name }}</a>
+            </td>
+            <td>
+              <span class=""> {{ site.department.name }}</span>
+            </td>
+            <td>
+              <span class="">{{ site.averageRouteNumber }}</span>
+            </td>
+            <td>{{ site.minLevel.label }}</td>
+            <td>{{ site.maxLevel.label }}</td>
+
+            <td>
+              <span class="">
+                {{
+                  site.updatedAt
+                    ? (site.updatedAt | date : 'dd/MM/yyyy')
+                    : (site.createdAt | date : 'dd/MM/yyyy')
+                }}</span
+              >
+            </td>
+            <td>
+              <span (click)="toggleSiteStatus(site.id)"
+                ><i class="{{ site.isActive ? iconLock : iconUnlock }} mr-1"></i
+              ></span>
+              {{ site.isActive ? activeStatus : inactiveStatus }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+    <p-tabPanel>
+      <ng-template pTemplate="header"> Voies </ng-template>Content 3
+    </p-tabPanel>
+    <p-tabPanel header="Administration">
+      <ng-template pTemplate="header">
+        <a class="has-text-danger"> Topo </a>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+</div>

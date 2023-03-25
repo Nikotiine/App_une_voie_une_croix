@@ -3,6 +3,8 @@ enum Icons {
   LOGIN = 'fas fa-power-off',
   USER = 'far fa-user',
   ADMIN = 'fas fa-cogs',
+  LOCK = 'fas fa-lock',
+  UNLOCK = 'fas fa-lock-open',
   LOCATION = 'fas fa-location-arrow',
   REGION = 'fas fa-globe-europe',
   DEPARTMENT = 'fas fa-map-marker-alt',

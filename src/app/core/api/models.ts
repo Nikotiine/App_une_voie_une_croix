@@ -25,3 +25,7 @@ export { RouteViewDto } from './models/route-view-dto';
 export { DepartmentDto } from './models/department-dto';
 export { DataSiteDto } from './models/data-site-dto';
 export { DataRouteDto } from './models/data-route-dto';
+export { AdminUsersDto } from './models/admin-users-dto';
+export { UpdateResponse } from './models/update-response';
+export { AdminSitesDto } from './models/admin-sites-dto';
+export { AdminRoutesDto } from './models/admin-routes-dto';
