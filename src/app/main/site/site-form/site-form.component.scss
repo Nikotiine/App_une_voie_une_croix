@@ -1,6 +1,36 @@
 .switch-label {
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 40%;
   justify-content: space-between;
+}
+
+.wrapper-sector {
+  display: flex;
+
+  .p-button {
+    margin-left: 1rem;
+  }
+}
+
+.wrapper-localisation {
+
+  padding: 0.5rem 1rem;
+  
+  .is-flex {
+    padding: 0 1rem;
+    &:last-child {
+
+    }
+  }
+
+  p {
+    padding: .5rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  button {
+    width: 100%;
+  }
 }

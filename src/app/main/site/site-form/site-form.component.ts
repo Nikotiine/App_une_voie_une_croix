@@ -117,6 +117,7 @@ export class SiteFormComponent implements OnInit {
     };
     this.siteId = parseInt(this.activatedRoute.snapshot.params['id']);
     this.title = this.siteId ? this.titleEdit : this.titleCreate;
+    this.form.controls['department'].disable();
   }
   ngOnInit(): void {
     this.loadData();
@@ -230,8 +231,8 @@ export class SiteFormComponent implements OnInit {
       })
       .subscribe({
         next: data => {
-          console.log(data);
           this.departments = data;
+          this.form.controls['department'].enable();
         },
         error: err => {
           this.messageService.add({

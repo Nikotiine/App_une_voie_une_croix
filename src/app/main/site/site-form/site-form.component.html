@@ -39,9 +39,9 @@
         <p-multiSelect
           [options]="expositions"
           optionLabel="label"
-          placeholder="Expositions"
+          placeholder="-- Expositions -- "
           formControlName="expositions"
-          id="exposition"></p-multiSelect>
+          inputId="exposition"></p-multiSelect>
       </div>
       <div class="input-label">
         <label for="routeProfiles" class="label">
@@ -52,9 +52,9 @@
         <p-multiSelect
           [options]="routeProfiles"
           optionLabel="label"
-          placeholder="Type de voies"
+          placeholder="-- Type de voies -- "
           formControlName="routeProfiles"
-          id="routeProfiles"></p-multiSelect>
+          inputId="routeProfiles"></p-multiSelect>
       </div>
       <div class="input-label">
         <label for="minLevel" class="label">
@@ -65,9 +65,9 @@
         <p-dropdown
           [options]="levels"
           optionLabel="label"
-          placeholder="Niveau mini"
+          placeholder="-- Niveau mini -- "
           formControlName="minLevel"
-          id="minLevel"></p-dropdown>
+          inputId="minLevel"></p-dropdown>
       </div>
       <div class="input-label">
         <label for="maxLevel" class="label">
@@ -79,8 +79,8 @@
           [options]="levels"
           optionLabel="label"
           formControlName="maxLevel"
-          placeholder="Niveau maxi"
-          id="maxLevel"></p-dropdown>
+          placeholder="-- Niveau maxi --"
+          inputId="maxLevel"></p-dropdown>
       </div>
     </div>
 
@@ -93,9 +93,9 @@
       <p-dropdown
         [options]="rockTypes"
         optionLabel="label"
-        placeholder="Type de rocher"
+        placeholder="-- Type de rocher -- "
         formControlName="rockType"
-        id="rockType"></p-dropdown>
+        inputId="rockType"></p-dropdown>
     </div>
     <div class="input-label">
       <label for="equipments" class="label">
@@ -107,8 +107,8 @@
         [options]="equipments"
         optionLabel="label"
         formControlName="equipment"
-        placeholder="Equipement"
-        id="equipments"></p-dropdown>
+        placeholder="-- Equipement --"
+        inputId="equipments"></p-dropdown>
     </div>
     <div class="input-label">
       <label for="engagements" class="label"
@@ -120,8 +120,8 @@
         [options]="engagements"
         optionLabel="label"
         formControlName="engagement"
-        placeholder="Engagement"
-        id="engagements"></p-dropdown>
+        placeholder="-- Engagement --"
+        inputId="engagements"></p-dropdown>
     </div>
     <div class="input-label">
       <label for="approachTypes" class="label"
@@ -133,8 +133,8 @@
         [options]="approachTypes"
         optionLabel="label"
         formControlName="approachType"
-        placeholder="Approche"
-        id="approachTypes"></p-dropdown>
+        placeholder="-- Approche --"
+        inputId="approachTypes"></p-dropdown>
     </div>
     <div class="wrapper-input">
       <div class="input-label">
@@ -147,6 +147,7 @@
         <p-inputNumber
           id="averageRouteNumber"
           [showButtons]="true"
+          [step]="10"
           formControlName="averageRouteNumber"></p-inputNumber>
       </div>
 
@@ -160,6 +161,7 @@
         <p-inputNumber
           id="approachTime"
           [showButtons]="true"
+          [step]="5"
           suffix=" minute"
           formControlName="approachTime"></p-inputNumber>
       </div>
@@ -174,118 +176,127 @@
       <p-inputNumber
         id="averageRouteHeight"
         [showButtons]="true"
-        suffix=" metre"
+        [step]="10"
+        suffix=" mètres"
         formControlName="averageRouteHeight"></p-inputNumber>
     </div>
-    <div class="input-label">
-      <label for="region" class="label"
-        ><span class="has-text-info">
-          <i class="{{ iconRegion }} mr-1"></i>Region :
-        </span></label
-      >
-      <p-dropdown
-        [options]="regions"
-        optionLabel="name"
-        (onChange)="onChangeRegion($event)"
-        formControlName="region"
-        placeholder="Choisir la region"
-        id="region"></p-dropdown>
-    </div>
-    <div class="input-label">
-      <label for="department" class="label"
-        ><span class="has-text-info">
-          <i class="{{ iconDepartment }} mr-1"></i>Departement :
-        </span></label
-      >
-      <p-dropdown
-        [options]="departments"
-        optionLabel="name"
-        formControlName="department"
-        (onChange)="onChangeDepartment()"
-        placeholder="Choisir le departement"
-        optionValue="id"
-        id="department"></p-dropdown>
-    </div>
-    <div class="input-label width-20">
-      <button
-        *ngIf="showMainParking"
-        pButton
-        type="button"
-        label="{{ dialogMapHeader }} du site"
-        icon="pi pi-search"
-        iconPos="right"
-        (click)="chooseLocalisation(1)"
-        class="p-button-text"></button>
-      <p *ngIf="coordinateP1.length > 0 && displayP1">
-        <span class="has-text-info">Latitude :</span>{{ coordinateP1[0] }}
-        <br />
-        <span class="has-text-info">Longitude :</span>{{ coordinateP1[1] }}
-      </p>
-    </div>
-    <div class="is-flex is-justify-content-space-between w-100">
-      <div class="switch-label label">
-        <label for="water"
+    <fieldset>
+      <legend class="sr-only">Localisation</legend>
+      <div class="input-label">
+        <label for="region" class="label"
           ><span class="has-text-info">
-            <i class="{{ iconWater }} mr-1"></i>Eau potable :
+            <i class="{{ iconRegion }} mr-1"></i>Région :
           </span></label
         >
-        <p-inputSwitch
-          formControlName="water"
-          id="water"
-          class="mt-2"></p-inputSwitch>
+        <p-dropdown
+          [options]="regions"
+          optionLabel="name"
+          (onChange)="onChangeRegion($event)"
+          formControlName="region"
+          placeholder="-- Choisir la region -- "
+          id="region"></p-dropdown>
       </div>
-      <div class="switch-label label">
-        <label for="network"
-          ><span class="has-text-info ml-3">
-            <i class="{{ iconNetwork }} mr-1"></i>Reseau 4G :
-          </span></label
-        >
-        <p-inputSwitch
-          formControlName="network"
-          id="network"
-          class="mt-2"></p-inputSwitch>
-      </div>
-    </div>
-    <div class="is-flex is-justify-content-space-between w-100 mt-2">
-      <div class="switch-label label">
-        <label for="wc"
+      <div class="input-label">
+        <label for="department" class="label"
           ><span class="has-text-info">
-            <i class="{{ iconWc }} mr-1"></i>Toilettes :
+            <i class="{{ iconDepartment }} mr-1"></i>Département :
           </span></label
         >
-        <p-inputSwitch
-          formControlName="wc"
-          id="wc"
-          class="mt-2"></p-inputSwitch>
+        <p-dropdown
+          [options]="departments"
+          optionLabel="name"
+          formControlName="department"
+          (onChange)="onChangeDepartment()"
+          placeholder="-- Choisir le département -- "
+          optionValue="id"
+          inputId="department"></p-dropdown>
       </div>
-      <div class="switch-label label">
-        <label for="river"
-          ><span class="has-text-info ml-3">
-            <i class="{{ iconRiver }} mr-1"></i>Eau a proximite :
-          </span></label
-        >
-        <p-inputSwitch
-          formControlName="river"
-          id="river"
-          class="mt-2"></p-inputSwitch>
+      <div class="wrapper-localisation">
+        <button
+          *ngIf="showMainParking"
+          pButton
+          type="button"
+          label="Définir le {{ dialogMapHeader }} du site"
+          icon="pi pi-search"
+          iconPos="right"
+          (click)="chooseLocalisation(1)"
+          class="p-button p-button-outlined"></button>
+        <p *ngIf="coordinateP1.length > 0 && displayP1">
+          <span
+            ><span class="has-text-info">Latitude: </span
+            >{{ coordinateP1[0] | number }}</span
+          >
+          <span
+            ><span class="has-text-info">Longitude: </span
+            >{{ coordinateP1[1] | number }}
+          </span>
+        </p>
+
+        <div
+          *ngIf="displayP1"
+          class="is-flex is-justify-content-space-between w-100">
+          <div class="switch-label label">
+            <label for="water"
+              ><span class="has-text-info">
+                <i class="{{ iconWater }} mr-1"></i>Eau potable :
+              </span></label
+            >
+            <p-inputSwitch
+              formControlName="water"
+              inputId="water"></p-inputSwitch>
+          </div>
+          <div class="switch-label label">
+            <label for="network"
+              ><span class="has-text-info ml-3">
+                <i class="{{ iconNetwork }} mr-1"></i>Réseau 4G :
+              </span></label
+            >
+            <p-inputSwitch
+              formControlName="network"
+              inputId="network"></p-inputSwitch>
+          </div>
+        </div>
+        <div
+          *ngIf="displayP1"
+          class="is-flex is-justify-content-space-between w-100">
+          <div class="switch-label label">
+            <label for="wc"
+              ><span class="has-text-info">
+                <i class="{{ iconWc }} mr-1"></i>Toilettes :
+              </span></label
+            >
+            <p-inputSwitch formControlName="wc" inputId="wc"></p-inputSwitch>
+          </div>
+          <div class="switch-label label">
+            <label for="river"
+              ><span class="has-text-info ml-3">
+                <i class="{{ iconRiver }} mr-1"></i>Eau à proximité :
+              </span></label
+            >
+            <p-inputSwitch
+              formControlName="river"
+              inputId="river"></p-inputSwitch>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="input-label width-20">
-      <button
-        pButton
-        *ngIf="showSecondaryParking"
-        type="button"
-        label="{{ dialogMapHeader }} pour la nuit"
-        icon="pi pi-search"
-        iconPos="right"
-        (click)="chooseLocalisation(2)"
-        class="p-button-text"></button>
-      <p *ngIf="coordinateP2.length > 0 && displayP2">
-        <span class="has-text-info">Latitude :</span>{{ coordinateP2[0] }}
-        <br />
-        <span class="has-text-info">Longitude :</span>{{ coordinateP2[1] }}
-      </p>
-    </div>
+      <div class="wrapper-localisation">
+        <button
+          pButton
+          *ngIf="showSecondaryParking"
+          type="button"
+          label="Définir le {{ dialogMapHeader }} pour la nuit"
+          icon="pi pi-search"
+          iconPos="right"
+          (click)="chooseLocalisation(2)"
+          class="p-button p-button-outlined"></button>
+        <p *ngIf="coordinateP2.length > 0 && displayP2">
+          <span class="has-text-info">Latitude: </span
+          >{{ coordinateP2[0] | number }}
+          <span class="has-text-info">Longitude: </span
+          >{{ coordinateP2[1] | number }}
+        </p>
+      </div>
+    </fieldset>
     <div class="is-flex is-flex-direction-column w-100 mt-2">
       <h3 class="subtitle has-text-black has-text-centered mb-1">Secteurs</h3>
       <ng-container formArrayName="sectorArray">
@@ -295,28 +306,31 @@
           [formGroupName]="i">
           <label for="secteur-{{ i }}" class="has-text-info label"
             >Secteur n°{{ i + 1 }}
-            <span
-              *ngIf="i > 0"
-              (click)="removeSector(i)"
-              class="has-text-danger"
-              >(-)</span
-            >
           </label>
-          <input
-            type="text"
-            pInputText
-            formControlName="name"
-            id="secteur-{{ i }}" />
-        </div>
-        <div class="is-flex is-justify-content-center">
-          <button
-            pButton
-            type="button"
-            class="p-button p-button-outlined"
-            icon="pi pi-plus"
-            [disabled]="sectorArray.invalid"
-            (click)="addNewSector()"
-            iconPos="left"></button>
+          <div class="wrapper-sector">
+            <input
+              type="text"
+              pInputText
+              formControlName="name"
+              id="secteur-{{ i }}" />
+            <button
+              pButton
+              type="button"
+              class="p-button p-button-outlined"
+              icon="pi pi-plus"
+              [disabled]="sectorArray.invalid"
+              (click)="addNewSector()"
+              iconPos="left"></button>
+            <button
+              *ngIf="i > 0"
+              pButton
+              type="button"
+              class="p-button p-button-outlined"
+              icon="pi pi-minus"
+              [disabled]="sectorArray.invalid"
+              (click)="removeSector(i)"
+              iconPos="left"></button>
+          </div>
         </div>
       </ng-container>
     </div>
@@ -329,7 +343,7 @@
         [routerLink]="['']"></button>
       <button
         pButton
-        type="button"
+        type="submit"
         label="Valider"
         (click)="submit()"
         [disabled]="formIsInvalid()"
