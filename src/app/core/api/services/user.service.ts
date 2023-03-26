@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { UserContributionDto } from '../models/user-contribution-dto';
 import { UserEditPasswordDto } from '../models/user-edit-password-dto';
 import { UserProfileDto } from '../models/user-profile-dto';
 import { UserRegisterDto } from '../models/user-register-dto';
@@ -164,7 +165,7 @@ export class UserService extends BaseService {
   static readonly UserControllerEditUserPath = '/api/user/{id}';
 
   /**
-   * Edit user resource.
+   * Edit user profile.
    *
    * Mettre la description
    *
@@ -207,7 +208,7 @@ export class UserService extends BaseService {
   }
 
   /**
-   * Edit user resource.
+   * Edit user profile.
    *
    * Mettre la description
    *
@@ -233,6 +234,73 @@ export class UserService extends BaseService {
 
     return this.userControllerEditUser$Response(params).pipe(
       map((r: StrictHttpResponse<UserProfileDto>) => r.body as UserProfileDto)
+    );
+  }
+
+  /**
+   * Path part for operation userControllerGetUserContributions
+   */
+  static readonly UserControllerGetUserContributionsPath = '/api/user/contribution/{id}';
+
+  /**
+   * Get user contributions.
+   *
+   * Retrieve all contributions of user (site/route/topo)
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userControllerGetUserContributions()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  userControllerGetUserContributions$Response(params: {
+
+    /**
+     * id of user
+     */
+    id: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<UserContributionDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserControllerGetUserContributionsPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<UserContributionDto>;
+      })
+    );
+  }
+
+  /**
+   * Get user contributions.
+   *
+   * Retrieve all contributions of user (site/route/topo)
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `userControllerGetUserContributions$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  userControllerGetUserContributions(params: {
+
+    /**
+     * id of user
+     */
+    id: number;
+    context?: HttpContext
+  }
+): Observable<UserContributionDto> {
+
+    return this.userControllerGetUserContributions$Response(params).pipe(
+      map((r: StrictHttpResponse<UserContributionDto>) => r.body as UserContributionDto)
     );
   }
 

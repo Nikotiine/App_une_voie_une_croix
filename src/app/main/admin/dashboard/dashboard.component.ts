@@ -180,7 +180,7 @@ export class DashboardComponent implements OnInit {
         },
       });
   }
-  private getNewRole(userRole: string): string {
+  private getNewRole(userRole: string): UserRoles {
     return userRole === UserRoles.ROLE_ADMIN
       ? UserRoles.ROLE_USER
       : UserRoles.ROLE_ADMIN;

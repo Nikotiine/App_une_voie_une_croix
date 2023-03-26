@@ -9,9 +9,11 @@ import { LevelDto } from './level-dto';
 import { RegionDto } from './region-dto';
 import { RockTypeDto } from './rock-type-dto';
 import { RouteProfileDto } from './route-profile-dto';
+import { UserProfileDto } from './user-profile-dto';
 export interface SiteCreateDto {
   approachTime: number;
   approachType: ApproachTypeDto;
+  author: UserProfileDto;
   averageRouteHeight: number;
   averageRouteNumber: number;
   department: DepartmentDataDto;

@@ -11,6 +11,7 @@ import { SiteRouteDto } from '../../../core/api/models/site-route-dto';
 import { RouteRoutingModule } from '../../route/route-routing.module';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { mergeMap } from 'rxjs';
+import { SecurityService } from '../../../core/app/services/security.service';
 
 @Component({
   selector: 'app-site-view',
@@ -25,6 +26,7 @@ export class SiteViewComponent implements OnInit {
   public siteListUrl: string = SiteRoutingModule.SITE_LIST;
   public siteEditUrl: string = SiteRoutingModule.SITE_EDIT;
   public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
+  public routeNewUrl: string = RouteRoutingModule.ROUTE_NEW;
   public iconRoute: string = Icons.ROUTE;
   public iconRouteNumber: string = Icons.ROUTE_NUMBER;
   public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
@@ -49,13 +51,15 @@ export class SiteViewComponent implements OnInit {
   public iconEdit: string = Icons.EDIT;
   public iconInformation: string = Icons.INFORMATION;
   public isAdmin: boolean;
+  public isLogged: boolean;
 
   constructor(
     private readonly siteService: SiteService,
     private activatedRoute: ActivatedRoute,
     private readonly messageService: MessageService,
     private router: Router,
-    private readonly userProfileService: UserProfileService
+    private readonly userProfileService: UserProfileService,
+    private readonly securityService: SecurityService
   ) {
     this.mapOption = {
       draggable: false,
@@ -63,6 +67,7 @@ export class SiteViewComponent implements OnInit {
       lng: 5.454545,
     };
     this.isAdmin = this.userProfileService.isAdmin();
+    this.isLogged = this.securityService.isLogged();
   }
   ngOnInit(): void {
     const id = parseInt(this.activatedRoute.snapshot.params['id']);

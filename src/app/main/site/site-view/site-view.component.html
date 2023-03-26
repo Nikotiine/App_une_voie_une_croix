@@ -102,7 +102,7 @@
         <app-map [mapOption]="mapOption"></app-map>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel *ngIf="isAdmin">
+    <p-tabPanel *ngIf="isLogged">
       <ng-template pTemplate="header">
         <span (click)="showMapSecondaryParking()">
           <i class="{{ iconVan }} mr-2"></i>Parking camion</span
@@ -160,6 +160,15 @@
       <ng-template pTemplate="header">
         <span> <i class="{{ iconRoute }} mr-2"></i>Voies</span>
       </ng-template>
+      <div *ngIf="routes.length === 0" class="has-text-centered">
+        <p class="p-3 subtitle">Aucune voie enregistrée</p>
+        <button
+          pButton
+          pRipple
+          label="Ajouter une voie"
+          [routerLink]="[routeNewUrl]"
+          class="p-button p-button-outlined mt-5"></button>
+      </div>
       <div *ngIf="routes.length > 0">
         <h2 class="subtitle has-text-centered">
           Nombre de voies referencées:
@@ -202,7 +211,7 @@
         </p-table>
       </div>
     </p-tabPanel>
-    <p-tabPanel *ngIf="isAdmin">
+    <p-tabPanel *ngIf="isLogged">
       <ng-template pTemplate="header">
         <span> <i class="{{ iconTopo }} mr-2"></i>Topo</span>
       </ng-template>

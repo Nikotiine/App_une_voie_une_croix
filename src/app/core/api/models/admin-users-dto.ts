@@ -8,6 +8,6 @@ export interface AdminUsersDto {
   id: number;
   isActive: boolean;
   lastName: string;
-  role: string;
+  role: 'user' | 'admin';
   updatedAt: null | string;
 }

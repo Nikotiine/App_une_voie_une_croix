@@ -6,5 +6,5 @@ export interface UserProfileDto {
   firstName: string;
   id: number;
   lastName: string;
-  role: string;
+  role: 'user' | 'admin';
 }

@@ -3,7 +3,6 @@ import { CookieService } from 'ngx-cookie';
 import { TokenDto } from '../../api/models/token-dto';
 import { AuthService } from '../../api/services/auth.service';
 import { Router } from '@angular/router';
-import { MainRoutingModule } from '../../../main/main-routing.module';
 import { BehaviorSubject } from 'rxjs';
 import { AuthRoutingModule } from '../../../main/auth/auth-routing.module';
 

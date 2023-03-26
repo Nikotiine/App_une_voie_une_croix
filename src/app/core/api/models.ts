@@ -1,5 +1,7 @@
 export { UserRegisterDto } from './models/user-register-dto';
 export { UserProfileDto } from './models/user-profile-dto';
+export { SiteDto } from './models/site-dto';
+export { UserContributionDto } from './models/user-contribution-dto';
 export { UserEditPasswordDto } from './models/user-edit-password-dto';
 export { UserCredentialsDto } from './models/user-credentials-dto';
 export { TokenDto } from './models/token-dto';
@@ -18,7 +20,6 @@ export { SecteurDto } from './models/secteur-dto';
 export { SiteViewDto } from './models/site-view-dto';
 export { SiteRouteDto } from './models/site-route-dto';
 export { RouteCreateDto } from './models/route-create-dto';
-export { SiteDto } from './models/site-dto';
 export { SecteurSiteDto } from './models/secteur-site-dto';
 export { RouteListDto } from './models/route-list-dto';
 export { RouteViewDto } from './models/route-view-dto';

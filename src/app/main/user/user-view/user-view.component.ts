@@ -9,6 +9,7 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { AdminRoutingModule } from '../../admin/admin-routing.module';
+import { UserService } from '../../../core/api/services/user.service';
 
 @Component({
   selector: 'app-user-view',
@@ -28,6 +29,7 @@ export class UserViewComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly messageService: MessageService,
     private readonly userProfileService: UserProfileService,
+    private readonly userService: UserService,
     private router: Router
   ) {
     this.isAdmin = this.userProfileService.isAdmin();
@@ -38,5 +40,14 @@ export class UserViewComponent implements OnInit {
 
   private getProfile(): void {
     this.user = this.userProfileService.getUserProfile();
+    this.userService
+      .userControllerGetUserContributions({
+        id: this.user.id,
+      })
+      .subscribe({
+        next: data => {
+          console.log(data);
+        },
+      });
   }
 }
