@@ -101,7 +101,7 @@ export class AdminService extends BaseService {
     /**
      * id of user
      */
-    id: any;
+    id: number;
     context?: HttpContext
     body: AdminUsersDto
   }
@@ -140,7 +140,7 @@ export class AdminService extends BaseService {
     /**
      * id of user
      */
-    id: any;
+    id: number;
     context?: HttpContext
     body: AdminUsersDto
   }

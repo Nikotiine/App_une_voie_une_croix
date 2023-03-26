@@ -12,4 +12,5 @@ export interface AdminRoutesDto {
   level: LevelDto;
   name: string;
   secteur: SecteurSiteDto;
+  updatedAt: string;
 }
