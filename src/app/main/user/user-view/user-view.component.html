@@ -37,7 +37,7 @@
     </p-tabPanel>
     <p-tabPanel header="Administration" *ngIf="isAdmin">
       <ng-template pTemplate="header">
-        <a class="has-text-danger">
+        <a class="has-text-danger" [routerLink]="[adminDashboardUrl]">
           <i class="{{ iconAdmin }} mr-2"></i>Administration</a
         >
       </ng-template>

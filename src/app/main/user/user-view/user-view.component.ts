@@ -8,6 +8,7 @@ import { MainRoutingModule } from '../../main-routing.module';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
+import { AdminRoutingModule } from '../../admin/admin-routing.module';
 
 @Component({
   selector: 'app-user-view',
@@ -17,6 +18,7 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
 export class UserViewComponent implements OnInit {
   public user: UserProfileDto | null = null;
   public editUserUrl: string = UserRoutingModule.USER_EDIT;
+  public adminDashboardUrl: string = AdminRoutingModule.DASHBOARD;
   public iconEdit: string = Icons.EDIT;
   public iconAdmin: string = Icons.ADMIN;
   private homeUrl: string = MainRoutingModule.HOME;

@@ -14,6 +14,7 @@ export class LayoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('res');
     const user = this.activatedRoute.snapshot.data['user'];
     if (user) {
       this.userProfileService.setUserProfile(user);

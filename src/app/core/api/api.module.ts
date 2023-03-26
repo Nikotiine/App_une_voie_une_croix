@@ -11,6 +11,7 @@ import { RouteService } from './services/route.service';
 import { DepartmentService } from './services/department.service';
 import { RegionService } from './services/region.service';
 import { CommonService } from './services/common.service';
+import { AdminService } from './services/admin.service';
 
 /**
  * Module that provides all services and configuration.
@@ -27,6 +28,7 @@ import { CommonService } from './services/common.service';
     DepartmentService,
     RegionService,
     CommonService,
+    AdminService,
     ApiConfiguration
   ],
 })

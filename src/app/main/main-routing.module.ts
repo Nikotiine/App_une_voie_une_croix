@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthGuard } from '../core/app/guards/auth.guard';
 import { UserResolver } from '../core/app/resolvers/user.resolver';
+import { AdminGuard } from '../core/app/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -42,6 +43,12 @@ const routes: Routes = [
         path: 'route',
         loadChildren: () =>
           import('./route/route.module').then(m => m.RouteModule),
+      },
+      {
+        path: 'admin',
+        loadChildren: () =>
+          import('./admin/admin.module').then(m => m.AdminModule),
+        canActivate: [AdminGuard],
       },
     ],
   },
