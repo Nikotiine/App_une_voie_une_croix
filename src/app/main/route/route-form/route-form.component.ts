@@ -73,7 +73,7 @@ export class RouteFormComponent implements OnInit {
       this.loadRoute(parseInt(this.routeId));
       this.title = "Edition d'une voie";
     } else {
-      this.title = 'Nouvelle voie';
+      this.title = 'Ajout d\'une voie';
     }
     this.loadSites();
     this.loadData();

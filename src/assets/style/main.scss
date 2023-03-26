@@ -37,3 +37,36 @@
 
 
 }
+
+
+
+// Forms
+
+.form-register{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  flex-wrap: wrap;
+  max-width: 500px;
+
+  .wrapper-input{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .input-label{
+      min-width: 100px;
+      flex:0 1 calc(50% - 10px);
+      margin: 5px;
+    }
+  }
+
+  .input-label{
+    flex:0 1 calc(100% - 10px);
+    margin: 5px;
+
+  }
+}
