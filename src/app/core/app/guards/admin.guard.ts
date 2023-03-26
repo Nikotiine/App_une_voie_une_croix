@@ -21,17 +21,14 @@ import { map } from 'rxjs/operators';
 export class AdminGuard implements CanActivate {
   constructor(
     private userProfileService: UserProfileService,
-    private readonly router: Router,
-    private readonly authService: AuthService
+    private readonly router: Router
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean {
     if (!this.userProfileService.getUserProfile()) {
-      // return this.userProfileService.getUSerProfile().pipe(
-      //TODO REFACTO CA
-      return this.authService.authControllerMe().pipe(
+      return this.userProfileService.getUserProfileObservable().pipe(
         map(u => {
           if (u.role === 'admin') {
             return true;
