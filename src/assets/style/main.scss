@@ -1,9 +1,11 @@
-.input-label{
-  display:flex;
-  flex-direction:column;
-  justify-content: flex-start;
-  margin: 0.5rem;
+// Forms ---------------------------------------------------------------------------------------------------------------------
+
+.p-multiselect .p-multiselect-label.p-placeholder,
+.p-dropdown .p-dropdown-label.p-placeholder {
+  color: #919191;
 }
+
+// Show errors on input
 .p-inputtext.ng-touched.ng-invalid{
   border:  1px solid red;
 }
@@ -11,11 +13,27 @@
   border:  1px solid red;
   border-radius: 6px;
 }
+.p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext{
+  border:  1px solid red;
+
+}
+
+// Form alignment
+
 .form-register{
-  display:flex;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 80%;
   margin: auto;
+  flex-wrap: wrap;
+  max-width: 600px;
+
+  fieldset {
+    width: 100%;
+    margin: 1rem 0;
+  }
 
   & input {
     width: 100%;
@@ -31,9 +49,32 @@
     width: 100%;
   }
 
-.p-multiselect{
-  width: 100%;
-}
+  .p-multiselect{
+    width: 100%;
+  }
 
+  .input-label{
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    margin: 0.5rem;
+  }
 
+  .wrapper-input{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .input-label{
+      min-width: 100px;
+      flex:0 1 calc(50% - 10px);
+      margin: 5px;
+    }
+  }
+
+  .input-label{
+    flex:0 1 calc(100% - 10px);
+    margin: 5px;
+
+  }
 }

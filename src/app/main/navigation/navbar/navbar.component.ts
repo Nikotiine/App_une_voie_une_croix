@@ -49,12 +49,12 @@ export class NavbarComponent implements OnInit {
   private loadConnectedNavbar() {
     this.items = [
       {
-        label: 'Home',
+        label: 'Accueil',
         icon: Icons.VAN,
         routerLink: [MainRoutingModule.HOME],
       },
       {
-        label: 'Site',
+        label: 'Sites',
         icon: Icons.SITE,
         items: [
           {
