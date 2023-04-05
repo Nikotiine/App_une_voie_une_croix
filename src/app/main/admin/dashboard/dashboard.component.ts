@@ -5,7 +5,7 @@ import { AdminSitesDto } from '../../../core/api/models/admin-sites-dto';
 import { mergeMap } from 'rxjs';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { UserRoles } from '../../../core/app/enum/UserRoles.enum';
+import { UserRole } from '../../../core/app/enum/UserRole.enum';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { SiteRoutingModule } from '../../site/site-routing.module';
 import { AdminRoutesDto } from '../../../core/api/models/admin-routes-dto';
@@ -180,10 +180,10 @@ export class DashboardComponent implements OnInit {
         },
       });
   }
-  private getNewRole(userRole: string): UserRoles {
-    return userRole === UserRoles.ROLE_ADMIN
-      ? UserRoles.ROLE_USER
-      : UserRoles.ROLE_ADMIN;
+  private getNewRole(userRole: string): UserRole {
+    return userRole === UserRole.ROLE_ADMIN
+      ? UserRole.ROLE_USER
+      : UserRole.ROLE_ADMIN;
   }
   private messageUserRole(id: number): string {
     const user = this.selectedUser(id);

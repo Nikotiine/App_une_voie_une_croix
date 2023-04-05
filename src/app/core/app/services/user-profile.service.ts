@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { UserProfileDto } from '../../api/models/user-profile-dto';
 import { AuthService } from '../../api/services/auth.service';
 import { Observable, shareReplay } from 'rxjs';
+import { UserRole } from '../enum/UserRole.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class UserProfileService {
   }
   public setUserProfile(user: UserProfileDto) {
     this.user = user;
-    this.admin = user.role === 'admin';
+    this.admin = user.role === UserRole.ROLE_ADMIN;
   }
   public isAdmin(): boolean {
     return this.admin;
