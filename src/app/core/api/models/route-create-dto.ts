@@ -7,7 +7,9 @@ import { LevelDto } from './level-dto';
 import { RockTypeDto } from './rock-type-dto';
 import { RouteProfileDto } from './route-profile-dto';
 import { SecteurDto } from './secteur-dto';
+import { UserProfileDto } from './user-profile-dto';
 export interface RouteCreateDto {
+  author: UserProfileDto;
   engagement: EngagementDto;
   equipment: EquipmentDto;
   exposition: ExpositionDto;

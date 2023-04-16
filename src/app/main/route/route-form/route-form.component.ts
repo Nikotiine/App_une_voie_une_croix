@@ -19,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { RouteRoutingModule } from '../route-routing.module';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
 
 @Component({
   selector: 'app-route-form',
@@ -52,7 +53,8 @@ export class RouteFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private readonly messageService: MessageService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private readonly userProfileService: UserProfileService
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -148,6 +150,7 @@ export class RouteFormComponent implements OnInit {
       exposition: this.exposition,
       routeProfile: this.routeProfile,
       rockType: this.rockType,
+      author: this.userProfileService.getUserProfile(),
     };
 
     if (!this.routeId) {
@@ -164,7 +167,6 @@ export class RouteFormComponent implements OnInit {
   private loadData(): void {
     this.commonService.commonControllerGetDataForRoute().subscribe({
       next: data => {
-        console.log(data);
         this.expositions = data.expositions;
         this.routeProfiles = data.routeProfiles;
         this.levels = data.levels;

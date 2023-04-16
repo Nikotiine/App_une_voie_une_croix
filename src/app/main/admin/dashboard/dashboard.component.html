@@ -461,7 +461,7 @@
             <td>
               <span class="">{{ site.averageRouteNumber }}</span>
             </td>
-            <td>Auteur</td>
+            <td>{{ site.author.lastName }} - {{ site.author.firstName }}</td>
             <td>{{ site.createdAt | date : 'dd/MM/yyyy' }}</td>
 
             <td>
@@ -704,7 +704,7 @@
 
             <td>{{ route.secteur.name }}</td>
 
-            <td>Auteur</td>
+            <td>{{ route.author.lastName }} -- {{ route.author.firstName }}</td>
 
             <td>{{ route.createdAt | date : 'dd/MM/yyyy' }}</td>
             <td>

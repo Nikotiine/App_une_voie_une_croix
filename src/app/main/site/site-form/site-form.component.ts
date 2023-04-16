@@ -26,6 +26,7 @@ import { RegionDto } from '../../../core/api/models/region-dto';
 import { CommonService } from '../../../core/api/services/common.service';
 import { SecteurDto } from '../../../core/api/models/secteur-dto';
 import { DepartmentDataDto } from '../../../core/api/models/department-data-dto';
+import { UserProfileService } from '../../../core/app/services/user-profile.service';
 
 @Component({
   selector: 'app-site-form',
@@ -86,6 +87,7 @@ export class SiteFormComponent implements OnInit {
     private readonly commonService: CommonService,
     private readonly messageService: MessageService,
     private readonly departmentService: DepartmentService,
+    private readonly userProfileService: UserProfileService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
@@ -184,6 +186,7 @@ export class SiteFormComponent implements OnInit {
       network: this.form.controls['network'].value,
       river: this.form.controls['river'].value,
       secteurs: this.form.controls['sectorArray'].value,
+      author: this.userProfileService.getUserProfile(),
     };
     if (!this.displayP2) {
       site.secondaryParkingLat = site.mainParkingLat;

@@ -30,7 +30,20 @@
       </div>
     </p-tabPanel>
     <p-tabPanel>
-      <ng-template pTemplate="header"> Mes contributions </ng-template>Content 3
+      <ng-template pTemplate="header"> Mes contributions </ng-template>
+      <div>
+        <h3 class="title is-5">Sites ({{ sites.length }})</h3>
+        <p *ngFor="let site of sites">
+          {{ site.name }}
+        </p>
+      </div>
+      <div class="mt-3">
+        <h3 class="title is-5">Voies</h3>
+        <p *ngFor="let route of routes">
+          {{ route.name }} --- {{ route.secteur.site.name }} ---
+          {{ route.secteur.name }}
+        </p>
+      </div>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header"> Voies realisées </ng-template>Content 3
