@@ -9,12 +9,12 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { RegionDto } from '../models/region-dto';
+import { PublicDataDto } from '../models/public-data-dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RegionService extends BaseService {
+export class PublicService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -23,27 +23,27 @@ export class RegionService extends BaseService {
   }
 
   /**
-   * Path part for operation regionControllerGetAllRegions
+   * Path part for operation publicControllerGetDataForHomePage
    */
-  static readonly RegionControllerGetAllRegionsPath = '/api/region';
+  static readonly PublicControllerGetDataForHomePagePath = '/api/public';
 
   /**
-   * Get all regions resource.
+   * Data for public home page.
    *
-   * Mettre la description
+   *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `regionControllerGetAllRegions()` instead.
+   * To access only the response body, use `publicControllerGetDataForHomePage()` instead.
    *
    * This method doesn't expect any request body.
    */
-  regionControllerGetAllRegions$Response(params?: {
+  publicControllerGetDataForHomePage$Response(params?: {
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<Array<RegionDto>>> {
+): Observable<StrictHttpResponse<PublicDataDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, RegionService.RegionControllerGetAllRegionsPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PublicService.PublicControllerGetDataForHomePagePath, 'get');
     if (params) {
     }
 
@@ -54,29 +54,29 @@ export class RegionService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<RegionDto>>;
+        return r as StrictHttpResponse<PublicDataDto>;
       })
     );
   }
 
   /**
-   * Get all regions resource.
+   * Data for public home page.
    *
-   * Mettre la description
+   *
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `regionControllerGetAllRegions$Response()` instead.
+   * To access the full response (for headers, for example), `publicControllerGetDataForHomePage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  regionControllerGetAllRegions(params?: {
+  publicControllerGetDataForHomePage(params?: {
   },
   context?: HttpContext
 
-): Observable<Array<RegionDto>> {
+): Observable<PublicDataDto> {
 
-    return this.regionControllerGetAllRegions$Response(params,context).pipe(
-      map((r: StrictHttpResponse<Array<RegionDto>>) => r.body as Array<RegionDto>)
+    return this.publicControllerGetDataForHomePage$Response(params,context).pipe(
+      map((r: StrictHttpResponse<PublicDataDto>) => r.body as PublicDataDto)
     );
   }
 

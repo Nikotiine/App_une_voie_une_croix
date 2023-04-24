@@ -12,6 +12,7 @@ import { DepartmentService } from './services/department.service';
 import { RegionService } from './services/region.service';
 import { CommonService } from './services/common.service';
 import { AdminService } from './services/admin.service';
+import { PublicService } from './services/public.service';
 
 /**
  * Module that provides all services and configuration.
@@ -29,6 +30,7 @@ import { AdminService } from './services/admin.service';
     RegionService,
     CommonService,
     AdminService,
+    PublicService,
     ApiConfiguration
   ],
 })

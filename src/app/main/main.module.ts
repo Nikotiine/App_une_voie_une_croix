@@ -9,6 +9,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { UserResolver } from '../core/app/resolvers/user.resolver';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ChartModule } from 'primeng/chart';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [LayoutComponent, HomepageComponent],
@@ -18,6 +20,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     NavigationModule,
     ToastModule,
     ConfirmDialogModule,
+    ChartModule,
+    CarouselModule,
   ],
   providers: [MessageService, UserResolver],
   exports: [HomepageComponent],

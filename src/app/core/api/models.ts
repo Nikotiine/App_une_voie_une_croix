@@ -30,3 +30,5 @@ export { AdminUsersDto } from './models/admin-users-dto';
 export { UpdateResponse } from './models/update-response';
 export { AdminSitesDto } from './models/admin-sites-dto';
 export { AdminRoutesDto } from './models/admin-routes-dto';
+export { RouteDto } from './models/route-dto';
+export { PublicDataDto } from './models/public-data-dto';

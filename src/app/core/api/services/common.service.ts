@@ -39,8 +39,9 @@ export class CommonService extends BaseService {
    * This method doesn't expect any request body.
    */
   commonControllerGetDataForSite$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<DataSiteDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, CommonService.CommonControllerGetDataForSitePath, 'get');
@@ -50,7 +51,7 @@ export class CommonService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -64,17 +65,18 @@ export class CommonService extends BaseService {
    *
    * descrpitoin
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `commonControllerGetDataForSite$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   commonControllerGetDataForSite(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<DataSiteDto> {
 
-    return this.commonControllerGetDataForSite$Response(params).pipe(
+    return this.commonControllerGetDataForSite$Response(params,context).pipe(
       map((r: StrictHttpResponse<DataSiteDto>) => r.body as DataSiteDto)
     );
   }
@@ -95,8 +97,9 @@ export class CommonService extends BaseService {
    * This method doesn't expect any request body.
    */
   commonControllerGetDataForRoute$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<DataRouteDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, CommonService.CommonControllerGetDataForRoutePath, 'get');
@@ -106,7 +109,7 @@ export class CommonService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -120,17 +123,18 @@ export class CommonService extends BaseService {
    *
    * descrptit
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `commonControllerGetDataForRoute$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   commonControllerGetDataForRoute(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<DataRouteDto> {
 
-    return this.commonControllerGetDataForRoute$Response(params).pipe(
+    return this.commonControllerGetDataForRoute$Response(params,context).pipe(
       map((r: StrictHttpResponse<DataRouteDto>) => r.body as DataRouteDto)
     );
   }

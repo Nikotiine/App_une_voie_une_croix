@@ -1,1 +1,28 @@
-<p>homepage works!</p>
+<h1 class="title has-text-centered mt-1">Une Voie une Croix</h1>
+<div class="" *ngIf="loaded">
+  <div class="box">
+    <p>Grimpeurs inscrits :</p>
+    <p class="has-text-centered">{{ totalUsers }}</p>
+  </div>
+  <div class="box w-15">
+    <p>Sites disponibles :</p>
+    <p class="has-text-centered">{{ totalSite }}</p>
+  </div>
+  <div class="box">
+    <p>Dernier site ajouté :</p>
+    <p class="has-text-centered">
+      {{ lastSiteRegister ? lastSiteRegister.name : '' }}
+    </p>
+  </div>
+
+  <div class="box">
+    <p>Nombre de voie enregistrée:</p>
+    <p class="has-text-centered">{{ totalRoute }}</p>
+  </div>
+  <div class="box">
+    <p>Derniere voie enregistrée :</p>
+    <p class="has-text-centered">
+      {{ lastRouteRegister ? lastRouteRegister.name : '' }}
+    </p>
+  </div>
+</div>

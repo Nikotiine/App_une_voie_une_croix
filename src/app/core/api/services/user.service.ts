@@ -33,7 +33,7 @@ export class UserService extends BaseService {
   /**
    * Register new user.
    *
-   * Mettre la description
+   * Create new user in database / by default the user have role USER
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerCreateUser()` instead.
@@ -41,13 +41,14 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userControllerCreateUser$Response(params: {
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO UserRegisterDto
      */
     body: UserRegisterDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UserProfileDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserControllerCreateUserPath, 'post');
@@ -58,7 +59,7 @@ export class UserService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -70,24 +71,25 @@ export class UserService extends BaseService {
   /**
    * Register new user.
    *
-   * Mettre la description
+   * Create new user in database / by default the user have role USER
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userControllerCreateUser$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userControllerCreateUser(params: {
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO UserRegisterDto
      */
     body: UserRegisterDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UserProfileDto> {
 
-    return this.userControllerCreateUser$Response(params).pipe(
+    return this.userControllerCreateUser$Response(params,context).pipe(
       map((r: StrictHttpResponse<UserProfileDto>) => r.body as UserProfileDto)
     );
   }
@@ -98,9 +100,9 @@ export class UserService extends BaseService {
   static readonly UserControllerGetUserPath = '/api/user/{id}';
 
   /**
-   * Get user resource.
+   * Get user resource by id.
    *
-   * Mettre la description
+   * The user can show his own profile
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerGetUser()` instead.
@@ -113,8 +115,9 @@ export class UserService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UserProfileDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserControllerGetUserPath, 'get');
@@ -125,7 +128,7 @@ export class UserService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -135,11 +138,11 @@ export class UserService extends BaseService {
   }
 
   /**
-   * Get user resource.
+   * Get user resource by id.
    *
-   * Mettre la description
+   * The user can show his own profile
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userControllerGetUser$Response()` instead.
    *
    * This method doesn't expect any request body.
@@ -150,11 +153,12 @@ export class UserService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UserProfileDto> {
 
-    return this.userControllerGetUser$Response(params).pipe(
+    return this.userControllerGetUser$Response(params,context).pipe(
       map((r: StrictHttpResponse<UserProfileDto>) => r.body as UserProfileDto)
     );
   }
@@ -167,7 +171,7 @@ export class UserService extends BaseService {
   /**
    * Edit user profile.
    *
-   * Mettre la description
+   * The user can edit his profile / JWT required
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerEditUser()` instead.
@@ -180,13 +184,14 @@ export class UserService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO UserRegisterDto
      */
     body: UserRegisterDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UserProfileDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserControllerEditUserPath, 'put');
@@ -198,7 +203,7 @@ export class UserService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -210,9 +215,9 @@ export class UserService extends BaseService {
   /**
    * Edit user profile.
    *
-   * Mettre la description
+   * The user can edit his profile / JWT required
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userControllerEditUser$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
@@ -223,16 +228,17 @@ export class UserService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO UserRegisterDto
      */
     body: UserRegisterDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UserProfileDto> {
 
-    return this.userControllerEditUser$Response(params).pipe(
+    return this.userControllerEditUser$Response(params,context).pipe(
       map((r: StrictHttpResponse<UserProfileDto>) => r.body as UserProfileDto)
     );
   }
@@ -258,8 +264,9 @@ export class UserService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UserContributionDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserControllerGetUserContributionsPath, 'get');
@@ -270,7 +277,7 @@ export class UserService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -284,7 +291,7 @@ export class UserService extends BaseService {
    *
    * Retrieve all contributions of user (site/route/topo)
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userControllerGetUserContributions$Response()` instead.
    *
    * This method doesn't expect any request body.
@@ -295,11 +302,12 @@ export class UserService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UserContributionDto> {
 
-    return this.userControllerGetUserContributions$Response(params).pipe(
+    return this.userControllerGetUserContributions$Response(params,context).pipe(
       map((r: StrictHttpResponse<UserContributionDto>) => r.body as UserContributionDto)
     );
   }
@@ -325,13 +333,14 @@ export class UserService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO UserRegisterDto
      */
     body: UserEditPasswordDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UserProfileDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserControllerEditUserPasswordPath, 'put');
@@ -343,7 +352,7 @@ export class UserService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -357,7 +366,7 @@ export class UserService extends BaseService {
    *
    * Mettre la description
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userControllerEditUserPassword$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
@@ -368,16 +377,17 @@ export class UserService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO UserRegisterDto
      */
     body: UserEditPasswordDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UserProfileDto> {
 
-    return this.userControllerEditUserPassword$Response(params).pipe(
+    return this.userControllerEditUserPassword$Response(params,context).pipe(
       map((r: StrictHttpResponse<UserProfileDto>) => r.body as UserProfileDto)
     );
   }

@@ -41,8 +41,9 @@ export class RouteService extends BaseService {
    * This method doesn't expect any request body.
    */
   routeControllerGetAllRoutes$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Array<RouteListDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, RouteService.RouteControllerGetAllRoutesPath, 'get');
@@ -52,7 +53,7 @@ export class RouteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -66,17 +67,18 @@ export class RouteService extends BaseService {
    *
    * Find all routes in all sites
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `routeControllerGetAllRoutes$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   routeControllerGetAllRoutes(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Array<RouteListDto>> {
 
-    return this.routeControllerGetAllRoutes$Response(params).pipe(
+    return this.routeControllerGetAllRoutes$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<RouteListDto>>) => r.body as Array<RouteListDto>)
     );
   }
@@ -97,13 +99,14 @@ export class RouteService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   routeControllerCreateRoute$Response(params: {
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO RouteCreateDto
      */
     body: RouteCreateDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<RouteListDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, RouteService.RouteControllerCreateRoutePath, 'post');
@@ -114,7 +117,7 @@ export class RouteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -128,22 +131,23 @@ export class RouteService extends BaseService {
    *
    * Add new route for a site
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `routeControllerCreateRoute$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   routeControllerCreateRoute(params: {
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO RouteCreateDto
      */
     body: RouteCreateDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<RouteListDto> {
 
-    return this.routeControllerCreateRoute$Response(params).pipe(
+    return this.routeControllerCreateRoute$Response(params,context).pipe(
       map((r: StrictHttpResponse<RouteListDto>) => r.body as RouteListDto)
     );
   }
@@ -169,8 +173,9 @@ export class RouteService extends BaseService {
      * id of the route
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<RouteViewDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, RouteService.RouteControllerGetRoutePath, 'get');
@@ -181,7 +186,7 @@ export class RouteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -195,7 +200,7 @@ export class RouteService extends BaseService {
    *
    * find route resource by id
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `routeControllerGetRoute$Response()` instead.
    *
    * This method doesn't expect any request body.
@@ -206,11 +211,12 @@ export class RouteService extends BaseService {
      * id of the route
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<RouteViewDto> {
 
-    return this.routeControllerGetRoute$Response(params).pipe(
+    return this.routeControllerGetRoute$Response(params,context).pipe(
       map((r: StrictHttpResponse<RouteViewDto>) => r.body as RouteViewDto)
     );
   }
@@ -236,13 +242,14 @@ export class RouteService extends BaseService {
      * id of the route
      */
     id: number;
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO RouteCreateDto
      */
     body: RouteCreateDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<RouteViewDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, RouteService.RouteControllerEditRoutePath, 'put');
@@ -254,7 +261,7 @@ export class RouteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -268,7 +275,7 @@ export class RouteService extends BaseService {
    *
    * Add new route for a site
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `routeControllerEditRoute$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
@@ -279,16 +286,17 @@ export class RouteService extends BaseService {
      * id of the route
      */
     id: number;
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO RouteCreateDto
      */
     body: RouteCreateDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<RouteViewDto> {
 
-    return this.routeControllerEditRoute$Response(params).pipe(
+    return this.routeControllerEditRoute$Response(params,context).pipe(
       map((r: StrictHttpResponse<RouteViewDto>) => r.body as RouteViewDto)
     );
   }
@@ -309,8 +317,9 @@ export class RouteService extends BaseService {
    * This method doesn't expect any request body.
    */
   routeControllerGetSites$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Array<SiteDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, RouteService.RouteControllerGetSitesPath, 'get');
@@ -320,7 +329,7 @@ export class RouteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -334,17 +343,18 @@ export class RouteService extends BaseService {
    *
    * Get all sites resource with minimum necesary datas
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `routeControllerGetSites$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   routeControllerGetSites(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Array<SiteDto>> {
 
-    return this.routeControllerGetSites$Response(params).pipe(
+    return this.routeControllerGetSites$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<SiteDto>>) => r.body as Array<SiteDto>)
     );
   }

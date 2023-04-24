@@ -37,6 +37,7 @@ export class RouteFormComponent implements OnInit {
   public routeProfiles: RouteProfileDto[] = [];
   private rockType: RockTypeDto = null;
   public iconRoute: string = Icons.ROUTE;
+
   public iconExposition: string = Icons.EXPOSITION;
   public iconMaxLevel: string = Icons.MAX_LEVEL;
   public iconEquipment: string = Icons.EQUIPMENT;
@@ -75,7 +76,7 @@ export class RouteFormComponent implements OnInit {
       this.loadRoute(parseInt(this.routeId));
       this.title = "Edition d'une voie";
     } else {
-      this.title = 'Ajout d\'une voie';
+      this.title = "Ajout d'une voie";
     }
     this.loadSites();
     this.loadData();
@@ -242,6 +243,11 @@ export class RouteFormComponent implements OnInit {
       });
   }
 
+  /**
+   *
+   * @param route
+   * @private
+   */
   private updateRoute(route: RouteCreateDto) {
     this.routeService
       .routeControllerEditRoute({

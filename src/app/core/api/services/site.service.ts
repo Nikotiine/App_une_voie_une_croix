@@ -41,8 +41,9 @@ export class SiteService extends BaseService {
    * This method doesn't expect any request body.
    */
   siteControllerGetAllSites$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Array<SiteListDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerGetAllSitesPath, 'get');
@@ -52,7 +53,7 @@ export class SiteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -66,17 +67,18 @@ export class SiteService extends BaseService {
    *
    * Entry point for get all sites resources with many datas
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `siteControllerGetAllSites$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   siteControllerGetAllSites(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Array<SiteListDto>> {
 
-    return this.siteControllerGetAllSites$Response(params).pipe(
+    return this.siteControllerGetAllSites$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<SiteListDto>>) => r.body as Array<SiteListDto>)
     );
   }
@@ -89,7 +91,7 @@ export class SiteService extends BaseService {
   /**
    * Create site resource.
    *
-   * Entry point for create new site resource
+   * Entry point for create new site resource / JWT required
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `siteControllerCreateSite()` instead.
@@ -97,13 +99,14 @@ export class SiteService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   siteControllerCreateSite$Response(params: {
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO SiteCreateDto
      */
     body: SiteCreateDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<SiteListDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerCreateSitePath, 'post');
@@ -114,7 +117,7 @@ export class SiteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -126,24 +129,25 @@ export class SiteService extends BaseService {
   /**
    * Create site resource.
    *
-   * Entry point for create new site resource
+   * Entry point for create new site resource / JWT required
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `siteControllerCreateSite$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   siteControllerCreateSite(params: {
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO SiteCreateDto
      */
     body: SiteCreateDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<SiteListDto> {
 
-    return this.siteControllerCreateSite$Response(params).pipe(
+    return this.siteControllerCreateSite$Response(params,context).pipe(
       map((r: StrictHttpResponse<SiteListDto>) => r.body as SiteListDto)
     );
   }
@@ -151,7 +155,7 @@ export class SiteService extends BaseService {
   /**
    * Path part for operation siteControllerGetSite
    */
-  static readonly SiteControllerGetSitePath = '/api/site/{id}';
+  static readonly SiteControllerGetSitePath = '/api/site/site/{id}';
 
   /**
    * Get one site resource.
@@ -169,8 +173,9 @@ export class SiteService extends BaseService {
      * id of site resource
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<SiteViewDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerGetSitePath, 'get');
@@ -181,7 +186,7 @@ export class SiteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -195,7 +200,7 @@ export class SiteService extends BaseService {
    *
    * Entry point for get a site resource
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `siteControllerGetSite$Response()` instead.
    *
    * This method doesn't expect any request body.
@@ -206,12 +211,82 @@ export class SiteService extends BaseService {
      * id of site resource
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<SiteViewDto> {
 
-    return this.siteControllerGetSite$Response(params).pipe(
+    return this.siteControllerGetSite$Response(params,context).pipe(
       map((r: StrictHttpResponse<SiteViewDto>) => r.body as SiteViewDto)
+    );
+  }
+
+  /**
+   * Path part for operation siteControllerGetRoutesOfSite
+   */
+  static readonly SiteControllerGetRoutesOfSitePath = '/api/site/route/{id}';
+
+  /**
+   * Get collection route for one site.
+   *
+   * Entry point for get a site resource
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `siteControllerGetRoutesOfSite()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  siteControllerGetRoutesOfSite$Response(params: {
+
+    /**
+     * id of site resource
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<SiteRouteDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerGetRoutesOfSitePath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<SiteRouteDto>>;
+      })
+    );
+  }
+
+  /**
+   * Get collection route for one site.
+   *
+   * Entry point for get a site resource
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `siteControllerGetRoutesOfSite$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  siteControllerGetRoutesOfSite(params: {
+
+    /**
+     * id of site resource
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<Array<SiteRouteDto>> {
+
+    return this.siteControllerGetRoutesOfSite$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<SiteRouteDto>>) => r.body as Array<SiteRouteDto>)
     );
   }
 
@@ -236,13 +311,14 @@ export class SiteService extends BaseService {
      * id of site resource
      */
     id: number;
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO SiteCreateDto
      */
     body: SiteCreateDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<SiteViewDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerEditSitePath, 'put');
@@ -254,7 +330,7 @@ export class SiteService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -268,7 +344,7 @@ export class SiteService extends BaseService {
    *
    * Entry point for edit site resource
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `siteControllerEditSite$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
@@ -279,84 +355,18 @@ export class SiteService extends BaseService {
      * id of site resource
      */
     id: number;
-    context?: HttpContext
 
     /**
      * The Description for the Post Body. Please look into the DTO SiteCreateDto
      */
     body: SiteCreateDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<SiteViewDto> {
 
-    return this.siteControllerEditSite$Response(params).pipe(
+    return this.siteControllerEditSite$Response(params,context).pipe(
       map((r: StrictHttpResponse<SiteViewDto>) => r.body as SiteViewDto)
-    );
-  }
-
-  /**
-   * Path part for operation siteControllerGetRoutesOfSite
-   */
-  static readonly SiteControllerGetRoutesOfSitePath = '/api/site/route/{id}';
-
-  /**
-   * Get routes site resource.
-   *
-   * Entry point for get a site resource
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `siteControllerGetRoutesOfSite()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  siteControllerGetRoutesOfSite$Response(params: {
-
-    /**
-     * id of site resource
-     */
-    id: number;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<SiteRouteDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, SiteService.SiteControllerGetRoutesOfSitePath, 'get');
-    if (params) {
-      rb.path('id', params.id, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<SiteRouteDto>>;
-      })
-    );
-  }
-
-  /**
-   * Get routes site resource.
-   *
-   * Entry point for get a site resource
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `siteControllerGetRoutesOfSite$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  siteControllerGetRoutesOfSite(params: {
-
-    /**
-     * id of site resource
-     */
-    id: number;
-    context?: HttpContext
-  }
-): Observable<Array<SiteRouteDto>> {
-
-    return this.siteControllerGetRoutesOfSite$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<SiteRouteDto>>) => r.body as Array<SiteRouteDto>)
     );
   }
 

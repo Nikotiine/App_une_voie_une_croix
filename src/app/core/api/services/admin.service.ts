@@ -41,8 +41,9 @@ export class AdminService extends BaseService {
    * This method doesn't expect any request body.
    */
   adminControllerGetAllUsers$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Array<AdminUsersDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, AdminService.AdminControllerGetAllUsersPath, 'get');
@@ -52,7 +53,7 @@ export class AdminService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -66,17 +67,18 @@ export class AdminService extends BaseService {
    *
    * Mettre une descrption
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `adminControllerGetAllUsers$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   adminControllerGetAllUsers(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Array<AdminUsersDto>> {
 
-    return this.adminControllerGetAllUsers$Response(params).pipe(
+    return this.adminControllerGetAllUsers$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<AdminUsersDto>>) => r.body as Array<AdminUsersDto>)
     );
   }
@@ -102,9 +104,10 @@ export class AdminService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
     body: AdminUsersDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UpdateResponse>> {
 
     const rb = new RequestBuilder(this.rootUrl, AdminService.AdminControllerEditUserRolePath, 'put');
@@ -116,7 +119,7 @@ export class AdminService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -130,7 +133,7 @@ export class AdminService extends BaseService {
    *
    * Mettre une descfitpion
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `adminControllerEditUserRole$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
@@ -141,12 +144,13 @@ export class AdminService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
     body: AdminUsersDto
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UpdateResponse> {
 
-    return this.adminControllerEditUserRole$Response(params).pipe(
+    return this.adminControllerEditUserRole$Response(params,context).pipe(
       map((r: StrictHttpResponse<UpdateResponse>) => r.body as UpdateResponse)
     );
   }
@@ -172,8 +176,9 @@ export class AdminService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UpdateResponse>> {
 
     const rb = new RequestBuilder(this.rootUrl, AdminService.AdminControllerToggleUserStatusPath, 'patch');
@@ -184,7 +189,7 @@ export class AdminService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -198,7 +203,7 @@ export class AdminService extends BaseService {
    *
    * Mettre une descfitpion
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `adminControllerToggleUserStatus$Response()` instead.
    *
    * This method doesn't expect any request body.
@@ -209,11 +214,12 @@ export class AdminService extends BaseService {
      * id of user
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UpdateResponse> {
 
-    return this.adminControllerToggleUserStatus$Response(params).pipe(
+    return this.adminControllerToggleUserStatus$Response(params,context).pipe(
       map((r: StrictHttpResponse<UpdateResponse>) => r.body as UpdateResponse)
     );
   }
@@ -234,8 +240,9 @@ export class AdminService extends BaseService {
    * This method doesn't expect any request body.
    */
   adminControllerGetAllSites$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Array<AdminSitesDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, AdminService.AdminControllerGetAllSitesPath, 'get');
@@ -245,7 +252,7 @@ export class AdminService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -259,17 +266,18 @@ export class AdminService extends BaseService {
    *
    * Mettre une descrption
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `adminControllerGetAllSites$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   adminControllerGetAllSites(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Array<AdminSitesDto>> {
 
-    return this.adminControllerGetAllSites$Response(params).pipe(
+    return this.adminControllerGetAllSites$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<AdminSitesDto>>) => r.body as Array<AdminSitesDto>)
     );
   }
@@ -295,8 +303,9 @@ export class AdminService extends BaseService {
      * id of site
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UpdateResponse>> {
 
     const rb = new RequestBuilder(this.rootUrl, AdminService.AdminControllerToggleSiteStatusPath, 'patch');
@@ -307,7 +316,7 @@ export class AdminService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -321,7 +330,7 @@ export class AdminService extends BaseService {
    *
    * Mettre une descfitpion
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `adminControllerToggleSiteStatus$Response()` instead.
    *
    * This method doesn't expect any request body.
@@ -332,11 +341,12 @@ export class AdminService extends BaseService {
      * id of site
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UpdateResponse> {
 
-    return this.adminControllerToggleSiteStatus$Response(params).pipe(
+    return this.adminControllerToggleSiteStatus$Response(params,context).pipe(
       map((r: StrictHttpResponse<UpdateResponse>) => r.body as UpdateResponse)
     );
   }
@@ -357,8 +367,9 @@ export class AdminService extends BaseService {
    * This method doesn't expect any request body.
    */
   adminControllerGetAllRoutes$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Array<AdminRoutesDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, AdminService.AdminControllerGetAllRoutesPath, 'get');
@@ -368,7 +379,7 @@ export class AdminService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -382,17 +393,18 @@ export class AdminService extends BaseService {
    *
    * Mettre une descrption
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `adminControllerGetAllRoutes$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   adminControllerGetAllRoutes(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Array<AdminRoutesDto>> {
 
-    return this.adminControllerGetAllRoutes$Response(params).pipe(
+    return this.adminControllerGetAllRoutes$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<AdminRoutesDto>>) => r.body as Array<AdminRoutesDto>)
     );
   }
@@ -418,8 +430,9 @@ export class AdminService extends BaseService {
      * id of site
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<UpdateResponse>> {
 
     const rb = new RequestBuilder(this.rootUrl, AdminService.AdminControllerToggleRouteStatusPath, 'patch');
@@ -430,7 +443,7 @@ export class AdminService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -444,7 +457,7 @@ export class AdminService extends BaseService {
    *
    * Mettre une descfitpion
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `adminControllerToggleRouteStatus$Response()` instead.
    *
    * This method doesn't expect any request body.
@@ -455,11 +468,12 @@ export class AdminService extends BaseService {
      * id of site
      */
     id: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<UpdateResponse> {
 
-    return this.adminControllerToggleRouteStatus$Response(params).pipe(
+    return this.adminControllerToggleRouteStatus$Response(params,context).pipe(
       map((r: StrictHttpResponse<UpdateResponse>) => r.body as UpdateResponse)
     );
   }

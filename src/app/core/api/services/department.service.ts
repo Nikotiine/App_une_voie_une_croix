@@ -44,8 +44,9 @@ export class DepartmentService extends BaseService {
      * id of region where are department
      */
     region: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Array<DepartmentDataDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DepartmentService.DepartmentControllerGetByRegionPath, 'get');
@@ -56,7 +57,7 @@ export class DepartmentService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -70,7 +71,7 @@ export class DepartmentService extends BaseService {
    *
    * Filter department with region id
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `departmentControllerGetByRegion$Response()` instead.
    *
    * This method doesn't expect any request body.
@@ -81,11 +82,12 @@ export class DepartmentService extends BaseService {
      * id of region where are department
      */
     region: number;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Array<DepartmentDataDto>> {
 
-    return this.departmentControllerGetByRegion$Response(params).pipe(
+    return this.departmentControllerGetByRegion$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<DepartmentDataDto>>) => r.body as Array<DepartmentDataDto>)
     );
   }
@@ -106,8 +108,9 @@ export class DepartmentService extends BaseService {
    * This method doesn't expect any request body.
    */
   departmentControllerGetAllDepartments$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Array<DepartmentDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DepartmentService.DepartmentControllerGetAllDepartmentsPath, 'get');
@@ -117,7 +120,7 @@ export class DepartmentService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -131,17 +134,18 @@ export class DepartmentService extends BaseService {
    *
    * Retrieve all departments, Please look in DTO for DepartmentDto
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `departmentControllerGetAllDepartments$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   departmentControllerGetAllDepartments(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Array<DepartmentDto>> {
 
-    return this.departmentControllerGetAllDepartments$Response(params).pipe(
+    return this.departmentControllerGetAllDepartments$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<DepartmentDto>>) => r.body as Array<DepartmentDto>)
     );
   }
