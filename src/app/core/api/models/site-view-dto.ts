@@ -8,6 +8,7 @@ import { ExpositionDto } from './exposition-dto';
 import { LevelDto } from './level-dto';
 import { RegionDto } from './region-dto';
 import { RockTypeDto } from './rock-type-dto';
+import { RouteFootDto } from './route-foot-dto';
 import { RouteProfileDto } from './route-profile-dto';
 import { SecteurDto } from './secteur-dto';
 export interface SiteViewDto {
@@ -29,6 +30,7 @@ export interface SiteViewDto {
   region: RegionDto;
   river: boolean;
   rockType: RockTypeDto;
+  routeFoot: RouteFootDto;
   routeProfiles: Array<RouteProfileDto>;
   secondaryParkingLat: number;
   secondaryParkingLng: number;

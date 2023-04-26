@@ -8,6 +8,7 @@ import { RockTypeDto } from './rock-type-dto';
 import { RouteProfileDto } from './route-profile-dto';
 import { SecteurSiteDto } from './secteur-site-dto';
 export interface RouteViewDto {
+  commentary: string;
   createdAt: string;
   engagement: EngagementDto;
   equipment: EquipmentDto;

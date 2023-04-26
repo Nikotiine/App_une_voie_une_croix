@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { SiteService } from '../../../core/api/services/site.service';
 import { MessageService } from 'primeng/api';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { MapOptions } from '../../../core/app/models/MapOptions';
-
 import { DepartmentService } from '../../../core/api/services/department.service';
-
 import { SiteCreateDto } from '../../../core/api/models/site-create-dto';
-
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { SiteRoutingModule } from '../site-routing.module';
 import { Icons } from '../../../core/app/enum/Icons.enum';
@@ -22,11 +17,11 @@ import { LevelDto } from '../../../core/api/models/level-dto';
 import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
 import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
 import { RegionDto } from '../../../core/api/models/region-dto';
-
 import { CommonService } from '../../../core/api/services/common.service';
 import { SecteurDto } from '../../../core/api/models/secteur-dto';
 import { DepartmentDataDto } from '../../../core/api/models/department-data-dto';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
+import { RouteFootDto } from '../../../core/api/models/route-foot-dto';
 
 @Component({
   selector: 'app-site-form',
@@ -49,6 +44,7 @@ export class SiteFormComponent implements OnInit {
   public routeProfiles: RouteProfileDto[] = [];
   public regions: RegionDto[] = [];
   public departments: DepartmentDataDto[] = [];
+  public routeFoots: RouteFootDto[] = [];
 
   // ******** DropDown & MutliSelect ********
   public mapOptions: MapOptions;
@@ -82,14 +78,14 @@ export class SiteFormComponent implements OnInit {
   public iconSite: string = Icons.SITE;
   // **************ICONS*************************
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private readonly siteService: SiteService,
     private readonly commonService: CommonService,
     private readonly messageService: MessageService,
     private readonly departmentService: DepartmentService,
     private readonly userProfileService: UserProfileService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -106,6 +102,7 @@ export class SiteFormComponent implements OnInit {
       rockType: ['', Validators.required],
       region: ['', Validators.required],
       department: ['', Validators.required],
+      routeFoot: ['', Validators.required],
       water: [false],
       wc: [false],
       network: [false],
@@ -145,6 +142,7 @@ export class SiteFormComponent implements OnInit {
         this.engagements = data.engagements;
         this.routeProfiles = data.routeProfiles;
         this.regions = data.regions;
+        this.routeFoots = data.routeFoots;
       },
       error: err => {
         this.messageService.add({
@@ -187,6 +185,7 @@ export class SiteFormComponent implements OnInit {
       river: this.form.controls['river'].value,
       secteurs: this.form.controls['sectorArray'].value,
       author: this.userProfileService.getUserProfile(),
+      routeFoot: this.routeFoot,
     };
     if (!this.displayP2) {
       site.secondaryParkingLat = site.mainParkingLat;
@@ -314,7 +313,7 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
-  private createNewSite(site: SiteCreateDto) {
+  private createNewSite(site: SiteCreateDto): void {
     this.siteService
       .siteControllerCreateSite({
         body: site,
@@ -338,7 +337,7 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
-  private editSite(site: SiteCreateDto) {
+  private editSite(site: SiteCreateDto): void {
     this.siteService
       .siteControllerEditSite({
         id: this.siteId,
@@ -407,7 +406,12 @@ export class SiteFormComponent implements OnInit {
   }
   get department(): DepartmentDataDto {
     return this.departments.find(
-      d => d.id === this.form.controls['department'].value
+      department => department.id === this.form.controls['department'].value
+    );
+  }
+  get routeFoot(): RouteFootDto {
+    return this.routeFoots.find(
+      routeFoot => routeFoot.id === this.form.controls['routeFoot'].value
     );
   }
 }

@@ -10,6 +10,7 @@ import { SecteurDto } from './secteur-dto';
 import { UserProfileDto } from './user-profile-dto';
 export interface RouteCreateDto {
   author: UserProfileDto;
+  commentary: string;
   engagement: EngagementDto;
   equipment: EquipmentDto;
   exposition: ExpositionDto;

@@ -9,6 +9,7 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../../route/route-routing.module';
 import { Router } from '@angular/router';
 import { UserRoutingModule } from '../../user/user-routing.module';
+import { NotebookRoutingModule } from '../../notebook/notebook-routing.module';
 
 @Component({
   selector: 'app-navbar',
@@ -18,8 +19,8 @@ import { UserRoutingModule } from '../../user/user-routing.module';
 export class NavbarComponent implements OnInit {
   public iconLogin: string = Icons.LOGIN;
   public iconUser: string = Icons.USER;
-  public loginUrl = AuthRoutingModule.LOGIN;
-  public userProfileUrl = UserRoutingModule.USER_VIEW;
+  public loginUrl: string = AuthRoutingModule.LOGIN;
+  public userProfileUrl: string = UserRoutingModule.USER_VIEW;
   public isLogged: boolean;
   public items: MenuItem[] = [];
 
@@ -30,7 +31,7 @@ export class NavbarComponent implements OnInit {
     this.isLogged = this.securityService.isLogged();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.securityService.authenticated$.subscribe({
       next: data => {
         this.isLogged = data;
@@ -46,7 +47,7 @@ export class NavbarComponent implements OnInit {
     return this.router.navigate([MainRoutingModule.HOME]);
   }
 
-  private loadConnectedNavbar() {
+  private loadConnectedNavbar(): void {
     this.items = [
       {
         label: 'Accueil',
@@ -58,7 +59,7 @@ export class NavbarComponent implements OnInit {
         icon: Icons.SITE,
         items: [
           {
-            label: 'Liste',
+            label: 'Liste des sites',
             icon: Icons.LIST,
             routerLink: [SiteRoutingModule.SITE_LIST],
           },
@@ -71,7 +72,7 @@ export class NavbarComponent implements OnInit {
             separator: true,
           },
           {
-            label: 'Ajouter',
+            label: 'Ajouter un site',
             icon: Icons.ADD,
             routerLink: [SiteRoutingModule.SITE_NEW],
           },
@@ -87,37 +88,39 @@ export class NavbarComponent implements OnInit {
             routerLink: [RouteRoutingModule.ROUTE_LIST],
           },
           {
-            label: 'Rechercher',
-            icon: 'pi pi-fw pi-align-right',
+            label: 'Rechercher une voie',
+            icon: Icons.SEARCH,
           },
           {
             separator: true,
           },
           {
-            label: 'Ajouter',
+            label: 'Ajouter une voie',
             icon: Icons.ADD,
             routerLink: [RouteRoutingModule.ROUTE_NEW],
           },
         ],
       },
       {
-        label: 'Topos',
+        label: 'Mon carnet',
         icon: Icons.TOPO,
         items: [
           {
-            label: 'Chercher',
-            icon: 'pi pi-fw pi-user-plus',
+            label: 'Voir tout',
+            icon: Icons.NOTEBOOK,
+            routerLink: [NotebookRoutingModule.NOTEBOOK_LIST],
           },
           {
-            label: 'Contribuer',
-            icon: 'pi pi-fw pi-user-minus',
+            label: 'Ajouter',
+            icon: Icons.ADD,
+            routerLink: [NotebookRoutingModule.NOTEBOOK_NEW],
           },
         ],
       },
     ];
   }
 
-  private loadVisitorNavbar() {
+  private loadVisitorNavbar(): void {
     this.items = [
       {
         label: 'Home',

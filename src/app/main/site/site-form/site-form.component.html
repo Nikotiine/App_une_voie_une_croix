@@ -39,6 +39,7 @@
         <p-multiSelect
           [options]="expositions"
           optionLabel="label"
+          id="exposition"
           placeholder="-- Expositions -- "
           formControlName="expositions"
           inputId="exposition"></p-multiSelect>
@@ -52,6 +53,7 @@
         <p-multiSelect
           [options]="routeProfiles"
           optionLabel="label"
+          id="routeProfiles"
           placeholder="-- Type de voies -- "
           formControlName="routeProfiles"
           inputId="routeProfiles"></p-multiSelect>
@@ -65,6 +67,7 @@
         <p-dropdown
           [options]="levels"
           optionLabel="label"
+          id="minLevel"
           placeholder="-- Niveau mini -- "
           formControlName="minLevel"
           inputId="minLevel"></p-dropdown>
@@ -78,6 +81,7 @@
         <p-dropdown
           [options]="levels"
           optionLabel="label"
+          id="maxLevel"
           formControlName="maxLevel"
           placeholder="-- Niveau maxi --"
           inputId="maxLevel"></p-dropdown>
@@ -93,6 +97,7 @@
       <p-dropdown
         [options]="rockTypes"
         optionLabel="label"
+        id="rockType"
         placeholder="-- Type de rocher -- "
         formControlName="rockType"
         inputId="rockType"></p-dropdown>
@@ -106,6 +111,7 @@
       <p-dropdown
         [options]="equipments"
         optionLabel="label"
+        id="equipments"
         formControlName="equipment"
         placeholder="-- Equipement --"
         inputId="equipments"></p-dropdown>
@@ -119,6 +125,7 @@
       <p-dropdown
         [options]="engagements"
         optionLabel="label"
+        id="engagements"
         formControlName="engagement"
         placeholder="-- Engagement --"
         inputId="engagements"></p-dropdown>
@@ -132,9 +139,25 @@
       <p-dropdown
         [options]="approachTypes"
         optionLabel="label"
+        id="approachTypes"
         formControlName="approachType"
         placeholder="-- Approche --"
         inputId="approachTypes"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="routeFoots" class="label"
+        ><span class="has-text-info">
+          <i class="{{ iconApproachType }} mr-1"></i>Pied des voies :
+        </span>
+      </label>
+      <p-dropdown
+        [options]="routeFoots"
+        optionLabel="label"
+        id="routeFoots"
+        formControlName="routeFoot"
+        optionValue="id"
+        placeholder="-- Pied des voies --"
+        inputId="routeFoots"></p-dropdown>
     </div>
     <div class="wrapper-input">
       <div class="input-label">

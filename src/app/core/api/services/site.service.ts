@@ -91,7 +91,7 @@ export class SiteService extends BaseService {
   /**
    * Create site resource.
    *
-   * Entry point for create new site resource / JWT required
+   * Entry point for post new site
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `siteControllerCreateSite()` instead.
@@ -129,7 +129,7 @@ export class SiteService extends BaseService {
   /**
    * Create site resource.
    *
-   * Entry point for create new site resource / JWT required
+   * Entry point for post new site
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `siteControllerCreateSite$Response()` instead.
@@ -296,9 +296,9 @@ export class SiteService extends BaseService {
   static readonly SiteControllerEditSitePath = '/api/site/{id}';
 
   /**
-   * Edit site resource.
+   * Edit site.
    *
-   * Entry point for edit site resource
+   * Entry point for edit one site
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `siteControllerEditSite()` instead.
@@ -340,9 +340,9 @@ export class SiteService extends BaseService {
   }
 
   /**
-   * Edit site resource.
+   * Edit site.
    *
-   * Entry point for edit site resource
+   * Entry point for edit one site
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `siteControllerEditSite$Response()` instead.

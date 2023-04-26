@@ -68,6 +68,7 @@ export class RouteFormComponent implements OnInit {
       routeProfile: [0, [Validators.required, Validators.min(1)]],
       exposition: [0, [Validators.required, Validators.min(1)]],
       site: [0],
+      commentary: [''],
     });
   }
   ngOnInit(): void {
@@ -152,6 +153,7 @@ export class RouteFormComponent implements OnInit {
       routeProfile: this.routeProfile,
       rockType: this.rockType,
       author: this.userProfileService.getUserProfile(),
+      commentary: this.form.controls['commentary'].value,
     };
 
     if (!this.routeId) {

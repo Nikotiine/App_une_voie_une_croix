@@ -33,5 +33,7 @@ enum Icons {
   WC = 'fas fa-toilet',
   INFORMATION = 'fas fa-info-circle',
   QUICK_DRAW = 'fas fa-yin-yang',
+  SEARCH = 'fas fa-search',
+  NOTEBOOK = 'fas fa-book-open',
 }
 export { Icons };

@@ -13,6 +13,7 @@
         [filter]="true"
         filterBy="name"
         inputId="site"
+        id="site"
         formControlName="site"
         (onChange)="onChangeSite($event.value)"
         optionValue="id"></p-dropdown>
@@ -32,19 +33,20 @@
           placeholder="Choisir le secteur"
           [filter]="true"
           filterBy="name"
+          id="secteur"
           inputId="secteur"
           formControlName="secteur"
           optionValue="id"></p-dropdown>
       </div>
       <div class="input-label">
-        <label for="lastName" class="label">
+        <label for="name" class="label">
           <span class="has-text-info">
             <i class="{{ iconRoute }} mr-1"></i>Nom de la voie :
           </span>
         </label>
         <span class="p-input-icon-left">
           <i class="pi pi-user"></i>
-          <input type="text" pInputText id="lastName" formControlName="name" />
+          <input type="text" pInputText id="name" formControlName="name" />
         </span>
       </div>
       <div class="wrapper-input">
@@ -58,6 +60,7 @@
             [options]="expositions"
             optionLabel="label"
             inputId="exposition"
+            id="exposition"
             placeholder="Expositions"
             formControlName="exposition"
             optionValue="id"></p-dropdown>
@@ -72,6 +75,7 @@
             [options]="routeProfiles"
             optionLabel="label"
             inputId="routeProfile"
+            id="routeProfile"
             placeholder="Type de voie"
             formControlName="routeProfile"
             optionValue="id"></p-dropdown>
@@ -88,6 +92,7 @@
             optionLabel="label"
             [options]="levels"
             optionValue="id"
+            id="level"
             placeholder="Niveau"
             formControlName="level"
             inputId="level"></p-dropdown>
@@ -102,6 +107,7 @@
             optionLabel="label"
             [options]="equipments"
             optionValue="id"
+            id="equipment"
             formControlName="equipment"
             placeholder="Equipement"
             inputId="equipment"></p-dropdown>
@@ -145,6 +151,16 @@
             [showButtons]="true"
             formControlName="quickdraw"></p-inputNumber>
         </div>
+      </div>
+      <div class="input-label">
+        <label for="commentary" class="label">
+          <span class="has-text-info">Commentaires</span>
+        </label>
+        <textarea
+          rows="3"
+          cols="30"
+          pInputTextarea
+          formControlName="commentary"></textarea>
       </div>
       <div class="is-flex mt-4 width-20 is-justify-content-space-between mb-3">
         <button
