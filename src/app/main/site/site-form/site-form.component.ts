@@ -18,10 +18,11 @@ import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
 import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
 import { RegionDto } from '../../../core/api/models/region-dto';
 import { CommonService } from '../../../core/api/services/common.service';
-import { SecteurDto } from '../../../core/api/models/secteur-dto';
+
 import { DepartmentDataDto } from '../../../core/api/models/department-data-dto';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { RouteFootDto } from '../../../core/api/models/route-foot-dto';
+import { SectorDto } from '../../../core/api/models/sector-dto';
 
 @Component({
   selector: 'app-site-form',
@@ -183,7 +184,7 @@ export class SiteFormComponent implements OnInit {
       wc: this.form.controls['wc'].value,
       network: this.form.controls['network'].value,
       river: this.form.controls['river'].value,
-      secteurs: this.form.controls['sectorArray'].value,
+      sectors: this.form.controls['sectorArray'].value,
       author: this.userProfileService.getUserProfile(),
       routeFoot: this.routeFoot,
     };
@@ -298,7 +299,7 @@ export class SiteFormComponent implements OnInit {
             data.secondaryParkingLng,
           ];
           this.displayP2 = !this.displayP2;
-          data.secteurs.forEach(s => {
+          data.sectors.forEach(s => {
             this.addExistingSector(s);
           });
         },
@@ -393,14 +394,14 @@ export class SiteFormComponent implements OnInit {
 
   /**
    * Quand le site est en edition, rempli le formArray avec les secteurs deja existants
-   * @param secteur SecteurListDto
    * @private
+   * @param sector
    */
-  private addExistingSector(secteur: SecteurDto): void {
+  private addExistingSector(sector: SectorDto): void {
     this.sectorArray.push(
       this.fb.group({
-        id: [secteur.id],
-        name: [secteur.name],
+        id: [sector.id],
+        name: [sector.name],
       })
     );
   }

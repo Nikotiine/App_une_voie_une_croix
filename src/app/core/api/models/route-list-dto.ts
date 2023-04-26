@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { ExpositionDto } from './exposition-dto';
 import { LevelDto } from './level-dto';
-import { SecteurSiteDto } from './secteur-site-dto';
+import { SectorSiteDto } from './sector-site-dto';
 export interface RouteListDto {
   createdAt: string;
   exposition: ExpositionDto;
@@ -10,5 +10,5 @@ export interface RouteListDto {
   id: number;
   level: LevelDto;
   name: string;
-  secteur: SecteurSiteDto;
+  sector: SectorSiteDto;
 }

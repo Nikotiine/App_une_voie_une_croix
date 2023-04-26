@@ -91,7 +91,7 @@ export class SiteListComponent implements OnInit {
    * Ajoute une region generique qui permet de selectioner tous les site de toutes les regions
    * @private
    */
-  private addGenericRegion() {
+  private addGenericRegion(): void {
     const genericRegion: RegionDto = {
       id: 0,
       name: this.genericRegionName,

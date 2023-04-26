@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
   public activeStatus: string = 'Actif';
   constructor(
     private readonly adminService: AdminService,
-    private confirmationService: ConfirmationService,
+    private readonly confirmationService: ConfirmationService,
     private readonly messageService: MessageService
   ) {}
   public ngOnInit(): void {

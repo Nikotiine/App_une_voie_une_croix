@@ -31,9 +31,9 @@ export class RouteService extends BaseService {
   static readonly RouteControllerGetAllRoutesPath = '/api/route';
 
   /**
-   * get all route resource.
+   * Fet all route resource.
    *
-   * Find all routes in all sites
+   * Return all actives routes in all actives sites
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `routeControllerGetAllRoutes()` instead.
@@ -63,9 +63,9 @@ export class RouteService extends BaseService {
   }
 
   /**
-   * get all route resource.
+   * Fet all route resource.
    *
-   * Find all routes in all sites
+   * Return all actives routes in all actives sites
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `routeControllerGetAllRoutes$Response()` instead.
@@ -227,9 +227,9 @@ export class RouteService extends BaseService {
   static readonly RouteControllerEditRoutePath = '/api/route/{id}';
 
   /**
-   * Create route resource.
+   * Edit route.
    *
-   * Add new route for a site
+   * Edit route with id
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `routeControllerEditRoute()` instead.
@@ -271,9 +271,9 @@ export class RouteService extends BaseService {
   }
 
   /**
-   * Create route resource.
+   * Edit route.
    *
-   * Add new route for a site
+   * Edit route with id
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `routeControllerEditRoute$Response()` instead.

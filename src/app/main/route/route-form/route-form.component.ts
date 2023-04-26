@@ -5,7 +5,7 @@ import { RouteService } from '../../../core/api/services/route.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SiteDto } from '../../../core/api/models/site-dto';
 import { SiteService } from '../../../core/api/services/site.service';
-import { SecteurDto } from '../../../core/api/models/secteur-dto';
+
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { CommonService } from '../../../core/api/services/common.service';
 import { ExpositionDto } from '../../../core/api/models/exposition-dto';
@@ -20,6 +20,7 @@ import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { RouteRoutingModule } from '../route-routing.module';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
+import { SectorDto } from '../../../core/api/models/sector-dto';
 
 @Component({
   selector: 'app-route-form',
@@ -29,7 +30,7 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
 export class RouteFormComponent implements OnInit {
   public title: string = '';
   public sites: SiteDto[] = [];
-  public secteurs: SecteurDto[] = [];
+  public secteurs: SectorDto[] = [];
   public expositions: ExpositionDto[] = [];
   public engagements: EngagementDto[] = [];
   public equipments: EquipmentDto[] = [];
@@ -37,7 +38,6 @@ export class RouteFormComponent implements OnInit {
   public routeProfiles: RouteProfileDto[] = [];
   private rockType: RockTypeDto = null;
   public iconRoute: string = Icons.ROUTE;
-
   public iconExposition: string = Icons.EXPOSITION;
   public iconMaxLevel: string = Icons.MAX_LEVEL;
   public iconEquipment: string = Icons.EQUIPMENT;
@@ -51,10 +51,10 @@ export class RouteFormComponent implements OnInit {
     private readonly routeService: RouteService,
     private readonly siteService: SiteService,
     private readonly commonService: CommonService,
-    private activatedRoute: ActivatedRoute,
+    private readonly activatedRoute: ActivatedRoute,
     private readonly messageService: MessageService,
-    private fb: FormBuilder,
-    private router: Router,
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
     private readonly userProfileService: UserProfileService
   ) {
     this.form = this.fb.group({
@@ -64,7 +64,7 @@ export class RouteFormComponent implements OnInit {
       level: [0, [Validators.required, Validators.min(1)]],
       equipment: [0, [Validators.required, Validators.min(1)]],
       engagement: [0, [Validators.required, Validators.min(1)]],
-      secteur: [0, [Validators.required, Validators.min(1)]],
+      sector: [0, [Validators.required, Validators.min(1)]],
       routeProfile: [0, [Validators.required, Validators.min(1)]],
       exposition: [0, [Validators.required, Validators.min(1)]],
       site: [0],
@@ -113,7 +113,7 @@ export class RouteFormComponent implements OnInit {
       })
       .subscribe({
         next: data => {
-          this.secteurs = data.secteurs;
+          this.secteurs = data.sectors;
           this.rockType = data.rockType;
           //Si on est en edition , ne defini pas les dropdown
           if (!this.routeId) {
@@ -148,7 +148,7 @@ export class RouteFormComponent implements OnInit {
       equipment: this.equipment,
       engagement: this.engagement,
       level: this.level,
-      secteur: this.secteur,
+      sector: this.secteur,
       exposition: this.exposition,
       routeProfile: this.routeProfile,
       rockType: this.rockType,
@@ -198,9 +198,9 @@ export class RouteFormComponent implements OnInit {
       })
       .subscribe({
         next: data => {
-          this.form.controls['site'].setValue(data.secteur.site.id);
-          this.onChangeSite(data.secteur.site.id);
-          this.form.controls['secteur'].setValue(data.secteur.id);
+          this.form.controls['site'].setValue(data.sector.site.id);
+          this.onChangeSite(data.sector.site.id);
+          this.form.controls['sector'].setValue(data.sector.id);
           this.form.controls['name'].setValue(data.name);
           this.form.controls['height'].setValue(data.height);
           this.form.controls['quickdraw'].setValue(data.quickdraw);
@@ -220,14 +220,13 @@ export class RouteFormComponent implements OnInit {
       });
   }
 
-  private createNewRoute(route: RouteCreateDto) {
+  private createNewRoute(route: RouteCreateDto): void {
     this.routeService
       .routeControllerCreateRoute({
         body: route,
       })
       .subscribe({
         next: data => {
-          console.log(data);
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
             summary: ToastConfig.ROUTE_SUMMARY,
@@ -275,10 +274,8 @@ export class RouteFormComponent implements OnInit {
       });
   }
   //*********************GETTERS******************************
-  get secteur(): SecteurDto {
-    return this.secteurs.find(
-      s => s.id === this.form.controls['secteur'].value
-    );
+  get secteur(): SectorDto {
+    return this.secteurs.find(s => s.id === this.form.controls['sector'].value);
   }
   get equipment(): EquipmentDto {
     return this.equipments.find(

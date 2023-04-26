@@ -7,11 +7,11 @@ import { MessageService } from 'primeng/api';
 import { SiteRoutingModule } from '../site-routing.module';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { ToastConfig } from '../../../core/app/config/toast.config';
-import { SiteRouteDto } from '../../../core/api/models/site-route-dto';
 import { RouteRoutingModule } from '../../route/route-routing.module';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { mergeMap } from 'rxjs';
 import { SecurityService } from '../../../core/app/services/security.service';
+import { RouteViewDto } from '../../../core/api/models/route-view-dto';
 
 @Component({
   selector: 'app-site-view',
@@ -20,7 +20,7 @@ import { SecurityService } from '../../../core/app/services/security.service';
 })
 export class SiteViewComponent implements OnInit {
   public site!: SiteViewDto;
-  public routes: SiteRouteDto[] = [];
+  public routes: RouteViewDto[] = [];
   public mapOption: MapOptions;
   public loading: boolean = true;
   public siteListUrl: string = SiteRoutingModule.SITE_LIST;
@@ -55,9 +55,9 @@ export class SiteViewComponent implements OnInit {
 
   constructor(
     private readonly siteService: SiteService,
-    private activatedRoute: ActivatedRoute,
+    private readonly activatedRoute: ActivatedRoute,
     private readonly messageService: MessageService,
-    private router: Router,
+    private readonly router: Router,
     private readonly userProfileService: UserProfileService,
     private readonly securityService: SecurityService
   ) {
@@ -79,17 +79,11 @@ export class SiteViewComponent implements OnInit {
       .siteControllerGetSite({
         id: id,
       })
-      .pipe(
-        mergeMap(site => {
-          this.site = site;
-          return this.siteService.siteControllerGetRoutesOfSite({
-            id: id,
-          });
-        })
-      )
+
       .subscribe({
         next: data => {
-          this.routes = data;
+          this.site = data;
+          this.routes = data.routes;
           this.loading = !this.loading;
         },
         error: err => {

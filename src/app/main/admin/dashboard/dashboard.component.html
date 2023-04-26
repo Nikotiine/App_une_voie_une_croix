@@ -502,18 +502,18 @@
         [loading]="loading">
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="secteur.site.name">
+            <th pSortableColumn="sector.site.name">
               <i class="{{ iconSite }} mr-1"></i> Site
-              <p-sortIcon field="secteur.site.name"></p-sortIcon>
+              <p-sortIcon field="sector.site.name"></p-sortIcon>
             </th>
             <th pSortableColumn="name">
               <i class="{{ iconRoute }} mr-1"></i> Nom de la voie
               <p-sortIcon field="name"></p-sortIcon>
             </th>
 
-            <th pSortableColumn="secteur.name">
+            <th pSortableColumn="sector.name">
               <i class="{{ iconSector }} mr-1"></i> Secteur
-              <p-sortIcon field="secteur.name"></p-sortIcon>
+              <p-sortIcon field="sector.name"></p-sortIcon>
             </th>
 
             <th pSortableColumn="author">
@@ -538,7 +538,7 @@
               <p-columnFilter
                 [showMenu]="false"
                 [showClearButton]="false"
-                field="secteur.site.name"
+                field="sector.site.name"
                 matchMode="contains">
                 <ng-template
                   pTemplate="filter"
@@ -583,7 +583,7 @@
               <p-columnFilter
                 [showMenu]="false"
                 [showClearButton]="false"
-                field="secteur.name"
+                field="sector.name"
                 matchMode="contains">
                 <ng-template
                   pTemplate="filter"
@@ -694,15 +694,15 @@
         <ng-template pTemplate="body" let-route>
           <tr>
             <td>
-              <a [routerLink]="[siteViewUrl + route.secteur.site.id]">{{
-                route.secteur.site.name
+              <a [routerLink]="[siteViewUrl + route.sector.site.id]">{{
+                route.sector.site.name
               }}</a>
             </td>
             <td>
               <a [routerLink]="[routeViewUrl + route.id]"> {{ route.name }}</a>
             </td>
 
-            <td>{{ route.secteur.name }}</td>
+            <td>{{ route.sector.name }}</td>
 
             <td>{{ route.author.lastName }} -- {{ route.author.firstName }}</td>
 

@@ -5,17 +5,31 @@ import { NotebookRoutingModule } from './notebook-routing.module';
 import { NotebookListComponent } from './notebook-list/notebook-list.component';
 import { NotebookFormComponent } from './notebook-form/notebook-form.component';
 import { NotebookViewComponent } from './notebook-view/notebook-view.component';
-
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
     NotebookListComponent,
     NotebookFormComponent,
-    NotebookViewComponent
+    NotebookViewComponent,
   ],
   imports: [
     CommonModule,
-    NotebookRoutingModule
-  ]
+    NotebookRoutingModule,
+    ButtonModule,
+    DropdownModule,
+    FormsModule,
+    InputNumberModule,
+    InputTextModule,
+    InputTextareaModule,
+    ReactiveFormsModule,
+    SelectButtonModule,
+  ],
 })
-export class NotebookModule { }
+export class NotebookModule {}

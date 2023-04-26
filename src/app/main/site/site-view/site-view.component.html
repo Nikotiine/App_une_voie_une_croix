@@ -155,11 +155,11 @@
         <span class="has-text-info">
           <i class="{{ iconSector }} mr-1"></i> Nombre de secteurs :
         </span>
-        {{ site.secteurs.length }}
+        {{ site.sectors.length }}
       </p>
-      <p class="subtitle" *ngFor="let secteur of site.secteurs; let i = index">
+      <p class="subtitle" *ngFor="let sector of site.sectors; let i = index">
         <span class="has-text-info"> Secteur {{ i + 1 }} : </span>
-        {{ secteur.name }}
+        {{ sector.name }}
       </p>
     </p-tabPanel>
     <p-tabPanel>
@@ -211,7 +211,7 @@
               </td>
               <td>{{ route.height }}</td>
               <td>{{ route.level.label }}</td>
-              <td>{{ route.secteur.name }}</td>
+              <td>{{ route.sector.name }}</td>
             </tr>
           </ng-template>
         </p-table>

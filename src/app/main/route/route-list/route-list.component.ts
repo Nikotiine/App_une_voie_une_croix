@@ -41,6 +41,7 @@ export class RouteListComponent implements OnInit {
   private loadRoutes() {
     this.routeService.routeControllerGetAllRoutes().subscribe({
       next: data => {
+        console.log(data);
         this.routes = data;
       },
       error: err => {
@@ -77,7 +78,7 @@ export class RouteListComponent implements OnInit {
       this.filteredRoutes = this.routes;
     } else {
       this.filteredRoutes = this.routes.filter(
-        s => s.secteur.site.id === $event.value
+        s => s.sector.site.id === $event.value
       );
     }
   }

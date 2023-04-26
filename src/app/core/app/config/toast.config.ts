@@ -15,4 +15,5 @@ export class ToastConfig {
   static ROUTE_DETAIL_NEW: string = 'Nouvelle voie enregistrée pour ';
   static ROUTE_DETAIL_EDIT: string = 'Voie correctement modifier pour ';
   static HOME_SUMMARY: string = 'Accueil';
+  static NOTEBOOK_SUMMARY: string = 'Mon carnet';
 }

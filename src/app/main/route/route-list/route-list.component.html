@@ -217,15 +217,15 @@
     <ng-template pTemplate="body" let-route>
       <tr>
         <td>
-          <a [routerLink]="[siteViewUrl + route.secteur.site.id]">{{
-            route.secteur.site.name
+          <a [routerLink]="[siteViewUrl + route.sector.site.id]">{{
+            route.sector.site.name
           }}</a>
         </td>
         <td>
           <a [routerLink]="[routeViewUrl + route.id]"> {{ route.name }}</a>
         </td>
 
-        <td>{{ route.secteur.name }}</td>
+        <td>{{ route.sector.name }}</td>
         <td>
           <span class="">{{ route.height }}</span>
         </td>

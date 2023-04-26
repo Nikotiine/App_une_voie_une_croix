@@ -34,7 +34,7 @@ export interface SiteCreateDto {
   routeProfiles: Array<RouteProfileDto>;
   secondaryParkingLat: number;
   secondaryParkingLng: number;
-  secteurs: Array<string>;
+  sectors: Array<string>;
   water: boolean;
   wc: boolean;
 }
