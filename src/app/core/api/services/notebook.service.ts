@@ -92,4 +92,73 @@ export class NotebookService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation notebookControllerGetNotebooks
+   */
+  static readonly NotebookControllerGetNotebooksPath = '/api/notebook/{id}';
+
+  /**
+   * Get notebooks.
+   *
+   * Return all active notebook filtered by user.id
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `notebookControllerGetNotebooks()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetNotebooks$Response(params: {
+
+    /**
+     * id of user
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<NotebookViewDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, NotebookService.NotebookControllerGetNotebooksPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<NotebookViewDto>>;
+      })
+    );
+  }
+
+  /**
+   * Get notebooks.
+   *
+   * Return all active notebook filtered by user.id
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `notebookControllerGetNotebooks$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetNotebooks(params: {
+
+    /**
+     * id of user
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<Array<NotebookViewDto>> {
+
+    return this.notebookControllerGetNotebooks$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<NotebookViewDto>>) => r.body as Array<NotebookViewDto>)
+    );
+  }
+
 }

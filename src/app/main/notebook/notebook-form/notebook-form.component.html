@@ -1,4 +1,4 @@
-<h1 class="has-text-centered title mt-5">ICI</h1>
+<h1 class="has-text-centered title mt-5">{{ title }}</h1>
 
 <form [formGroup]="form">
   <div class="form-register">
@@ -52,14 +52,14 @@
     </div>
     <div class="wrapper-input">
       <div class="input-label">
-        <label for="realisationType" class="label">
+        <label for="achievement" class="label">
           <span class="has-text-info"> Fait : </span>
         </label>
         <p-selectButton
-          [options]="realisationTypes"
+          [options]="achievementTypes"
           optionLabel="name"
-          id="realisationType"
-          formControlName="realisationType"
+          id="achievement"
+          formControlName="achievement"
           optionValue="value"></p-selectButton>
       </div>
       <div class="input-label">
@@ -72,6 +72,17 @@
           suffix=" essai"
           formControlName="trials"></p-inputNumber>
       </div>
+    </div>
+    <div class="input-label">
+      <label for="succeedAt" class="label">
+        <span class="has-text-info"> Date de realisation : </span></label
+      >
+      <p-calendar
+        id="succeedAt"
+        [style]="{ minWidth: '100%' }"
+        formControlName="succeedAt"
+        dateFormat="dd/mm/yy"
+        [required]="true"></p-calendar>
     </div>
     <div class="input-label">
       <label for="commentary" class="label">

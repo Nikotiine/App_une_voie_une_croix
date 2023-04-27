@@ -6,6 +6,14 @@ import { SiteListDto } from '../../../core/api/models/site-list-dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SectorDto } from '../../../core/api/models/sector-dto';
 import { RouteViewDto } from '../../../core/api/models/route-view-dto';
+import {
+  AchievementType,
+  AchievementTypes,
+} from '../../../core/app/models/AchievementTypes.model';
+import {
+  AppNotebook,
+  AppNotebookService,
+} from '../../../core/app/services/app-notebook.service';
 
 @Component({
   selector: 'app-notebook-form',
@@ -17,16 +25,14 @@ export class NotebookFormComponent implements OnInit {
   public form: FormGroup;
   public sectors: SectorDto[] = [];
   public routes: RouteViewDto[] = [];
-  realisationTypes: any = [
-    { name: 'A Vue', value: 1 },
-    { name: 'Flash', value: 2 },
-    { name: 'Travail', value: 3 },
-  ];
+  public achievementTypes: AchievementTypes[] = [];
+  public title: string = 'Nouvelle croix';
 
   constructor(
     private readonly siteService: SiteService,
     private readonly messageService: MessageService,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly appNotebookService: AppNotebookService
   ) {
     this.form = this.fb.group({
       site: [0, Validators.required],
@@ -34,18 +40,19 @@ export class NotebookFormComponent implements OnInit {
       commentary: [''],
       routes: [0, [Validators.required, Validators.min(1)]],
       trials: [1],
-      realisationType: [1],
+      achievement: [1],
+      succeedAt: [new Date()],
     });
+    this.achievementTypes = this.appNotebookService.achievementTypes();
   }
   ngOnInit(): void {
     this.loadData();
     this.watchTrial();
   }
 
-  private loadData() {
+  private loadData(): void {
     this.siteService.siteControllerGetAllSites().subscribe({
       next: data => {
-        console.log(data);
         this.sites = data;
       },
       error: err => {
@@ -59,9 +66,37 @@ export class NotebookFormComponent implements OnInit {
   }
 
   public submit(): void {
-    console.log('submit');
+    const notebook: AppNotebook = {
+      trials: this.form.controls['trials'].value,
+      route: this.route,
+      commentary: this.form.controls['commentary'].value,
+      succeedAt: this.form.controls['succeedAt'].value,
+      achievementType: this.achievement,
+    };
+    this.appNotebookService.newNotebook(notebook).subscribe({
+      next: res => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_SUCCESS,
+          summary: ToastConfig.NOTEBOOK_SUMMARY,
+          detail: ToastConfig.NOTEBOOK_CREATE,
+        });
+      },
+      error: err => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_ERROR,
+          summary: ToastConfig.NOTEBOOK_SUMMARY,
+          detail: err.error.message,
+        });
+      },
+    });
   }
 
+  private get achievement(): AchievementType {
+    const achievement = this.achievementTypes.find(
+      a => a.value === this.form.controls['achievement'].value
+    );
+    return achievement.name;
+  }
   public onChangeSite(id: number): void {
     this.siteService
       .siteControllerGetSite({
@@ -81,16 +116,21 @@ export class NotebookFormComponent implements OnInit {
         },
       });
   }
+  private get route(): RouteViewDto {
+    return this.routes.find(
+      route => route.id === this.form.controls['routes'].value
+    );
+  }
 
   private watchTrial(): void {
     this.form.controls['trials'].valueChanges.subscribe({
       next: value => {
         if (value > 1) {
-          this.form.controls['realisationType'].setValue(3);
+          this.form.controls['achievement'].setValue(3);
         }
       },
     });
-    this.form.controls['realisationType'].valueChanges.subscribe({
+    this.form.controls['achievement'].valueChanges.subscribe({
       next: value => {
         if (value === 1 || value === 2) {
           this.form.controls['trials'].setValue(1);

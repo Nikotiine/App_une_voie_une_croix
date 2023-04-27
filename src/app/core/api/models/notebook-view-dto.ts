@@ -1,11 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
-import { RouteDto } from './route-dto';
+import { RouteViewDto } from './route-view-dto';
 import { UserProfileDto } from './user-profile-dto';
 export interface NotebookViewDto {
+  achievementType: 'A Vue' | 'Flash' | 'Travail';
   commentary: string;
   id: number;
-  route: RouteDto;
+  route: RouteViewDto;
   succeedAt: null | string;
   trials: number;
   user: UserProfileDto;

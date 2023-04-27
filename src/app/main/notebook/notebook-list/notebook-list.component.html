@@ -1,1 +1,174 @@
-<p>notebook-list works!</p>
+<div class="site-table">
+  <h1 class="title has-text-centered has-text-info">Mon carnet de croix</h1>
+  <div class="input-label is-align-items-center mb-4">
+    <!--  <label for="region" class="label">Trier par region</label>-->
+    <!--  <p-dropdown
+      [options]="regions"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Trier par region"
+      (onChange)="filterWithRegion($event.value)"
+      id="region"></p-dropdown>-->
+  </div>
+  <p-table
+    #dt
+    [value]="notebooks"
+    [rows]="25"
+    [paginator]="true"
+    [rowsPerPageOptions]="[25, 50, 100]"
+    styleClass="p-datatable-striped"
+    [tableStyle]="{ 'vertical-align': 'center' }"
+    [loading]="loading">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">
+          <i class="{{ iconRoute }} mr-1"></i> Voie
+          <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="department.name">
+          Site
+          <p-sortIcon field="department.name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="averageRouteNumber">
+          <i class="{{ iconTrials }} mr-1"></i> Realise :
+          <p-sortIcon field="averageRouteNumber"></p-sortIcon>
+        </th>
+        <th pSortableColumn="minLevel.label">
+          <i class="{{ iconMinLevel }} mr-1"></i>Nombre d'essai
+          <p-sortIcon field="minLevel.label"></p-sortIcon>
+        </th>
+        <th pSortableColumn="maxLevel.label">
+          Niveau
+          <p-sortIcon field="maxLevel.label"></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <p-columnFilter
+            field="name"
+            matchMode="contains"
+            [showMenu]="false"
+            [showClearButton]="false">
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  [ngModel]="value"
+                  (ngModelChange)="filter($event)"
+                  placeholder="Search" />
+              </span>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            [showMenu]="false"
+            [showClearButton]="false"
+            field="department.name"
+            matchMode="contains">
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  [ngModel]="value"
+                  (ngModelChange)="filter($event)"
+                  placeholder="Search" />
+              </span>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            [showMenu]="false"
+            [showClearButton]="false"
+            field="averageRouteNumber"
+            matchMode="contains">
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  [ngModel]="value"
+                  (ngModelChange)="filter($event)"
+                  placeholder="Search" />
+              </span>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            [showMenu]="false"
+            [showClearButton]="false"
+            field="minLevel.label"
+            matchMode="contains">
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  [ngModel]="value"
+                  (ngModelChange)="filter($event)"
+                  placeholder="Search" />
+              </span>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            [showMenu]="false"
+            [showClearButton]="false"
+            field="maxLevel.label"
+            matchMode="contains">
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  [ngModel]="value"
+                  (ngModelChange)="filter($event)"
+                  placeholder="Search" />
+              </span>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-notebook>
+      <tr>
+        <td>
+          {{ notebook.route.name }}
+        </td>
+        <td>
+          <span class="">{{ notebook.route.sector.site.name }} </span>
+        </td>
+        <td>
+          <span class="">{{ notebook.achievementType }}</span>
+        </td>
+        <td>{{ notebook.trials }}</td>
+        <td>{{ notebook.route.level.label }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

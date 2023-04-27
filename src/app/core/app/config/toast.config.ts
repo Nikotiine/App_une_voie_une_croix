@@ -16,4 +16,5 @@ export class ToastConfig {
   static ROUTE_DETAIL_EDIT: string = 'Voie correctement modifier pour ';
   static HOME_SUMMARY: string = 'Accueil';
   static NOTEBOOK_SUMMARY: string = 'Mon carnet';
+  static NOTEBOOK_CREATE: string = 'Voie cochée :) Bravo';
 }
