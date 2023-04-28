@@ -10,11 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 export class LayoutComponent implements OnInit {
   constructor(
     private readonly userProfileService: UserProfileService,
-    private activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    console.log('res');
+  public ngOnInit(): void {
     const user = this.activatedRoute.snapshot.data['user'];
     if (user) {
       this.userProfileService.setUserProfile(user);

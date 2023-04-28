@@ -95,7 +95,7 @@ export class NotebookService extends BaseService {
   /**
    * Path part for operation notebookControllerGetNotebooks
    */
-  static readonly NotebookControllerGetNotebooksPath = '/api/notebook/{id}';
+  static readonly NotebookControllerGetNotebooksPath = '/api/notebook/user/{id}';
 
   /**
    * Get notebooks.
@@ -158,6 +158,75 @@ export class NotebookService extends BaseService {
 
     return this.notebookControllerGetNotebooks$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<NotebookViewDto>>) => r.body as Array<NotebookViewDto>)
+    );
+  }
+
+  /**
+   * Path part for operation notebookControllerGetNotebook
+   */
+  static readonly NotebookControllerGetNotebookPath = '/api/notebook/view/{id}';
+
+  /**
+   * Get notebooks.
+   *
+   * Return  notebook filtered by .id
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `notebookControllerGetNotebook()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetNotebook$Response(params: {
+
+    /**
+     * id of user
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<NotebookViewDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, NotebookService.NotebookControllerGetNotebookPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<NotebookViewDto>;
+      })
+    );
+  }
+
+  /**
+   * Get notebooks.
+   *
+   * Return  notebook filtered by .id
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `notebookControllerGetNotebook$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetNotebook(params: {
+
+    /**
+     * id of user
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<NotebookViewDto> {
+
+    return this.notebookControllerGetNotebook$Response(params,context).pipe(
+      map((r: StrictHttpResponse<NotebookViewDto>) => r.body as NotebookViewDto)
     );
   }
 

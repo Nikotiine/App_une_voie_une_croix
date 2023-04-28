@@ -14,6 +14,8 @@
     #dt
     [value]="notebooks"
     [rows]="25"
+    (onRowSelect)="onRowSelect($event)"
+    selectionMode="single"
     [paginator]="true"
     [rowsPerPageOptions]="[25, 50, 100]"
     styleClass="p-datatable-striped"
@@ -156,7 +158,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-notebook>
-      <tr>
+      <tr [pSelectableRow]="notebook">
         <td>
           {{ notebook.route.name }}
         </td>
@@ -172,3 +174,11 @@
     </ng-template>
   </p-table>
 </div>
+<p-sidebar
+  [(visible)]="sidebarVisible"
+  position="right"
+  [style]="{ width: '30rem' }">
+  <app-notebook-view
+    [notebookId]="notebookId"
+    *ngIf="sidebarVisible"></app-notebook-view>
+</p-sidebar>

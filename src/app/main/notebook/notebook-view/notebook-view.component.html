@@ -1,1 +1,59 @@
-<p>notebook-view works!</p>
+<h2 class="has-text-centered title">Detail de la croix</h2>
+<div class="is-flex is-flex-direction-column" *ngIf="notebook">
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ iconRoute }} mr-1"></i>Nom de la voie:
+    </span>
+    {{ notebook.route.name }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ iconRoute }} mr-1"></i>Nom du site - secteur:
+    </span>
+    {{ notebook.route.sector.site.name }} - {{ notebook.route.sector.name }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ iconLevel }} mr-1"></i>Niveau :
+    </span>
+    {{ notebook.route.level.label }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info"> <i class="mr-1"></i>Realisé : </span>
+    {{ notebook.achievementType }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info"> <i class="mr-1"></i>Nombre essai : </span>
+    {{ notebook.trials }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ iconRoute }} mr-1"></i> Fait le :
+    </span>
+    {{ notebook.succeedAt | date : 'dd/MM/yyyy' }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ iconRouteHeight }} mr-1"></i>Hauteur :
+    </span>
+    {{ notebook.route.height }} metres
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ iconEngagement }} mr-1"></i> Engagement :
+    </span>
+    {{ notebook.route.engagement.label }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ iconQuickdraw }} mr-1"></i>Degaines :
+    </span>
+    {{ notebook.route.quickdraw }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ iconQuickdraw }} mr-1"></i>Commentaires :
+    </span>
+    {{ notebook.commentary }}
+  </p>
+</div>
