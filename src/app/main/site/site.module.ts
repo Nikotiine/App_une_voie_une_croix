@@ -19,6 +19,8 @@ import { RippleModule } from 'primeng/ripple';
 
 import { TabViewModule } from 'primeng/tabview';
 import { SiteListMapComponent } from './site-list-map/site-list-map.component';
+import { CalendarModule } from 'primeng/calendar';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { SiteListMapComponent } from './site-list-map/site-list-map.component';
     FormsModule,
     RippleModule,
     TabViewModule,
+    CalendarModule,
+    SelectButtonModule,
   ],
 })
 export class SiteModule {}

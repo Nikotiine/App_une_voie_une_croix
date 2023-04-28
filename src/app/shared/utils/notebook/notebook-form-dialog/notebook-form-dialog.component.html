@@ -1,0 +1,61 @@
+<p-dialog
+  header="Header"
+  [(visible)]="visible"
+  [style]="{ width: '50vw' }"
+  [closable]="false">
+  <ng-template pTemplate="header">
+    <p class="has-text-info is-size-4">
+      Ajouter une croix pour
+      <span class="has-text-danger">{{ route.name }}</span>
+    </p>
+  </ng-template>
+  <form [formGroup]="form">
+    <div class="wrapper-input">
+      <div class="input-label">
+        <label for="achievement" class="label">
+          <span class="has-text-info"> Fait : </span>
+        </label>
+        <p-selectButton
+          [options]="achievementTypes"
+          optionLabel="name"
+          id="achievement"
+          formControlName="achievement"
+          optionValue="value"></p-selectButton>
+      </div>
+      <div class="input-label">
+        <label for="trials" class="label">
+          <span class="has-text-info"> Essai : </span>
+        </label>
+        <p-inputNumber
+          id="trials"
+          formControlName="trials"
+          [showButtons]="true"
+          suffix=" essai"></p-inputNumber>
+      </div>
+    </div>
+    <div class="input-label">
+      <label for="succeedAt" class="label">
+        <span class="has-text-info"> Date de realisation : </span></label
+      >
+      <p-calendar
+        id="succeedAt"
+        [style]="{ minWidth: '100%' }"
+        dateFormat="dd/mm/yy"
+        formControlName="succeedAt"
+        [required]="true"></p-calendar>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-times"
+      label="Annuler"
+      class="mr-2"
+      (click)="closeDialog()"
+      styleClass="p-button-secondary p-button-text"></p-button>
+    <p-button
+      icon="pi pi-check"
+      (click)="submit()"
+      label="Ok"
+      styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>

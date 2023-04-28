@@ -41,7 +41,6 @@ export class RouteListComponent implements OnInit {
   private loadRoutes() {
     this.routeService.routeControllerGetAllRoutes().subscribe({
       next: data => {
-        console.log(data);
         this.routes = data;
       },
       error: err => {

@@ -14,9 +14,9 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
 export class NotebookListComponent implements OnInit {
   public notebooks: NotebookViewDto[] = [];
   public loading: boolean = false;
-  iconRoute: string = Icons.INFORMATION;
-  iconTrials: string = Icons.LIST;
-  iconMinLevel: string = Icons.LEVEL;
+  public iconRoute: string = Icons.INFORMATION;
+  public iconTrials: string = Icons.LIST;
+  public iconMinLevel: string = Icons.LEVEL;
   constructor(
     private readonly userProfileService: UserProfileService,
     private readonly notebookService: NotebookService,
@@ -33,7 +33,6 @@ export class NotebookListComponent implements OnInit {
       })
       .subscribe({
         next: data => {
-          console.log(data);
           this.notebooks = data;
         },
         error: err => {

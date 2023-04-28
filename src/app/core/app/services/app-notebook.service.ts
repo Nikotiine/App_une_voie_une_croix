@@ -44,4 +44,10 @@ export class AppNotebookService {
       body: notebookCreateDto,
     });
   }
+
+  public getMyNotebook(): Observable<NotebookViewDto[]> {
+    return this.notebookService.notebookControllerGetNotebooks({
+      id: this.userProfileService.getUserProfile().id,
+    });
+  }
 }

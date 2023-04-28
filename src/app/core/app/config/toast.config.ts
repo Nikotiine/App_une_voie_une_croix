@@ -17,4 +17,5 @@ export class ToastConfig {
   static HOME_SUMMARY: string = 'Accueil';
   static NOTEBOOK_SUMMARY: string = 'Mon carnet';
   static NOTEBOOK_CREATE: string = 'Voie cochée :) Bravo';
+  static NOTEBOOK_ALREADY_CHECKED: string = 'Voie deja cochée';
 }
