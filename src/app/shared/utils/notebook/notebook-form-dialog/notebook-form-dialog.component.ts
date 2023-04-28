@@ -7,10 +7,10 @@ import {
   AchievementType,
   AchievementTypes,
 } from '../../../../core/app/models/AchievementTypes.model';
-import { RouteViewDto } from '../../../../core/api/models/route-view-dto';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../../core/app/config/toast.config';
+import { RouteDto } from '../../../../core/api/models/route-dto';
 
 @Component({
   selector: 'app-notebook-form-dialog',
@@ -19,7 +19,7 @@ import { ToastConfig } from '../../../../core/app/config/toast.config';
 })
 export class NotebookFormDialogComponent implements OnInit {
   @Input() visible: boolean;
-  @Input() route: RouteViewDto;
+  @Input() route: RouteDto;
   @Output() isClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() isSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
   public achievementTypes: AchievementTypes[] = [];

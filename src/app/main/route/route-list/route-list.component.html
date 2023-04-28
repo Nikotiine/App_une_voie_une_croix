@@ -55,6 +55,7 @@
           Date d'ajout
           <p-sortIcon field="createdAt"></p-sortIcon>
         </th>
+        <th pSortableColumn="secteur.name" *ngIf="isLogged">Cochée</th>
       </tr>
       <tr>
         <th>
@@ -233,7 +234,25 @@
 
         <td>{{ route.exposition.label }}</td>
         <td>{{ route.createdAt | date : 'dd/MM/yyyy' }}</td>
+        <td *ngIf="isLogged">
+          <p-button styleClass="p-button-text"
+            ><i
+              class="{{
+                isChecked(route.id)
+                  ? 'fas fa-check-circle has-text-success'
+                  : 'far fa-circle has-text-black'
+              }} is-size-4"
+              (click)="
+                isChecked(route.id) ? alreadyChecked() : showDialog(route.id)
+              "></i
+          ></p-button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
+<app-notebook-form-dialog
+  (isClose)="closeDialog()"
+  (isSuccess)="reloadData()"
+  [visible]="visible"
+  [route]="selectedRoute"></app-notebook-form-dialog>

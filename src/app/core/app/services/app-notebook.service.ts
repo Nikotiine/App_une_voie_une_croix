@@ -9,10 +9,10 @@ import { RouteDto } from '../../api/models/route-dto';
 import { Observable } from 'rxjs';
 import { NotebookCreateDto } from '../../api/models/notebook-create-dto';
 import { NotebookViewDto } from '../../api/models/notebook-view-dto';
-import { RouteViewDto } from '../../api/models/route-view-dto';
+
 export interface AppNotebook {
   trials: number;
-  route: RouteViewDto;
+  route: RouteDto;
   commentary: string;
   succeedAt: string;
   achievementType: AchievementType;
@@ -27,14 +27,14 @@ export class AppNotebookService {
     { name: AchievementType.FLASH, value: 2 },
     { name: AchievementType.TRAVAIL, value: 3 },
   ];
-  public achievementTypes(): AchievementTypes[] {
-    return this.types;
-  }
+
   constructor(
     private readonly userProfileService: UserProfileService,
     private readonly notebookService: NotebookService
   ) {}
-
+  public achievementTypes(): AchievementTypes[] {
+    return this.types;
+  }
   public newNotebook(notebook: AppNotebook): Observable<NotebookViewDto> {
     const notebookCreateDto: NotebookCreateDto = {
       user: this.userProfileService.getUserProfile(),

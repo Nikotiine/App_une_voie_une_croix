@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { UtilsModule } from '../../shared/utils/utils.module';
 
 @NgModule({
   declarations: [RouteFormComponent, RouteViewComponent, RouteListComponent],
@@ -30,6 +31,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FormsModule,
     TabViewModule,
     InputTextareaModule,
+    UtilsModule,
   ],
 })
 export class RouteModule {}
