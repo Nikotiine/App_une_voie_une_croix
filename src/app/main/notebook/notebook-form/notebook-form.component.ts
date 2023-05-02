@@ -42,6 +42,7 @@ export class NotebookFormComponent implements OnInit {
       trials: [1],
       achievement: [1],
       succeedAt: [new Date()],
+      ranking: [null],
     });
     this.achievementTypes = this.appNotebookService.achievementTypes();
   }
@@ -72,6 +73,7 @@ export class NotebookFormComponent implements OnInit {
       commentary: this.form.controls['commentary'].value,
       succeedAt: this.form.controls['succeedAt'].value,
       achievementType: this.achievement,
+      ranking: this.form.controls['ranking'].value,
     };
     this.appNotebookService.newNotebook(notebook).subscribe({
       next: res => {

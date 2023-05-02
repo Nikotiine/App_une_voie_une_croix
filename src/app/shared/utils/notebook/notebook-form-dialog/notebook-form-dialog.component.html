@@ -39,10 +39,20 @@
       >
       <p-calendar
         id="succeedAt"
-        [style]="{ minWidth: '100%' }"
+        [style]="{ minWidth: '50%' }"
         dateFormat="dd/mm/yy"
         formControlName="succeedAt"
         [required]="true"></p-calendar>
+    </div>
+    <div class="input-label">
+      <label for="ranking" class="label">
+        <span class="has-text-info"> Note : </span>
+      </label>
+      <p-rating
+        formControlName="ranking"
+        id="ranking"
+        [stars]="3"
+        [cancel]="false"></p-rating>
     </div>
   </form>
   <ng-template pTemplate="footer">

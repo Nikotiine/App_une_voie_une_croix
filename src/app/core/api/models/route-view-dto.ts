@@ -10,6 +10,7 @@ import { SectorSiteDto } from './sector-site-dto';
 export interface RouteViewDto {
   commentary: string;
   createdAt: string;
+  effortType: null | 'Resi' | 'Bloc' | 'Conti';
   engagement: EngagementDto;
   equipment: EquipmentDto;
   exposition: ExpositionDto;

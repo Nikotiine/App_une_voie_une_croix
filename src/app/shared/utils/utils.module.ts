@@ -13,6 +13,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { SharedModule } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     DialogModule,
     ReactiveFormsModule,
+    RatingModule,
   ],
   exports: [UnauthorizedComponent, MapComponent, NotebookFormDialogComponent],
 })

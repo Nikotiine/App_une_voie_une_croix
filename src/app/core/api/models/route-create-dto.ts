@@ -11,6 +11,7 @@ import { UserProfileDto } from './user-profile-dto';
 export interface RouteCreateDto {
   author: UserProfileDto;
   commentary: string;
+  effortType: null | 'Resi' | 'Bloc' | 'Conti';
   engagement: EngagementDto;
   equipment: EquipmentDto;
   exposition: ExpositionDto;

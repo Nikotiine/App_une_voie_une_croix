@@ -6,6 +6,7 @@ export interface NotebookViewDto {
   achievementType: 'A Vue' | 'Flash' | 'Travail';
   commentary: string;
   id: number;
+  ranking: null | number;
   route: RouteViewDto;
   succeedAt: null | string;
   trials: number;

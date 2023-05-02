@@ -16,6 +16,7 @@ export interface AppNotebook {
   commentary: string;
   succeedAt: string;
   achievementType: AchievementType;
+  ranking: number;
 }
 
 @Injectable({

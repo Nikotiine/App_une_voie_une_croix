@@ -21,6 +21,7 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 import { RouteRoutingModule } from '../route-routing.module';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { SectorDto } from '../../../core/api/models/sector-dto';
+import { EffortType } from '../../../core/app/enum/EffortType.enum';
 
 @Component({
   selector: 'app-route-form',
@@ -47,6 +48,17 @@ export class RouteFormComponent implements OnInit {
   public form: FormGroup;
   public showForm: boolean = false;
   private routeId: string | undefined = '';
+  public effortTypes = [
+    {
+      label: EffortType.BLOC,
+    },
+    {
+      label: EffortType.CONTI,
+    },
+    {
+      label: EffortType.RESI,
+    },
+  ];
   constructor(
     private readonly routeService: RouteService,
     private readonly siteService: SiteService,
@@ -69,6 +81,7 @@ export class RouteFormComponent implements OnInit {
       exposition: [0, [Validators.required, Validators.min(1)]],
       site: [0],
       commentary: [''],
+      effortType: [''],
     });
   }
   ngOnInit(): void {
@@ -154,6 +167,7 @@ export class RouteFormComponent implements OnInit {
       rockType: this.rockType,
       author: this.userProfileService.getUserProfile(),
       commentary: this.form.controls['commentary'].value,
+      effortType: this.form.controls['effortType'].value,
     };
 
     if (!this.routeId) {

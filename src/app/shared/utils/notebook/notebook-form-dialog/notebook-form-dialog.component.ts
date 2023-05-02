@@ -34,6 +34,7 @@ export class NotebookFormDialogComponent implements OnInit {
       trials: [1],
       achievement: [1],
       succeedAt: [new Date()],
+      ranking: [''],
     });
   }
 
@@ -64,6 +65,7 @@ export class NotebookFormDialogComponent implements OnInit {
       trials: this.form.controls['trials'].value,
       achievementType: this.achievement,
       commentary: '',
+      ranking: this.form.controls['ranking'].value,
     };
     this.appNotebookService.newNotebook(notebook).subscribe({
       next: res => {

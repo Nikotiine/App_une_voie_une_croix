@@ -112,21 +112,36 @@
             placeholder="Equipement"
             inputId="equipment"></p-dropdown>
         </div>
+        <div class="input-label">
+          <label for="engagement" class="label">
+            <span class="has-text-info">
+              <i class="{{ iconEngagement }} mr-1"></i> Engagement :
+            </span>
+          </label>
+          <p-dropdown
+            optionLabel="label"
+            [options]="engagements"
+            optionValue="id"
+            formControlName="engagement"
+            placeholder="Engagement"
+            id="engagement"></p-dropdown>
+        </div>
+        <div class="input-label">
+          <label for="effort" class="label">
+            <span class="has-text-info">
+              <i class="{{ iconEngagement }} mr-1"></i> Type d'effort :
+            </span>
+          </label>
+          <p-dropdown
+            optionLabel="label"
+            [options]="effortTypes"
+            optionValue="label"
+            formControlName="effortType"
+            placeholder="Type d'effort"
+            id="effort"></p-dropdown>
+        </div>
       </div>
-      <div class="input-label">
-        <label for="engagement" class="label">
-          <span class="has-text-info">
-            <i class="{{ iconEngagement }} mr-1"></i> Engagement :
-          </span>
-        </label>
-        <p-dropdown
-          optionLabel="label"
-          [options]="engagements"
-          optionValue="id"
-          formControlName="engagement"
-          placeholder="Engagement"
-          id="engagement"></p-dropdown>
-      </div>
+
       <div class="wrapper-input">
         <div class="input-label">
           <label for="height" class="label">

@@ -40,6 +40,12 @@
         </p>
         <p class="subtitle">
           <span class="has-text-info">
+            <i class="{{ iconRoute }} mr-1"></i> Type d'effort :
+          </span>
+          {{ route.effortType ?? '---' }}
+        </p>
+        <p class="subtitle">
+          <span class="has-text-info">
             <i class="{{ iconEquipment }} mr-1"></i>Equipement :
           </span>
           {{ route.equipment.label }}
