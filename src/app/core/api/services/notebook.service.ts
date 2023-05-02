@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { NotebookCreateDto } from '../models/notebook-create-dto';
 import { NotebookViewDto } from '../models/notebook-view-dto';
+import { RatingRouteDto } from '../models/rating-route-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -227,6 +228,202 @@ export class NotebookService extends BaseService {
 
     return this.notebookControllerGetNotebook$Response(params,context).pipe(
       map((r: StrictHttpResponse<NotebookViewDto>) => r.body as NotebookViewDto)
+    );
+  }
+
+  /**
+   * Path part for operation notebookControllerGetAllRatingsRoutes
+   */
+  static readonly NotebookControllerGetAllRatingsRoutesPath = '/api/notebook/rating/all';
+
+  /**
+   * Get rating all route.
+   *
+   * Return  all rating of notebook
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `notebookControllerGetAllRatingsRoutes()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetAllRatingsRoutes$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<RatingRouteDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, NotebookService.NotebookControllerGetAllRatingsRoutesPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<RatingRouteDto>>;
+      })
+    );
+  }
+
+  /**
+   * Get rating all route.
+   *
+   * Return  all rating of notebook
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `notebookControllerGetAllRatingsRoutes$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetAllRatingsRoutes(params?: {
+  },
+  context?: HttpContext
+
+): Observable<Array<RatingRouteDto>> {
+
+    return this.notebookControllerGetAllRatingsRoutes$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<RatingRouteDto>>) => r.body as Array<RatingRouteDto>)
+    );
+  }
+
+  /**
+   * Path part for operation notebookControllerGetAllRatingsRoutesBySite
+   */
+  static readonly NotebookControllerGetAllRatingsRoutesBySitePath = '/api/notebook/rating/site/{id}';
+
+  /**
+   * Get rating all route.
+   *
+   * Return  all rating of notebook
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `notebookControllerGetAllRatingsRoutesBySite()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetAllRatingsRoutesBySite$Response(params: {
+
+    /**
+     * id of the site
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<RatingRouteDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, NotebookService.NotebookControllerGetAllRatingsRoutesBySitePath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<RatingRouteDto>>;
+      })
+    );
+  }
+
+  /**
+   * Get rating all route.
+   *
+   * Return  all rating of notebook
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `notebookControllerGetAllRatingsRoutesBySite$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetAllRatingsRoutesBySite(params: {
+
+    /**
+     * id of the site
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<Array<RatingRouteDto>> {
+
+    return this.notebookControllerGetAllRatingsRoutesBySite$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<RatingRouteDto>>) => r.body as Array<RatingRouteDto>)
+    );
+  }
+
+  /**
+   * Path part for operation notebookControllerGetAllRatingsByRoute
+   */
+  static readonly NotebookControllerGetAllRatingsByRoutePath = '/api/notebook/rating/route/{id}';
+
+  /**
+   * Get rating by route.
+   *
+   * Return  all rating of notebook
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `notebookControllerGetAllRatingsByRoute()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetAllRatingsByRoute$Response(params: {
+
+    /**
+     * id of the route
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<RatingRouteDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, NotebookService.NotebookControllerGetAllRatingsByRoutePath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<RatingRouteDto>>;
+      })
+    );
+  }
+
+  /**
+   * Get rating by route.
+   *
+   * Return  all rating of notebook
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `notebookControllerGetAllRatingsByRoute$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerGetAllRatingsByRoute(params: {
+
+    /**
+     * id of the route
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<Array<RatingRouteDto>> {
+
+    return this.notebookControllerGetAllRatingsByRoute$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<RatingRouteDto>>) => r.body as Array<RatingRouteDto>)
     );
   }
 

@@ -52,6 +52,16 @@
   </p>
   <p class="subtitle">
     <span class="has-text-info">
+      <i class="{{ iconQuickdraw }} mr-1"></i>Note :
+    </span>
+    <p-rating
+      [(ngModel)]="notebook.ranking"
+      [readonly]="true"
+      [stars]="3"
+      [cancel]="false"></p-rating>
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
       <i class="{{ iconQuickdraw }} mr-1"></i>Commentaires :
     </span>
     {{ notebook.commentary }}

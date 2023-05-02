@@ -9,6 +9,7 @@ import { RouteDto } from '../../api/models/route-dto';
 import { Observable } from 'rxjs';
 import { NotebookCreateDto } from '../../api/models/notebook-create-dto';
 import { NotebookViewDto } from '../../api/models/notebook-view-dto';
+import { RatingRouteDto } from '../../api/models/rating-route-dto';
 
 export interface AppNotebook {
   trials: number;
@@ -49,6 +50,15 @@ export class AppNotebookService {
   public getMyNotebook(): Observable<NotebookViewDto[]> {
     return this.notebookService.notebookControllerGetNotebooks({
       id: this.userProfileService.getUserProfile().id,
+    });
+  }
+
+  public getRoutesRatings(): Observable<RatingRouteDto[]> {
+    return this.notebookService.notebookControllerGetAllRatingsRoutes();
+  }
+  public getRoutesRatingsBySite(id: number): Observable<RatingRouteDto[]> {
+    return this.notebookService.notebookControllerGetAllRatingsRoutesBySite({
+      id: id,
     });
   }
 }

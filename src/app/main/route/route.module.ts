@@ -15,6 +15,7 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { UtilsModule } from '../../shared/utils/utils.module';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [RouteFormComponent, RouteViewComponent, RouteListComponent],
@@ -32,6 +33,7 @@ import { UtilsModule } from '../../shared/utils/utils.module';
     TabViewModule,
     InputTextareaModule,
     UtilsModule,
+    RatingModule,
   ],
 })
 export class RouteModule {}

@@ -15,6 +15,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { SidebarModule } from 'primeng/sidebar';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SidebarModule } from 'primeng/sidebar';
     CalendarModule,
     TableModule,
     SidebarModule,
+    RatingModule,
   ],
 })
 export class NotebookModule {}

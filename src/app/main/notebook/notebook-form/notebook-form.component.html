@@ -74,6 +74,16 @@
       </div>
     </div>
     <div class="input-label">
+      <label for="ranking" class="label">
+        <span class="has-text-info"> Note : </span>
+      </label>
+      <p-rating
+        formControlName="ranking"
+        id="ranking"
+        [stars]="3"
+        [cancel]="false"></p-rating>
+    </div>
+    <div class="input-label">
       <label for="succeedAt" class="label">
         <span class="has-text-info"> Date de realisation : </span></label
       >

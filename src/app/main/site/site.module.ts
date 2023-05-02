@@ -21,6 +21,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { SiteListMapComponent } from './site-list-map/site-list-map.component';
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     TabViewModule,
     CalendarModule,
     SelectButtonModule,
+    RatingModule,
   ],
 })
 export class SiteModule {}

@@ -50,7 +50,10 @@
           <i class="{{ iconExposition }} mr-1"></i>Exposition
           <p-sortIcon field="maxLevel.label"></p-sortIcon>
         </th>
-
+        <th pSortableColumn="exposition.label">
+          <i class="{{ iconExposition }} mr-1"></i>Note
+          <p-sortIcon field="maxLevel.label"></p-sortIcon>
+        </th>
         <th pSortableColumn="createdAt">
           Date d'ajout
           <p-sortIcon field="createdAt"></p-sortIcon>
@@ -213,6 +216,28 @@
             </ng-template>
           </p-columnFilter>
         </th>
+        <th>
+          <p-columnFilter
+            [showMenu]="false"
+            [showClearButton]="false"
+            field="exposition.label"
+            matchMode="contains">
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  [ngModel]="value"
+                  (ngModelChange)="filter($event)"
+                  placeholder="Search" />
+              </span>
+            </ng-template>
+          </p-columnFilter>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-route>
@@ -233,6 +258,12 @@
         <td>{{ route.level.label }}</td>
 
         <td>{{ route.exposition.label }}</td>
+        <td>
+          <p-rating
+            [readonly]="true"
+            [stars]="getRating(route.id)"
+            [cancel]="false"></p-rating>
+        </td>
         <td>{{ route.createdAt | date : 'dd/MM/yyyy' }}</td>
         <td *ngIf="isLogged">
           <p-button styleClass="p-button-text"

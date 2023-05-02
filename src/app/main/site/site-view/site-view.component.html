@@ -202,6 +202,9 @@
               <th pSortableColumn="secteur.name">
                 Secteur <p-sortIcon field="secteur.name"></p-sortIcon>
               </th>
+              <th pSortableColumn="secteur.name">
+                Notes <p-sortIcon field="secteur.name"></p-sortIcon>
+              </th>
               <th pSortableColumn="secteur.name" *ngIf="isLogged">Cochée</th>
             </tr>
           </ng-template>
@@ -213,6 +216,12 @@
               <td>{{ route.height }}</td>
               <td>{{ route.level.label }}</td>
               <td>{{ route.sector.name }}</td>
+              <td>
+                <p-rating
+                  [readonly]="true"
+                  [stars]="getRating(route.id)"
+                  [cancel]="false"></p-rating>
+              </td>
               <td *ngIf="isLogged">
                 <p-button styleClass="p-button-text"
                   ><i

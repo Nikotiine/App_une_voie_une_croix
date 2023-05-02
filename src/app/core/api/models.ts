@@ -34,3 +34,4 @@ export { RouteDto } from './models/route-dto';
 export { PublicDataDto } from './models/public-data-dto';
 export { NotebookCreateDto } from './models/notebook-create-dto';
 export { NotebookViewDto } from './models/notebook-view-dto';
+export { RatingRouteDto } from './models/rating-route-dto';

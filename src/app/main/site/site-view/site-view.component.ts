@@ -14,6 +14,7 @@ import { SecurityService } from '../../../core/app/services/security.service';
 import { RouteViewDto } from '../../../core/api/models/route-view-dto';
 import { AppNotebookService } from '../../../core/app/services/app-notebook.service';
 import { NotebookViewDto } from '../../../core/api/models/notebook-view-dto';
+import { RatingRouteDto } from '../../../core/api/models/rating-route-dto';
 
 @Component({
   selector: 'app-site-view',
@@ -58,6 +59,7 @@ export class SiteViewComponent implements OnInit {
   private notebooks: NotebookViewDto[] = [];
   public selectedRoute: RouteViewDto;
   private routeId: number;
+  public ratings: RatingRouteDto[] = [];
   constructor(
     private readonly siteService: SiteService,
     private readonly activatedRoute: ActivatedRoute,
@@ -90,6 +92,12 @@ export class SiteViewComponent implements OnInit {
           mergeMap(site => {
             this.site = site;
             this.routes = site.routes;
+            return this.appNotebookService.getRoutesRatingsBySite(site.id);
+          })
+        )
+        .pipe(
+          mergeMap(ratings => {
+            this.ratings = ratings;
             return this.appNotebookService.getMyNotebook();
           })
         )
@@ -191,5 +199,23 @@ export class SiteViewComponent implements OnInit {
   public reloadData(): void {
     this.loading = !this.loading;
     this.loadData(this.routeId);
+  }
+  /**
+   * Retourne la moyenne d'evalution d'une voie
+   * @param id
+   */
+  public getRating(id: number): number {
+    const routeRating = this.ratings.filter(route => route.id === id);
+    let rating = 0;
+    if (routeRating.length === 0) {
+      return rating;
+    }
+
+    for (const route of routeRating) {
+      console.log('ici');
+      rating += route.rating;
+    }
+    console.log(Math.round(rating / routeRating.length));
+    return Math.round(rating / routeRating.length);
   }
 }
