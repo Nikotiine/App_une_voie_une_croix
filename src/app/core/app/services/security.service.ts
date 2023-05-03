@@ -17,7 +17,7 @@ export class SecurityService {
   constructor(
     private readonly cookieService: CookieService,
     private readonly authService: AuthService,
-    private router: Router
+    private readonly router: Router
   ) {}
 
   public saveToken(token: TokenDto): void {

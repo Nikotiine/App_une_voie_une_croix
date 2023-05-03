@@ -34,7 +34,7 @@ export class NotebookFormDialogComponent implements OnInit {
       trials: [1],
       achievement: [1],
       succeedAt: [new Date()],
-      ranking: [''],
+      ranking: [0],
     });
   }
 

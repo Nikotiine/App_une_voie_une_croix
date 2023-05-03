@@ -12,8 +12,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SharedModule } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
+import { TableRoutesComponent } from './route/table-routes/table-routes.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { RatingModule } from 'primeng/rating';
     NotFoundComponent,
     MapComponent,
     NotebookFormDialogComponent,
+    TableRoutesComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,15 @@ import { RatingModule } from 'primeng/rating';
     DialogModule,
     ReactiveFormsModule,
     RatingModule,
+    InputTextModule,
+    TableModule,
+    FormsModule,
   ],
-  exports: [UnauthorizedComponent, MapComponent, NotebookFormDialogComponent],
+  exports: [
+    UnauthorizedComponent,
+    MapComponent,
+    NotebookFormDialogComponent,
+    TableRoutesComponent,
+  ],
 })
 export class UtilsModule {}

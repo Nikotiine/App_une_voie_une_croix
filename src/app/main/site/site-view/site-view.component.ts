@@ -207,16 +207,17 @@ export class SiteViewComponent implements OnInit {
    * @param id
    */
   public getRating(id: number): number {
-    const routeRating: RatingRouteDto[] = this.ratings.filter(
+    const routeRatings: RatingRouteDto[] = this.ratings.filter(
       route => route.id === id
     );
     let rating: number = 0;
-    if (routeRating.length === 0) {
+    if (routeRatings.length === 0) {
       return rating;
     }
-    for (const route of routeRating) {
+
+    for (const route of routeRatings) {
       rating += route.rating;
     }
-    return Math.round(rating / routeRating.length);
+    return Math.round(rating / routeRatings.length);
   }
 }

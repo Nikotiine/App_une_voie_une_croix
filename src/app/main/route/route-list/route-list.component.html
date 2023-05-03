@@ -14,7 +14,11 @@
       placeholder="Trier par sites"
       id="region"></p-dropdown>
   </div>
-  <p-table
+  <app-table-routes
+    [routes]="filteredRoutes"
+    (isSuccess)="reloadData()"
+    *ngIf="filteredRoutes.length > 0"></app-table-routes>
+  <!-- <p-table
     #dt
     [value]="filteredRoutes"
     [rows]="25"
@@ -281,10 +285,10 @@
         </td>
       </tr>
     </ng-template>
-  </p-table>
+  </p-table>-->
 </div>
-<app-notebook-form-dialog
+<!--<app-notebook-form-dialog
   (isClose)="closeDialog()"
   (isSuccess)="reloadData()"
   [visible]="visible"
-  [route]="selectedRoute"></app-notebook-form-dialog>
+  [route]="selectedRoute"></app-notebook-form-dialog>-->
