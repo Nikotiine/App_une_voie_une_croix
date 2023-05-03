@@ -46,7 +46,7 @@ export class NotebookFormComponent implements OnInit {
     });
     this.achievementTypes = this.appNotebookService.achievementTypes();
   }
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadData();
     this.watchTrial();
   }

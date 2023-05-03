@@ -17,8 +17,7 @@ import { NotebookRoutingModule } from '../../notebook/notebook-routing.module';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  public iconLogin: string = Icons.LOGIN;
-  public iconUser: string = Icons.USER;
+  public readonly ICON = Icons;
   public loginUrl: string = AuthRoutingModule.LOGIN;
   public userProfileUrl: string = UserRoutingModule.USER_VIEW;
   public isLogged: boolean;

@@ -22,18 +22,7 @@ export class DashboardComponent implements OnInit {
   public sites: AdminSitesDto[] = [];
   private routes: AdminRoutesDto[] = [];
   public filteredRoutes: AdminRoutesDto[] = [];
-  public iconRouteNumber: string = Icons.ROUTE_NUMBER;
-  public iconMinLevel: string = Icons.MIN_LEVEL;
-  public iconMaxLevel: string = Icons.MAX_LEVEL;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconExposition: string = Icons.EXPOSITION;
-  public iconDepartment: string = Icons.DEPARTMENT;
-  public iconEdit: string = Icons.EDIT;
-  public iconSite: string = Icons.SITE;
-  public iconLock: string = Icons.LOCK;
-  public iconUnlock: string = Icons.UNLOCK;
-  public iconRoute: string = Icons.ROUTE;
-  public iconSector: string = Icons.SECTOR;
+  public readonly ICON = Icons;
   public siteViewUrl: string = SiteRoutingModule.SITE_VIEW;
   public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
 

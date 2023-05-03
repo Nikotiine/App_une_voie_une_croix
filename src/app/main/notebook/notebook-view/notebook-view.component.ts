@@ -13,11 +13,7 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
 export class NotebookViewComponent implements OnInit {
   @Input() notebookId: number;
   public notebook: NotebookViewDto;
-  public iconRoute: string = Icons.ROUTE;
-  public iconLevel: string = Icons.LEVEL;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconEngagement: string = Icons.ENGAGMENT;
-  public iconQuickdraw: string = Icons.QUICK_DRAW;
+  public readonly ICON = Icons;
   constructor(
     private readonly notebookService: NotebookService,
     private readonly messageService: MessageService

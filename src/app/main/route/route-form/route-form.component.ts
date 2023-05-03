@@ -38,13 +38,7 @@ export class RouteFormComponent implements OnInit {
   public levels: LevelDto[] = [];
   public routeProfiles: RouteProfileDto[] = [];
   private rockType: RockTypeDto = null;
-  public iconRoute: string = Icons.ROUTE;
-  public iconExposition: string = Icons.EXPOSITION;
-  public iconMaxLevel: string = Icons.MAX_LEVEL;
-  public iconEquipment: string = Icons.EQUIPMENT;
-  public iconEngagement: string = Icons.ENGAGMENT;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconQuickdraw: string = Icons.QUICK_DRAW;
+  public readonly ICON = Icons;
   public form: FormGroup;
   public showForm: boolean = false;
   private routeId: string | undefined = '';

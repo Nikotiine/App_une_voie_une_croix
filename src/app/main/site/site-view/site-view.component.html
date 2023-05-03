@@ -4,50 +4,52 @@
     <p-tabPanel>
       <ng-template pTemplate="header">
         <span class="">
-          <i class="{{ iconInformation }} mr-2"></i>Informations generales</span
+          <i class="{{ ICON.INFORMATION }} mr-2"></i>Informations
+          generales</span
         >
       </ng-template>
       <div class="is-flex is-flex-direction-column">
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconRouteNumber }} mr-1"></i>Nombre de voies :
+          <span [class]="textInfo">
+            <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i>{{ routeNumberSummary }}
           </span>
           {{ site.averageRouteNumber }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconExposition }} mr-1"></i>Exposition :
+          <span [class]="textInfo">
+            <i class="{{ ICON.EXPOSITION }} mr-1"></i>{{ expositionSummary }}
           </span>
           <span *ngFor="let expo of site.expositions" class="mr-1">{{
             expo.label
           }}</span>
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconRockType }} mr-1"></i>Type de rocher : </span
+          <span [class]="textInfo">
+            <i class="{{ ICON.ROCK_TYPE }} mr-1"></i>{{ rockTypeSummary }}</span
           >{{ site.rockType.label }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconMinLevel }} mr-1"></i>Niveau mini :
+          <span [class]="textInfo">
+            <i class="{{ ICON.MIN_LEVEL }} mr-1"></i>{{ minLevelSummary }}
           </span>
           {{ site.minLevel.label }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconMaxLevel }} mr-1"></i>Niveau max :
+          <span [class]="textInfo">
+            <i class="{{ ICON.MAX_LEVEL }} mr-1"></i>{{ maxLevelSummary }}
           </span>
           {{ site.maxLevel.label }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconRouteHeight }} mr-1"></i> Hauteur des voies :
+          <span [class]="textInfo">
+            <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>
+            {{ routeHeightSummary }}
           </span>
           {{ site.averageRouteHeight }} metres
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconRoute }} mr-1"></i> Profil des voies :
+          <span [class]="textInfo">
+            <i class="{{ ICON.ROUTE }} mr-1"></i> {{ routeProfileSummary }}
           </span>
 
           <span *ngFor="let profile of site.routeProfiles" class="mr-1">{{
@@ -55,32 +57,32 @@
           }}</span>
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconEquipment }} mr-1"></i> Equipements :
+          <span [class]="textInfo">
+            <i class="{{ ICON.EQUIPMENT }} mr-1"></i> {{ equipmentSummary }}
           </span>
           {{ site.equipment.label }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconEngagement }} mr-1"></i> Engagement :
+          <span [class]="textInfo">
+            <i class="{{ ICON.ENGAGEMENT }} mr-1"></i> Engagement :
           </span>
           {{ site.engagement.label }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconApproachTime }} mr-1"></i> Temps d'approche :
+          <span [class]="textInfo">
+            <i class="{{ ICON.APPROACH_TIME }} mr-1"></i> Temps d'approche :
           </span>
           {{ site.approachTime }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconApproachType }} mr-1"></i> Type d'approche :
+          <span [class]="textInfo">
+            <i class="{{ ICON.APPROACH_TYPE }} mr-1"></i> Type d'approche :
           </span>
           {{ site.approachType.label }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconApproachType }} mr-1"></i> Pied des voies :
+          <span [class]="textInfo">
+            <i class="{{ ICON.ROUTE_FOOT }} mr-1"></i> Pied des voies :
           </span>
           {{ site.routeFoot.label }}
         </p>
@@ -89,19 +91,19 @@
     <p-tabPanel>
       <ng-template pTemplate="header">
         <span (click)="showMapMainParking()">
-          <i class="{{ iconLocation }} mr-2"></i>Localisation</span
+          <i class="{{ ICON.LOCATION }} mr-2"></i>Localisation</span
         >
       </ng-template>
       <ng-template pTemplate="content">
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconRegion }} mr-1"></i> Région :
+          <span [class]="textInfo">
+            <i class="{{ ICON.REGION }} mr-1"></i> Région :
           </span>
           {{ site.region.name }}
         </p>
         <p class="subtitle">
-          <span class="has-text-info">
-            <i class="{{ iconDepartment }} mr-1"></i> Département :
+          <span [class]="textInfo">
+            <i class="{{ ICON.DEPARTMENT }} mr-1"></i> Département :
           </span>
           {{ site.department.name }}
         </p>
@@ -111,35 +113,32 @@
     <p-tabPanel *ngIf="isLogged">
       <ng-template pTemplate="header">
         <span (click)="showMapSecondaryParking()">
-          <i class="{{ iconVan }} mr-2"></i>Parking camion</span
+          <i class="{{ ICON.VAN }} mr-2"></i>Parking camion</span
         >
       </ng-template>
       <ng-template pTemplate="content">
         <p class="subtitle">
-          <span
-            class="{{ site.network ? 'has-text-info' : 'has-text-danger' }}">
-            <i class="{{ iconNetwork }} mr-1"></i>
-            {{ site.network ? 'Reseau 4g ok' : 'Pas de reseau' }}
+          <span class="{{ site.network ? textInfo : textDanger }}">
+            <i class="{{ ICON.NETWORK }} mr-1"></i>
+            {{ site.network ? network : noNetwork }}
           </span>
         </p>
         <p class="subtitle">
-          <span class="{{ site.wc ? 'has-text-info' : 'has-text-danger' }}">
-            <i class="{{ iconWc }} mr-1"></i>
-            {{ site.wc ? 'Toilette a proximite' : 'Pas de toilette' }}
+          <span class="{{ site.wc ? textInfo : textDanger }}">
+            <i class="{{ ICON.WC }} mr-1"></i>
+            {{ site.wc ? wc : noWc }}
           </span>
         </p>
         <p class="subtitle">
-          <span class="{{ site.water ? 'has-text-info' : 'has-text-danger' }}">
-            <i class="{{ iconWater }} mr-1"></i>
-            {{ site.water ? 'Eau potable a proximite' : 'Pas d eau potable' }}
+          <span class="{{ site.water ? textInfo : textDanger }}">
+            <i class="{{ ICON.WATER }} mr-1"></i>
+            {{ site.water ? water : noWater }}
           </span>
         </p>
         <p class="subtitle">
-          <span class="{{ site.river ? 'has-text-info' : 'has-text-danger' }}">
-            <i class="{{ iconRiver }} mr-1"></i>
-            {{
-              site.river ? 'Riviere ou lac a proximite' : 'Pas de point d eau'
-            }}
+          <span class="{{ site.river ? textInfo : textDanger }}">
+            <i class="{{ ICON.RIVER }} mr-1"></i>
+            {{ site.river ? river : noRiver }}
           </span>
         </p>
         <div class="is-flex is-justify-content-center">
@@ -149,11 +148,11 @@
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span> <i class="{{ iconSector }} mr-2"></i>Secteurs</span>
+        <span> <i class="{{ ICON.SECTOR }} mr-2"></i>Secteurs</span>
       </ng-template>
       <p class="subtitle">
-        <span class="has-text-info">
-          <i class="{{ iconSector }} mr-1"></i> Nombre de secteurs :
+        <span [class]="textInfo">
+          <i class="{{ ICON.SECTOR }} mr-1"></i> Nombre de secteurs :
         </span>
         {{ site.sectors.length }}
       </p>
@@ -164,7 +163,7 @@
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span> <i class="{{ iconRoute }} mr-2"></i>Voies</span>
+        <span> <i class="{{ ICON.ROUTE }} mr-2"></i>Voies</span>
       </ng-template>
       <div *ngIf="routes.length === 0" class="has-text-centered">
         <p class="p-3 subtitle">Aucune voie enregistrée</p>
@@ -217,6 +216,7 @@
               <td>{{ route.level.label }}</td>
               <td>{{ route.sector.name }}</td>
               <td>
+                {{ getRating(route.id) }}
                 <p-rating
                   [readonly]="true"
                   [stars]="getRating(route.id)"
@@ -244,20 +244,20 @@
     </p-tabPanel>
     <p-tabPanel *ngIf="isLogged">
       <ng-template pTemplate="header">
-        <span> <i class="{{ iconTopo }} mr-2"></i>Topo</span>
+        <span> <i class="{{ ICON.TOPO }} mr-2"></i>Topo</span>
       </ng-template>
     </p-tabPanel>
     <p-tabPanel *ngIf="isAdmin">
       <ng-template pTemplate="header">
-        <a [routerLink]="[siteEditUrl + site.id]" class="has-text-danger">
-          <i class="{{ iconEdit }} mr-2"></i>Editer</a
+        <a [routerLink]="[siteEditUrl + site.id]" [class]="textDanger">
+          <i class="{{ ICON.EDIT }} mr-2"></i>Editer</a
         >
       </ng-template>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <a [routerLink]="[siteListUrl]" class="has-text-info">
-          <i class="{{ iconVan }} mr-2"></i>Retour a la liste</a
+        <a [routerLink]="[siteListUrl]" [class]="textInfo">
+          <i class="{{ ICON.VAN }} mr-2"></i>Retour a la liste</a
         >
       </ng-template>
     </p-tabPanel>

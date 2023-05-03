@@ -18,7 +18,6 @@ import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
 import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
 import { RegionDto } from '../../../core/api/models/region-dto';
 import { CommonService } from '../../../core/api/services/common.service';
-
 import { DepartmentDataDto } from '../../../core/api/models/department-data-dto';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { RouteFootDto } from '../../../core/api/models/route-foot-dto';
@@ -59,24 +58,7 @@ export class SiteFormComponent implements OnInit {
   public showSecondaryParking: boolean = false;
   private readonly siteId: number;
   // **************ICONS*************************
-  public iconRoute: string = Icons.ROUTE;
-  public iconRouteNumber: string = Icons.ROUTE_NUMBER;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconExposition: string = Icons.EXPOSITION;
-  public iconRockType: string = Icons.ROCK_TYPE;
-  public iconMinLevel: string = Icons.MIN_LEVEL;
-  public iconMaxLevel: string = Icons.MAX_LEVEL;
-  public iconEquipment: string = Icons.EQUIPMENT;
-  public iconEngagement: string = Icons.ENGAGMENT;
-  public iconApproachTime: string = Icons.APPROACH_TIME;
-  public iconApproachType: string = Icons.APPROACH_TYPE;
-  public iconRegion: string = Icons.REGION;
-  public iconDepartment: string = Icons.DEPARTMENT;
-  public iconWater: string = Icons.WATER;
-  public iconNetwork: string = Icons.NETWORK;
-  public iconRiver: string = Icons.RIVER;
-  public iconWc: string = Icons.WC;
-  public iconSite: string = Icons.SITE;
+  public readonly ICON = Icons;
   // **************ICONS*************************
   constructor(
     private readonly fb: FormBuilder,
@@ -119,7 +101,7 @@ export class SiteFormComponent implements OnInit {
     this.title = this.siteId ? this.titleEdit : this.titleCreate;
     this.form.controls['department'].disable();
   }
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadData();
     if (!this.siteId) {
       this.addNewSector();

@@ -15,9 +15,7 @@ export class NotebookListComponent implements OnInit {
   public notebooks: NotebookViewDto[] = [];
   public loading: boolean = false;
   public sidebarVisible: boolean = false;
-  public iconRoute: string = Icons.INFORMATION;
-  public iconTrials: string = Icons.LIST;
-  public iconMinLevel: string = Icons.LEVEL;
+  public readonly ICON = Icons;
   public notebookId: number = 0;
   constructor(
     private readonly userProfileService: UserProfileService,

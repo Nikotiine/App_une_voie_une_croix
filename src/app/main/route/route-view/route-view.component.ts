@@ -16,22 +16,11 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
 })
 export class RouteViewComponent implements OnInit {
   public route!: RouteViewDto;
-  public iconRockType: string = Icons.ROCK_TYPE;
-  public iconEdit: string = Icons.EDIT;
-  public iconRoute: string = Icons.ROUTE;
-  public iconLevel: string = Icons.LEVEL;
-  public iconInformation: string = Icons.INFORMATION;
-  public iconSite: string = Icons.SITE;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconQuickdraw: string = Icons.QUICK_DRAW;
-  public iconExposition: string = Icons.EXPOSITION;
-  public iconSector: string = Icons.SECTOR;
-  public iconEquipment: string = Icons.EQUIPMENT;
-  public iconEngagement: string = Icons.ENGAGMENT;
+  public readonly ICON = Icons;
   public routeListUrl: string = RouteRoutingModule.ROUTE_LIST;
   public routeEditUrl: string = RouteRoutingModule.ROUTE_EDIT;
   public isAdmin: boolean;
-  public iconVan: string = Icons.VAN;
+
   constructor(
     private readonly routeService: RouteService,
     private activatedRoute: ActivatedRoute,
@@ -42,7 +31,7 @@ export class RouteViewComponent implements OnInit {
     this.isAdmin = this.userProfileService.isAdmin();
   }
   ngOnInit(): void {
-    const id = parseInt(this.activatedRoute.snapshot.params['id']);
+    const id: number = parseInt(this.activatedRoute.snapshot.params['id']);
     this.loadRoute(id);
   }
 

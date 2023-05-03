@@ -15,6 +15,7 @@ import { RouteViewDto } from '../../../core/api/models/route-view-dto';
 import { AppNotebookService } from '../../../core/app/services/app-notebook.service';
 import { NotebookViewDto } from '../../../core/api/models/notebook-view-dto';
 import { RatingRouteDto } from '../../../core/api/models/rating-route-dto';
+import { SiteSummary } from '../../../core/app/enum/SiteSummary.enum';
 
 @Component({
   selector: 'app-site-view',
@@ -25,41 +26,42 @@ export class SiteViewComponent implements OnInit {
   public site!: SiteViewDto;
   public routes: RouteViewDto[] = [];
   public mapOption: MapOptions;
+  public ratings: RatingRouteDto[] = [];
+  public selectedRoute: RouteViewDto;
+  private notebooks: NotebookViewDto[] = [];
   public loading: boolean = true;
   public visible: boolean = false;
+  public isAdmin: boolean;
+  public isLogged: boolean;
+  private routeId: number;
+
+  // **************ICONS*************************
+  public readonly ICON = Icons;
+
+  // *************String in template**************************
+  public textDanger: string = 'has-text-danger';
+  public textInfo: string = 'has-text-info';
+  public network: string = 'Reseau 4g ok';
+  public noNetwork: string = 'Pas de reseau';
+  public wc: string = 'Toilette a proximite';
+  public noWc: string = 'Pas de toilette';
+  public river: string = 'Riviere ou lac a proximite';
+  public noRiver: string = 'Pas de point d eau';
+  public water: string = 'Eau potable a proximite';
+  public noWater: string = 'Pas d eau potable';
+  public maxLevelSummary = SiteSummary.MAX_LEVEL;
+  public minLevelSummary: SiteSummary = SiteSummary.MIN_LEVEL;
+  public rockTypeSummary: SiteSummary = SiteSummary.ROCK_TYPE;
+  public expositionSummary: SiteSummary = SiteSummary.EXPOSITION;
+  public routeNumberSummary: SiteSummary = SiteSummary.ROUTE_NUMBER;
+  public routeHeightSummary: SiteSummary = SiteSummary.ROUTE_HEIGHT;
+  public routeProfileSummary: SiteSummary = SiteSummary.ROUTE_PROFILE;
+  public equipmentSummary: SiteSummary = SiteSummary.EQUIPMENT;
+  // *************URL**************************
   public siteListUrl: string = SiteRoutingModule.SITE_LIST;
   public siteEditUrl: string = SiteRoutingModule.SITE_EDIT;
   public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
   public routeNewUrl: string = RouteRoutingModule.ROUTE_NEW;
-  public iconRoute: string = Icons.ROUTE;
-  public iconRouteNumber: string = Icons.ROUTE_NUMBER;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconExposition: string = Icons.EXPOSITION;
-  public iconRockType: string = Icons.ROCK_TYPE;
-  public iconMinLevel: string = Icons.MIN_LEVEL;
-  public iconMaxLevel: string = Icons.MAX_LEVEL;
-  public iconEquipment: string = Icons.EQUIPMENT;
-  public iconEngagement: string = Icons.ENGAGMENT;
-  public iconApproachTime: string = Icons.APPROACH_TIME;
-  public iconApproachType: string = Icons.APPROACH_TYPE;
-  public iconRegion: string = Icons.REGION;
-  public iconDepartment: string = Icons.DEPARTMENT;
-  public iconWater: string = Icons.WATER;
-  public iconNetwork: string = Icons.NETWORK;
-  public iconRiver: string = Icons.RIVER;
-  public iconWc: string = Icons.WC;
-  public iconVan: string = Icons.VAN;
-  public iconSector: string = Icons.SECTOR;
-  public iconLocation: string = Icons.LOCATION;
-  public iconTopo: string = Icons.TOPO;
-  public iconEdit: string = Icons.EDIT;
-  public iconInformation: string = Icons.INFORMATION;
-  public isAdmin: boolean;
-  public isLogged: boolean;
-  private notebooks: NotebookViewDto[] = [];
-  public selectedRoute: RouteViewDto;
-  private routeId: number;
-  public ratings: RatingRouteDto[] = [];
   constructor(
     private readonly siteService: SiteService,
     private readonly activatedRoute: ActivatedRoute,
@@ -77,7 +79,7 @@ export class SiteViewComponent implements OnInit {
     this.isAdmin = this.userProfileService.isAdmin();
     this.isLogged = this.securityService.isLogged();
   }
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.routeId = parseInt(this.activatedRoute.snapshot.params['id']);
     this.loadData(this.routeId);
   }
@@ -201,21 +203,20 @@ export class SiteViewComponent implements OnInit {
     this.loadData(this.routeId);
   }
   /**
-   * Retourne la moyenne d'evalution d'une voie
+   * Retourne la moyenne d'evalution d'une voie / Si pas d'eval renvoie 0
    * @param id
    */
   public getRating(id: number): number {
-    const routeRating = this.ratings.filter(route => route.id === id);
-    let rating = 0;
+    const routeRating: RatingRouteDto[] = this.ratings.filter(
+      route => route.id === id
+    );
+    let rating: number = 0;
     if (routeRating.length === 0) {
       return rating;
     }
-
     for (const route of routeRating) {
-      console.log('ici');
       rating += route.rating;
     }
-    console.log(Math.round(rating / routeRating.length));
     return Math.round(rating / routeRating.length);
   }
 }

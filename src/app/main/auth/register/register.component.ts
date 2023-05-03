@@ -15,13 +15,12 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 export class RegisterComponent {
   public form: FormGroup;
   public loginUrl: string;
-  //private attribute
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private readonly userService: UserService,
-    private messageService: MessageService,
-    private router: Router
+    private readonly messageService: MessageService,
+    private readonly router: Router
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],

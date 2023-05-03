@@ -23,12 +23,7 @@ export class RouteListComponent implements OnInit {
   public filteredRoutes: RouteListDto[] = [];
   public sites: SiteDto[] = [];
   public loading: boolean = true;
-  public iconSite: string = Icons.SITE;
-  public iconMaxLevel: string = Icons.MAX_LEVEL;
-  public iconRoute: string = Icons.ROUTE;
-  public iconSector: string = Icons.SECTOR;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconExposition: string = Icons.EXPOSITION;
+  public readonly ICON = Icons;
   public siteViewUrl: string = SiteRoutingModule.SITE_VIEW;
   public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
   public isLogged: boolean;

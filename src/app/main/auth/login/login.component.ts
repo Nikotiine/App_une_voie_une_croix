@@ -21,12 +21,12 @@ export class LoginComponent {
   public form: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly securityService: SecurityService,
-    private messageService: MessageService,
-    private userProfileService: UserProfileService,
-    private router: Router
+    private readonly messageService: MessageService,
+    private readonly userProfileService: UserProfileService,
+    private readonly router: Router
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

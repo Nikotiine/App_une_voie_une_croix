@@ -20,7 +20,7 @@
     <div class="input-label">
       <label for="lastName" class="label">
         <span class="has-text-info">
-          <i class="{{ iconSite }} mr-1"></i>Nom du site :
+          <i class="{{ ICON.SITE }} mr-1"></i>Nom du site :
         </span></label
       >
       <span class="p-input-icon-left">
@@ -33,7 +33,7 @@
       <div class="input-label">
         <label for="exposition" class="label">
           <span class="has-text-info">
-            <i class="{{ iconExposition }} mr-1"></i>Exposition :
+            <i class="{{ ICON.EXPOSITION }} mr-1"></i>Exposition :
           </span>
         </label>
         <p-multiSelect
@@ -47,7 +47,7 @@
       <div class="input-label">
         <label for="routeProfiles" class="label">
           <span class="has-text-info">
-            <i class="{{ iconRoute }} mr-1"></i>Type de voies :
+            <i class="{{ ICON.ROUTE }} mr-1"></i>Type de voies :
           </span>
         </label>
         <p-multiSelect
@@ -61,7 +61,7 @@
       <div class="input-label">
         <label for="minLevel" class="label">
           <span class="has-text-info">
-            <i class="{{ iconMinLevel }} mr-1"></i> Niveau mini :
+            <i class="{{ ICON.MIN_LEVEL }} mr-1"></i> Niveau mini :
           </span>
         </label>
         <p-dropdown
@@ -75,7 +75,7 @@
       <div class="input-label">
         <label for="maxLevel" class="label">
           <span class="has-text-info">
-            <i class="{{ iconMaxLevel }} mr-1"></i> Niveau maxi :
+            <i class="{{ ICON.MAX_LEVEL }} mr-1"></i> Niveau maxi :
           </span>
         </label>
         <p-dropdown
@@ -91,7 +91,7 @@
     <div class="input-label">
       <label for="rockType" class="label">
         <span class="has-text-info">
-          <i class="{{ iconRockType }} mr-1"></i> Type de rocher :
+          <i class="{{ ICON.ROCK_TYPE }} mr-1"></i> Type de rocher :
         </span>
       </label>
       <p-dropdown
@@ -105,7 +105,7 @@
     <div class="input-label">
       <label for="equipments" class="label">
         <span class="has-text-info">
-          <i class="{{ iconEquipment }} mr-1"></i> Equipement :
+          <i class="{{ ICON.EQUIPMENT }} mr-1"></i> Equipement :
         </span>
       </label>
       <p-dropdown
@@ -119,7 +119,7 @@
     <div class="input-label">
       <label for="engagements" class="label"
         ><span class="has-text-info">
-          <i class="{{ iconEngagement }} mr-1"></i> Engagement :
+          <i class="{{ ICON.ENGAGEMENT }} mr-1"></i> Engagement :
         </span>
       </label>
       <p-dropdown
@@ -133,7 +133,7 @@
     <div class="input-label">
       <label for="approachTypes" class="label"
         ><span class="has-text-info">
-          <i class="{{ iconApproachType }} mr-1"></i>Type d'approche :
+          <i class="{{ ICON.APPROACH_TYPE }} mr-1"></i>Type d'approche :
         </span>
       </label>
       <p-dropdown
@@ -147,7 +147,7 @@
     <div class="input-label">
       <label for="routeFoots" class="label"
         ><span class="has-text-info">
-          <i class="{{ iconApproachType }} mr-1"></i>Pied des voies :
+          <i class="{{ ICON.ROUTE_FOOT }} mr-1"></i>Pied des voies :
         </span>
       </label>
       <p-dropdown
@@ -163,7 +163,7 @@
       <div class="input-label">
         <label for="averageRouteNumber" class="label">
           <span class="has-text-info">
-            <i class="{{ iconRouteNumber }} mr-1"></i>Nombre de voies :
+            <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i>Nombre de voies :
           </span>
         </label>
 
@@ -177,7 +177,7 @@
       <div class="input-label">
         <label for="approachTime" class="label"
           ><span class="has-text-info">
-            <i class="{{ iconApproachTime }} mr-1"></i>Temps d'approche :
+            <i class="{{ ICON.APPROACH_TIME }} mr-1"></i>Temps d'approche :
           </span>
         </label>
 
@@ -193,7 +193,8 @@
     <div class="input-label">
       <label for="averageRouteHeight" class="label"
         ><span class="has-text-info">
-          <i class="{{ iconRouteHeight }} mr-1"></i>Hauteur moyenne des voies :
+          <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>Hauteur moyenne des voies
+          :
         </span></label
       >
       <p-inputNumber
@@ -208,7 +209,7 @@
       <div class="input-label">
         <label for="region" class="label"
           ><span class="has-text-info">
-            <i class="{{ iconRegion }} mr-1"></i>Région :
+            <i class="{{ ICON.REGION }} mr-1"></i>Région :
           </span></label
         >
         <p-dropdown
@@ -222,7 +223,7 @@
       <div class="input-label">
         <label for="department" class="label"
           ><span class="has-text-info">
-            <i class="{{ iconDepartment }} mr-1"></i>Département :
+            <i class="{{ ICON.DEPARTMENT }} mr-1"></i>Département :
           </span></label
         >
         <p-dropdown
@@ -232,6 +233,7 @@
           (onChange)="onChangeDepartment()"
           placeholder="-- Choisir le département -- "
           optionValue="id"
+          id="department"
           inputId="department"></p-dropdown>
       </div>
       <div class="wrapper-localisation">
@@ -261,21 +263,23 @@
           <div class="switch-label label">
             <label for="water"
               ><span class="has-text-info">
-                <i class="{{ iconWater }} mr-1"></i>Eau potable :
+                <i class="{{ ICON.WATER }} mr-1"></i>Eau potable :
               </span></label
             >
             <p-inputSwitch
               formControlName="water"
+              id="water"
               inputId="water"></p-inputSwitch>
           </div>
           <div class="switch-label label">
             <label for="network"
               ><span class="has-text-info ml-3">
-                <i class="{{ iconNetwork }} mr-1"></i>Réseau 4G :
+                <i class="{{ ICON.NETWORK }} mr-1"></i>Réseau 4G :
               </span></label
             >
             <p-inputSwitch
               formControlName="network"
+              id="network"
               inputId="network"></p-inputSwitch>
           </div>
         </div>
@@ -285,19 +289,23 @@
           <div class="switch-label label">
             <label for="wc"
               ><span class="has-text-info">
-                <i class="{{ iconWc }} mr-1"></i>Toilettes :
+                <i class="{{ ICON.WC }} mr-1"></i>Toilettes :
               </span></label
             >
-            <p-inputSwitch formControlName="wc" inputId="wc"></p-inputSwitch>
+            <p-inputSwitch
+              formControlName="wc"
+              inputId="wc"
+              id="wc"></p-inputSwitch>
           </div>
           <div class="switch-label label">
             <label for="river"
               ><span class="has-text-info ml-3">
-                <i class="{{ iconRiver }} mr-1"></i>Eau à proximité :
+                <i class="{{ ICON.RIVER }} mr-1"></i>Eau à proximité :
               </span></label
             >
             <p-inputSwitch
               formControlName="river"
+              id="river"
               inputId="river"></p-inputSwitch>
           </div>
         </div>

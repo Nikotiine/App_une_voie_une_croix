@@ -24,7 +24,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="name">
-          <i class="{{ iconRoute }} mr-1"></i> Voie
+          <i class="{{ ICON.ROUTE }} mr-1"></i> Voie
           <p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="department.name">
@@ -32,14 +32,15 @@
           <p-sortIcon field="department.name"></p-sortIcon>
         </th>
         <th pSortableColumn="averageRouteNumber">
-          <i class="{{ iconTrials }} mr-1"></i> Realise :
+          <i class="{{ ICON.CHECK }} mr-1"></i> Realise :
           <p-sortIcon field="averageRouteNumber"></p-sortIcon>
         </th>
         <th pSortableColumn="minLevel.label">
-          <i class="{{ iconMinLevel }} mr-1"></i>Nombre d'essai
+          <i class="{{ ICON.TRIALS }} mr-1"></i>Nombre d'essai
           <p-sortIcon field="minLevel.label"></p-sortIcon>
         </th>
         <th pSortableColumn="maxLevel.label">
+          <i class="{{ ICON.LEVEL }} mr-1"></i>
           Niveau
           <p-sortIcon field="maxLevel.label"></p-sortIcon>
         </th>

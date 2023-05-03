@@ -2,57 +2,61 @@
 <div class="is-flex is-flex-direction-column" *ngIf="notebook">
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconRoute }} mr-1"></i>Nom de la voie:
+      <i class="{{ ICON.ROUTE }} mr-1"></i>Nom de la voie:
     </span>
     {{ notebook.route.name }}
   </p>
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconRoute }} mr-1"></i>Nom du site - secteur:
+      <i class="{{ ICON.SITE }} mr-1"></i>Nom du site - secteur:
     </span>
     {{ notebook.route.sector.site.name }} - {{ notebook.route.sector.name }}
   </p>
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconLevel }} mr-1"></i>Niveau :
+      <i class="{{ ICON.LEVEL }} mr-1"></i>Niveau :
     </span>
     {{ notebook.route.level.label }}
   </p>
   <p class="subtitle">
-    <span class="has-text-info"> <i class="mr-1"></i>Realisé : </span>
+    <span class="has-text-info">
+      <i class="{{ ICON.CHECK }}mr-1"></i>Realisé :
+    </span>
     {{ notebook.achievementType }}
   </p>
   <p class="subtitle">
-    <span class="has-text-info"> <i class="mr-1"></i>Nombre essai : </span>
+    <span class="has-text-info">
+      <i class="{{ ICON.TRIALS }}mr-1"></i>Nombre essai :
+    </span>
     {{ notebook.trials }}
   </p>
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconRoute }} mr-1"></i> Fait le :
+      <i class="{{ ICON.CALENDAR }} mr-1"></i> Fait le :
     </span>
     {{ notebook.succeedAt | date : 'dd/MM/yyyy' }}
   </p>
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconRouteHeight }} mr-1"></i>Hauteur :
+      <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>Hauteur :
     </span>
     {{ notebook.route.height }} metres
   </p>
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconEngagement }} mr-1"></i> Engagement :
+      <i class="{{ ICON.ENGAGEMENT }} mr-1"></i> Engagement :
     </span>
     {{ notebook.route.engagement.label }}
   </p>
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconQuickdraw }} mr-1"></i>Degaines :
+      <i class="{{ ICON.QUICK_DRAW }} mr-1"></i>Degaines :
     </span>
     {{ notebook.route.quickdraw }}
   </p>
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconQuickdraw }} mr-1"></i>Note :
+      <i class="{{ ICON.RATING }} mr-1"></i>Note :
     </span>
     <p-rating
       [(ngModel)]="notebook.ranking"
@@ -62,7 +66,7 @@
   </p>
   <p class="subtitle">
     <span class="has-text-info">
-      <i class="{{ iconQuickdraw }} mr-1"></i>Commentaires :
+      <i class="{{ ICON.COMMENTARY }} mr-1"></i>Commentaires :
     </span>
     {{ notebook.commentary }}
   </p>
