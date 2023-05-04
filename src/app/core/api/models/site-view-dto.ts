@@ -9,8 +9,8 @@ import { LevelDto } from './level-dto';
 import { RegionDto } from './region-dto';
 import { RockTypeDto } from './rock-type-dto';
 import { RouteFootDto } from './route-foot-dto';
+import { RouteListDto } from './route-list-dto';
 import { RouteProfileDto } from './route-profile-dto';
-import { RouteViewDto } from './route-view-dto';
 import { SectorDto } from './sector-dto';
 export interface SiteViewDto {
   approachTime: number;
@@ -33,7 +33,7 @@ export interface SiteViewDto {
   rockType: RockTypeDto;
   routeFoot: RouteFootDto;
   routeProfiles: Array<RouteProfileDto>;
-  routes: Array<RouteViewDto>;
+  routes: Array<RouteListDto>;
   secondaryParkingLat: number;
   secondaryParkingLng: number;
   sectors: Array<SectorDto>;

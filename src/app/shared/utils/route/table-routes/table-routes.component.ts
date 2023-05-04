@@ -52,6 +52,7 @@ export class TableRoutesComponent implements OnInit {
 
   public ngOnInit(): void {
     this.loadData();
+    console.log(this.routes);
   }
 
   private loadData(): void {

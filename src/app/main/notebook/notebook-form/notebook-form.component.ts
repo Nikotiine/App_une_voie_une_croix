@@ -14,6 +14,7 @@ import {
   AppNotebook,
   AppNotebookService,
 } from '../../../core/app/services/app-notebook.service';
+import { RouteListDto } from '../../../core/api/models/route-list-dto';
 
 @Component({
   selector: 'app-notebook-form',
@@ -24,7 +25,7 @@ export class NotebookFormComponent implements OnInit {
   public sites: SiteListDto[] = [];
   public form: FormGroup;
   public sectors: SectorDto[] = [];
-  public routes: RouteViewDto[] = [];
+  public routes: RouteListDto[] = [];
   public achievementTypes: AchievementTypes[] = [];
   public title: string = 'Nouvelle croix';
 
@@ -118,7 +119,7 @@ export class NotebookFormComponent implements OnInit {
         },
       });
   }
-  private get route(): RouteViewDto {
+  private get route(): RouteListDto {
     return this.routes.find(
       route => route.id === this.form.controls['routes'].value
     );

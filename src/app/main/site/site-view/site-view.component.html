@@ -174,73 +174,7 @@
           [routerLink]="[routeNewUrl]"
           class="p-button p-button-outlined mt-5"></button>
       </div>
-      <div *ngIf="routes.length > 0">
-        <h2 class="subtitle has-text-centered">
-          Nombre de voies referencées:
-          <span class="has-text-info">{{ routes.length }}</span>
-        </h2>
-        <p-table
-          [value]="routes"
-          [loading]="loading"
-          [paginator]="true"
-          [rows]="25"
-          styleClass="p-datatable-striped"
-          sortField="level.label"
-          [rowsPerPageOptions]="[25, 50, 100]">
-          <ng-template pTemplate="header">
-            <tr>
-              <th pSortableColumn="name">
-                Nom <p-sortIcon field="name"></p-sortIcon>
-              </th>
-              <th pSortableColumn="height">
-                Hauteur <p-sortIcon field="height"></p-sortIcon>
-              </th>
-              <th pSortableColumn="level.label">
-                Niveau <p-sortIcon field="level.label"></p-sortIcon>
-              </th>
-              <th pSortableColumn="secteur.name">
-                Secteur <p-sortIcon field="secteur.name"></p-sortIcon>
-              </th>
-              <th pSortableColumn="secteur.name">
-                Notes <p-sortIcon field="secteur.name"></p-sortIcon>
-              </th>
-              <th pSortableColumn="secteur.name" *ngIf="isLogged">Cochée</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-route>
-            <tr>
-              <td>
-                <a [routerLink]="[routeViewUrl + route.id]">{{ route.name }}</a>
-              </td>
-              <td>{{ route.height }}</td>
-              <td>{{ route.level.label }}</td>
-              <td>{{ route.sector.name }}</td>
-              <td>
-                {{ getRating(route.id) }}
-                <p-rating
-                  [readonly]="true"
-                  [stars]="getRating(route.id)"
-                  [cancel]="false"></p-rating>
-              </td>
-              <td *ngIf="isLogged">
-                <p-button styleClass="p-button-text"
-                  ><i
-                    class="{{
-                      isChecked(route.id)
-                        ? 'fas fa-check-circle has-text-success'
-                        : 'far fa-circle has-text-black'
-                    }} is-size-4"
-                    (click)="
-                      isChecked(route.id)
-                        ? alreadyChecked()
-                        : showDialog(route.id)
-                    "></i
-                ></p-button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
+      <app-table-routes [routes]="routes"></app-table-routes>
     </p-tabPanel>
     <p-tabPanel *ngIf="isLogged">
       <ng-template pTemplate="header">
@@ -263,8 +197,3 @@
     </p-tabPanel>
   </p-tabView>
 </div>
-<app-notebook-form-dialog
-  (isClose)="closeDialog()"
-  (isSuccess)="reloadData()"
-  [visible]="visible"
-  [route]="selectedRoute"></app-notebook-form-dialog>
