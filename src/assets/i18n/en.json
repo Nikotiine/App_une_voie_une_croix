@@ -1,3 +1,86 @@
 {
-  "SiteTitle": "One route One Cross"
+  "SiteTitle": "One route One Cross",
+  "Cancel": "Cancel",
+  "Validate": "Validate",
+  "Search": "Search",
+    "Navbar": {
+      "home": "Home",
+      "sites": "Climbing Zone",
+      "sitesList": "List of all",
+      "sitesMap": "Climbing Zone map",
+      "addSite": "add Climbing Zone",
+      "routes": "Route",
+      "routesList": "List of all routes",
+      "routeSearch": "Search route",
+      "addRoute": "Add route",
+      "notebook": "My notebook",
+      "notebookList": "Show all",
+      "addNotebook": "Add Notebook",
+      "confirmationMessage": "Change language"
+    },
+  "auth": {
+    "connexion": "Connexion",
+    "notRegistered": "Not Registered ?",
+    "password": "Password",
+    "createAccount": "Create Account",
+    "loginPage": "Login page"
+
+  },
+  "user": {
+    "email": "Email",
+    "lastName": "Lastname",
+    "firstName": "Firstname",
+    "birthday": "Bithday"
+  },
+  "language": {
+    "french": "French",
+    "english": "English"
+  },
+  "common": {
+    "exposition": "Exposition",
+    "approachTime": "Approach time",
+    "approachType": "Approach type",
+    "routeProfile": "Route profile",
+    "engagement": "Engagement",
+    "equipment": "Equipment",
+    "commentary": "Commentary",
+    "sector": "Sector",
+    "rating": "Rating",
+    "createdAt": "Added at",
+    "checked": "Checked",
+    "meter": "Meter",
+    "minute": "Minute"
+  },
+  "site": {
+    "titleSiteList": "List of climbing zone",
+    "titleSiteFormAdd": "Create new Climbing Zone",
+    "titleSiteFormEdit": "Edit Climbing Zone",
+    "name": "Climbing Zone name",
+    "averageRouteHeight": "Average height",
+    "routeFoot": "Route foot ",
+    "department": "Department",
+    "region": "Region",
+    "defineSitePark": "Define climbing zone park",
+    "defineCamPark": "Define park for night",
+    "carPark": "Car park",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "water": "Fresh water",
+    "network": "Network",
+    "toilet": "Toilet",
+    "river": "River",
+    "minLevel": "Minimum level",
+    "maxLevel": "Maximum level",
+    "averageRouteNumber": "Average route number",
+    "sortByRegion": "Sort By region",
+    "rockType": "Rock type"
+  },
+  "route": {
+    "name": "Route name",
+    "level": "Level",
+    "routeHeight": "Heigth",
+    "quickdraw": "Quickdraw",
+    "effortType": "Effort Type",
+    "sortBySite": "Sort by Climbing zone"
+  }
 }

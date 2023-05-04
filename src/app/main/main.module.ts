@@ -11,6 +11,7 @@ import { UserResolver } from '../core/app/resolvers/user.resolver';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ChartModule } from 'primeng/chart';
 import { CarouselModule } from 'primeng/carousel';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LayoutComponent, HomepageComponent],
@@ -22,6 +23,7 @@ import { CarouselModule } from 'primeng/carousel';
     ConfirmDialogModule,
     ChartModule,
     CarouselModule,
+    TranslateModule,
   ],
   providers: [MessageService, UserResolver],
   exports: [HomepageComponent],

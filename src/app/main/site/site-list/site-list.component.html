@@ -1,12 +1,14 @@
 <div class="site-table">
-  <h1 class="title has-text-centered has-text-info">Liste des sites</h1>
+  <h1 class="title has-text-centered has-text-info">
+    {{ 'site.titleSiteList' | translate }}
+  </h1>
   <div class="input-label is-align-items-center mb-4">
     <!--  <label for="region" class="label">Trier par region</label>-->
     <p-dropdown
       [options]="regions"
       optionLabel="name"
       optionValue="id"
-      placeholder="Trier par region"
+      placeholder=" {{ 'site.sortByRegion' | translate }}"
       (onChange)="filterWithRegion($event.value)"
       id="region"></p-dropdown>
   </div>
@@ -22,35 +24,42 @@
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="name">
-          <i class="{{ ICON.SITE }} mr-1"></i> Nom
+          <i class="{{ ICON.SITE }} mr-1"></i> {{ 'site.name' | translate }}
           <p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="department.name">
-          <i class="{{ ICON.DEPARTMENT }} mr-1"></i>Département
+          <i class="{{ ICON.DEPARTMENT }} mr-1"></i>
+          {{ 'site.department' | translate }}
           <p-sortIcon field="department.name"></p-sortIcon>
         </th>
         <th pSortableColumn="averageRouteNumber">
-          <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i> Nombre de voies
+          <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i>
+          {{ 'site.averageRouteNumber' | translate }}
           <p-sortIcon field="averageRouteNumber"></p-sortIcon>
         </th>
         <th pSortableColumn="minLevel.label">
-          <i class="{{ ICON.MIN_LEVEL }} mr-1"></i>Niveau Mini
+          <i class="{{ ICON.MIN_LEVEL }} mr-1"></i
+          >{{ 'site.minLevel' | translate }}
           <p-sortIcon field="minLevel.label"></p-sortIcon>
         </th>
         <th pSortableColumn="maxLevel.label">
-          <i class="{{ ICON.MAX_LEVEL }} mr-1"></i>Niveau Maxi
+          <i class="{{ ICON.MAX_LEVEL }} mr-1"></i
+          >{{ 'site.maxLevel' | translate }}
           <p-sortIcon field="maxLevel.label"></p-sortIcon>
         </th>
         <th pSortableColumn="expo.label">
-          <i class="{{ ICON.EXPOSITION }} mr-1"></i> Exposition
+          <i class="{{ ICON.EXPOSITION }} mr-1"></i>
+          {{ 'common.exposition' | translate }}
           <p-sortIcon field="expo.label"></p-sortIcon>
         </th>
         <th pSortableColumn="averageRouteHeight">
-          <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i> Hauteur Moyenne
+          <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>
+          {{ 'site.averageRouteHeight' | translate }}
           <p-sortIcon field="averageRouteHeight"></p-sortIcon>
         </th>
         <th pSortableColumn="approachTime">
-          <i class="{{ ICON.APPROACH_TIME }} mr-1"></i> Temps d'approche
+          <i class="{{ ICON.APPROACH_TIME }} mr-1"></i>
+          {{ 'common.approachTime' | translate }}
           <p-sortIcon field="approachTime"></p-sortIcon>
         </th>
       </tr>
@@ -72,7 +81,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search" />
+                  placeholder="{{ 'Search' | translate }}" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -94,7 +103,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search" />
+                  placeholder="{{ 'Search' | translate }}" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -116,7 +125,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search" />
+                  placeholder="{{ 'Search' | translate }}" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -138,7 +147,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search" />
+                  placeholder="{{ 'Search' | translate }}" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -160,7 +169,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search" />
+                  placeholder="{{ 'Search' | translate }}" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -182,7 +191,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search" />
+                  placeholder="{{ 'Search' | translate }}" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -204,7 +213,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search" />
+                  placeholder="{{ 'Search' | translate }}" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -226,7 +235,7 @@
                   type="text"
                   [ngModel]="value"
                   (ngModelChange)="filter($event)"
-                  placeholder="Search" />
+                  placeholder="{{ 'Search' | translate }}" />
               </span>
             </ng-template>
           </p-columnFilter>
@@ -250,8 +259,8 @@
         <td>
           <span *ngFor="let expo of site.expositions">{{ expo.label }} - </span>
         </td>
-        <td>{{ site.averageRouteHeight }} metres</td>
-        <td>{{ site.approachTime }} minutes</td>
+        <td>{{ site.averageRouteHeight }} {{ 'common.meter' | translate }}</td>
+        <td>{{ site.approachTime }} {{ 'common.minute' | translate }}</td>
       </tr>
     </ng-template>
   </p-table>

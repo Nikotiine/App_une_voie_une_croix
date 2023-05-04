@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SecurityService } from '../../../core/app/services/security.service';
 
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { SiteRoutingModule } from '../../site/site-routing.module';
 import { AuthRoutingModule } from '../../auth/auth-routing.module';
 import { MainRoutingModule } from '../../main-routing.module';
@@ -10,6 +10,8 @@ import { RouteRoutingModule } from '../../route/route-routing.module';
 import { Router } from '@angular/router';
 import { UserRoutingModule } from '../../user/user-routing.module';
 import { NotebookRoutingModule } from '../../notebook/notebook-routing.module';
+import { LanguageService } from '../../../core/app/services/language.service';
+import { ToastConfig } from '../../../core/app/config/toast.config';
 
 @Component({
   selector: 'app-navbar',
@@ -22,15 +24,35 @@ export class NavbarComponent implements OnInit {
   public userProfileUrl: string = UserRoutingModule.USER_VIEW;
   public isLogged: boolean;
   public items: MenuItem[] = [];
-
+  private readonly translateKey = 'Navbar';
+  private home: string = '';
+  private sites: string = '';
+  private sitesList: string = '';
+  private sitesMap: string = '';
+  private addSite: string = '';
+  private routes: string = '';
+  private routesList: string = '';
+  private routeSearch: string = '';
+  private addRoute: string = '';
+  private notebook: string = '';
+  private notebookList: string = '';
+  private addNotebook: string = '';
+  private confirmationMessage: string = '';
   constructor(
     private readonly securityService: SecurityService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly languageService: LanguageService,
+    private readonly confirmationService: ConfirmationService,
+    private readonly messageService: MessageService
   ) {
     this.isLogged = this.securityService.isLogged();
   }
 
   public ngOnInit(): void {
+    this.initLabel();
+  }
+
+  private initNavbar(): void {
     this.securityService.authenticated$.subscribe({
       next: data => {
         this.isLogged = data;
@@ -38,7 +60,6 @@ export class NavbarComponent implements OnInit {
       },
     });
   }
-
   public logout(): Promise<boolean> {
     this.securityService.logout();
     this.isLogged = false;
@@ -49,21 +70,21 @@ export class NavbarComponent implements OnInit {
   private loadConnectedNavbar(): void {
     this.items = [
       {
-        label: 'Accueil',
+        label: this.home,
         icon: Icons.VAN,
         routerLink: [MainRoutingModule.HOME],
       },
       {
-        label: 'Sites',
+        label: this.sites,
         icon: Icons.SITE,
         items: [
           {
-            label: 'Liste des sites',
+            label: this.sitesList,
             icon: Icons.LIST,
             routerLink: [SiteRoutingModule.SITE_LIST],
           },
           {
-            label: 'Carte des sites',
+            label: this.sitesMap,
             icon: Icons.MAP,
             routerLink: [SiteRoutingModule.SITES_MAP],
           },
@@ -71,46 +92,46 @@ export class NavbarComponent implements OnInit {
             separator: true,
           },
           {
-            label: 'Ajouter un site',
+            label: this.addSite,
             icon: Icons.ADD,
             routerLink: [SiteRoutingModule.SITE_NEW],
           },
         ],
       },
       {
-        label: 'Voies',
+        label: this.routes,
         icon: Icons.ROUTE,
         items: [
           {
-            label: 'Toutes les voies',
+            label: this.routesList,
             icon: Icons.LIST,
             routerLink: [RouteRoutingModule.ROUTE_LIST],
           },
           {
-            label: 'Rechercher une voie',
+            label: this.routeSearch,
             icon: Icons.SEARCH,
           },
           {
             separator: true,
           },
           {
-            label: 'Ajouter une voie',
+            label: this.addRoute,
             icon: Icons.ADD,
             routerLink: [RouteRoutingModule.ROUTE_NEW],
           },
         ],
       },
       {
-        label: 'Mon carnet',
+        label: this.notebook,
         icon: Icons.TOPO,
         items: [
           {
-            label: 'Voir tout',
+            label: this.notebookList,
             icon: Icons.NOTEBOOK,
             routerLink: [NotebookRoutingModule.NOTEBOOK_LIST],
           },
           {
-            label: 'Ajouter',
+            label: this.addNotebook,
             icon: Icons.ADD,
             routerLink: [NotebookRoutingModule.NOTEBOOK_NEW],
           },
@@ -122,41 +143,88 @@ export class NavbarComponent implements OnInit {
   private loadVisitorNavbar(): void {
     this.items = [
       {
-        label: 'Home',
+        label: this.home,
         icon: Icons.VAN,
         routerLink: [MainRoutingModule.HOME],
       },
       {
-        label: 'Site',
+        label: this.sites,
         icon: Icons.SITE,
         items: [
           {
-            label: 'Liste',
+            label: this.sitesList,
             icon: Icons.LIST,
             routerLink: [SiteRoutingModule.SITE_LIST],
           },
           {
-            label: 'Carte des sites',
+            label: this.sitesMap,
             icon: Icons.MAP,
             routerLink: [SiteRoutingModule.SITES_MAP],
           },
         ],
       },
       {
-        label: 'Voies',
+        label: this.routes,
         icon: Icons.ROUTE,
         items: [
           {
-            label: 'Toutes les voies',
+            label: this.routesList,
             icon: Icons.LIST,
             routerLink: [RouteRoutingModule.ROUTE_LIST],
           },
           {
-            label: 'Rechercher',
-            icon: 'pi pi-fw pi-align-right',
+            label: this.routeSearch,
+            icon: Icons.SEARCH,
           },
         ],
       },
     ];
+  }
+
+  public switchLanguage(): void {
+    const switchTo: string = this.languageService.switchTo;
+    this.confirmationService.confirm({
+      message: this.confirmationMessage + ' : ' + switchTo,
+      header: 'Language service',
+      accept: () => {
+        this.languageService.switchLanguage();
+        this.initLabel();
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_WARNING,
+          summary: ToastConfig.ADMIN_SUMMARY,
+          detail: ToastConfig.CANCEL,
+        });
+      },
+    });
+  }
+
+  private initLabel(): void {
+    this.languageService.getTranslation(this.translateKey).subscribe({
+      next: translate => {
+        this.home = translate.home;
+        this.sites = translate.sites;
+        this.sitesList = translate.sitesList;
+        this.sitesMap = translate.sitesMap;
+        this.addSite = translate.addSite;
+        this.routes = translate.routes;
+        this.routesList = translate.routesList;
+        this.addRoute = translate.addRoute;
+        this.routeSearch = translate.routeSearch;
+        this.notebook = translate.notebook;
+        this.notebookList = translate.notebookList;
+        this.addNotebook = translate.addNotebook;
+        this.confirmationMessage = translate.confirmationMessage;
+        this.initNavbar();
+      },
+      error: err => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_ERROR,
+          summary: ToastConfig.ADMIN_SUMMARY,
+          detail: ToastConfig.CANCEL,
+        });
+      },
+    });
   }
 }

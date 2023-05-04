@@ -44,5 +44,6 @@ enum Icons {
   CHECK = 'fas fa-check-circle',
   TRIALS = 'fas fa-wrench',
   STATUS = 'far fa-eye',
+  LANGUAGE = 'fas fa-flag',
 }
 export { Icons };

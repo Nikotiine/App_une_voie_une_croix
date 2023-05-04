@@ -20,7 +20,7 @@
     <div class="input-label">
       <label for="lastName" class="label">
         <span class="has-text-info">
-          <i class="{{ ICON.SITE }} mr-1"></i>Nom du site :
+          <i class="{{ ICON.SITE }} mr-1"></i>{{ 'site.name' | translate }}
         </span></label
       >
       <span class="p-input-icon-left">
@@ -33,14 +33,15 @@
       <div class="input-label">
         <label for="exposition" class="label">
           <span class="has-text-info">
-            <i class="{{ ICON.EXPOSITION }} mr-1"></i>Exposition :
+            <i class="{{ ICON.EXPOSITION }} mr-1"></i>
+            {{ 'common.exposition' | translate }}
           </span>
         </label>
         <p-multiSelect
           [options]="expositions"
           optionLabel="label"
           id="exposition"
-          placeholder="-- Expositions -- "
+          placeholder="-- {{ 'common.exposition' | translate }} -- "
           formControlName="expositions"
           inputId="exposition"></p-multiSelect>
       </div>
@@ -61,21 +62,23 @@
       <div class="input-label">
         <label for="minLevel" class="label">
           <span class="has-text-info">
-            <i class="{{ ICON.MIN_LEVEL }} mr-1"></i> Niveau mini :
+            <i class="{{ ICON.MIN_LEVEL }} mr-1"></i>
+            {{ 'site.minLevel' | translate }}
           </span>
         </label>
         <p-dropdown
           [options]="levels"
           optionLabel="label"
           id="minLevel"
-          placeholder="-- Niveau mini -- "
+          placeholder="-- {{ 'site.minLevel' | translate }} -- "
           formControlName="minLevel"
           inputId="minLevel"></p-dropdown>
       </div>
       <div class="input-label">
         <label for="maxLevel" class="label">
           <span class="has-text-info">
-            <i class="{{ ICON.MAX_LEVEL }} mr-1"></i> Niveau maxi :
+            <i class="{{ ICON.MAX_LEVEL }} mr-1"></i>
+            {{ 'site.maxLevel' | translate }}
           </span>
         </label>
         <p-dropdown
@@ -83,7 +86,7 @@
           optionLabel="label"
           id="maxLevel"
           formControlName="maxLevel"
-          placeholder="-- Niveau maxi --"
+          placeholder="-- {{ 'site.maxLevel' | translate }} --"
           inputId="maxLevel"></p-dropdown>
       </div>
     </div>
@@ -177,7 +180,8 @@
       <div class="input-label">
         <label for="approachTime" class="label"
           ><span class="has-text-info">
-            <i class="{{ ICON.APPROACH_TIME }} mr-1"></i>Temps d'approche :
+            <i class="{{ ICON.APPROACH_TIME }} mr-1"></i>
+            {{ 'common.approachTime' | translate }}
           </span>
         </label>
 
@@ -193,7 +197,8 @@
     <div class="input-label">
       <label for="averageRouteHeight" class="label"
         ><span class="has-text-info">
-          <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>Hauteur moyenne des voies
+          <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>
+          {{ 'site.averageRouteHeight' | translate }}
           :
         </span></label
       >
@@ -223,7 +228,8 @@
       <div class="input-label">
         <label for="department" class="label"
           ><span class="has-text-info">
-            <i class="{{ ICON.DEPARTMENT }} mr-1"></i>Département :
+            <i class="{{ ICON.DEPARTMENT }} mr-1"></i>
+            {{ 'site.department' | translate }}
           </span></label
         >
         <p-dropdown

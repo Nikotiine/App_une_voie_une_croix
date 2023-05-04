@@ -1,3 +1,87 @@
 {
-  "SiteTitle": "Une voie Une Croix"
+  "SiteTitle": "Une voie Une Croix",
+  "Cancel": "Annuler",
+  "Validate": "Valider",
+  "Search": "Rechercher",
+  "Navbar": {
+    "home": "Accueil",
+    "sites": "Sites",
+    "sitesList": "Liste des sites",
+    "sitesMap": "Carte des sites",
+    "addSite": "Ajouter un site",
+    "routes": "Voies",
+    "routesList": "Liste des voies",
+    "routeSearch": "Recherche une voie",
+    "addRoute": "Ajouter une voie",
+    "notebook": "Mon carnet",
+    "notebookList": "Voir tout",
+    "addNotebook": "Ajouter une croix",
+    "confirmationMessage": "Changer la langue pour"
+  },
+  "auth": {
+    "connexion": "Connexion",
+    "notRegistered": "Pas encore de compte ?",
+    "password": "Mot de passe",
+    "createAccount": "Creer un compte",
+    "loginPage": "Page de connexion"
+
+  },
+  "user": {
+    "email": "Email",
+    "lastName": "Nom",
+    "firstName": "Prenom",
+    "birthday": "Date de naissance"
+  },
+  "language": {
+    "french": "Francais",
+    "english": "Anglais"
+  },
+  "common": {
+    "exposition": "Exposition",
+    "approachTime": "Temps d'approche",
+    "approachType": "Type d'approche",
+    "routeProfile": "Profil de voie",
+    "engagement": "Engagement",
+    "equipment": "Equipement",
+    "commentary": "Commentaires",
+    "sector": "Secteur",
+    "rating": "Note",
+    "createdAt": "Date d'ajout",
+    "checked": "Cochée",
+    "meter": "Metre",
+    "minute": "Minute"
+  },
+  "site": {
+    "titleSiteList": "Liste des site",
+    "titleSiteFormAdd": "Ajout d'un site",
+    "titleSiteFormEdit": "Edition d'un site",
+    "name": "Nom du site",
+    "averageRouteHeight": "Hauteur moyenne",
+    "routeFoot": "Pied des voies",
+    "department": "Departement",
+    "region": "Region",
+    "defineSitePark": "Definir le parking du site",
+    "defineCamPark": "Definir le parking du camion",
+    "carPark": "Parking",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "water": "Eau potable",
+    "network": "Reseau 4G",
+    "toilet": "Toilette",
+    "river": "Riviere ou lac",
+    "minLevel": "Niveau mini",
+    "maxLevel": "Niveau maxi",
+    "averageRouteNumber": "Nombre de voies",
+    "sortByRegion": "Trier par region",
+    "rockType": "Type de rocher"
+  },
+  "route": {
+    "name": "Nom de la voie",
+    "level": "Niveau",
+    "routeHeight": "Hauteur",
+    "quickdraw": "Nombre de degaines",
+    "effortType": "Type d'effort",
+    "sortBySite": "Trier par site"
+  }
+
 }
