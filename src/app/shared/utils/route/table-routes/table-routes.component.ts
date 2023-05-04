@@ -31,7 +31,6 @@ export class TableRoutesComponent implements OnInit {
     return this._routes;
   }
 
-  @Output() isSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
   private _routes: RouteListDto[] = [];
   public routesVM: RouteViewModel[] = [];
   public loading: boolean = true;
@@ -114,7 +113,6 @@ export class TableRoutesComponent implements OnInit {
     for (const route of ratings) {
       rating += route.rating;
     }
-    console.log(rating);
     return Math.round(rating / ratings.length);
   }
 
@@ -125,12 +123,14 @@ export class TableRoutesComponent implements OnInit {
   private setIsChecked(id: number): boolean {
     return !!this.notebooks.find(n => n.route.id === id);
   }
+
   /**
    * Ferme la modale pour coche la voie
    */
   public closeDialog(): void {
     this.visible = !this.visible;
   }
+
   /**
    * Si la voie est deja coche envoie un message d'avertissemenet
    */
@@ -150,12 +150,12 @@ export class TableRoutesComponent implements OnInit {
     this.selectedRoute = this.routes.find(route => route.id === id);
     this.visible = !this.visible;
   }
+
   /**
    * Recharge les donnee une voie la voie cochée
    */
   public reloadData(): void {
     this.loading = true;
     this.loadData();
-    this.isSuccess.emit(true);
   }
 }

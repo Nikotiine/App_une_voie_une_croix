@@ -59,11 +59,4 @@ export class RouteListComponent implements OnInit {
       );
     }
   }
-
-  /**
-   * Recharge les donnee une fois la voie cochée
-   */
-  public reloadData(): void {
-    this.loadData();
-  }
 }

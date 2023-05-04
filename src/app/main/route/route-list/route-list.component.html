@@ -16,7 +16,6 @@
   </div>
   <app-table-routes
     [routes]="filteredRoutes"
-    (isSuccess)="reloadData()"
     *ngIf="filteredRoutes.length > 0"></app-table-routes>
   <!-- <p-table
     #dt
