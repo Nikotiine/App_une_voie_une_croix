@@ -77,4 +77,8 @@ export class LanguageService {
       },
     });
   }
+
+  get change() {
+    return this.translateService.onLangChange;
+  }
 }

@@ -3,6 +3,7 @@
   "cancel": "Annuler",
   "validate": "Valider",
   "search": "Rechercher",
+
   "navbar": {
     "home": "Accueil",
     "sites": "Sites",
@@ -51,7 +52,8 @@
     "createdAt": "Date d'ajout",
     "checked": "Cochée",
     "meter": "Metre",
-    "minute": "Minute"
+    "minute": "Minute",
+    "information": "Informations generales"
   },
   "site": {
     "titleSiteList": "Liste des sites",
@@ -77,7 +79,9 @@
     "sortByRegion": "Trier par region",
     "rockType": "Type de rocher",
     "chooseRegion": "Choisir la region",
-    "chooseDepartment": "Choisir le departement"
+    "chooseDepartment": "Choisir le departement",
+    "validLocation": "Valider la localisation",
+    "genericRegionName": "Toutes les regions"
   },
   "route": {
     "name": "Nom de la voie",

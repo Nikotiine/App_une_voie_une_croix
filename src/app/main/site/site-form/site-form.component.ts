@@ -30,10 +30,18 @@ import { SectorDto } from '../../../core/api/models/sector-dto';
 })
 export class SiteFormComponent implements OnInit {
   public form: FormGroup;
-  public dialogMapHeader: string = 'Parking';
-  public titleEdit: string = 'Edition du site';
-  public titleCreate: string = "Ajout d'un site";
   public displayMap: boolean = false;
+  public mapOptions: MapOptions;
+  public coordinateP1: number[] = [];
+  public coordinateP2: number[] = [];
+  public selectedParking: number = 0;
+  public displayP1: boolean = false;
+  public displayP2: boolean = false;
+  public isNew: boolean;
+  public showMainParking: boolean = false;
+  public showSecondaryParking: boolean = false;
+  private readonly siteId: number;
+
   // ******** DropDown & MutliSelect ********
   public expositions: ExpositionDto[] = [];
   public approachTypes: ApproachTypeDto[] = [];
@@ -46,20 +54,9 @@ export class SiteFormComponent implements OnInit {
   public departments: DepartmentDataDto[] = [];
   public routeFoots: RouteFootDto[] = [];
 
-  // ******** DropDown & MutliSelect ********
-  public mapOptions: MapOptions;
-  public coordinateP1: number[] = [];
-  public coordinateP2: number[] = [];
-  public selectedParking: number = 0;
-  public displayP1: boolean = false;
-  public displayP2: boolean = false;
-  public isNew: boolean;
-  public showMainParking: boolean = false;
-  public showSecondaryParking: boolean = false;
-  private readonly siteId: number;
   // **************ICONS*************************
   public readonly ICON = Icons;
-  // **************ICONS*************************
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly siteService: SiteService,
@@ -140,6 +137,7 @@ export class SiteFormComponent implements OnInit {
     });
   }
 
+  // Sousmission du formulaire
   public submit(): void {
     const site: SiteCreateDto = {
       name: this.form.controls['name'].value,
@@ -207,6 +205,10 @@ export class SiteFormComponent implements OnInit {
     this.displayMap = !this.displayMap;
   }
 
+  /**
+   * Recupere les departements associe a la region
+   * @param regionId id de la region
+   */
   public getDepartment(regionId: number): void {
     this.departmentService
       .departmentControllerGetByRegion({
@@ -227,6 +229,11 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
+  /**
+   * Initialise le marker de la carte en fonction des coordonnee du departement choisi
+   * @param lat latitude
+   * @param lng longitude
+   */
   public initMarker(lat: number, lng: number): void {
     this.mapOptions.lat = lat;
     this.mapOptions.lng = lng;
@@ -240,6 +247,10 @@ export class SiteFormComponent implements OnInit {
     return isInvalid;
   }
 
+  /**
+   * En cas d'edition du site , pre-rempli les champs avec les donnee deja presente
+   * @private
+   */
   private loadSite(): void {
     this.siteService
       .siteControllerGetSite({
@@ -294,6 +305,11 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
+  /**
+   * Envoie la requete POST en cas de nouveau site
+   * @param site SiteCreateDto
+   * @private
+   */
   private createNewSite(site: SiteCreateDto): void {
     this.siteService
       .siteControllerCreateSite({
@@ -318,6 +334,11 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
+  /**
+   * Envoie la requete PUT en cas d'edition d'un site
+   * @param site SiteCreateDto
+   * @private
+   */
   private editSite(site: SiteCreateDto): void {
     this.siteService
       .siteControllerEditSite({
@@ -352,6 +373,7 @@ export class SiteFormComponent implements OnInit {
   public onChangeDepartment(): void {
     this.initMarker(this.department.lat, this.department.lng);
   }
+
   /**
    * Creation du Array pour les differents secteur du site
    */
@@ -367,6 +389,7 @@ export class SiteFormComponent implements OnInit {
       })
     );
   }
+
   // Suppression d'un secteur ( sauf le 1 obligatoire )
   public removeSector(i: number): void {
     this.sectorArray.removeAt(i);
@@ -375,7 +398,7 @@ export class SiteFormComponent implements OnInit {
   /**
    * Quand le site est en edition, rempli le formArray avec les secteurs deja existants
    * @private
-   * @param sector
+   * @param sector SectorDto
    */
   private addExistingSector(sector: SectorDto): void {
     this.sectorArray.push(
@@ -385,11 +408,14 @@ export class SiteFormComponent implements OnInit {
       })
     );
   }
+
+  // Renvoie l'objet DepartmentDataDto en fonction du departement choisi
   get department(): DepartmentDataDto {
     return this.departments.find(
       department => department.id === this.form.controls['department'].value
     );
   }
+  // Renvoie l'objetRouteFootDto en fonction du type de pied de voie choisi
   get routeFoot(): RouteFootDto {
     return this.routeFoots.find(
       routeFoot => routeFoot.id === this.form.controls['routeFoot'].value

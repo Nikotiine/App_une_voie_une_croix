@@ -14,7 +14,7 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 })
 export class RegisterComponent {
   public form: FormGroup;
-  public loginUrl: string;
+  public loginUrl: string = AuthRoutingModule.LOGIN;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -29,7 +29,6 @@ export class RegisterComponent {
       password: ['', Validators.required],
       birthday: ['', Validators.required],
     });
-    this.loginUrl = AuthRoutingModule.LOGIN;
   }
 
   public submit(): void {

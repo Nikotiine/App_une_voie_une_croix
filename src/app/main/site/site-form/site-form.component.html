@@ -1,5 +1,5 @@
 <p-dialog
-  header="{{ dialogMapHeader }}"
+  header="{{ 'site.carPark' | translate }}"
   [(visible)]="displayMap"
   *ngIf="displayMap">
   <app-map
@@ -9,7 +9,7 @@
     <button
       pButton
       type="button"
-      label="Valider localisation"
+      label="{{ 'site.validLocation' | translate }}"
       class="p-button-icon mt-2"
       (click)="validate(selectedParking)"></button>
   </ng-template>
@@ -261,7 +261,7 @@
           *ngIf="showMainParking"
           pButton
           type="button"
-          label="Définir le {{ dialogMapHeader }} du site"
+          label="{{ 'site.defineSitePark' | translate }}"
           icon="pi pi-search"
           iconPos="right"
           (click)="chooseLocalisation(1)"
@@ -341,7 +341,7 @@
           pButton
           *ngIf="showSecondaryParking"
           type="button"
-          label="Définir le {{ dialogMapHeader }} pour la nuit"
+          label="{{ 'site.defineCamPark' | translate }}"
           icon="pi pi-search"
           iconPos="right"
           (click)="chooseLocalisation(2)"

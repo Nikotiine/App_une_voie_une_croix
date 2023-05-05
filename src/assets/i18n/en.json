@@ -3,6 +3,7 @@
   "cancel": "Cancel",
   "validate": "Validate",
   "search": "Search",
+
     "navbar": {
       "home": "Home",
       "sites": "Climbing Zone",
@@ -51,7 +52,8 @@
     "createdAt": "Added at",
     "checked": "Checked",
     "meter": "Meter",
-    "minute": "Minute"
+    "minute": "Minute",
+    "information": "General Information"
   },
   "site": {
     "titleSiteList": "List of climbing zone",
@@ -77,7 +79,9 @@
     "sortByRegion": "Sort By region",
     "rockType": "Rock type",
     "chooseRegion": "Choose region",
-    "chooseDepartment": "Choose department"
+    "chooseDepartment": "Choose department",
+    "validLocation": "Valid the location",
+    "genericRegionName": "All regions"
   },
   "route": {
     "name": "Route name",

@@ -4,20 +4,22 @@
     <p-tabPanel>
       <ng-template pTemplate="header">
         <span class="">
-          <i class="{{ ICON.INFORMATION }} mr-2"></i>Informations
-          generales</span
+          <i class="{{ ICON.INFORMATION }} mr-2"></i>
+          {{ 'common.information' | translate }}</span
         >
       </ng-template>
       <div class="is-flex is-flex-direction-column">
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i>{{ routeNumberSummary }}
+            <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i
+            >{{ 'site.averageRouteNumber' | translate }}
           </span>
           {{ site.averageRouteNumber }}
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.EXPOSITION }} mr-1"></i>{{ expositionSummary }}
+            <i class="{{ ICON.EXPOSITION }} mr-1"></i
+            >{{ 'common.exposition' | translate }}
           </span>
           <span *ngFor="let expo of site.expositions" class="mr-1">{{
             expo.label
@@ -25,31 +27,36 @@
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.ROCK_TYPE }} mr-1"></i>{{ rockTypeSummary }}</span
-          >{{ site.rockType.label }}
+            <i class="{{ ICON.ROCK_TYPE }} mr-1"></i
+            >{{ 'site.rockType' | translate }}</span
+          >
+          {{ site.rockType.label }}
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.MIN_LEVEL }} mr-1"></i>{{ minLevelSummary }}
+            <i class="{{ ICON.MIN_LEVEL }} mr-1"></i
+            >{{ 'site.minLevel' | translate }}
           </span>
           {{ site.minLevel.label }}
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.MAX_LEVEL }} mr-1"></i>{{ maxLevelSummary }}
+            <i class="{{ ICON.MAX_LEVEL }} mr-1"></i
+            >{{ 'site.maxLevel' | translate }}
           </span>
           {{ site.maxLevel.label }}
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
             <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>
-            {{ routeHeightSummary }}
+            {{ 'site.averageRouteHeight' | translate }}
           </span>
           {{ site.averageRouteHeight }} metres
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.ROUTE }} mr-1"></i> {{ routeProfileSummary }}
+            <i class="{{ ICON.ROUTE }} mr-1"></i>
+            {{ 'common.routeProfile' | translate }}
           </span>
 
           <span *ngFor="let profile of site.routeProfiles" class="mr-1">{{
@@ -58,31 +65,36 @@
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.EQUIPMENT }} mr-1"></i> {{ equipmentSummary }}
+            <i class="{{ ICON.EQUIPMENT }} mr-1"></i>
+            {{ 'common.equipment' | translate }}
           </span>
           {{ site.equipment.label }}
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.ENGAGEMENT }} mr-1"></i> Engagement :
+            <i class="{{ ICON.ENGAGEMENT }} mr-1"></i>
+            {{ 'common.engagement' | translate }}
           </span>
           {{ site.engagement.label }}
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.APPROACH_TIME }} mr-1"></i> Temps d'approche :
+            <i class="{{ ICON.APPROACH_TIME }} mr-1"></i>
+            {{ 'common.approachTime' | translate }}
           </span>
           {{ site.approachTime }}
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.APPROACH_TYPE }} mr-1"></i> Type d'approche :
+            <i class="{{ ICON.APPROACH_TYPE }} mr-1"></i>
+            {{ 'common.approachType' | translate }}
           </span>
           {{ site.approachType.label }}
         </p>
         <p class="subtitle">
           <span [class]="textInfo">
-            <i class="{{ ICON.ROUTE_FOOT }} mr-1"></i> Pied des voies :
+            <i class="{{ ICON.ROUTE_FOOT }} mr-1"></i>
+            {{ 'site.routeFoot' | translate }}
           </span>
           {{ site.routeFoot.label }}
         </p>

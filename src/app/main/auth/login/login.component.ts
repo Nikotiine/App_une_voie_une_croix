@@ -17,7 +17,7 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  public registerUrl: string;
+  public registerUrl: string = AuthRoutingModule.REGISTER;
   public form: FormGroup;
 
   constructor(
@@ -32,15 +32,16 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
-    this.registerUrl = AuthRoutingModule.REGISTER;
   }
 
+  /**
+   * Connextion de l'utlisateur
+   */
   public submit(): void {
     const credentials: UserCredentialsDto = {
       email: this.form.controls['email'].value,
       password: this.form.controls['password'].value,
     };
-
     this.authService
       .authControllerLogin({
         body: credentials,
