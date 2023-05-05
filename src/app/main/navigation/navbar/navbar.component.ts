@@ -19,13 +19,14 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  private readonly translateKey: string = 'navbar';
   public readonly ICON = Icons;
   public loginUrl: string = AuthRoutingModule.LOGIN;
   public userProfileUrl: string = UserRoutingModule.USER_VIEW;
   public isLogged: boolean;
   public items: MenuItem[] = [];
-  private readonly translateKey = 'navbar';
   private confirmationMessage: string = '';
+  private confirmationHeader: string = '';
   constructor(
     private readonly securityService: SecurityService,
     private readonly router: Router,
@@ -175,7 +176,7 @@ export class NavbarComponent implements OnInit {
     const switchTo: string = this.languageService.switchTo;
     this.confirmationService.confirm({
       message: this.confirmationMessage + ' : ' + switchTo,
-      header: 'Language service',
+      header: this.confirmationHeader,
       accept: () => {
         this.languageService.switchLanguage();
         this.initLabel();
@@ -194,6 +195,7 @@ export class NavbarComponent implements OnInit {
     this.languageService.getTranslation(this.translateKey).subscribe({
       next: translate => {
         this.confirmationMessage = translate.confirmationMessage;
+        this.confirmationHeader = translate.confirmationHeader;
         this.initNavbar(translate);
       },
       error: err => {

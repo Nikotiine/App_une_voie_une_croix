@@ -53,7 +53,7 @@ export class SiteFormComponent implements OnInit {
   public selectedParking: number = 0;
   public displayP1: boolean = false;
   public displayP2: boolean = false;
-  public title: string;
+  public isNew: boolean;
   public showMainParking: boolean = false;
   public showSecondaryParking: boolean = false;
   private readonly siteId: number;
@@ -98,7 +98,7 @@ export class SiteFormComponent implements OnInit {
       lng: 5.667857,
     };
     this.siteId = parseInt(this.activatedRoute.snapshot.params['id']);
-    this.title = this.siteId ? this.titleEdit : this.titleCreate;
+    this.isNew = !!this.siteId;
     this.form.controls['department'].disable();
   }
   public ngOnInit(): void {
@@ -126,6 +126,9 @@ export class SiteFormComponent implements OnInit {
         this.routeProfiles = data.routeProfiles;
         this.regions = data.regions;
         this.routeFoots = data.routeFoots;
+        if (this.siteId) {
+          this.loadSite();
+        }
       },
       error: err => {
         this.messageService.add({
@@ -133,11 +136,6 @@ export class SiteFormComponent implements OnInit {
           summary: ToastConfig.SITE_SUMMARY,
           detail: err.error.message,
         });
-      },
-      complete: () => {
-        if (this.siteId) {
-          this.loadSite();
-        }
       },
     });
   }

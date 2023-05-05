@@ -16,7 +16,8 @@
     "notebook": "Mon carnet",
     "notebookList": "Voir tout",
     "addNotebook": "Ajouter une croix",
-    "confirmationMessage": "Changer la langue pour"
+    "confirmationMessage": "Changer la langue pour",
+    "confirmationHeader": "Service Langage"
   },
   "auth": {
     "connexion": "Connexion",
@@ -45,6 +46,7 @@
     "equipment": "Equipement",
     "commentary": "Commentaires",
     "sector": "Secteur",
+    "sectors": "Secteurs",
     "rating": "Note",
     "createdAt": "Date d'ajout",
     "checked": "Cochée",
@@ -73,7 +75,9 @@
     "maxLevel": "Niveau maxi",
     "averageRouteNumber": "Nombre de voies",
     "sortByRegion": "Trier par region",
-    "rockType": "Type de rocher"
+    "rockType": "Type de rocher",
+    "chooseRegion": "Choisir la region",
+    "chooseDepartment": "Choisir le departement"
   },
   "route": {
     "name": "Nom de la voie",

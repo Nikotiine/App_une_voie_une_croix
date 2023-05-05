@@ -16,7 +16,8 @@
       "notebook": "My notebook",
       "notebookList": "Show all",
       "addNotebook": "Add Notebook",
-      "confirmationMessage": "Change language"
+      "confirmationMessage": "Change language",
+      "confirmationHeader": "Language service"
     },
   "auth": {
     "connexion": "Connexion",
@@ -45,6 +46,7 @@
     "equipment": "Equipment",
     "commentary": "Commentary",
     "sector": "Sector",
+    "sectors": "Sectors",
     "rating": "Rating",
     "createdAt": "Added at",
     "checked": "Checked",
@@ -73,7 +75,9 @@
     "maxLevel": "Maximum level",
     "averageRouteNumber": "Average route number",
     "sortByRegion": "Sort By region",
-    "rockType": "Rock type"
+    "rockType": "Rock type",
+    "chooseRegion": "Choose region",
+    "chooseDepartment": "Choose department"
   },
   "route": {
     "name": "Route name",
