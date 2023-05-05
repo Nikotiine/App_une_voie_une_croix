@@ -60,9 +60,10 @@ export class LanguageService {
   get switchTo(): string {
     return this.userLanguage === this.keyFr ? this.english : this.french;
   }
-  get availableLanguages(): string[] {
+
+  /*get availableLanguages(): string[] {
     return this.supportedLanguages;
-  }
+  }*/
 
   public getTranslation(translate: string): Observable<any> {
     return this.translateService.get(translate);

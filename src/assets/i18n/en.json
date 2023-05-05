@@ -1,9 +1,9 @@
 {
-  "SiteTitle": "One route One Cross",
-  "Cancel": "Cancel",
-  "Validate": "Validate",
-  "Search": "Search",
-    "Navbar": {
+  "siteTitle": "One route One Cross",
+  "cancel": "Cancel",
+  "validate": "Validate",
+  "search": "Search",
+    "navbar": {
       "home": "Home",
       "sites": "Climbing Zone",
       "sitesList": "List of all",

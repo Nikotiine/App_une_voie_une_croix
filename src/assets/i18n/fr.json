@@ -1,9 +1,9 @@
 {
-  "SiteTitle": "Une voie Une Croix",
-  "Cancel": "Annuler",
-  "Validate": "Valider",
-  "Search": "Rechercher",
-  "Navbar": {
+  "siteTitle": "Une voie Une Croix",
+  "cancel": "Annuler",
+  "validate": "Valider",
+  "search": "Rechercher",
+  "navbar": {
     "home": "Accueil",
     "sites": "Sites",
     "sitesList": "Liste des sites",
@@ -52,7 +52,7 @@
     "minute": "Minute"
   },
   "site": {
-    "titleSiteList": "Liste des site",
+    "titleSiteList": "Liste des sites",
     "titleSiteFormAdd": "Ajout d'un site",
     "titleSiteFormEdit": "Edition d'un site",
     "name": "Nom du site",

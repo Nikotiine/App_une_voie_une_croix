@@ -57,13 +57,15 @@ export class TableRoutesComponent implements OnInit {
   private loadData(): void {
     if (this.isLogged) {
       this.loadMyNoteBook();
+    } else {
+      this.loadRating();
     }
-    this.loadRating();
   }
   private loadMyNoteBook(): void {
     this.appNotebookService.getMyNotebook().subscribe({
       next: data => {
         this.notebooks = data;
+        this.loadRating();
       },
       error: err => {
         this.messageService.add({

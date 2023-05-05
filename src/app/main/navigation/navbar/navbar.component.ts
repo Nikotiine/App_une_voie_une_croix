@@ -24,19 +24,7 @@ export class NavbarComponent implements OnInit {
   public userProfileUrl: string = UserRoutingModule.USER_VIEW;
   public isLogged: boolean;
   public items: MenuItem[] = [];
-  private readonly translateKey = 'Navbar';
-  private home: string = '';
-  private sites: string = '';
-  private sitesList: string = '';
-  private sitesMap: string = '';
-  private addSite: string = '';
-  private routes: string = '';
-  private routesList: string = '';
-  private routeSearch: string = '';
-  private addRoute: string = '';
-  private notebook: string = '';
-  private notebookList: string = '';
-  private addNotebook: string = '';
+  private readonly translateKey = 'navbar';
   private confirmationMessage: string = '';
   constructor(
     private readonly securityService: SecurityService,
@@ -52,39 +40,41 @@ export class NavbarComponent implements OnInit {
     this.initLabel();
   }
 
-  private initNavbar(): void {
+  private initNavbar(translate: any): void {
     this.securityService.authenticated$.subscribe({
-      next: data => {
-        this.isLogged = data;
-        data ? this.loadConnectedNavbar() : this.loadVisitorNavbar();
+      next: isLogged => {
+        this.isLogged = isLogged;
+        isLogged
+          ? this.loadConnectedNavbar(translate)
+          : this.loadVisitorNavbar(translate);
       },
     });
   }
   public logout(): Promise<boolean> {
     this.securityService.logout();
     this.isLogged = false;
-    this.loadVisitorNavbar();
+    this.initLabel();
     return this.router.navigate([MainRoutingModule.HOME]);
   }
 
-  private loadConnectedNavbar(): void {
+  private loadConnectedNavbar(translate: any): void {
     this.items = [
       {
-        label: this.home,
+        label: translate.home,
         icon: Icons.VAN,
         routerLink: [MainRoutingModule.HOME],
       },
       {
-        label: this.sites,
+        label: translate.sites,
         icon: Icons.SITE,
         items: [
           {
-            label: this.sitesList,
+            label: translate.sitesList,
             icon: Icons.LIST,
             routerLink: [SiteRoutingModule.SITE_LIST],
           },
           {
-            label: this.sitesMap,
+            label: translate.sitesMap,
             icon: Icons.MAP,
             routerLink: [SiteRoutingModule.SITES_MAP],
           },
@@ -92,46 +82,46 @@ export class NavbarComponent implements OnInit {
             separator: true,
           },
           {
-            label: this.addSite,
+            label: translate.addSite,
             icon: Icons.ADD,
             routerLink: [SiteRoutingModule.SITE_NEW],
           },
         ],
       },
       {
-        label: this.routes,
+        label: translate.routes,
         icon: Icons.ROUTE,
         items: [
           {
-            label: this.routesList,
+            label: translate.routesList,
             icon: Icons.LIST,
             routerLink: [RouteRoutingModule.ROUTE_LIST],
           },
           {
-            label: this.routeSearch,
+            label: translate.routeSearch,
             icon: Icons.SEARCH,
           },
           {
             separator: true,
           },
           {
-            label: this.addRoute,
+            label: translate.addRoute,
             icon: Icons.ADD,
             routerLink: [RouteRoutingModule.ROUTE_NEW],
           },
         ],
       },
       {
-        label: this.notebook,
+        label: translate.notebook,
         icon: Icons.TOPO,
         items: [
           {
-            label: this.notebookList,
+            label: translate.notebookList,
             icon: Icons.NOTEBOOK,
             routerLink: [NotebookRoutingModule.NOTEBOOK_LIST],
           },
           {
-            label: this.addNotebook,
+            label: translate.addNotebook,
             icon: Icons.ADD,
             routerLink: [NotebookRoutingModule.NOTEBOOK_NEW],
           },
@@ -140,40 +130,40 @@ export class NavbarComponent implements OnInit {
     ];
   }
 
-  private loadVisitorNavbar(): void {
+  private loadVisitorNavbar(translate: any): void {
     this.items = [
       {
-        label: this.home,
+        label: translate.home,
         icon: Icons.VAN,
         routerLink: [MainRoutingModule.HOME],
       },
       {
-        label: this.sites,
+        label: translate.sites,
         icon: Icons.SITE,
         items: [
           {
-            label: this.sitesList,
+            label: translate.sitesList,
             icon: Icons.LIST,
             routerLink: [SiteRoutingModule.SITE_LIST],
           },
           {
-            label: this.sitesMap,
+            label: translate.sitesMap,
             icon: Icons.MAP,
             routerLink: [SiteRoutingModule.SITES_MAP],
           },
         ],
       },
       {
-        label: this.routes,
+        label: translate.routes,
         icon: Icons.ROUTE,
         items: [
           {
-            label: this.routesList,
+            label: translate.routesList,
             icon: Icons.LIST,
             routerLink: [RouteRoutingModule.ROUTE_LIST],
           },
           {
-            label: this.routeSearch,
+            label: translate.routeSearch,
             icon: Icons.SEARCH,
           },
         ],
@@ -203,20 +193,8 @@ export class NavbarComponent implements OnInit {
   private initLabel(): void {
     this.languageService.getTranslation(this.translateKey).subscribe({
       next: translate => {
-        this.home = translate.home;
-        this.sites = translate.sites;
-        this.sitesList = translate.sitesList;
-        this.sitesMap = translate.sitesMap;
-        this.addSite = translate.addSite;
-        this.routes = translate.routes;
-        this.routesList = translate.routesList;
-        this.addRoute = translate.addRoute;
-        this.routeSearch = translate.routeSearch;
-        this.notebook = translate.notebook;
-        this.notebookList = translate.notebookList;
-        this.addNotebook = translate.addNotebook;
         this.confirmationMessage = translate.confirmationMessage;
-        this.initNavbar();
+        this.initNavbar(translate);
       },
       error: err => {
         this.messageService.add({
