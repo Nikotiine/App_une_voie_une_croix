@@ -16,6 +16,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { UtilsModule } from '../../shared/utils/utils.module';
 import { RatingModule } from 'primeng/rating';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [RouteFormComponent, RouteViewComponent, RouteListComponent],
@@ -34,6 +35,7 @@ import { RatingModule } from 'primeng/rating';
     InputTextareaModule,
     UtilsModule,
     RatingModule,
+    TranslateModule,
   ],
 })
 export class RouteModule {}

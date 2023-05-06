@@ -55,7 +55,8 @@
     "minute": "Minute",
     "information": "Informations generales",
     "backToList": "Retour a la liste",
-    "routes": "Voies"
+    "routes": "Voies",
+    "climbingZone": "Site"
   },
   "site": {
     "titleSiteList": "Liste des sites",
@@ -93,6 +94,7 @@
     "noRouteRegistered": "Aucune voie enregistrée"
   },
   "route": {
+    "titleRouteList": "Liste des voies",
     "name": "Nom de la voie",
     "level": "Niveau",
     "routeHeight": "Hauteur",

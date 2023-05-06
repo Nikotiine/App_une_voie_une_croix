@@ -23,8 +23,8 @@ export class RouteViewComponent implements OnInit {
 
   constructor(
     private readonly routeService: RouteService,
-    private activatedRoute: ActivatedRoute,
-    private userProfileService: UserProfileService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly userProfileService: UserProfileService,
     private readonly messageService: MessageService,
     private readonly router: Router
   ) {

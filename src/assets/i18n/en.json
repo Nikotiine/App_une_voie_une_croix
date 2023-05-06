@@ -55,7 +55,8 @@
     "minute": "Minute",
     "information": "General Information",
     "backToList": "Back to list",
-    "routes": "Routes"
+    "routes": "Routes",
+    "climbingZone": "Climbing zone"
   },
   "site": {
     "titleSiteList": "List of climbing zone",
@@ -93,6 +94,7 @@
     "noRouteRegistered": "No route registered"
   },
   "route": {
+    "titleRouteList": "List of routes",
     "name": "Route name",
     "level": "Level",
     "routeHeight": "Heigth",

@@ -4,68 +4,78 @@
     <p-tabPanel>
       <ng-template pTemplate="header">
         <span class="">
-          <i class="{{ ICON.INFORMATION }} mr-2"></i>Informations
-          generales</span
+          <i class="{{ ICON.INFORMATION }} mr-2"></i
+          >{{ 'common.information' | translate }}</span
         >
       </ng-template>
       <div class="is-flex is-flex-direction-column">
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>Hauteur :
+            <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i
+            >{{ 'route.routeHeight' | translate }} :
           </span>
           {{ route.height }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.LEVEL }} mr-1"></i>Niveau :
+            <i class="{{ ICON.LEVEL }} mr-1"></i
+            >{{ 'route.level' | translate }} :
           </span>
           {{ route.level.label }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.ROCK_TYPE }} mr-1"></i>Type de rocher :
+            <i class="{{ ICON.ROCK_TYPE }} mr-1"></i
+            >{{ 'site.rockType' | translate }} :
           </span>
           {{ route.rockType.label }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.EXPOSITION }} mr-1"></i>Orientation :
+            <i class="{{ ICON.EXPOSITION }} mr-1"></i
+            >{{ 'common.exposition' | translate }} :
           </span>
           {{ route.exposition.label }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.MIN_LEVEL }} mr-1"></i> Profil de la voie :
+            <i class="{{ ICON.ROUTE_PROFILE }} mr-1"></i>
+            {{ 'common.routeProfile' | translate }} :
           </span>
           {{ route.routeProfile.label }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.EFFORT_TYPE }} mr-1"></i> Type d'effort :
+            <i class="{{ ICON.EFFORT_TYPE }} mr-1"></i>
+            {{ 'route.effortType' | translate }} :
           </span>
           {{ route.effortType ?? '---' }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.EQUIPMENT }} mr-1"></i>Equipement :
+            <i class="{{ ICON.EQUIPMENT }} mr-1"></i
+            >{{ 'common.equipment' | translate }} :
           </span>
           {{ route.equipment.label }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.ENGAGEMENT }} mr-1"></i> Engagement :
+            <i class="{{ ICON.ENGAGEMENT }} mr-1"></i>
+            {{ 'common.engagement' | translate }} :
           </span>
           {{ route.engagement.label }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.QUICK_DRAW }} mr-1"></i>Degaines :
+            <i class="{{ ICON.QUICK_DRAW }} mr-1"></i
+            >{{ 'route.quickdraw' | translate }} :
           </span>
           {{ route.quickdraw }}
         </p>
         <p class="subtitle">
           <span class="has-text-info">
-            <i class="{{ ICON.COMMENTARY }} mr-1"></i>Commentaires :
+            <i class="{{ ICON.COMMENTARY }} mr-1"></i
+            >{{ 'common.commentary' | translate }} :
           </span>
           {{ route.commentary }}
         </p>
@@ -74,17 +84,21 @@
 
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <span> <i class="{{ ICON.SITE }} mr-2"></i>Site</span>
+        <span>
+          <i class="{{ ICON.SITE }} mr-2"></i
+          >{{ 'common.climbingZone' | translate }}</span
+        >
       </ng-template>
       <p class="subtitle">
         <span class="has-text-info">
-          <i class="{{ ICON.SITE }} mr-1"></i>Site :
+          <i class="{{ ICON.SITE }} mr-1"></i>{{ 'site.name' | translate }}:
         </span>
         {{ route.sector.site.name }}
       </p>
       <p class="subtitle">
         <span class="has-text-info">
-          <i class="{{ ICON.SECTOR }} mr-1"></i>Secteur :
+          <i class="{{ ICON.SECTOR }} mr-1"></i
+          >{{ 'common.sector' | translate }} :
         </span>
         {{ route.sector.name }}
       </p>
@@ -97,14 +111,15 @@
     <p-tabPanel *ngIf="isAdmin">
       <ng-template pTemplate="header">
         <a [routerLink]="[routeEditUrl + route.id]" class="has-text-danger">
-          <i class="{{ ICON.EDIT }} mr-2"></i>Editer</a
+          <i class="{{ ICON.EDIT }} mr-2"></i>{{ 'edit' | translate }}</a
         >
       </ng-template>
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
         <a [routerLink]="[routeListUrl]" class="has-text-info">
-          <i class="{{ ICON.VAN }} mr-2"></i>Retour a la liste</a
+          <i class="{{ ICON.VAN }} mr-2"></i
+          >{{ 'common.backToList' | translate }}</a
         >
       </ng-template>
     </p-tabPanel>

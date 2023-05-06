@@ -87,6 +87,10 @@ export class SiteListComponent implements OnInit {
     this.regions.push(genericRegion);
   }
 
+  /**
+   * Surveille les changement de langue et modifie le nom de la region generique
+   * @private
+   */
   private watchLanguageChange(): void {
     this.languageService.change.subscribe((event: DefaultLangChangeEvent) => {
       const translate = event.translations.site.genericRegionName;
@@ -95,6 +99,7 @@ export class SiteListComponent implements OnInit {
     });
   }
 
+  // Supprime la region generique actuelle (changement de langue)
   private removeGenericRegion(): void {
     const index = this.regions.findIndex(region => region.id === 0);
     this.regions.splice(index, 1);
