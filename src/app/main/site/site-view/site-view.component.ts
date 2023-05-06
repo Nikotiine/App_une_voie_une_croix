@@ -10,7 +10,6 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 import { RouteRoutingModule } from '../../route/route-routing.module';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { SecurityService } from '../../../core/app/services/security.service';
-import { SiteSummary } from '../../../core/app/enum/SiteSummary.enum';
 import { RouteListDto } from '../../../core/api/models/route-list-dto';
 
 @Component({
@@ -33,22 +32,7 @@ export class SiteViewComponent implements OnInit {
   // *************String in template**************************
   public textDanger: string = 'has-text-danger';
   public textInfo: string = 'has-text-info';
-  public network: string = 'Reseau 4g ok';
-  public noNetwork: string = 'Pas de reseau';
-  public wc: string = 'Toilette a proximite';
-  public noWc: string = 'Pas de toilette';
-  public river: string = 'Riviere ou lac a proximite';
-  public noRiver: string = 'Pas de point d eau';
-  public water: string = 'Eau potable a proximite';
-  public noWater: string = 'Pas d eau potable';
-  public maxLevelSummary = SiteSummary.MAX_LEVEL;
-  public minLevelSummary: SiteSummary = SiteSummary.MIN_LEVEL;
-  public rockTypeSummary: SiteSummary = SiteSummary.ROCK_TYPE;
-  public expositionSummary: SiteSummary = SiteSummary.EXPOSITION;
-  public routeNumberSummary: SiteSummary = SiteSummary.ROUTE_NUMBER;
-  public routeHeightSummary: SiteSummary = SiteSummary.ROUTE_HEIGHT;
-  public routeProfileSummary: SiteSummary = SiteSummary.ROUTE_PROFILE;
-  public equipmentSummary: SiteSummary = SiteSummary.EQUIPMENT;
+
   // *************URL**************************
   public siteListUrl: string = SiteRoutingModule.SITE_LIST;
   public siteEditUrl: string = SiteRoutingModule.SITE_EDIT;

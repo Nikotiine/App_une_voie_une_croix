@@ -2,9 +2,9 @@
   "siteTitle": "One route One Cross",
   "cancel": "Cancel",
   "validate": "Validate",
+  "edit": "Edit",
   "search": "Search",
-
-    "navbar": {
+  "navbar": {
       "home": "Home",
       "sites": "Climbing Zone",
       "sitesList": "List of all",
@@ -53,7 +53,9 @@
     "checked": "Checked",
     "meter": "Meter",
     "minute": "Minute",
-    "information": "General Information"
+    "information": "General Information",
+    "backToList": "Back to list",
+    "routes": "Routes"
   },
   "site": {
     "titleSiteList": "List of climbing zone",
@@ -70,9 +72,13 @@
     "latitude": "Latitude",
     "longitude": "Longitude",
     "water": "Fresh water",
+    "noWater": "No fresh water",
     "network": "Network",
+    "noNetwork": "No network available",
     "toilet": "Toilet",
+    "noToilet": "No toilet",
     "river": "River",
+    "noRiver": "No proximity river",
     "minLevel": "Minimum level",
     "maxLevel": "Maximum level",
     "averageRouteNumber": "Average route number",
@@ -81,7 +87,10 @@
     "chooseRegion": "Choose region",
     "chooseDepartment": "Choose department",
     "validLocation": "Valid the location",
-    "genericRegionName": "All regions"
+    "genericRegionName": "All regions",
+    "totalSector": "Total of sectors",
+    "carParkForNight": "Car park for night",
+    "noRouteRegistered": "No route registered"
   },
   "route": {
     "name": "Route name",

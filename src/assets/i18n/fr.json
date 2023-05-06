@@ -2,8 +2,8 @@
   "siteTitle": "Une voie Une Croix",
   "cancel": "Annuler",
   "validate": "Valider",
+  "edit": "Editer",
   "search": "Rechercher",
-
   "navbar": {
     "home": "Accueil",
     "sites": "Sites",
@@ -53,7 +53,9 @@
     "checked": "Cochée",
     "meter": "Metre",
     "minute": "Minute",
-    "information": "Informations generales"
+    "information": "Informations generales",
+    "backToList": "Retour a la liste",
+    "routes": "Voies"
   },
   "site": {
     "titleSiteList": "Liste des sites",
@@ -70,9 +72,13 @@
     "latitude": "Latitude",
     "longitude": "Longitude",
     "water": "Eau potable",
+    "noWater": "Pas d'eau potable",
     "network": "Reseau 4G",
+    "noNetwork": "Pas de reseau",
     "toilet": "Toilette",
+    "noToilet": "Pas de toilette",
     "river": "Riviere ou lac",
+    "noRiver": "Pas d'eau a proximité",
     "minLevel": "Niveau mini",
     "maxLevel": "Niveau maxi",
     "averageRouteNumber": "Nombre de voies",
@@ -81,7 +87,10 @@
     "chooseRegion": "Choisir la region",
     "chooseDepartment": "Choisir le departement",
     "validLocation": "Valider la localisation",
-    "genericRegionName": "Toutes les regions"
+    "genericRegionName": "Toutes les regions",
+    "totalSector": "Nombre de secteurs",
+    "carParkForNight": "Parking camion",
+    "noRouteRegistered": "Aucune voie enregistrée"
   },
   "route": {
     "name": "Nom de la voie",
@@ -91,5 +100,4 @@
     "effortType": "Type d'effort",
     "sortBySite": "Trier par site"
   }
-
 }
