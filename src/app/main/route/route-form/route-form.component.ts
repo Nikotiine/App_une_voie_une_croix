@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { RouteService } from '../../../core/api/services/route.service';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SiteDto } from '../../../core/api/models/site-dto';
 import { SiteService } from '../../../core/api/services/site.service';
-
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { CommonService } from '../../../core/api/services/common.service';
 import { ExpositionDto } from '../../../core/api/models/exposition-dto';
@@ -22,6 +19,7 @@ import { RouteRoutingModule } from '../route-routing.module';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { SectorDto } from '../../../core/api/models/sector-dto';
 import { EffortType } from '../../../core/app/enum/EffortType.enum';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-route-form',
@@ -29,7 +27,7 @@ import { EffortType } from '../../../core/app/enum/EffortType.enum';
   styleUrls: ['./route-form.component.scss'],
 })
 export class RouteFormComponent implements OnInit {
-  public title: string = '';
+  public isNew: boolean;
   public sites: SiteDto[] = [];
   public secteurs: SectorDto[] = [];
   public expositions: ExpositionDto[] = [];
@@ -38,10 +36,12 @@ export class RouteFormComponent implements OnInit {
   public levels: LevelDto[] = [];
   public routeProfiles: RouteProfileDto[] = [];
   private rockType: RockTypeDto = null;
+  //******************ICONS*********************
   public readonly ICON = Icons;
+  //******************************************
   public form: FormGroup;
   public showForm: boolean = false;
-  private routeId: string | undefined = '';
+  private readonly routeId: string | undefined = '';
   public effortTypes = [
     {
       label: EffortType.BLOC,
@@ -77,16 +77,13 @@ export class RouteFormComponent implements OnInit {
       commentary: [''],
       effortType: [''],
     });
-  }
-  ngOnInit(): void {
     this.routeId = this.activatedRoute.snapshot.params['id'];
-    if (this.routeId) {
+    this.isNew = !!this.routeId;
+  }
+  public ngOnInit(): void {
+    if (this.isNew) {
       this.loadRoute(parseInt(this.routeId));
-      this.title = "Edition d'une voie";
-    } else {
-      this.title = "Ajout d'une voie";
     }
-    this.loadSites();
     this.loadData();
   }
 
@@ -94,10 +91,18 @@ export class RouteFormComponent implements OnInit {
    * Charge la liste des tous les sites disponibles en bdd
    * @private
    */
-  private loadSites(): void {
-    this.routeService.routeControllerGetSites().subscribe({
+  private loadData(): void {
+    forkJoin([
+      this.routeService.routeControllerGetSites(),
+      this.commonService.commonControllerGetDataForRoute(),
+    ]).subscribe({
       next: data => {
-        this.sites = data;
+        this.sites = data[0];
+        this.expositions = data[1].expositions;
+        this.routeProfiles = data[1].routeProfiles;
+        this.levels = data[1].levels;
+        this.equipments = data[1].equipments;
+        this.engagements = data[1].engagements;
       },
       error: err => {
         this.messageService.add({
@@ -169,29 +174,6 @@ export class RouteFormComponent implements OnInit {
     } else {
       this.updateRoute(route);
     }
-  }
-
-  /**
-   * Charge les differentes donnee a inclure dans la voie
-   * @private
-   */
-  private loadData(): void {
-    this.commonService.commonControllerGetDataForRoute().subscribe({
-      next: data => {
-        this.expositions = data.expositions;
-        this.routeProfiles = data.routeProfiles;
-        this.levels = data.levels;
-        this.equipments = data.equipments;
-        this.engagements = data.engagements;
-      },
-      error: err => {
-        this.messageService.add({
-          severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.ROUTE_SUMMARY,
-          detail: err.error.message,
-        });
-      },
-    });
   }
 
   /**
@@ -283,32 +265,38 @@ export class RouteFormComponent implements OnInit {
   }
   //*********************GETTERS******************************
   get secteur(): SectorDto {
-    return this.secteurs.find(s => s.id === this.form.controls['sector'].value);
+    return this.secteurs.find(
+      sector => sector.id === this.form.controls['sector'].value
+    );
   }
   get equipment(): EquipmentDto {
     return this.equipments.find(
-      e => e.id === this.form.controls['equipment'].value
+      equipment => equipment.id === this.form.controls['equipment'].value
     );
   }
   get engagement(): EngagementDto {
     return this.engagements.find(
-      e => e.id === this.form.controls['engagement'].value
+      engagement => engagement.id === this.form.controls['engagement'].value
     );
   }
   get level(): LevelDto {
-    return this.levels.find(l => l.id === this.form.controls['level'].value);
+    return this.levels.find(
+      level => level.id === this.form.controls['level'].value
+    );
   }
   get exposition(): ExpositionDto {
     return this.expositions.find(
-      e => e.id === this.form.controls['exposition'].value
+      exposition => exposition.id === this.form.controls['exposition'].value
     );
   }
   get routeProfile(): RouteProfileDto {
     return this.routeProfiles.find(
-      r => r.id === this.form.controls['routeProfile'].value
+      route => route.id === this.form.controls['routeProfile'].value
     );
   }
   get site(): SiteDto {
-    return this.sites.find(s => s.id === this.form.controls['site'].value);
+    return this.sites.find(
+      site => site.id === this.form.controls['site'].value
+    );
   }
 }

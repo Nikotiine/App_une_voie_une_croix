@@ -95,11 +95,15 @@
   },
   "route": {
     "titleRouteList": "List of routes",
+    "titleRouteFormAdd": "Create new route",
+    "titleRouteFormEdit": "Edit route",
     "name": "Route name",
     "level": "Level",
     "routeHeight": "Heigth",
     "quickdraw": "Quickdraw",
     "effortType": "Effort Type",
-    "sortBySite": "Sort by Climbing zone"
+    "sortBySite": "Sort by Climbing zone",
+    "chooseSite": "Select a climbing zone",
+    "chooseSector": "Select a sector"
   }
 }

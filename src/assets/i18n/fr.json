@@ -95,11 +95,15 @@
   },
   "route": {
     "titleRouteList": "Liste des voies",
+    "titleRouteFormAdd": "Ajout d'une voie",
+    "titleRouteFormEdit": "Edition d'une voie",
     "name": "Nom de la voie",
     "level": "Niveau",
     "routeHeight": "Hauteur",
     "quickdraw": "Nombre de degaines",
     "effortType": "Type d'effort",
-    "sortBySite": "Trier par site"
+    "sortBySite": "Trier par site",
+    "chooseSite": "Choisir un site",
+    "chooseSector": "Choisir un secteur"
   }
 }
