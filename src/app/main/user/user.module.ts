@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [UserViewComponent, UserFormComponent],
@@ -26,6 +27,7 @@ import { TabViewModule } from 'primeng/tabview';
     ToastModule,
     DialogModule,
     TabViewModule,
+    TranslateModule,
   ],
 })
 export class UserModule {}

@@ -42,7 +42,7 @@ enum Icons {
   CALENDAR = 'fas fa-calendar-check',
   ROUTE_PROFILE = 'far fa-flag',
   CHECK = 'fas fa-check-circle',
-  TRIALS = 'fas fa-wrench',
+  TRIALS = 'fas fa-receipt',
   STATUS = 'far fa-eye',
   LANGUAGE = 'fas fa-flag',
 }

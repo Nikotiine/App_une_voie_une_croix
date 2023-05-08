@@ -29,10 +29,19 @@
 
   },
   "user": {
+    "myAccount": "Mon compte",
     "email": "Email",
     "lastName": "Nom",
     "firstName": "Prenom",
-    "birthday": "Date de naissance"
+    "birthday": "Date de naissance",
+    "contribution": "Mes contributions"
+  },
+  "admin": {
+    "title": "Administration",
+    "users": "Utilisateurs",
+    "memberSince": "Membre depuis",
+    "lastUpdate": "Mise a jour",
+    "author": "Auteur"
   },
   "language": {
     "french": "Francais",
@@ -110,6 +119,7 @@
     "titleNotebookList": "Mon carnet de croix",
     "titleNotebookFormAdd": "Ajout d'une croix",
     "titleNotebookFormEdit": "Edition d'une croix",
+    "titleNotebookView": "Detail de la croix",
     "achievementType": "Realisé",
     "trialsNumber": "Nombre d'essais",
     "trial": "essai",

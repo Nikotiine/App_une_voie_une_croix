@@ -4,7 +4,9 @@
   </h1>
   <p-tabView>
     <p-tabPanel>
-      <ng-template pTemplate="header"> Utilisateurs </ng-template>
+      <ng-template pTemplate="header">
+        {{ 'admin.users' | translate }}
+      </ng-template>
       <p-table
         #dt
         [value]="users"
@@ -21,11 +23,11 @@
               <p-sortIcon field="id"></p-sortIcon>
             </th>
             <th pSortableColumn="lastName">
-              Nom
+              {{ 'user.lastName' | translate }}
               <p-sortIcon field="averageRouteNumber"></p-sortIcon>
             </th>
             <th pSortableColumn="email">
-              Email
+              {{ 'user.email' | translate }}
               <p-sortIcon field="email"></p-sortIcon>
             </th>
             <th pSortableColumn="role">
@@ -34,11 +36,11 @@
             </th>
 
             <th pSortableColumn="createdAt">
-              Inscrit depuis
+              {{ 'admin.memberSince' | translate }}
               <p-sortIcon field="createdAt"></p-sortIcon>
             </th>
             <th pSortableColumn="updatedAt">
-              Mise a jour
+              {{ 'admin.lastUpdate' | translate }}
               <p-sortIcon field="updatedAt"></p-sortIcon>
             </th>
             <th pSortableColumn="isActive">
@@ -215,7 +217,9 @@
             <td>{{ user.email }}</td>
             <td
               class="{{
-                user.role === 'admin' ? 'has-text-danger' : 'has-text-success'
+                user.role === USER_ROLE.ROLE_ADMIN
+                  ? 'has-text-danger'
+                  : 'has-text-success'
               }}">
               <span (click)="confirmEditRole(user.id)" class="has-text-black">
                 <i class="{{ ICON.EDIT }} mr-1"></i>
@@ -252,7 +256,9 @@
       </p-table>
     </p-tabPanel>
     <p-tabPanel>
-      <ng-template pTemplate="header"> Sites </ng-template>
+      <ng-template pTemplate="header"
+        >{{ 'navbar.sites' | translate }}
+      </ng-template>
       <p-table
         #dt
         [value]="sites"
@@ -265,27 +271,32 @@
         <ng-template pTemplate="header">
           <tr>
             <th pSortableColumn="name">
-              <i class="{{ ICON.SITE }} mr-1"></i> Nom
+              <i class="{{ ICON.SITE }} mr-1"></i> {{ 'site.name' | translate }}
               <p-sortIcon field="name"></p-sortIcon>
             </th>
             <th pSortableColumn="department.name">
-              <i class="{{ ICON.DEPARTMENT }} mr-1"></i>Département
+              <i class="{{ ICON.DEPARTMENT }} mr-1"></i
+              >{{ 'site.department' | translate }}
               <p-sortIcon field="department.name"></p-sortIcon>
             </th>
             <th pSortableColumn="averageRouteNumber">
-              <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i> Nombre de voies
+              <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i>
+              {{ 'site.averageRouteNumber' | translate }}
               <p-sortIcon field="averageRouteNumber"></p-sortIcon>
             </th>
             <th pSortableColumn="author">
-              <i class="{{ ICON.USER }} mr-1"></i>Auteur
+              <i class="{{ ICON.USER }} mr-1"></i
+              >{{ 'admin.author' | translate }}
               <p-sortIcon field="author"></p-sortIcon>
             </th>
             <th pSortableColumn="createdAt">
-              <i class="{{ ICON.CALENDAR }} mr-1"></i>Creer le
+              <i class="{{ ICON.CALENDAR }} mr-1"></i
+              >{{ 'common.createdAt' | translate }}
               <p-sortIcon field="createdAt"></p-sortIcon>
             </th>
             <th pSortableColumn="updatedAt">
-              <i class="{{ ICON.CALENDAR }} mr-1"></i> Mise a jour
+              <i class="{{ ICON.CALENDAR }} mr-1"></i>
+              {{ 'admin.lastUpdate' | translate }}
               <p-sortIcon field="updatedAt"></p-sortIcon>
             </th>
             <th pSortableColumn="isActive">
@@ -492,7 +503,9 @@
       </p-table>
     </p-tabPanel>
     <p-tabPanel>
-      <ng-template pTemplate="header"> Voies </ng-template>
+      <ng-template pTemplate="header">
+        {{ 'navbar.routes' | translate }}
+      </ng-template>
       <p-table
         #dt
         [value]="filteredRoutes"
@@ -505,31 +518,34 @@
         <ng-template pTemplate="header">
           <tr>
             <th pSortableColumn="sector.site.name">
-              <i class="{{ ICON.SITE }} mr-1"></i> Site
+              <i class="{{ ICON.SITE }} mr-1"></i> {{ 'site.name' | translate }}
               <p-sortIcon field="sector.site.name"></p-sortIcon>
             </th>
             <th pSortableColumn="name">
-              <i class="{{ ICON.ROUTE }} mr-1"></i> Nom de la voie
+              <i class="{{ ICON.ROUTE }} mr-1"></i>
+              {{ 'route.name' | translate }}
               <p-sortIcon field="name"></p-sortIcon>
             </th>
 
             <th pSortableColumn="sector.name">
-              <i class="{{ ICON.SECTOR }} mr-1"></i> Secteur
+              <i class="{{ ICON.SECTOR }} mr-1"></i>
+              {{ 'common.sector' | translate }}
               <p-sortIcon field="sector.name"></p-sortIcon>
             </th>
 
             <th pSortableColumn="author">
-              <i class="{{ ICON.USER }} mr-1"></i>Auteur
+              <i class="{{ ICON.USER }} mr-1"></i
+              >{{ 'admin.author' | translate }}
               <p-sortIcon field="author"></p-sortIcon>
             </th>
             <th pSortableColumn="createdAt">
               <i class="{{ ICON.CALENDAR }} mr-1"></i>
-              Date d'ajout
+              {{ 'common.createdAt' | translate }}
               <p-sortIcon field="createdAt"></p-sortIcon>
             </th>
             <th pSortableColumn="updatedAt">
               <i class="{{ ICON.CALENDAR }} mr-1"></i>
-              Mis a jour
+              {{ 'admin.lastUpdate' | translate }}
               <p-sortIcon field="updatedAt"></p-sortIcon>
             </th>
             <th pSortableColumn="isActive">

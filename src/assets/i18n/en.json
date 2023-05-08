@@ -29,10 +29,19 @@
 
   },
   "user": {
+    "myAccount": "My account",
     "email": "Email",
     "lastName": "Lastname",
     "firstName": "Firstname",
-    "birthday": "Bithday"
+    "birthday": "Bithday",
+    "contribution": "My contribution"
+  },
+  "admin": {
+    "title": "Administration",
+    "users": "Users",
+    "memberSince": "Member since",
+    "lastUpdate": "Last update",
+    "author": "Author"
   },
   "language": {
     "french": "French",
@@ -110,6 +119,7 @@
     "titleNotebookList": "All my notebook",
     "titleNotebookFormAdd": "Add new notebook",
     "titleNotebookFormEdit": "Edit notebook",
+    "titleNotebookView": "Notebook detail",
     "achievementType": "Do on",
     "trialsNumber": "Trials",
     "trial": "trial",

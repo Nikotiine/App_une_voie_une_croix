@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../../core/api/services/admin.service';
 import { AdminUsersDto } from '../../../core/api/models/admin-users-dto';
 import { AdminSitesDto } from '../../../core/api/models/admin-sites-dto';
-import { mergeMap } from 'rxjs';
+import { forkJoin, mergeMap } from 'rxjs';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { UserRole } from '../../../core/app/enum/UserRole.enum';
@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   private routes: AdminRoutesDto[] = [];
   public filteredRoutes: AdminRoutesDto[] = [];
   public readonly ICON = Icons;
+  public readonly USER_ROLE = UserRole;
   public siteViewUrl: string = SiteRoutingModule.SITE_VIEW;
   public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
 
@@ -38,36 +39,26 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.loading = true;
-    this.adminService
-      .adminControllerGetAllUsers()
-      .pipe(
-        mergeMap(users => {
-          this.users = users;
-          return this.adminService.adminControllerGetAllSites();
-        }),
-        mergeMap(sites => {
-          this.sites = sites;
-          return this.adminService.adminControllerGetAllRoutes();
-        })
-      )
-      .subscribe({
-        next: routes => {
-          console.log(routes);
-          this.routes = routes;
-        },
-        error: err => {
-          this.messageService.add({
-            severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.ADMIN_SUMMARY,
-            detail: err.error.message,
-          });
-        },
-        complete: () => {
-          this.filteredRoutes = this.routes;
-          this.loading = !this.loading;
-        },
-      });
+    forkJoin([
+      this.adminService.adminControllerGetAllUsers(),
+      this.adminService.adminControllerGetAllSites(),
+      this.adminService.adminControllerGetAllRoutes(),
+    ]).subscribe({
+      next: data => {
+        this.users = data[0];
+        this.sites = data[1];
+        this.routes = data[2];
+        this.filteredRoutes = this.routes;
+        this.loading = false;
+      },
+      error: err => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_ERROR,
+          summary: ToastConfig.ADMIN_SUMMARY,
+          detail: err.error.message,
+        });
+      },
+    });
   }
 
   public confirmToggleUserStatus(id: number): void {
@@ -111,6 +102,7 @@ export class DashboardComponent implements OnInit {
               summary: ToastConfig.ADMIN_SUMMARY,
               detail: ToastConfig.ADMIN_USER_STATUS,
             });
+            this.loading = true;
             this.loadData();
           }
         },
@@ -152,6 +144,7 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: res => {
           if (res.isUpdated) {
+            this.loading = true;
             this.loadData();
             this.messageService.add({
               severity: ToastConfig.TYPE_SUCCESS,
@@ -214,6 +207,7 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: res => {
           if (res.isUpdated) {
+            this.loading = true;
             this.loadData();
             this.messageService.add({
               severity: ToastConfig.TYPE_SUCCESS,
@@ -265,6 +259,7 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: res => {
           if (res.isUpdated) {
+            this.loading = true;
             this.loadData();
             this.messageService.add({
               severity: ToastConfig.TYPE_SUCCESS,
