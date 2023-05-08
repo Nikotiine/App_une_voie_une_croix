@@ -15,7 +15,6 @@ export class RouteListComponent implements OnInit {
   private routes: RouteListDto[] = [];
   public filteredRoutes: RouteListDto[] = [];
   public sites: SiteDto[] = [];
-  public visible: boolean = false;
   constructor(
     private readonly routeService: RouteService,
     private readonly messageService: MessageService

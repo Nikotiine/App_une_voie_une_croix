@@ -105,5 +105,14 @@
     "sortBySite": "Trier par site",
     "chooseSite": "Choisir un site",
     "chooseSector": "Choisir un secteur"
+  },
+  "notebook": {
+    "titleNotebookList": "Mon carnet de croix",
+    "titleNotebookFormAdd": "Ajout d'une croix",
+    "titleNotebookFormEdit": "Edition d'une croix",
+    "achievementType": "Realisé",
+    "trialsNumber": "Nombre d'essais",
+    "trial": "essai",
+    "chooseRoute": "Choisir la voie"
   }
 }

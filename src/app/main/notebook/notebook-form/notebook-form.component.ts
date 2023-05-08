@@ -15,6 +15,7 @@ import {
   AppNotebookService,
 } from '../../../core/app/services/app-notebook.service';
 import { RouteListDto } from '../../../core/api/models/route-list-dto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-notebook-form',
@@ -27,13 +28,15 @@ export class NotebookFormComponent implements OnInit {
   public sectors: SectorDto[] = [];
   public routes: RouteListDto[] = [];
   public achievementTypes: AchievementTypes[] = [];
-  public title: string = 'Nouvelle croix';
+  public isNew: boolean;
+  private notebookId: number;
 
   constructor(
     private readonly siteService: SiteService,
     private readonly messageService: MessageService,
     private readonly fb: FormBuilder,
-    private readonly appNotebookService: AppNotebookService
+    private readonly appNotebookService: AppNotebookService,
+    private readonly activatedRoute: ActivatedRoute
   ) {
     this.form = this.fb.group({
       site: [0, Validators.required],
@@ -46,6 +49,8 @@ export class NotebookFormComponent implements OnInit {
       ranking: [null],
     });
     this.achievementTypes = this.appNotebookService.achievementTypes();
+    this.notebookId = parseInt(this.activatedRoute.snapshot.params['id']);
+    this.isNew = !!this.notebookId;
   }
   public ngOnInit(): void {
     this.loadData();

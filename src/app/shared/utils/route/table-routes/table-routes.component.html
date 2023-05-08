@@ -10,40 +10,44 @@
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="secteur.site.name">
-        <i class="{{ ICON.SITE }} mr-1"></i> Site
+        <i class="{{ ICON.SITE }} mr-1"></i> {{ 'site.name' | translate }}
         <p-sortIcon field="secteur.site.name"></p-sortIcon>
       </th>
       <th pSortableColumn="name">
-        <i class="{{ ICON.ROUTE }} mr-1"></i> Nom de la voie
+        <i class="{{ ICON.ROUTE }} mr-1"></i> {{ 'route.name' | translate }}
         <p-sortIcon field="name"></p-sortIcon>
       </th>
 
       <th pSortableColumn="secteur.name">
-        <i class="{{ ICON.SECTOR }} mr-1"></i> Secteur
+        <i class="{{ ICON.SECTOR }} mr-1"></i> {{ 'common.sector' | translate }}
         <p-sortIcon field="secteur.name"></p-sortIcon>
       </th>
       <th pSortableColumn="height">
-        <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i> Hauteur
+        <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>
+        {{ 'route.routeHeight' | translate }}
         <p-sortIcon field="height"></p-sortIcon>
       </th>
       <th pSortableColumn="level.label">
-        <i class="{{ ICON.MAX_LEVEL }} mr-1"></i>Niveau
+        <i class="{{ ICON.MAX_LEVEL }} mr-1"></i>{{ 'route.level' | translate }}
         <p-sortIcon field="level.label"></p-sortIcon>
       </th>
       <th pSortableColumn="exposition.label">
-        <i class="{{ ICON.EXPOSITION }} mr-1"></i>Exposition
+        <i class="{{ ICON.EXPOSITION }} mr-1"></i
+        >{{ 'common.exposition' | translate }}
         <p-sortIcon field="maxLevel.label"></p-sortIcon>
       </th>
       <th pSortableColumn="exposition.label">
-        <i class="{{ ICON.RATING }} mr-1"></i>Note
+        <i class="{{ ICON.RATING }} mr-1"></i>{{ 'common.rating' | translate }}
         <p-sortIcon field="maxLevel.label"></p-sortIcon>
       </th>
       <th pSortableColumn="createdAt">
         <i class="{{ ICON.CALENDAR }} mr-1"></i>
-        Date d'ajout
+        {{ 'common.createdAt' | translate }}
         <p-sortIcon field="createdAt"></p-sortIcon>
       </th>
-      <th pSortableColumn="secteur.name" *ngIf="isLogged">Cochée</th>
+      <th pSortableColumn="secteur.name" *ngIf="isLogged">
+        {{ 'common.checked' | translate }}
+      </th>
     </tr>
     <tr>
       <th>

@@ -16,6 +16,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { SidebarModule } from 'primeng/sidebar';
 import { RatingModule } from 'primeng/rating';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RatingModule } from 'primeng/rating';
     TableModule,
     SidebarModule,
     RatingModule,
+    TranslateModule,
   ],
 })
 export class NotebookModule {}

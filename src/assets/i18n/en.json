@@ -105,5 +105,14 @@
     "sortBySite": "Sort by Climbing zone",
     "chooseSite": "Select a climbing zone",
     "chooseSector": "Select a sector"
+  },
+  "notebook": {
+    "titleNotebookList": "All my notebook",
+    "titleNotebookFormAdd": "Add new notebook",
+    "titleNotebookFormEdit": "Edit notebook",
+    "achievementType": "Do on",
+    "trialsNumber": "Trials",
+    "trial": "trial",
+    "chooseRoute": "Choose the route"
   }
 }

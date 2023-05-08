@@ -17,6 +17,7 @@ import { RatingModule } from 'primeng/rating';
 import { TableRoutesComponent } from './route/table-routes/table-routes.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { TableModule } from 'primeng/table';
     InputTextModule,
     TableModule,
     FormsModule,
+    TranslateModule,
   ],
   exports: [
     UnauthorizedComponent,
