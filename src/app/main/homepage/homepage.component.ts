@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SiteService } from '../../core/api/services/site.service';
-import { SiteDto } from '../../core/api/models/site-dto';
+
 import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../core/app/config/toast.config';
-import { RouteDto } from '../../core/api/models/route-dto';
+
 import { PublicService } from '../../core/api/services/public.service';
+import { SiteListDto } from '../../core/api/models/site-list-dto';
+import { RouteListDto } from '../../core/api/models/route-list-dto';
 
 @Component({
   selector: 'app-homepage',
@@ -13,9 +14,9 @@ import { PublicService } from '../../core/api/services/public.service';
 })
 export class HomepageComponent implements OnInit {
   public totalSite: number = 0;
-  public lastSiteRegister!: SiteDto;
+  public lastFiveSite: SiteListDto[] = [];
   public totalRoute: number = 0;
-  public lastRouteRegister!: RouteDto;
+  public lastFiveRoute: RouteListDto[] = [];
   public totalUsers: number = 0;
   public loaded: boolean = false;
   constructor(
@@ -31,9 +32,9 @@ export class HomepageComponent implements OnInit {
       next: data => {
         console.log(data);
         this.totalSite = data.totalSites;
-        this.lastSiteRegister = data.lastSite;
+        this.lastFiveSite = data.lastFiveSite;
         this.totalRoute = data.totalRoutes;
-        this.lastRouteRegister = data.lastRoute;
+        this.lastFiveRoute = data.lastFiveRoute;
         this.totalUsers = data.totalUsers;
       },
       error: err => {

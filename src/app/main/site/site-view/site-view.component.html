@@ -217,7 +217,7 @@
           [routerLink]="[routeNewUrl]"
           class="p-button p-button-outlined my-3"></button>
       </div>
-      <app-table-routes [routes]="routes"></app-table-routes>
+      <app-table-routes [routes]="routes" [paginator]="true"></app-table-routes>
     </p-tabPanel>
     <p-tabPanel *ngIf="isLogged">
       <ng-template pTemplate="header">

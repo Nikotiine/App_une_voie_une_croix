@@ -31,6 +31,7 @@ export class TableRoutesComponent implements OnInit {
     return this._routes;
   }
 
+  @Input() paginator: boolean;
   private _routes: RouteListDto[] = [];
   public routesVM: RouteViewModel[] = [];
   public loading: boolean = true;

@@ -12,6 +12,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ChartModule } from 'primeng/chart';
 import { CarouselModule } from 'primeng/carousel';
 import { TranslateModule } from '@ngx-translate/core';
+import { UtilsModule } from '../shared/utils/utils.module';
 
 @NgModule({
   declarations: [LayoutComponent, HomepageComponent],
@@ -24,6 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ChartModule,
     CarouselModule,
     TranslateModule,
+    UtilsModule,
   ],
   providers: [MessageService, UserResolver],
   exports: [HomepageComponent],

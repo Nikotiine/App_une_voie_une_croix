@@ -41,7 +41,8 @@
     "users": "Utilisateurs",
     "memberSince": "Membre depuis",
     "lastUpdate": "Mise a jour",
-    "author": "Auteur"
+    "author": "Auteur",
+    "dashboard": "Panneau d'adminstration"
   },
   "language": {
     "french": "Francais",
@@ -123,6 +124,14 @@
     "achievementType": "Realisé",
     "trialsNumber": "Nombre d'essais",
     "trial": "essai",
-    "chooseRoute": "Choisir la voie"
+    "chooseRoute": "Choisir la voie",
+    "summary": "Mon carnet",
+    "detail": {
+      "create": "Croix enregistrée bravo"
+    }
+  },
+  "toast": {
+    "noteBookSummary": "Mon carnet",
+    "noteBookCreate": "Croix enregistrée bravo"
   }
 }

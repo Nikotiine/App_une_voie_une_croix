@@ -8,12 +8,12 @@
       "home": "Home",
       "sites": "Climbing Zone",
       "sitesList": "List of all",
-      "sitesMap": "Climbing Zone map",
-      "addSite": "add Climbing Zone",
+      "sitesMap": "Climbing zone map",
+      "addSite": "New climbing zone",
       "routes": "Route",
       "routesList": "List of all routes",
       "routeSearch": "Search route",
-      "addRoute": "Add route",
+      "addRoute": "Add new route",
       "notebook": "My notebook",
       "notebookList": "Show all",
       "addNotebook": "Add Notebook",
@@ -41,7 +41,8 @@
     "users": "Users",
     "memberSince": "Member since",
     "lastUpdate": "Last update",
-    "author": "Author"
+    "author": "Author",
+    "dashboard": "Admin dashboard"
   },
   "language": {
     "french": "French",
@@ -123,6 +124,14 @@
     "achievementType": "Do on",
     "trialsNumber": "Trials",
     "trial": "trial",
-    "chooseRoute": "Choose the route"
+    "chooseRoute": "Choose the route",
+    "summary": "Notebook service",
+    "detail": {
+      "create": "Notebook saved you're good"
+    }
+  },
+  "toast": {
+    "noteBookSummary": "Notebook service",
+    "noteBookCreate": "Notebook saved you're good"
   }
 }

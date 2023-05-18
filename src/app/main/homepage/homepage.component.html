@@ -5,24 +5,23 @@
     <p class="has-text-centered">{{ totalUsers }}</p>
   </div>
   <div class="box w-15">
-    <p>Sites disponibles :</p>
+    <p>Sites disponible :</p>
     <p class="has-text-centered">{{ totalSite }}</p>
   </div>
   <div class="box">
     <p>Dernier site ajouté :</p>
-    <p class="has-text-centered">
-      {{ lastSiteRegister ? lastSiteRegister.name : '' }}
-    </p>
+    <p class="has-text-centered"></p>
   </div>
 
   <div class="box">
-    <p>Nombre de voie enregistrée:</p>
-    <p class="has-text-centered">{{ totalRoute }}</p>
-  </div>
-  <div class="box">
-    <p>Derniere voie enregistrée :</p>
-    <p class="has-text-centered">
-      {{ lastRouteRegister ? lastRouteRegister.name : '' }}
+    <p>
+      Nombre total de voies enregistrées:
+      <span class="has-text-centered has-text-info ml-2">{{ totalRoute }}</span>
     </p>
+
+    <p class="my-3">Dernieres voies enregistrées :</p>
+    <app-table-routes
+      [routes]="lastFiveRoute"
+      [paginator]="false"></app-table-routes>
   </div>
 </div>

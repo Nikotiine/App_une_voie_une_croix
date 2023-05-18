@@ -18,6 +18,7 @@ import { TableRoutesComponent } from './route/table-routes/table-routes.componen
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TranslateModule } from '@ngx-translate/core';
+import { TableSiteComponent } from './site/table-site/table-site.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MapComponent,
     NotebookFormDialogComponent,
     TableRoutesComponent,
+    TableSiteComponent,
   ],
   imports: [
     CommonModule,

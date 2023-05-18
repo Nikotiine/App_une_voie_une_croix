@@ -5,7 +5,7 @@
   [closable]="false">
   <ng-template pTemplate="header">
     <p class="has-text-info is-size-4">
-      Ajouter une croix pour
+      {{ 'notebook.titleNotebookFormAdd' | translate }}
       <span class="has-text-danger">{{ route.name }}</span>
     </p>
   </ng-template>
@@ -13,7 +13,9 @@
     <div class="wrapper-input">
       <div class="input-label">
         <label for="achievement" class="label">
-          <span class="has-text-info"> Fait : </span>
+          <span class="has-text-info">
+            {{ 'notebook.achievementType' | translate }} :
+          </span>
         </label>
         <p-selectButton
           [options]="achievementTypes"
@@ -24,7 +26,9 @@
       </div>
       <div class="input-label">
         <label for="trials" class="label">
-          <span class="has-text-info"> Essai : </span>
+          <span class="has-text-info">
+            {{ 'notebook.trialsNumber' | translate }} :
+          </span>
         </label>
         <p-inputNumber
           id="trials"
@@ -35,7 +39,9 @@
     </div>
     <div class="input-label">
       <label for="succeedAt" class="label">
-        <span class="has-text-info"> Date de realisation : </span></label
+        <span class="has-text-info">
+          {{ 'common.createdAt' | translate }} :
+        </span></label
       >
       <p-calendar
         id="succeedAt"
@@ -46,7 +52,7 @@
     </div>
     <div class="input-label">
       <label for="ranking" class="label">
-        <span class="has-text-info"> Note : </span>
+        <span class="has-text-info"> {{ 'common.rating' | translate }} : </span>
       </label>
       <p-rating
         formControlName="ranking"
@@ -58,14 +64,14 @@
   <ng-template pTemplate="footer">
     <p-button
       icon="pi pi-times"
-      label="Annuler"
+      label="{{ 'cancel' | translate }}"
       class="mr-2"
       (click)="closeDialog()"
       styleClass="p-button-secondary p-button-text"></p-button>
     <p-button
       icon="pi pi-check"
       (click)="submit()"
-      label="Ok"
+      label="{{ 'validate' | translate }}"
       styleClass="p-button-text"></p-button>
   </ng-template>
 </p-dialog>

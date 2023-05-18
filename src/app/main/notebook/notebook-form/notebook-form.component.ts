@@ -5,7 +5,6 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 import { SiteListDto } from '../../../core/api/models/site-list-dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SectorDto } from '../../../core/api/models/sector-dto';
-import { RouteViewDto } from '../../../core/api/models/route-view-dto';
 import {
   AchievementType,
   AchievementTypes,
@@ -16,6 +15,8 @@ import {
 } from '../../../core/app/services/app-notebook.service';
 import { RouteListDto } from '../../../core/api/models/route-list-dto';
 import { ActivatedRoute } from '@angular/router';
+import { LanguageService } from '../../../core/app/services/language.service';
+import { DefaultLangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notebook-form',
@@ -29,14 +30,17 @@ export class NotebookFormComponent implements OnInit {
   public routes: RouteListDto[] = [];
   public achievementTypes: AchievementTypes[] = [];
   public isNew: boolean;
-  private notebookId: number;
+  private readonly notebookId: number;
+  private toastSummary: string;
+  private toastDetailCreate: string;
 
   constructor(
     private readonly siteService: SiteService,
     private readonly messageService: MessageService,
     private readonly fb: FormBuilder,
     private readonly appNotebookService: AppNotebookService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly languageService: LanguageService
   ) {
     this.form = this.fb.group({
       site: [0, Validators.required],
@@ -55,6 +59,7 @@ export class NotebookFormComponent implements OnInit {
   public ngOnInit(): void {
     this.loadData();
     this.watchTrial();
+    this.watchLanguageChange();
   }
 
   private loadData(): void {
@@ -66,7 +71,7 @@ export class NotebookFormComponent implements OnInit {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
           summary: ToastConfig.NOTEBOOK_SUMMARY,
-          detail: err.err.message,
+          detail: err.error.message,
         });
       },
     });
@@ -85,8 +90,8 @@ export class NotebookFormComponent implements OnInit {
       next: res => {
         this.messageService.add({
           severity: ToastConfig.TYPE_SUCCESS,
-          summary: ToastConfig.NOTEBOOK_SUMMARY,
-          detail: ToastConfig.NOTEBOOK_CREATE,
+          summary: this.toastSummary,
+          detail: this.toastDetailCreate,
         });
       },
       error: err => {
@@ -144,6 +149,15 @@ export class NotebookFormComponent implements OnInit {
           this.form.controls['trials'].setValue(1);
         }
       },
+    });
+  }
+
+  private watchLanguageChange(): void {
+    this.languageService.change.subscribe((event: DefaultLangChangeEvent) => {
+      const translate = event.translations.toast;
+      console.log(translate);
+      this.toastSummary = translate.noteBookSummary;
+      this.toastDetailCreate = translate.noteBookCreate;
     });
   }
 }
