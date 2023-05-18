@@ -12,7 +12,11 @@
       (onChange)="filterWithRegion($event.value)"
       id="region"></p-dropdown>
   </div>
-  <p-table
+  <app-table-site
+    [sites]="filteredSites"
+    [paginator]="true"
+    [loading]="loading"></app-table-site>
+  <!--  <p-table
     #dt
     [value]="filteredSites"
     [rows]="25"
@@ -263,5 +267,5 @@
         <td>{{ site.approachTime }} {{ 'common.minute' | translate }}</td>
       </tr>
     </ng-template>
-  </p-table>
+  </p-table>-->
 </div>

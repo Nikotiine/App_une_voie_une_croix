@@ -51,6 +51,7 @@ import { TableSiteComponent } from './site/table-site/table-site.component';
     MapComponent,
     NotebookFormDialogComponent,
     TableRoutesComponent,
+    TableSiteComponent,
   ],
 })
 export class UtilsModule {}

@@ -36,6 +36,7 @@ export class HomepageComponent implements OnInit {
         this.totalRoute = data.totalRoutes;
         this.lastFiveRoute = data.lastFiveRoute;
         this.totalUsers = data.totalUsers;
+        this.loaded = !this.loaded;
       },
       error: err => {
         this.messageService.add({
@@ -44,9 +45,7 @@ export class HomepageComponent implements OnInit {
           detail: err.error.message,
         });
       },
-      complete: () => {
-        this.loaded = !this.loaded;
-      },
+      complete: () => {},
     });
   }
 }

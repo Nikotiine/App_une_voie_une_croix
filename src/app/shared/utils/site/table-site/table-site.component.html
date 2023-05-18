@@ -1,1 +1,228 @@
-<p>table-site works!</p>
+<p-table
+  #dt
+  [value]="sites"
+  [rows]="25"
+  [paginator]="paginator"
+  [rowsPerPageOptions]="[25, 50, 100]"
+  styleClass="p-datatable-striped"
+  [tableStyle]="{ 'vertical-align': 'center' }"
+  [loading]="loading">
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="name">
+        <i class="{{ ICON.SITE }} mr-1"></i> {{ 'site.name' | translate }}
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="department.name">
+        <i class="{{ ICON.DEPARTMENT }} mr-1"></i>
+        {{ 'site.department' | translate }}
+        <p-sortIcon field="department.name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="averageRouteNumber">
+        <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i>
+        {{ 'site.averageRouteNumber' | translate }}
+        <p-sortIcon field="averageRouteNumber"></p-sortIcon>
+      </th>
+      <th pSortableColumn="minLevel.label">
+        <i class="{{ ICON.MIN_LEVEL }} mr-1"></i
+        >{{ 'site.minLevel' | translate }}
+        <p-sortIcon field="minLevel.label"></p-sortIcon>
+      </th>
+      <th pSortableColumn="maxLevel.label">
+        <i class="{{ ICON.MAX_LEVEL }} mr-1"></i
+        >{{ 'site.maxLevel' | translate }}
+        <p-sortIcon field="maxLevel.label"></p-sortIcon>
+      </th>
+      <th pSortableColumn="expo.label">
+        <i class="{{ ICON.EXPOSITION }} mr-1"></i>
+        {{ 'common.exposition' | translate }}
+        <p-sortIcon field="expo.label"></p-sortIcon>
+      </th>
+      <th pSortableColumn="averageRouteHeight">
+        <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>
+        {{ 'site.averageRouteHeight' | translate }}
+        <p-sortIcon field="averageRouteHeight"></p-sortIcon>
+      </th>
+      <th pSortableColumn="approachTime">
+        <i class="{{ ICON.APPROACH_TIME }} mr-1"></i>
+        {{ 'common.approachTime' | translate }}
+        <p-sortIcon field="approachTime"></p-sortIcon>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <p-columnFilter
+          field="name"
+          matchMode="contains"
+          [showMenu]="false"
+          [showClearButton]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                placeholder="{{ 'search' | translate }}" />
+            </span>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          [showMenu]="false"
+          [showClearButton]="false"
+          field="department.name"
+          matchMode="contains">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                placeholder="{{ 'search' | translate }}" />
+            </span>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          [showMenu]="false"
+          [showClearButton]="false"
+          field="averageRouteNumber"
+          matchMode="contains">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                placeholder="{{ 'search' | translate }}" />
+            </span>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          [showMenu]="false"
+          [showClearButton]="false"
+          field="minLevel.label"
+          matchMode="contains">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                placeholder="{{ 'search' | translate }}" />
+            </span>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          [showMenu]="false"
+          [showClearButton]="false"
+          field="maxLevel.label"
+          matchMode="contains">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                placeholder="{{ 'search' | translate }}" />
+            </span>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          [showMenu]="false"
+          [showClearButton]="false"
+          field="expo.label"
+          matchMode="contains">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                placeholder="{{ 'search' | translate }}" />
+            </span>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          [showMenu]="false"
+          [showClearButton]="false"
+          field="averageRouteHeight"
+          matchMode="contains">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                placeholder="{{ 'search' | translate }}" />
+            </span>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          [showMenu]="false"
+          [showClearButton]="false"
+          field="approachTime"
+          matchMode="contains">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                placeholder="{{ 'search' | translate }}" />
+            </span>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-site>
+    <tr>
+      <td>
+        <a [routerLink]="[siteViewUrl + site.id]">{{ site.name }}</a>
+      </td>
+      <td>
+        <span class=""> {{ site.department.name }}</span>
+      </td>
+      <td>
+        <span class="">{{ site.averageRouteNumber }}</span>
+      </td>
+      <td>{{ site.minLevel.label }}</td>
+      <td>{{ site.maxLevel.label }}</td>
+
+      <td>
+        <span *ngFor="let expo of site.expositions">{{ expo.label }} - </span>
+      </td>
+      <td>{{ site.averageRouteHeight }} {{ 'common.meter' | translate }}</td>
+      <td>{{ site.approachTime }} {{ 'common.minute' | translate }}</td>
+    </tr>
+  </ng-template>
+</p-table>

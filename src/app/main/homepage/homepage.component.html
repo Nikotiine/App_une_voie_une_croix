@@ -1,16 +1,20 @@
 <h1 class="title has-text-centered mt-1">{{ 'siteTitle' | translate }}</h1>
 <div class="" *ngIf="loaded">
   <div class="box">
-    <p>Grimpeurs inscrits :</p>
+    <p>Membres inscrits :</p>
     <p class="has-text-centered">{{ totalUsers }}</p>
   </div>
-  <div class="box w-15">
-    <p>Sites disponible :</p>
-    <p class="has-text-centered">{{ totalSite }}</p>
-  </div>
   <div class="box">
-    <p>Dernier site ajouté :</p>
-    <p class="has-text-centered"></p>
+    <p>
+      Sites disponible :
+      <span class="has-text-centered ml-2 has-text-info">{{ totalSite }}</span>
+    </p>
+
+    <p class="my-3">Dernier site ajouté :</p>
+    <app-table-site
+      [sites]="lastFiveSite"
+      [paginator]="false"
+      [loading]="!loaded"></app-table-site>
   </div>
 
   <div class="box">
@@ -20,6 +24,12 @@
     </p>
 
     <p class="my-3">Dernieres voies enregistrées :</p>
+    <app-table-routes
+      [routes]="lastFiveRoute"
+      [paginator]="false"></app-table-routes>
+  </div>
+  <div class="box">
+    <p class="my-3">Dernieres voies cochées: :</p>
     <app-table-routes
       [routes]="lastFiveRoute"
       [paginator]="false"></app-table-routes>
