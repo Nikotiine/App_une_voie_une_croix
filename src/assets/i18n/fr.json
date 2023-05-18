@@ -42,7 +42,9 @@
     "memberSince": "Membre depuis",
     "lastUpdate": "Mise a jour",
     "author": "Auteur",
-    "dashboard": "Panneau d'adminstration"
+    "dashboard": "Panneau d'adminstration",
+    "active": "Actif",
+    "notActive": "Inactif"
   },
   "language": {
     "french": "Francais",
@@ -67,6 +69,14 @@
     "backToList": "Retour a la liste",
     "routes": "Voies",
     "climbingZone": "Site"
+  },
+  "homepage": {
+    "memberRegistered": "Membres inscrits",
+    "siteAvailable": "Sites disponibles",
+    "lastFiveSites": "Les 5 derniers sites enregistrés",
+    "routeAvailable": "Voies disponibles",
+    "lastFiveRoutes": "Les 5 dernieres voies enregistrées",
+    "lastFiveCheckedRoutes": "Les 5 dernieres voies cochées"
   },
   "site": {
     "titleSiteList": "Liste des sites",

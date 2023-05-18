@@ -42,7 +42,9 @@
     "memberSince": "Member since",
     "lastUpdate": "Last update",
     "author": "Author",
-    "dashboard": "Admin dashboard"
+    "dashboard": "Admin dashboard",
+    "active": "Active",
+    "notActive": "Not active"
   },
   "language": {
     "french": "French",
@@ -67,6 +69,14 @@
     "backToList": "Back to list",
     "routes": "Routes",
     "climbingZone": "Climbing zone"
+  },
+  "homepage": {
+    "memberRegistered": "Member registered",
+    "siteAvailable": "Climbing zone available",
+    "lastFiveSites": "Last 5 Climbing zone recorded",
+    "routeAvailable": "Routes available",
+    "lastFiveRoutes": "Last 5 route recorded",
+    "lastFiveCheckedRoutes": "Last 5 routes checked"
   },
   "site": {
     "titleSiteList": "List of climbing zone",

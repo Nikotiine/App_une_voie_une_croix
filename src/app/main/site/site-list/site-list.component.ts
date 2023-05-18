@@ -10,6 +10,7 @@ import { RegionDto } from '../../../core/api/models/region-dto';
 import { forkJoin } from 'rxjs';
 import { LanguageService } from '../../../core/app/services/language.service';
 import { DefaultLangChangeEvent } from '@ngx-translate/core';
+import { TableSiteOptions } from '../../../core/app/models/TableSiteOptions.model';
 
 @Component({
   selector: 'app-site-list',
@@ -23,6 +24,7 @@ export class SiteListComponent implements OnInit {
   public sites: SiteListDto[] = [];
   public filteredSites: SiteListDto[] = [];
   public regions: RegionDto[] = [];
+  public sitesOptions: TableSiteOptions;
 
   // **************ICONS*************************
   public readonly ICON = Icons;
@@ -34,12 +36,22 @@ export class SiteListComponent implements OnInit {
     private readonly languageService: LanguageService
   ) {
     this.siteViewUrl = SiteRoutingModule.SITE_VIEW;
+    this.sitesOptions = {
+      loading: true,
+      forAdmin: false,
+      paginator: true,
+    };
   }
   ngOnInit(): void {
     this.loadData();
     this.watchLanguageChange();
   }
 
+  /**
+   * Charge les donne d'affichege des sites
+   * ForjJoin sur la liste de tous les sites / la liste des regions et la traduction de l'ajout de "toute les regions"
+   * @private
+   */
   private loadData(): void {
     forkJoin([
       this.siteService.siteControllerGetAllSites(),
@@ -52,6 +64,7 @@ export class SiteListComponent implements OnInit {
         this.regions = data[1];
         this.addGenericRegion(data[2].genericRegionName);
         this.loading = !this.loading;
+        this.sitesOptions.loading = this.loading;
       },
       error: err => {
         this.messageService.add({
@@ -69,7 +82,9 @@ export class SiteListComponent implements OnInit {
    */
   public filterWithRegion(id: string): void {
     if (String(id) !== '0') {
-      this.filteredSites = this.sites.filter(s => String(s.region.id) === id);
+      this.filteredSites = this.sites.filter(
+        site => String(site.region.id) === id
+      );
     } else {
       this.filteredSites = this.sites;
     }

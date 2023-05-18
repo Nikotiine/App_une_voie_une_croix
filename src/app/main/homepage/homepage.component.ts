@@ -6,6 +6,7 @@ import { ToastConfig } from '../../core/app/config/toast.config';
 import { PublicService } from '../../core/api/services/public.service';
 import { SiteListDto } from '../../core/api/models/site-list-dto';
 import { RouteListDto } from '../../core/api/models/route-list-dto';
+import { TableSiteOptions } from '../../core/app/models/TableSiteOptions.model';
 
 @Component({
   selector: 'app-homepage',
@@ -19,24 +20,37 @@ export class HomepageComponent implements OnInit {
   public lastFiveRoute: RouteListDto[] = [];
   public totalUsers: number = 0;
   public loaded: boolean = false;
+  public lastFiveCheckedRoute: RouteListDto[] = [];
+  public sitesOptions: TableSiteOptions;
   constructor(
     private readonly publicService: PublicService,
     private readonly messageService: MessageService
-  ) {}
+  ) {
+    this.sitesOptions = {
+      loading: true,
+      forAdmin: false,
+      paginator: false,
+    };
+  }
   ngOnInit(): void {
     this.loadData();
   }
 
+  /**
+   * Charge les donnee publique de la homepage
+   * @private
+   */
   private loadData() {
     this.publicService.publicControllerGetDataForHomePage().subscribe({
       next: data => {
-        console.log(data);
+        this.lastFiveCheckedRoute = data.lastFiveCheckedRoutes;
         this.totalSite = data.totalSites;
         this.lastFiveSite = data.lastFiveSite;
         this.totalRoute = data.totalRoutes;
         this.lastFiveRoute = data.lastFiveRoute;
         this.totalUsers = data.totalUsers;
         this.loaded = !this.loaded;
+        this.sitesOptions.loading = false;
       },
       error: err => {
         this.messageService.add({
@@ -45,7 +59,6 @@ export class HomepageComponent implements OnInit {
           detail: err.error.message,
         });
       },
-      complete: () => {},
     });
   }
 }

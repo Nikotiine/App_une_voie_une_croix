@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../../core/api/services/admin.service';
 import { AdminUsersDto } from '../../../core/api/models/admin-users-dto';
 import { AdminSitesDto } from '../../../core/api/models/admin-sites-dto';
-import { forkJoin, mergeMap } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { UserRole } from '../../../core/app/enum/UserRole.enum';
 import { ToastConfig } from '../../../core/app/config/toast.config';
-import { SiteRoutingModule } from '../../site/site-routing.module';
 import { AdminRoutesDto } from '../../../core/api/models/admin-routes-dto';
-import { RouteRoutingModule } from '../../route/route-routing.module';
+import { LanguageService } from '../../../core/app/services/language.service';
+import { TableSiteOptions } from '../../../core/app/models/TableSiteOptions.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,23 +17,29 @@ import { RouteRoutingModule } from '../../route/route-routing.module';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  public loading: boolean = true;
   public users: AdminUsersDto[] = [];
   public sites: AdminSitesDto[] = [];
   private routes: AdminRoutesDto[] = [];
   public filteredRoutes: AdminRoutesDto[] = [];
-  public readonly ICON = Icons;
+  public sitesOptions: TableSiteOptions;
   public readonly USER_ROLE = UserRole;
-  public siteViewUrl: string = SiteRoutingModule.SITE_VIEW;
-  public routeViewUrl: string = RouteRoutingModule.ROUTE_VIEW;
-
-  public inactiveStatus: string = 'Inactif';
-  public activeStatus: string = 'Actif';
+  public loading: boolean = true;
+  //***********ICONS******************
+  public readonly ICON = Icons;
+  public inactiveStatus: string = '';
+  public activeStatus: string = '';
   constructor(
     private readonly adminService: AdminService,
     private readonly confirmationService: ConfirmationService,
-    private readonly messageService: MessageService
-  ) {}
+    private readonly messageService: MessageService,
+    private readonly languageService: LanguageService
+  ) {
+    this.sitesOptions = {
+      loading: true,
+      forAdmin: true,
+      paginator: true,
+    };
+  }
   public ngOnInit(): void {
     this.loadData();
   }
@@ -43,13 +49,16 @@ export class DashboardComponent implements OnInit {
       this.adminService.adminControllerGetAllUsers(),
       this.adminService.adminControllerGetAllSites(),
       this.adminService.adminControllerGetAllRoutes(),
+      this.languageService.getTranslation('admin'),
     ]).subscribe({
       next: data => {
         this.users = data[0];
         this.sites = data[1];
         this.routes = data[2];
+        this.setTranslatedMessage(data[3]);
         this.filteredRoutes = this.routes;
-        this.loading = false;
+        this.loading = !this.loading;
+        this.sitesOptions.loading = this.loading;
       },
       error: err => {
         this.messageService.add({
@@ -102,7 +111,7 @@ export class DashboardComponent implements OnInit {
               summary: ToastConfig.ADMIN_SUMMARY,
               detail: ToastConfig.ADMIN_USER_STATUS,
             });
-            this.loading = true;
+            // this.loading = true;
             this.loadData();
           }
         },
@@ -144,7 +153,7 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: res => {
           if (res.isUpdated) {
-            this.loading = true;
+            // this.loading = true;
             this.loadData();
             this.messageService.add({
               severity: ToastConfig.TYPE_SUCCESS,
@@ -259,7 +268,7 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: res => {
           if (res.isUpdated) {
-            this.loading = true;
+            //  this.loading = true;
             this.loadData();
             this.messageService.add({
               severity: ToastConfig.TYPE_SUCCESS,
@@ -284,5 +293,10 @@ export class DashboardComponent implements OnInit {
   }
   private selectedRoute(id: number): AdminRoutesDto {
     return this.routes.find(r => r.id === id);
+  }
+
+  private setTranslatedMessage(translate: any) {
+    this.activeStatus = translate.active;
+    this.inactiveStatus = translate.notActive;
   }
 }

@@ -105,6 +105,7 @@ export class SiteFormComponent implements OnInit {
     }
   }
 
+  // Valide le choix des coordonees gps
   public chooseLocalisation(parking: number): void {
     this.selectedParking = parking;
     this.displayMap = !this.displayMap;
@@ -206,7 +207,7 @@ export class SiteFormComponent implements OnInit {
   }
 
   /**
-   * Recupere les departements associe a la region
+   * Recupere les departements associés a la region
    * @param regionId id de la region
    */
   public getDepartment(regionId: number): void {
@@ -239,6 +240,8 @@ export class SiteFormComponent implements OnInit {
     this.mapOptions.lng = lng;
     this.showMainParking = !this.showMainParking;
   }
+
+  // Si les coordonnes du parking principal ne sont pas rempli invalid le formulaire
   public formIsInvalid(): boolean {
     let isInvalid: boolean = true;
     if (this.coordinateP1.length > 1 && this.form.valid) {
@@ -415,7 +418,8 @@ export class SiteFormComponent implements OnInit {
       department => department.id === this.form.controls['department'].value
     );
   }
-  // Renvoie l'objetRouteFootDto en fonction du type de pied de voie choisi
+
+  // Renvoie l'objet RouteFootDto en fonction du type de pied de voie choisi
   get routeFoot(): RouteFootDto {
     return this.routeFoots.find(
       routeFoot => routeFoot.id === this.form.controls['routeFoot'].value
