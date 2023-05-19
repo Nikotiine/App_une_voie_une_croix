@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { MessageService } from 'primeng/api';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-route-view',
@@ -26,7 +27,8 @@ export class RouteViewComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly userProfileService: UserProfileService,
     private readonly messageService: MessageService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly languageService: LanguageService
   ) {
     this.isAdmin = this.userProfileService.isAdmin();
   }
@@ -35,6 +37,11 @@ export class RouteViewComponent implements OnInit {
     this.loadRoute(id);
   }
 
+  /**
+   * Charge la voie avec son id en param
+   * @param id
+   * @private
+   */
   private loadRoute(id: number): void {
     this.routeService
       .routeControllerGetRoute({
@@ -47,7 +54,9 @@ export class RouteViewComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.ROUTE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_ROUTE
+            ).summary,
             detail: err.error.message,
           });
           return this.router.navigate([this.routeListUrl]);

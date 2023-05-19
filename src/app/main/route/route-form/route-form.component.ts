@@ -20,6 +20,7 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
 import { SectorDto } from '../../../core/api/models/sector-dto';
 import { EffortType } from '../../../core/app/enum/EffortType.enum';
 import { forkJoin } from 'rxjs';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-route-form',
@@ -61,7 +62,8 @@ export class RouteFormComponent implements OnInit {
     private readonly messageService: MessageService,
     private readonly fb: FormBuilder,
     private readonly router: Router,
-    private readonly userProfileService: UserProfileService
+    private readonly userProfileService: UserProfileService,
+    private readonly languageService: LanguageService
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -107,7 +109,9 @@ export class RouteFormComponent implements OnInit {
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.ROUTE_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_ROUTE
+          ).summary,
           detail: err.error.message,
         });
       },
@@ -142,7 +146,9 @@ export class RouteFormComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.ROUTE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_ROUTE
+            ).summary,
             detail: err.error.message,
           });
         },
@@ -203,7 +209,9 @@ export class RouteFormComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.ROUTE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_ROUTE
+            ).summary,
             detail: err.error.message,
           });
         },
@@ -219,15 +227,24 @@ export class RouteFormComponent implements OnInit {
         next: data => {
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
-            summary: ToastConfig.ROUTE_SUMMARY,
-            detail: ToastConfig.ROUTE_DETAIL_NEW + ' ' + this.site.name,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_ROUTE
+            ).summary,
+            detail:
+              this.languageService.toastTranslate(
+                LanguageService.KEY_TOAST_ROUTE
+              ).create +
+              ' ' +
+              this.site.name,
           });
           return this.router.navigate([RouteRoutingModule.ROUTE_LIST]);
         },
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.ROUTE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_ROUTE
+            ).summary,
             detail: err.error.message,
           });
         },
@@ -249,15 +266,24 @@ export class RouteFormComponent implements OnInit {
         next: data => {
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
-            summary: ToastConfig.ROUTE_SUMMARY,
-            detail: ToastConfig.ROUTE_DETAIL_EDIT + ' ' + this.site.name,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_ROUTE
+            ).summary,
+            detail:
+              this.languageService.toastTranslate(
+                LanguageService.KEY_TOAST_ROUTE
+              ).edit +
+              ' ' +
+              this.site.name,
           });
           return this.router.navigate([RouteRoutingModule.ROUTE_LIST]);
         },
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.ROUTE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_ROUTE
+            ).summary,
             detail: err.error.message,
           });
         },

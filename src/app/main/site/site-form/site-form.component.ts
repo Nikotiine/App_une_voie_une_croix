@@ -22,6 +22,7 @@ import { DepartmentDataDto } from '../../../core/api/models/department-data-dto'
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { RouteFootDto } from '../../../core/api/models/route-foot-dto';
 import { SectorDto } from '../../../core/api/models/sector-dto';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-site-form',
@@ -65,7 +66,8 @@ export class SiteFormComponent implements OnInit {
     private readonly departmentService: DepartmentService,
     private readonly userProfileService: UserProfileService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly languageService: LanguageService
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -131,7 +133,9 @@ export class SiteFormComponent implements OnInit {
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.SITE_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_SITE
+          ).summary,
           detail: err.error.message,
         });
       },
@@ -223,7 +227,9 @@ export class SiteFormComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
         },
@@ -300,7 +306,9 @@ export class SiteFormComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
           return this.router.navigate([SiteRoutingModule.SITE_NEW]);
@@ -322,15 +330,24 @@ export class SiteFormComponent implements OnInit {
         next: data => {
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
-            summary: ToastConfig.SITE_SUMMARY,
-            detail: ToastConfig.SITE_DETAIL_NEW + ' ' + data.name,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
+            detail:
+              this.languageService.toastTranslate(
+                LanguageService.KEY_TOAST_SITE
+              ).create +
+              ' ' +
+              data.name,
           });
           return this.router.navigate([SiteRoutingModule.SITE_LIST]);
         },
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
         },
@@ -352,15 +369,24 @@ export class SiteFormComponent implements OnInit {
         next: data => {
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
-            summary: ToastConfig.SITE_SUMMARY,
-            detail: ToastConfig.SITE_DETAIL_EDIT + ' ' + data.name,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
+            detail:
+              this.languageService.toastTranslate(
+                LanguageService.KEY_TOAST_SITE
+              ).edit +
+              ' ' +
+              data.name,
           });
           return this.router.navigate([SiteRoutingModule.SITE_LIST]);
         },
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
         },

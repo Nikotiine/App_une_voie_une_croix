@@ -7,6 +7,7 @@ import { PublicService } from '../../core/api/services/public.service';
 import { SiteListDto } from '../../core/api/models/site-list-dto';
 import { RouteListDto } from '../../core/api/models/route-list-dto';
 import { TableSiteOptions } from '../../core/app/models/TableOptions.model';
+import { LanguageService } from '../../core/app/services/language.service';
 
 @Component({
   selector: 'app-homepage',
@@ -24,7 +25,8 @@ export class HomepageComponent implements OnInit {
   public sitesOptions: TableSiteOptions;
   constructor(
     private readonly publicService: PublicService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly languageService: LanguageService
   ) {
     this.sitesOptions = {
       loading: true,
@@ -40,7 +42,7 @@ export class HomepageComponent implements OnInit {
    * Charge les donnee publique de la homepage
    * @private
    */
-  private loadData() {
+  private loadData(): void {
     this.publicService.publicControllerGetDataForHomePage().subscribe({
       next: data => {
         this.lastFiveCheckedRoute = data.lastFiveCheckedRoutes;
@@ -55,7 +57,7 @@ export class HomepageComponent implements OnInit {
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.HOME_SUMMARY,
+          summary: this.languageService.toastTranslate('homepage').summary,
           detail: err.error.message,
         });
       },

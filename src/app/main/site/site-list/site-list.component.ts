@@ -56,20 +56,21 @@ export class SiteListComponent implements OnInit {
     forkJoin([
       this.siteService.siteControllerGetAllSites(),
       this.regionService.regionControllerGetAllRegions(),
-      this.languageService.getTranslation(this.translateKey),
     ]).subscribe({
       next: data => {
         this.sites = data[0];
         this.filteredSites = this.sites;
         this.regions = data[1];
-        this.addGenericRegion(data[2].genericRegionName);
+        this.addGenericRegion();
         this.loading = !this.loading;
         this.sitesOptions.loading = this.loading;
       },
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.SITE_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_SITE
+          ).summary,
           detail: err.error.message,
         });
       },
@@ -94,12 +95,12 @@ export class SiteListComponent implements OnInit {
    * Ajoute une region generique qui permet de selectioner tous les site de toutes les regions
    * @private
    */
-  private addGenericRegion(genericRegionName: string): void {
-    const genericRegion: RegionDto = {
+  private addGenericRegion(): void {
+    const genericRegions: RegionDto = {
       id: 0,
-      name: genericRegionName,
+      name: this.languageService.siteTranslate('genericRegions'),
     };
-    this.regions.push(genericRegion);
+    this.regions.push(genericRegions);
   }
 
   /**
@@ -108,9 +109,8 @@ export class SiteListComponent implements OnInit {
    */
   private watchLanguageChange(): void {
     this.languageService.change.subscribe((event: DefaultLangChangeEvent) => {
-      const translate = event.translations.site.genericRegionName;
       this.removeGenericRegion();
-      this.addGenericRegion(translate);
+      this.addGenericRegion();
     });
   }
 

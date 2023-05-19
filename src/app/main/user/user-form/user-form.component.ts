@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserRegisterDto } from '../../../core/api/models/user-register-dto';
 import { MessageService } from 'primeng/api';
 import { UserEditPasswordDto } from '../../../core/api/models/user-edit-password-dto';
+import { ToastConfig } from '../../../core/app/config/toast.config';
 
 @Component({
   selector: 'app-user-form',
@@ -66,7 +67,7 @@ export class UserFormComponent implements OnInit {
       .subscribe({
         next: data => {
           this.messageService.add({
-            severity: 'success',
+            severity: ToastConfig.TYPE_SUCCESS,
             summary: this.toastSummary,
             detail: this.toastDetail,
           });
@@ -74,7 +75,7 @@ export class UserFormComponent implements OnInit {
         },
         error: err => {
           this.messageService.add({
-            severity: 'error',
+            severity: ToastConfig.TYPE_ERROR,
             summary: this.toastSummary,
             detail: err.error.message,
           });
@@ -117,7 +118,7 @@ export class UserFormComponent implements OnInit {
     };
     if (passwords.newPassword !== confirmPassword) {
       this.messageService.add({
-        severity: 'error',
+        severity: ToastConfig.TYPE_ERROR,
         summary: this.toastSummary,
         detail: this.toastDetailWrongPassword,
       });
@@ -133,7 +134,7 @@ export class UserFormComponent implements OnInit {
           next: data => {
             this.displayDialog = !this.displayDialog;
             this.messageService.add({
-              severity: 'success',
+              severity: ToastConfig.TYPE_SUCCESS,
               summary: this.toastSummary,
               detail: this.toastDetailNewPassword,
             });
@@ -141,7 +142,7 @@ export class UserFormComponent implements OnInit {
           error: err => {
             this.resetFormNewPassword();
             this.messageService.add({
-              severity: 'error',
+              severity: ToastConfig.TYPE_ERROR,
               summary: this.toastSummary,
               detail: err.error.message,
             });

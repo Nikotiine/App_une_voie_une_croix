@@ -14,9 +14,10 @@ import {
   AppNotebookService,
 } from '../../../core/app/services/app-notebook.service';
 import { RouteListDto } from '../../../core/api/models/route-list-dto';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageService } from '../../../core/app/services/language.service';
-import { DefaultLangChangeEvent } from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
+import { NotebookRoutingModule } from '../notebook-routing.module';
 
 @Component({
   selector: 'app-notebook-form',
@@ -31,8 +32,7 @@ export class NotebookFormComponent implements OnInit {
   public achievementTypes: AchievementTypes[] = [];
   public isNew: boolean;
   private readonly notebookId: number;
-  private toastSummary: string;
-  private toastDetailCreate: string;
+  private translate: any;
 
   constructor(
     private readonly siteService: SiteService,
@@ -40,7 +40,8 @@ export class NotebookFormComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly appNotebookService: AppNotebookService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly languageService: LanguageService
+    private readonly languageService: LanguageService,
+    private readonly router: Router
   ) {
     this.form = this.fb.group({
       site: [0, Validators.required],
@@ -59,18 +60,27 @@ export class NotebookFormComponent implements OnInit {
   public ngOnInit(): void {
     this.loadData();
     this.watchTrial();
-    this.watchLanguageChange();
   }
 
+  /**
+   * Charge les données des notebook ainsi que les traductions des toast et confirm dialog
+   * @private
+   */
   private loadData(): void {
-    this.siteService.siteControllerGetAllSites().subscribe({
+    forkJoin([
+      this.siteService.siteControllerGetAllSites(),
+      this.languageService.getTranslation('notebook'),
+    ]).subscribe({
       next: data => {
-        this.sites = data;
+        this.sites = data[0];
+        this.translate = data[1];
       },
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.NOTEBOOK_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).summary,
           detail: err.error.message,
         });
       },
@@ -90,14 +100,21 @@ export class NotebookFormComponent implements OnInit {
       next: res => {
         this.messageService.add({
           severity: ToastConfig.TYPE_SUCCESS,
-          summary: this.toastSummary,
-          detail: this.toastDetailCreate,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).summary,
+          detail: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).create,
         });
+        this.router.navigate(['/' + NotebookRoutingModule.NOTEBOOK_LIST]);
       },
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.NOTEBOOK_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).summary,
           detail: err.error.message,
         });
       },
@@ -123,8 +140,10 @@ export class NotebookFormComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.NOTEBOOK_SUMMARY,
-            detail: err.err.message,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_NOTEBOOK
+            ).summary,
+            detail: err.error.message,
           });
         },
       });
@@ -149,15 +168,6 @@ export class NotebookFormComponent implements OnInit {
           this.form.controls['trials'].setValue(1);
         }
       },
-    });
-  }
-
-  private watchLanguageChange(): void {
-    this.languageService.change.subscribe((event: DefaultLangChangeEvent) => {
-      const translate = event.translations.toast;
-      console.log(translate);
-      this.toastSummary = translate.noteBookSummary;
-      this.toastDetailCreate = translate.noteBookCreate;
     });
   }
 }

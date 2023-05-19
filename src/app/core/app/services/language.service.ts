@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LanguageService {
+  static KEY_TOAST_SITE: string = 'site';
+  static KEY_TOAST_ROUTE: string = 'route';
+  static KEY_TOAST_NOTEBOOK: string = 'notebook';
   private readonly keyFr = 'fr';
   private readonly keyEn = 'en';
   private readonly translateKey = 'language';
@@ -25,6 +28,12 @@ export class LanguageService {
     this.useLanguage();
     this.initLabel();
   }
+
+  /**
+   * Intialise le language , si cookie deja present reprend sa valeur, sinon en fonction du navigateur
+   * si la language du navigateur n'est pas suppoorte met la langue fr par defaut
+   * Stocke la langue choisi dans un cookie
+   */
   public initLanguage(): void {
     const userLanguage: string = this.cookieService.get(this.keyLanguage);
     if (userLanguage) {
@@ -39,9 +48,18 @@ export class LanguageService {
     }
   }
 
+  /**
+   * Active le language trouve dans le cookie
+   * @private
+   */
   private useLanguage(): void {
     this.translateService.use(this.userLanguage);
   }
+
+  /**
+   * Fonction pour mettre a jour la langue choisi , met a jour le cookie de langue utilisateur
+   * @param language
+   */
   public setLanguage(language: string): void {
     this.userLanguage = language;
     this.cookieService.put(this.keyLanguage, language);
@@ -52,23 +70,34 @@ export class LanguageService {
     return this.userLanguage;
   }
 
+  /**
+   * Permet de switcher entre les 2 langues supporté
+   */
   public switchLanguage(): void {
     const language = this.language === this.keyFr ? this.keyEn : this.keyFr;
     this.setLanguage(language);
     this.initLabel();
   }
+
+  /**
+   * Retourne la langue qui sera defini en cas de switch
+   */
   get switchTo(): string {
     return this.userLanguage === this.keyFr ? this.english : this.french;
   }
 
-  /*get availableLanguages(): string[] {
-    return this.supportedLanguages;
-  }*/
-
+  /**
+   * Renvoie la traduction sous forme d'observable
+   * @param translate
+   */
   public getTranslation(translate: string): Observable<any> {
     return this.translateService.get(translate);
   }
 
+  /**
+   * Initialiser les label de langue pour le dialogue en cas de changement de langue
+   * @private
+   */
   private initLabel(): void {
     this.getTranslation(this.translateKey).subscribe({
       next: translate => {
@@ -78,7 +107,26 @@ export class LanguageService {
     });
   }
 
+  /**
+   * Permet d'observer le changement de langue
+   */
   get change() {
     return this.translateService.onLangChange;
+  }
+
+  /**
+   * Retroune les traduction propre au toast de messageService
+   * @param key
+   */
+  public toastTranslate(key: string): any {
+    return this.translateService.instant('toast.' + key);
+  }
+
+  /**
+   * Retourne les traduction propre a module site
+   * @param key
+   */
+  public siteTranslate(key: string): any {
+    return this.translateService.instant('site.' + key);
   }
 }

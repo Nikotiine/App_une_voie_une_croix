@@ -71,6 +71,7 @@
     "climbingZone": "Site"
   },
   "homepage": {
+
     "memberRegistered": "Membres inscrits",
     "siteAvailable": "Sites disponibles",
     "lastFiveSites": "Les 5 derniers sites enregistrés",
@@ -108,7 +109,7 @@
     "chooseRegion": "Choisir la region",
     "chooseDepartment": "Choisir le departement",
     "validLocation": "Valider la localisation",
-    "genericRegionName": "Toutes les regions",
+    "genericRegions": "Toutes les regions",
     "totalSector": "Nombre de secteurs",
     "carParkForNight": "Parking camion",
     "noRouteRegistered": "Aucune voie enregistrée"
@@ -134,15 +135,34 @@
     "achievementType": "Realisé",
     "trialsNumber": "Nombre d'essais",
     "trial": "essai",
-    "unCheck": "Decocher",
+
     "chooseRoute": "Choisir la voie",
     "summary": "Mon carnet",
-    "detail": {
-      "create": "Croix enregistrée bravo"
-    }
+    "create": "Croix enregistrée bravo"
   },
   "toast": {
-    "noteBookSummary": "Mon carnet",
-    "noteBookCreate": "Croix enregistrée bravo"
+    "homepage": {
+      "summary": "Page d'accueil"
+    },
+
+    "notebook": {
+      "summary": "Gestion du carnet",
+      "create": "Croix enregistrée bravo",
+      "unCheck": "Decocher",
+      "unCheckRoute": "Decocher la voie ?",
+      "unCheckedRoute": "Voie decoché"
+    },
+    "site": {
+      "summary": "Gestion des sites",
+      "create": "Nouveau site enregistré",
+      "edit": "Site mis a jour"
+    },
+    "route": {
+      "summary": "Gestion des voies",
+      "create": "Nouvelle voie enregistré",
+      "edit": "Voie mis a jour"
+    },
+    "cancelAction": "Action annulée",
+    "deleteError": "Suppression impossible"
   }
 }

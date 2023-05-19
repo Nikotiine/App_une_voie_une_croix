@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { forkJoin } from 'rxjs';
 import { TableRouteOptions } from '../../../core/app/models/TableOptions.model';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-route-list',
@@ -19,7 +20,8 @@ export class RouteListComponent implements OnInit {
   public tableOptions: TableRouteOptions;
   constructor(
     private readonly routeService: RouteService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly languageService: LanguageService
   ) {
     this.tableOptions = {
       forAdmin: false,
@@ -44,7 +46,9 @@ export class RouteListComponent implements OnInit {
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.ROUTE_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_ROUTE
+          ).summary,
           detail: err.error.message,
         });
       },

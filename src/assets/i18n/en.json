@@ -71,6 +71,7 @@
     "climbingZone": "Climbing zone"
   },
   "homepage": {
+
     "memberRegistered": "Member registered",
     "siteAvailable": "Climbing zone available",
     "lastFiveSites": "Last 5 Climbing zone recorded",
@@ -108,7 +109,7 @@
     "chooseRegion": "Choose region",
     "chooseDepartment": "Choose department",
     "validLocation": "Valid the location",
-    "genericRegionName": "All regions",
+    "genericRegions": "All regions",
     "totalSector": "Total of sectors",
     "carParkForNight": "Car park for night",
     "noRouteRegistered": "No route registered"
@@ -135,6 +136,8 @@
     "trialsNumber": "Trials",
     "trial": "trial",
     "unCheck": "Uncheck",
+    "unCheckRoute": "Uncheck the notebook ?",
+    "unCheckedRoute": "Route unchecked",
     "chooseRoute": "Choose the route",
     "summary": "Notebook service",
     "detail": {
@@ -142,7 +145,27 @@
     }
   },
   "toast": {
-    "noteBookSummary": "Notebook service",
-    "noteBookCreate": "Notebook saved you're good"
+    "homepage": {
+      "summary": "Homepage"
+    },
+    "notebook": {
+      "summary": "Notebook service",
+      "create": "Notebook saved you're good",
+      "unCheck": "Uncheck",
+      "unCheckRoute": "Uncheck the route ?",
+      "unCheckedRoute": "Route unchecked"
+    },
+    "site": {
+      "summary": "Site service",
+      "create": "New climbing zone added",
+      "edit": "Climbing zone updated"
+    },
+    "route": {
+      "summary": "Route service",
+      "create": "New route added",
+      "edit": "Route updated"
+    },
+    "cancelAction": "Action canceled",
+    "deleteError": "Impossible to delete"
   }
 }

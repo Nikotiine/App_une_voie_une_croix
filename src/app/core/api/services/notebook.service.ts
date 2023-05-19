@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { DeleteResponse } from '../models/delete-response';
 import { NotebookCreateDto } from '../models/notebook-create-dto';
 import { NotebookViewDto } from '../models/notebook-view-dto';
 import { RatingRouteDto } from '../models/rating-route-dto';
@@ -424,6 +425,75 @@ export class NotebookService extends BaseService {
 
     return this.notebookControllerGetAllRatingsByRoute$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<RatingRouteDto>>) => r.body as Array<RatingRouteDto>)
+    );
+  }
+
+  /**
+   * Path part for operation notebookControllerDeleteNotebook
+   */
+  static readonly NotebookControllerDeleteNotebookPath = '/api/notebook/{id}';
+
+  /**
+   * Delete notbook.
+   *
+   * Entry point to delete a notebook by id
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `notebookControllerDeleteNotebook()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerDeleteNotebook$Response(params: {
+
+    /**
+     * id of user notebook
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<DeleteResponse>> {
+
+    const rb = new RequestBuilder(this.rootUrl, NotebookService.NotebookControllerDeleteNotebookPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<DeleteResponse>;
+      })
+    );
+  }
+
+  /**
+   * Delete notbook.
+   *
+   * Entry point to delete a notebook by id
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `notebookControllerDeleteNotebook$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  notebookControllerDeleteNotebook(params: {
+
+    /**
+     * id of user notebook
+     */
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<DeleteResponse> {
+
+    return this.notebookControllerDeleteNotebook$Response(params,context).pipe(
+      map((r: StrictHttpResponse<DeleteResponse>) => r.body as DeleteResponse)
     );
   }
 

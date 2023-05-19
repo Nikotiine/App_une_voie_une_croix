@@ -35,3 +35,4 @@ export { RouteDto } from './models/route-dto';
 export { NotebookCreateDto } from './models/notebook-create-dto';
 export { NotebookViewDto } from './models/notebook-view-dto';
 export { RatingRouteDto } from './models/rating-route-dto';
+export { DeleteResponse } from './models/delete-response';

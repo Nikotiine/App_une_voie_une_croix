@@ -12,6 +12,7 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
 import { SecurityService } from '../../../core/app/services/security.service';
 import { RouteListDto } from '../../../core/api/models/route-list-dto';
 import { TableRouteOptions } from '../../../core/app/models/TableOptions.model';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-site-view',
@@ -31,7 +32,7 @@ export class SiteViewComponent implements OnInit {
   // **************ICONS*************************
   public readonly ICON = Icons;
 
-  // *************String in template**************************
+  // *************class css**************************
   public textDanger: string = 'has-text-danger';
   public textInfo: string = 'has-text-info';
 
@@ -45,7 +46,8 @@ export class SiteViewComponent implements OnInit {
     private readonly messageService: MessageService,
     private readonly router: Router,
     private readonly userProfileService: UserProfileService,
-    private readonly securityService: SecurityService
+    private readonly securityService: SecurityService,
+    private readonly languageService: LanguageService
   ) {
     this.mapOption = {
       draggable: false,
@@ -77,7 +79,9 @@ export class SiteViewComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
         },
