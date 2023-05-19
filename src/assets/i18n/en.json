@@ -153,7 +153,8 @@
       "create": "Notebook saved you're good",
       "unCheck": "Uncheck",
       "unCheckRoute": "Uncheck the route ?",
-      "unCheckedRoute": "Route unchecked"
+      "unCheckedRoute": "Route unchecked",
+      "alreadyChecked": "Route already checked"
     },
     "site": {
       "summary": "Site service",

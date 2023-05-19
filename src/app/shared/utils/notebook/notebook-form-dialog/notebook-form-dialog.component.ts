@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../../core/app/config/toast.config';
 import { RouteDto } from '../../../../core/api/models/route-dto';
+import { LanguageService } from '../../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-notebook-form-dialog',
@@ -27,7 +28,8 @@ export class NotebookFormDialogComponent implements OnInit {
   constructor(
     private readonly appNotebookService: AppNotebookService,
     private readonly fb: FormBuilder,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly languageService: LanguageService
   ) {
     this.achievementTypes = this.appNotebookService.achievementTypes();
     this.form = this.fb.group({
@@ -71,8 +73,12 @@ export class NotebookFormDialogComponent implements OnInit {
       next: res => {
         this.messageService.add({
           severity: ToastConfig.TYPE_SUCCESS,
-          summary: ToastConfig.NOTEBOOK_SUMMARY,
-          detail: ToastConfig.NOTEBOOK_CREATE,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).summary,
+          detail: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).create,
         });
         this.isSuccess.emit(true);
         this.closeDialog();
@@ -80,7 +86,9 @@ export class NotebookFormDialogComponent implements OnInit {
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.NOTEBOOK_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).summary,
           detail: err.error.message,
         });
         this.closeDialog();

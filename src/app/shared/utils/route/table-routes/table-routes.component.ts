@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../../core/app/config/toast.config';
 import { RatingRouteDto } from '../../../../core/api/models/rating-route-dto';
 import { TableRouteOptions } from '../../../../core/app/models/TableOptions.model';
+import { LanguageService } from '../../../../core/app/services/language.service';
 
 export interface RouteViewModel extends RouteListDto {
   rating: number;
@@ -48,7 +49,8 @@ export class TableRoutesComponent implements OnInit {
   constructor(
     private readonly securityService: SecurityService,
     private readonly appNotebookService: AppNotebookService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly languageService: LanguageService
   ) {
     this.isLogged = this.securityService.isLogged();
   }
@@ -64,6 +66,11 @@ export class TableRoutesComponent implements OnInit {
       this.loadRating();
     }
   }
+
+  /**
+   * Si l'utilsateur est connecter , charge ses croix et affiche ou non le status checked a la voie
+   * @private
+   */
   private loadMyNoteBook(): void {
     this.appNotebookService.getMyNotebook().subscribe({
       next: data => {
@@ -73,13 +80,20 @@ export class TableRoutesComponent implements OnInit {
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.NOTEBOOK_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).summary,
           detail: err.error.message,
         });
       },
     });
   }
 
+  /**
+   * Charge toutes les note disponible en bdd
+   * un fois fais , creer les view models
+   * @private
+   */
   private loadRating(): void {
     this.appNotebookService.getRoutesRatings().subscribe({
       next: data => {
@@ -89,7 +103,9 @@ export class TableRoutesComponent implements OnInit {
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.NOTEBOOK_SUMMARY,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_NOTEBOOK
+          ).summary,
           detail: err.error.message,
         });
       },
@@ -99,6 +115,11 @@ export class TableRoutesComponent implements OnInit {
     });
   }
 
+  /**
+   * Transforme le model de RouteListDto en RouteViewModel
+   * Ajoute les champs de notation et le status coche ou non de la voie
+   * @private
+   */
   private makeRouteViewModels(): void {
     this.routesVM = this.routes.map(route => {
       return {
@@ -109,6 +130,12 @@ export class TableRoutesComponent implements OnInit {
     });
   }
 
+  /**
+   * Fait la moyenne des voie par rapport au note attribue lors des coches.
+   * la moyenne est toujours arrondi a un chiffre entier
+   * @param id
+   * @private
+   */
   private setRatingForRoute(id: number): number {
     let rating: number = 0;
     const ratings = this.ratings.filter(rating => rating.id === id);
@@ -126,7 +153,7 @@ export class TableRoutesComponent implements OnInit {
    * @param id
    */
   private setIsChecked(id: number): boolean {
-    return !!this.notebooks.find(n => n.route.id === id);
+    return !!this.notebooks.find(notebook => notebook.route.id === id);
   }
 
   /**
@@ -142,8 +169,12 @@ export class TableRoutesComponent implements OnInit {
   public alreadyChecked(): void {
     this.messageService.add({
       severity: ToastConfig.TYPE_WARNING,
-      summary: ToastConfig.NOTEBOOK_SUMMARY,
-      detail: ToastConfig.NOTEBOOK_ALREADY_CHECKED,
+      summary: this.languageService.toastTranslate(
+        LanguageService.KEY_TOAST_NOTEBOOK
+      ).summary,
+      detail: this.languageService.toastTranslate(
+        LanguageService.KEY_TOAST_NOTEBOOK
+      ).alreadyChecked,
     });
   }
 
@@ -164,7 +195,11 @@ export class TableRoutesComponent implements OnInit {
     this.loadData();
   }
 
-  emitToSwitchStatus(id: number): void {
+  /**
+   * En cas d'utilisation du composant depuis le dashboard admin, emet l'id de la voie pour changer son status (actif ou inatcif)
+   * @param id
+   */
+  public emitToSwitchStatus(id: number): void {
     this.selectedRoute.emit(id);
   }
 }

@@ -150,7 +150,8 @@
       "create": "Croix enregistrée bravo",
       "unCheck": "Decocher",
       "unCheckRoute": "Decocher la voie ?",
-      "unCheckedRoute": "Voie decoché"
+      "unCheckedRoute": "Voie decoché",
+      "alreadyChecked": "Voie deja cochée"
     },
     "site": {
       "summary": "Gestion des sites",

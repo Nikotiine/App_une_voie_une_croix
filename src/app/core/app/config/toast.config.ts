@@ -9,8 +9,4 @@ export class ToastConfig {
 
   static AUTH_SUMMARY: string = 'Authentification';
   static AUTH_REGISTER_DETAIL = 'Inscritption validée';
-
-  static NOTEBOOK_SUMMARY: string = 'Mon carnet';
-  static NOTEBOOK_CREATE: string = 'Voie cochée :) Bravo';
-  static NOTEBOOK_ALREADY_CHECKED: string = 'Voie deja cochée';
 }
