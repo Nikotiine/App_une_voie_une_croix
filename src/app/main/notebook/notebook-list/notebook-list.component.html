@@ -1,8 +1,13 @@
 <div class="site-table">
-  <h1 class="title has-text-centered has-text-info">
+  <h1 class="title has-text-centered has-text-info" *ngIf="fullView">
     {{ 'notebook.titleNotebookList' | translate }}
   </h1>
   <div class="input-label is-align-items-center mb-4"></div>
+  <!--  <app-table-notebook
+    [loading]="loading"
+    [notebooks]="notebooks"
+
+    (selectedNotebook)="onSelectedNotebook($event)"></app-table-notebook>-->
   <p-table
     #dt
     [value]="notebooks"
@@ -40,6 +45,7 @@
           {{ 'route.level' | translate }} :
           <p-sortIcon field="maxLevel.label"></p-sortIcon>
         </th>
+        <th>{{ 'notebook.unCheck' | translate }}</th>
       </tr>
       <tr>
         <th>
@@ -167,6 +173,14 @@
         </td>
         <td>{{ notebook.trials }}</td>
         <td>{{ notebook.route.level.label }}</td>
+        <td>
+          <button
+            pButton
+            type="button"
+            icon="{{ ICON.UNCHECK }}"
+            (click)="uncheckRoute(notebook.id)"
+            class="p-button-outlined p-button-danger ml-3"></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>

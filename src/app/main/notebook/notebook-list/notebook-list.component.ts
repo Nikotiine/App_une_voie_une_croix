@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { NotebookService } from '../../../core/api/services/notebook.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { NotebookViewDto } from '../../../core/api/models/notebook-view-dto';
 import { Icons } from '../../../core/app/enum/Icons.enum';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-notebook-list',
@@ -12,6 +13,7 @@ import { Icons } from '../../../core/app/enum/Icons.enum';
   styleUrls: ['./notebook-list.component.scss'],
 })
 export class NotebookListComponent implements OnInit {
+  @Input() fullView: boolean = true;
   public notebooks: NotebookViewDto[] = [];
   public loading: boolean = false;
   public sidebarVisible: boolean = false;
@@ -20,7 +22,8 @@ export class NotebookListComponent implements OnInit {
   constructor(
     private readonly userProfileService: UserProfileService,
     private readonly notebookService: NotebookService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly confirmationService: ConfirmationService
   ) {}
   ngOnInit(): void {
     this.loadData();
@@ -45,8 +48,24 @@ export class NotebookListComponent implements OnInit {
       });
   }
   public onRowSelect(event: any): void {
-    console.log(event.data.id);
     this.notebookId = event.data.id;
     this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  public uncheckRoute(id: number): void {
+    this.confirmationService.confirm({
+      message: 'Dechocher la voie',
+      header: 'Notebook service',
+      accept: () => {
+        console.log('accpet');
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_WARNING,
+          summary: 'Notebook service',
+          detail: ToastConfig.CANCEL,
+        });
+      },
+    });
   }
 }

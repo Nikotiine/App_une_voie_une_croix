@@ -13,6 +13,8 @@ import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 import { TranslateModule } from '@ngx-translate/core';
+import { UtilsModule } from '../../shared/utils/utils.module';
+import { NotebookModule } from '../notebook/notebook.module';
 
 @NgModule({
   declarations: [UserViewComponent, UserFormComponent],
@@ -28,6 +30,8 @@ import { TranslateModule } from '@ngx-translate/core';
     DialogModule,
     TabViewModule,
     TranslateModule,
+    UtilsModule,
+    NotebookModule,
   ],
 })
 export class UserModule {}

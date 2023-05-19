@@ -63,8 +63,9 @@
     </p-tabPanel>
     <p-tabPanel>
       <ng-template pTemplate="header">
-        {{ 'notebook.titleNotebookList' | translate }} </ng-template
-      >Content 3
+        {{ 'notebook.titleNotebookList' | translate }}
+      </ng-template>
+      <app-notebook-list [fullView]="false"></app-notebook-list>
     </p-tabPanel>
     <p-tabPanel header="Administration" *ngIf="isAdmin">
       <ng-template pTemplate="header">
