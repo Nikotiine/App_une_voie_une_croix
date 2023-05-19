@@ -19,6 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { TableSiteComponent } from './site/table-site/table-site.component';
+import { TableNotebookComponent } from './notebook/table-notebook/table-notebook.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TableSiteComponent } from './site/table-site/table-site.component';
     NotebookFormDialogComponent,
     TableRoutesComponent,
     TableSiteComponent,
+    TableNotebookComponent,
   ],
   imports: [
     CommonModule,

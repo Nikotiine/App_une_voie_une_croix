@@ -6,7 +6,7 @@ import { ToastConfig } from '../../core/app/config/toast.config';
 import { PublicService } from '../../core/api/services/public.service';
 import { SiteListDto } from '../../core/api/models/site-list-dto';
 import { RouteListDto } from '../../core/api/models/route-list-dto';
-import { TableSiteOptions } from '../../core/app/models/TableSiteOptions.model';
+import { TableSiteOptions } from '../../core/app/models/TableOptions.model';
 
 @Component({
   selector: 'app-homepage',
@@ -29,7 +29,7 @@ export class HomepageComponent implements OnInit {
     this.sitesOptions = {
       loading: true,
       forAdmin: false,
-      paginator: false,
+      fullView: false,
     };
   }
   ngOnInit(): void {

@@ -5,7 +5,6 @@ import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { UserRoutingModule } from '../user-routing.module';
 import { MainRoutingModule } from '../../main-routing.module';
-import { ToastConfig } from '../../../core/app/config/toast.config';
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { AdminRoutingModule } from '../../admin/admin-routing.module';

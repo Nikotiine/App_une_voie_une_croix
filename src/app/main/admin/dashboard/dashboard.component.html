@@ -176,21 +176,23 @@
                 }}</span
               >
             </td>
-            <td
-              class="{{
-                user.isActive ? 'has-text-success' : 'has-text-danger'
-              }}">
-              <span
+            <td>
+              <button
+                pButton
                 (click)="confirmToggleUserStatus(user.id)"
-                class="has-text-black"
-                ><i
-                  class="{{ user.isActive ? ICON.LOCK : ICON.UNLOCK }} mr-1"></i
-              ></span>
-              {{
-                user.isActive
-                  ? ('admin.active' | translate)
-                  : ('admin.notActive' | translate)
-              }}
+                label="{{
+                  user.isActive
+                    ? ('admin.active' | translate)
+                    : ('admin.notActive' | translate)
+                }}"
+                class="p-button-outlined p-button-text p-button-secondary {{
+                  user.isActive ? 'has-text-success' : 'has-text-danger'
+                }}">
+                <i
+                  class="{{
+                    user.isActive ? ICON.LOCK : ICON.UNLOCK
+                  }} mr-2"></i>
+              </button>
             </td>
           </tr>
         </ng-template>
@@ -211,7 +213,8 @@
       </ng-template>
       <app-table-routes
         [routes]="filteredRoutes"
-        [paginator]="true"></app-table-routes>
+        [options]="sitesOptions"
+        (selectedRoute)="confirmToggleRouteStatus($event)"></app-table-routes>
     </p-tabPanel>
     <p-tabPanel header="Administration">
       <ng-template pTemplate="header">

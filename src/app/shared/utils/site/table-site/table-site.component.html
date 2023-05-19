@@ -2,7 +2,7 @@
   #dt
   [value]="sites"
   [rows]="25"
-  [paginator]="options.paginator"
+  [paginator]="options.fullView"
   [rowsPerPageOptions]="[25, 50, 100]"
   styleClass="p-datatable-striped"
   [tableStyle]="{ 'vertical-align': 'center' }"
@@ -43,7 +43,7 @@
         {{ 'site.averageRouteHeight' | translate }}
         <p-sortIcon field="averageRouteHeight"></p-sortIcon>
       </th>
-      <th pSortableColumn="approachTime">
+      <th pSortableColumn="approachTime" *ngIf="options.fullView">
         <i class="{{ ICON.APPROACH_TIME }} mr-1"></i>
         {{ 'common.approachTime' | translate }}
         <p-sortIcon field="approachTime"></p-sortIcon>
@@ -54,7 +54,7 @@
         <p-sortIcon field="approachTime"></p-sortIcon>
       </th>
     </tr>
-    <tr>
+    <tr *ngIf="options.fullView">
       <th>
         <p-columnFilter
           field="name"
@@ -246,7 +246,9 @@
         <span *ngFor="let expo of site.expositions">{{ expo.label }} - </span>
       </td>
       <td>{{ site.averageRouteHeight }} {{ 'common.meter' | translate }}</td>
-      <td>{{ site.approachTime }} {{ 'common.minute' | translate }}</td>
+      <td *ngIf="options.fullView">
+        {{ site.approachTime }} {{ 'common.minute' | translate }}
+      </td>
       <td *ngIf="options.forAdmin">
         <button
           pButton

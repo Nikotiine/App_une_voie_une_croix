@@ -9,7 +9,7 @@ import { UserRole } from '../../../core/app/enum/UserRole.enum';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { AdminRoutesDto } from '../../../core/api/models/admin-routes-dto';
 import { LanguageService } from '../../../core/app/services/language.service';
-import { TableSiteOptions } from '../../../core/app/models/TableSiteOptions.model';
+import { TableSiteOptions } from '../../../core/app/models/TableOptions.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
     this.sitesOptions = {
       loading: true,
       forAdmin: true,
-      paginator: true,
+      fullView: true,
     };
   }
   public ngOnInit(): void {

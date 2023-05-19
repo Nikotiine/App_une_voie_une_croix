@@ -5,12 +5,14 @@
     <p class="has-text-centered">{{ totalUsers }}</p>
   </div>
   <div class="box">
-    <p>
+    <p class="has-text-centered title is-4">
       {{ 'homepage.siteAvailable' | translate }} :
       <span class="has-text-centered ml-2 has-text-info">{{ totalSite }}</span>
     </p>
 
-    <p class="my-3">{{ 'homepage.lastFiveSites' | translate }} :</p>
+    <p class="my-3 subtitle has-text-info">
+      {{ 'homepage.lastFiveSites' | translate }} :
+    </p>
     <app-table-site
       [sites]="lastFiveSite"
       [options]="sitesOptions"></app-table-site>
@@ -25,12 +27,12 @@
     <p class="my-3">{{ 'homepage.lastFiveRoutes' | translate }} :</p>
     <app-table-routes
       [routes]="lastFiveRoute"
-      [paginator]="false"></app-table-routes>
+      [options]="sitesOptions"></app-table-routes>
   </div>
   <div class="box">
     <p class="my-3">{{ 'homepage.lastFiveCheckedRoutes' | translate }} :</p>
     <app-table-routes
       [routes]="lastFiveCheckedRoute"
-      [paginator]="false"></app-table-routes>
+      [options]="sitesOptions"></app-table-routes>
   </div>
 </div>

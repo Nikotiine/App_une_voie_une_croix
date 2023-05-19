@@ -9,6 +9,7 @@ import { NotebookViewDto } from '../../../../core/api/models/notebook-view-dto';
 import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../../core/app/config/toast.config';
 import { RatingRouteDto } from '../../../../core/api/models/rating-route-dto';
+import { TableRouteOptions } from '../../../../core/app/models/TableOptions.model';
 
 export interface RouteViewModel extends RouteListDto {
   rating: number;
@@ -31,7 +32,8 @@ export class TableRoutesComponent implements OnInit {
     return this._routes;
   }
 
-  @Input() paginator: boolean;
+  @Input() options: TableRouteOptions;
+  @Output() selectedRoute: EventEmitter<number> = new EventEmitter<number>();
   private _routes: RouteListDto[] = [];
   public routesVM: RouteViewModel[] = [];
   public loading: boolean = true;
@@ -42,7 +44,7 @@ export class TableRoutesComponent implements OnInit {
   private notebooks: NotebookViewDto[] = [];
   public ratings: RatingRouteDto[] = [];
   public visible: boolean = false;
-  public selectedRoute: RouteListDto;
+  public selectedRouteForNotebook: RouteListDto;
   constructor(
     private readonly securityService: SecurityService,
     private readonly appNotebookService: AppNotebookService,
@@ -150,7 +152,7 @@ export class TableRoutesComponent implements OnInit {
    * @param id
    */
   public showDialog(id: number): void {
-    this.selectedRoute = this.routes.find(route => route.id === id);
+    this.selectedRouteForNotebook = this.routes.find(route => route.id === id);
     this.visible = !this.visible;
   }
 
@@ -160,5 +162,9 @@ export class TableRoutesComponent implements OnInit {
   public reloadData(): void {
     this.loading = true;
     this.loadData();
+  }
+
+  emitToSwitchStatus(id: number): void {
+    this.selectedRoute.emit(id);
   }
 }

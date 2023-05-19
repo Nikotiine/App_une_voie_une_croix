@@ -3,7 +3,7 @@ import { Icons } from '../../../../core/app/enum/Icons.enum';
 import { SiteListDto } from '../../../../core/api/models/site-list-dto';
 import { SiteRoutingModule } from '../../../../main/site/site-routing.module';
 import { AdminSitesDto } from '../../../../core/api/models/admin-sites-dto';
-import { TableSiteOptions } from '../../../../core/app/models/TableSiteOptions.model';
+import { TableSiteOptions } from '../../../../core/app/models/TableOptions.model';
 
 @Component({
   selector: 'app-table-site',

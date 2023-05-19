@@ -5,6 +5,7 @@ import { SiteDto } from '../../../core/api/models/site-dto';
 import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { forkJoin } from 'rxjs';
+import { TableRouteOptions } from '../../../core/app/models/TableOptions.model';
 
 @Component({
   selector: 'app-route-list',
@@ -15,10 +16,16 @@ export class RouteListComponent implements OnInit {
   private routes: RouteListDto[] = [];
   public filteredRoutes: RouteListDto[] = [];
   public sites: SiteDto[] = [];
+  public tableOptions: TableRouteOptions;
   constructor(
     private readonly routeService: RouteService,
     private readonly messageService: MessageService
-  ) {}
+  ) {
+    this.tableOptions = {
+      forAdmin: false,
+      fullView: true,
+    };
+  }
 
   public ngOnInit(): void {
     this.loadData();

@@ -2,7 +2,7 @@
   #dt
   [value]="routesVM"
   [rows]="25"
-  [paginator]="paginator"
+  [paginator]="options.fullView"
   [rowsPerPageOptions]="[25, 50, 100]"
   styleClass="p-datatable-striped"
   [tableStyle]="{ 'vertical-align': 'center' }"
@@ -39,7 +39,7 @@
         <i class="{{ ICON.RATING }} mr-1"></i>{{ 'common.rating' | translate }}
         <p-sortIcon field="maxLevel.label"></p-sortIcon>
       </th>
-      <th pSortableColumn="createdAt">
+      <th pSortableColumn="createdAt" *ngIf="options.fullView">
         <i class="{{ ICON.CALENDAR }} mr-1"></i>
         {{ 'common.createdAt' | translate }}
         <p-sortIcon field="createdAt"></p-sortIcon>
@@ -47,8 +47,9 @@
       <th pSortableColumn="secteur.name" *ngIf="isLogged">
         {{ 'common.checked' | translate }}
       </th>
+      <th pSortableColumn="isActive" *ngIf="options.forAdmin">Status</th>
     </tr>
-    <tr>
+    <tr *ngIf="options.fullView">
       <th>
         <p-columnFilter
           [showMenu]="false"
@@ -227,7 +228,9 @@
           [stars]="route.rating"
           [cancel]="false"></p-rating>
       </td>
-      <td>{{ route.createdAt | date : 'dd/MM/yyyy' }}</td>
+      <td *ngIf="options.fullView">
+        {{ route.createdAt | date : 'dd/MM/yyyy' }}
+      </td>
       <td *ngIf="isLogged">
         <p-button styleClass="p-button-text"
           ><i
@@ -241,6 +244,21 @@
             "></i
         ></p-button>
       </td>
+      <td *ngIf="options.forAdmin">
+        <button
+          pButton
+          (click)="emitToSwitchStatus(route.id)"
+          label="{{
+            route.isActive
+              ? ('admin.active' | translate)
+              : ('admin.notActive' | translate)
+          }}"
+          class="p-button-outlined p-button-text p-button-secondary {{
+            route.isActive ? 'has-text-success' : 'has-text-danger'
+          }}">
+          <i class="{{ route.isActive ? ICON.LOCK : ICON.UNLOCK }} mr-2"></i>
+        </button>
+      </td>
     </tr>
   </ng-template>
 </p-table>
@@ -248,4 +266,4 @@
   (isClose)="closeDialog()"
   (isSuccess)="reloadData()"
   [visible]="visible"
-  [route]="selectedRoute"></app-notebook-form-dialog>
+  [route]="selectedRouteForNotebook"></app-notebook-form-dialog>

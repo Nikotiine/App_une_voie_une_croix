@@ -10,7 +10,7 @@ import { RegionDto } from '../../../core/api/models/region-dto';
 import { forkJoin } from 'rxjs';
 import { LanguageService } from '../../../core/app/services/language.service';
 import { DefaultLangChangeEvent } from '@ngx-translate/core';
-import { TableSiteOptions } from '../../../core/app/models/TableSiteOptions.model';
+import { TableSiteOptions } from '../../../core/app/models/TableOptions.model';
 
 @Component({
   selector: 'app-site-list',
@@ -39,7 +39,7 @@ export class SiteListComponent implements OnInit {
     this.sitesOptions = {
       loading: true,
       forAdmin: false,
-      paginator: true,
+      fullView: true,
     };
   }
   ngOnInit(): void {

@@ -11,6 +11,7 @@ import { RouteRoutingModule } from '../../route/route-routing.module';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { SecurityService } from '../../../core/app/services/security.service';
 import { RouteListDto } from '../../../core/api/models/route-list-dto';
+import { TableRouteOptions } from '../../../core/app/models/TableOptions.model';
 
 @Component({
   selector: 'app-site-view',
@@ -21,6 +22,7 @@ export class SiteViewComponent implements OnInit {
   public site!: SiteViewDto;
   public routes: RouteListDto[] = [];
   public mapOption: MapOptions;
+  public tableOptions: TableRouteOptions;
   public loading: boolean = true;
   public isAdmin: boolean;
   public isLogged: boolean;
@@ -49,6 +51,10 @@ export class SiteViewComponent implements OnInit {
       draggable: false,
       lat: 45.151515,
       lng: 5.454545,
+    };
+    this.tableOptions = {
+      fullView: true,
+      forAdmin: false,
     };
     this.isAdmin = this.userProfileService.isAdmin();
     this.isLogged = this.securityService.isLogged();
