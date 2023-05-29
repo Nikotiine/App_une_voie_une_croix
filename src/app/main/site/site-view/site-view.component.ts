@@ -20,6 +20,7 @@ import { LanguageService } from '../../../core/app/services/language.service';
   styleUrls: ['./site-view.component.scss'],
 })
 export class SiteViewComponent implements OnInit {
+  public readonly ICON = Icons;
   public site!: SiteViewDto;
   public routes: RouteListDto[] = [];
   public mapOption: MapOptions;
@@ -28,9 +29,6 @@ export class SiteViewComponent implements OnInit {
   public isAdmin: boolean;
   public isLogged: boolean;
   private readonly routeId: number;
-
-  // **************ICONS*************************
-  public readonly ICON = Icons;
 
   // *************class css**************************
   public textDanger: string = 'has-text-danger';
@@ -63,18 +61,19 @@ export class SiteViewComponent implements OnInit {
     this.routeId = parseInt(this.activatedRoute.snapshot.params['id']);
   }
   public ngOnInit(): void {
-    this.loadData(this.routeId);
+    this.loadSite(this.routeId);
   }
 
-  private loadData(id: number): void {
+  private loadSite(id: number): void {
     this.siteService
       .siteControllerGetSite({
         id: id,
       })
       .subscribe({
-        next: data => {
-          this.site = data;
-          this.routes = data.routes;
+        next: site => {
+          this.site = site;
+          this.routes = site.routes;
+          this.loading = false;
         },
         error: err => {
           this.messageService.add({
@@ -84,9 +83,7 @@ export class SiteViewComponent implements OnInit {
             ).summary,
             detail: err.error.message,
           });
-        },
-        complete: () => {
-          this.loading = false;
+          this.router.navigate([this.siteListUrl]);
         },
       });
   }

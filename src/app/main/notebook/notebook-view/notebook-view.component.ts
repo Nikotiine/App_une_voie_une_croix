@@ -22,17 +22,17 @@ export class NotebookViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadNotebook();
   }
 
-  private loadData() {
+  private loadNotebook(): void {
     this.notebookService
       .notebookControllerGetNotebook({
         id: this.notebookId,
       })
       .subscribe({
-        next: data => {
-          this.notebook = data;
+        next: notebook => {
+          this.notebook = notebook;
         },
         error: err => {
           this.messageService.add({

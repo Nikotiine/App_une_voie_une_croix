@@ -14,10 +14,11 @@ import { LanguageService } from '../../../core/app/services/language.service';
   styleUrls: ['./route-list.component.scss'],
 })
 export class RouteListComponent implements OnInit {
-  private routes: RouteListDto[] = [];
   public filteredRoutes: RouteListDto[] = [];
   public sites: SiteDto[] = [];
   public tableOptions: TableRouteOptions;
+
+  private routes: RouteListDto[] = [];
   constructor(
     private readonly routeService: RouteService,
     private readonly messageService: MessageService,
@@ -58,14 +59,14 @@ export class RouteListComponent implements OnInit {
   /**
    * Filtre les voies par rapport au site selectionner
    * si pas de choix affiche toutes les voies disponibles
-   * @param $event
+   * @param $event event du dropdown (PRIMENG)
    */
   public onChangeSite($event: any): void {
     if (!$event.value) {
       this.filteredRoutes = this.routes;
     } else {
       this.filteredRoutes = this.routes.filter(
-        s => s.sector.site.id === $event.value
+        route => route.sector.site.id === $event.value
       );
     }
   }

@@ -3,11 +3,6 @@
     {{ 'notebook.titleNotebookList' | translate }}
   </h1>
   <div class="input-label is-align-items-center mb-4"></div>
-  <!--  <app-table-notebook
-    [loading]="loading"
-    [notebooks]="notebooks"
-
-    (selectedNotebook)="onSelectedNotebook($event)"></app-table-notebook>-->
   <p-table
     #dt
     [value]="notebooks"

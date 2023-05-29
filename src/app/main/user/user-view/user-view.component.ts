@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/api/services/auth.service';
 import { UserProfileDto } from '../../../core/api/models/user-profile-dto';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+
 import { UserRoutingModule } from '../user-routing.module';
-import { MainRoutingModule } from '../../main-routing.module';
+
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
 import { AdminRoutingModule } from '../../admin/admin-routing.module';
@@ -28,7 +28,7 @@ export class UserViewComponent implements OnInit {
   public adminDashboardUrl: string = AdminRoutingModule.DASHBOARD;
   public iconEdit: string = Icons.EDIT;
   public iconAdmin: string = Icons.ADMIN;
-  private homeUrl: string = MainRoutingModule.HOME;
+
   public isAdmin: boolean;
   public notebooks: NotebookViewDto[] = [];
   public loading: boolean = true;
@@ -38,12 +38,11 @@ export class UserViewComponent implements OnInit {
     private readonly messageService: MessageService,
     private readonly userProfileService: UserProfileService,
     private readonly userService: UserService,
-    private readonly notebookService: NotebookService,
-    private router: Router
+    private readonly notebookService: NotebookService
   ) {
     this.isAdmin = this.userProfileService.isAdmin();
   }
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getProfile();
   }
 
@@ -64,17 +63,5 @@ export class UserViewComponent implements OnInit {
         this.loading = false;
       },
     });
-
-    /*this.userService
-      .userControllerGetUserContributions({
-        id: this.user.id,
-      })
-      .subscribe({
-        next: data => {
-          console.log(data);
-          this.sites = data.sites;
-          this.routes = data.routes;
-        },
-      });*/
   }
 }

@@ -40,7 +40,6 @@ export class HomepageComponent implements OnInit {
 
   /**
    * Charge les donnee publique de la homepage
-   * @private
    */
   private loadData(): void {
     this.publicService.publicControllerGetDataForHomePage().subscribe({

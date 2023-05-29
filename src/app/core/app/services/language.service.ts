@@ -50,7 +50,6 @@ export class LanguageService {
 
   /**
    * Active le language trouve dans le cookie
-   * @private
    */
   private useLanguage(): void {
     this.translateService.use(this.userLanguage);
@@ -58,7 +57,7 @@ export class LanguageService {
 
   /**
    * Fonction pour mettre a jour la langue choisi , met a jour le cookie de langue utilisateur
-   * @param language
+   * @param language string
    */
   public setLanguage(language: string): void {
     this.userLanguage = language;
@@ -96,7 +95,7 @@ export class LanguageService {
 
   /**
    * Initialiser les label de langue pour le dialogue en cas de changement de langue
-   * @private
+   *
    */
   private initLabel(): void {
     this.getTranslation(this.translateKey).subscribe({

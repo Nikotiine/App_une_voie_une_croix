@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SiteService } from '../../../core/api/services/site.service';
 import { SiteListDto } from '../../../core/api/models/site-list-dto';
 import { MessageService } from 'primeng/api';
@@ -11,46 +11,57 @@ import { forkJoin } from 'rxjs';
 import { LanguageService } from '../../../core/app/services/language.service';
 import { DefaultLangChangeEvent } from '@ngx-translate/core';
 import { TableSiteOptions } from '../../../core/app/models/TableOptions.model';
+import { Router } from '@angular/router';
+import { MainRoutingModule } from '../../main-routing.module';
 
 @Component({
   selector: 'app-site-list',
   templateUrl: './site-list.component.html',
   styleUrls: ['./site-list.component.scss'],
 })
-export class SiteListComponent implements OnInit {
-  private readonly translateKey: string = 'site';
+export class SiteListComponent implements OnInit, OnDestroy {
   public loading: boolean = true;
-  public siteViewUrl: string;
-  public sites: SiteListDto[] = [];
   public filteredSites: SiteListDto[] = [];
   public regions: RegionDto[] = [];
   public sitesOptions: TableSiteOptions;
-
-  // **************ICONS*************************
   public readonly ICON = Icons;
 
+  private sites: SiteListDto[] = [];
   constructor(
     private readonly siteService: SiteService,
     private readonly messageService: MessageService,
     private readonly regionService: RegionService,
-    private readonly languageService: LanguageService
+    private readonly languageService: LanguageService,
+    private readonly router: Router
   ) {
-    this.siteViewUrl = SiteRoutingModule.SITE_VIEW;
     this.sitesOptions = {
       loading: true,
       forAdmin: false,
       fullView: true,
     };
   }
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadData();
     this.watchLanguageChange();
   }
 
   /**
-   * Charge les donne d'affichege des sites
-   * ForjJoin sur la liste de tous les sites / la liste des regions et la traduction de l'ajout de "toute les regions"
-   * @private
+   * Filtre les sites par rapport a leur region
+   * @param id de la region
+   */
+  public filterWithRegion(id: string): void {
+    if (String(id) !== '0') {
+      this.filteredSites = this.sites.filter(
+        site => String(site.region.id) === id
+      );
+    } else {
+      this.filteredSites = this.sites;
+    }
+  }
+
+  /**
+   * Charge les données d'affichege des sites
+   * ForkJoin sur la liste de tous les sites / la liste des regions et la traduction de l'ajout de "toute les regions"
    */
   private loadData(): void {
     forkJoin([
@@ -73,27 +84,13 @@ export class SiteListComponent implements OnInit {
           ).summary,
           detail: err.error.message,
         });
+        this.router.navigate([MainRoutingModule.HOME]);
       },
     });
   }
 
   /**
-   * Filtre les sites par rapport a leur region
-   * @param id de la region
-   */
-  public filterWithRegion(id: string): void {
-    if (String(id) !== '0') {
-      this.filteredSites = this.sites.filter(
-        site => String(site.region.id) === id
-      );
-    } else {
-      this.filteredSites = this.sites;
-    }
-  }
-
-  /**
    * Ajoute une region generique qui permet de selectioner tous les site de toutes les regions
-   * @private
    */
   private addGenericRegion(): void {
     const genericRegions: RegionDto = {
@@ -105,7 +102,6 @@ export class SiteListComponent implements OnInit {
 
   /**
    * Surveille les changement de langue et modifie le nom de la region generique
-   * @private
    */
   private watchLanguageChange(): void {
     this.languageService.change.subscribe((event: DefaultLangChangeEvent) => {
@@ -118,5 +114,9 @@ export class SiteListComponent implements OnInit {
   private removeGenericRegion(): void {
     const index = this.regions.findIndex(region => region.id === 0);
     this.regions.splice(index, 1);
+  }
+
+  public ngOnDestroy(): void {
+    this.languageService.change.unsubscribe();
   }
 }

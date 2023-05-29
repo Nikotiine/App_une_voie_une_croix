@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouteService } from '../../../core/api/services/route.service';
-
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../route-routing.module';
 import { RouteViewDto } from '../../../core/api/models/route-view-dto';
@@ -32,15 +31,15 @@ export class RouteViewComponent implements OnInit {
   ) {
     this.isAdmin = this.userProfileService.isAdmin();
   }
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const id: number = parseInt(this.activatedRoute.snapshot.params['id']);
     this.loadRoute(id);
   }
 
   /**
    * Charge la voie avec son id en param
-   * @param id
-   * @private
+   * @param id number, id de la voie
+   *
    */
   private loadRoute(id: number): void {
     this.routeService

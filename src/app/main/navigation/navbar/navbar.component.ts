@@ -181,13 +181,6 @@ export class NavbarComponent implements OnInit {
         this.languageService.switchLanguage();
         this.initLabel();
       },
-      reject: () => {
-        this.messageService.add({
-          severity: ToastConfig.TYPE_WARNING,
-          summary: ToastConfig.ADMIN_SUMMARY,
-          detail: ToastConfig.CANCEL,
-        });
-      },
     });
   }
 

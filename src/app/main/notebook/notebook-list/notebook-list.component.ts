@@ -14,10 +14,10 @@ import { LanguageService } from '../../../core/app/services/language.service';
 })
 export class NotebookListComponent implements OnInit {
   @Input() fullView: boolean = true;
+  public readonly ICON = Icons;
   public notebooks: NotebookViewDto[] = [];
   public loading: boolean = true;
   public sidebarVisible: boolean = false;
-  public readonly ICON = Icons;
   public notebookId: number = 0;
 
   constructor(
@@ -28,21 +28,20 @@ export class NotebookListComponent implements OnInit {
     private readonly languageService: LanguageService
   ) {}
   ngOnInit(): void {
-    this.loadData();
+    this.loadNotebooks();
   }
 
   /**
    * Charge les croix de l'utilisateur
-   * @private
    */
-  private loadData(): void {
+  private loadNotebooks(): void {
     this.notebookService
       .notebookControllerGetNotebooks({
         id: this.userProfileService.getUserProfile().id,
       })
       .subscribe({
-        next: data => {
-          this.notebooks = data;
+        next: notebooks => {
+          this.notebooks = notebooks;
           this.loading = false;
         },
         error: err => {
@@ -96,7 +95,7 @@ export class NotebookListComponent implements OnInit {
                   ).unCheckedRoute,
                 });
                 this.loading = true;
-                this.loadData();
+                this.loadNotebooks();
               } else {
                 this.messageService.add({
                   severity: ToastConfig.TYPE_ERROR,
@@ -108,15 +107,6 @@ export class NotebookListComponent implements OnInit {
               }
             },
           });
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: ToastConfig.TYPE_WARNING,
-          summary: this.languageService.toastTranslate(
-            LanguageService.KEY_TOAST_NOTEBOOK
-          ).summary,
-          detail: this.languageService.toastTranslate('cancelAction'),
-        });
       },
     });
   }

@@ -36,12 +36,10 @@ export class RouteFormComponent implements OnInit {
   public equipments: EquipmentDto[] = [];
   public levels: LevelDto[] = [];
   public routeProfiles: RouteProfileDto[] = [];
-  private rockType: RockTypeDto = null;
-  //******************ICONS*********************
   public readonly ICON = Icons;
-  //******************************************
   public form: FormGroup;
   public showForm: boolean = false;
+  private rockType: RockTypeDto = null;
   private readonly routeId: string | undefined = '';
   public effortTypes = [
     {
@@ -90,35 +88,6 @@ export class RouteFormComponent implements OnInit {
   }
 
   /**
-   * Charge la liste des tous les sites disponibles en bdd
-   * @private
-   */
-  private loadData(): void {
-    forkJoin([
-      this.routeService.routeControllerGetSites(),
-      this.commonService.commonControllerGetDataForRoute(),
-    ]).subscribe({
-      next: data => {
-        this.sites = data[0];
-        this.expositions = data[1].expositions;
-        this.routeProfiles = data[1].routeProfiles;
-        this.levels = data[1].levels;
-        this.equipments = data[1].equipments;
-        this.engagements = data[1].engagements;
-      },
-      error: err => {
-        this.messageService.add({
-          severity: ToastConfig.TYPE_ERROR,
-          summary: this.languageService.toastTranslate(
-            LanguageService.KEY_TOAST_ROUTE
-          ).summary,
-          detail: err.error.message,
-        });
-      },
-    });
-  }
-
-  /**
    * Charges les secteurs du site selectioner ainsi que ses informations
    * @param id du site
    */
@@ -163,12 +132,12 @@ export class RouteFormComponent implements OnInit {
       name: this.form.controls['name'].value,
       height: this.form.controls['height'].value,
       quickdraw: this.form.controls['quickdraw'].value,
-      equipment: this.equipment,
-      engagement: this.engagement,
-      level: this.level,
-      sector: this.secteur,
-      exposition: this.exposition,
-      routeProfile: this.routeProfile,
+      equipment: this.getEquipment(),
+      engagement: this.getEngagement(),
+      level: this.getLevel(),
+      sector: this.getSector(),
+      exposition: this.getExposition(),
+      routeProfile: this.getRouteProfile(),
       rockType: this.rockType,
       author: this.userProfileService.getUserProfile(),
       commentary: this.form.controls['commentary'].value,
@@ -185,7 +154,6 @@ export class RouteFormComponent implements OnInit {
   /**
    * Si on edite la voie ,charge ses parametre avec son id
    * @param id de la voie
-   * @private
    */
   private loadRoute(id: number): void {
     this.routeService
@@ -218,6 +186,34 @@ export class RouteFormComponent implements OnInit {
       });
   }
 
+  /**
+   * Charge la liste des tous les sites disponibles en bdd
+   */
+  private loadData(): void {
+    forkJoin([
+      this.routeService.routeControllerGetSites(),
+      this.commonService.commonControllerGetDataForRoute(),
+    ]).subscribe({
+      next: data => {
+        this.sites = data[0];
+        this.expositions = data[1].expositions;
+        this.routeProfiles = data[1].routeProfiles;
+        this.levels = data[1].levels;
+        this.equipments = data[1].equipments;
+        this.engagements = data[1].engagements;
+      },
+      error: err => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_ERROR,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_ROUTE
+          ).summary,
+          detail: err.error.message,
+        });
+      },
+    });
+  }
+
   private createNewRoute(route: RouteCreateDto): void {
     this.routeService
       .routeControllerCreateRoute({
@@ -235,7 +231,7 @@ export class RouteFormComponent implements OnInit {
                 LanguageService.KEY_TOAST_ROUTE
               ).create +
               ' ' +
-              this.site.name,
+              this.getSite().name,
           });
           return this.router.navigate([RouteRoutingModule.ROUTE_LIST]);
         },
@@ -251,10 +247,9 @@ export class RouteFormComponent implements OnInit {
       });
   }
 
-  /**
+  /** Mise a jour d'une voie existante
    *
-   * @param route
-   * @private
+   * @param route RouteCreateDto
    */
   private updateRoute(route: RouteCreateDto) {
     this.routeService
@@ -274,7 +269,7 @@ export class RouteFormComponent implements OnInit {
                 LanguageService.KEY_TOAST_ROUTE
               ).edit +
               ' ' +
-              this.site.name,
+              this.getSite().name,
           });
           return this.router.navigate([RouteRoutingModule.ROUTE_LIST]);
         },
@@ -289,38 +284,38 @@ export class RouteFormComponent implements OnInit {
         },
       });
   }
-  //*********************GETTERS******************************
-  get secteur(): SectorDto {
+
+  private getSector(): SectorDto {
     return this.secteurs.find(
       sector => sector.id === this.form.controls['sector'].value
     );
   }
-  get equipment(): EquipmentDto {
+  private getEquipment(): EquipmentDto {
     return this.equipments.find(
       equipment => equipment.id === this.form.controls['equipment'].value
     );
   }
-  get engagement(): EngagementDto {
+  private getEngagement(): EngagementDto {
     return this.engagements.find(
       engagement => engagement.id === this.form.controls['engagement'].value
     );
   }
-  get level(): LevelDto {
+  private getLevel(): LevelDto {
     return this.levels.find(
       level => level.id === this.form.controls['level'].value
     );
   }
-  get exposition(): ExpositionDto {
+  private getExposition(): ExpositionDto {
     return this.expositions.find(
       exposition => exposition.id === this.form.controls['exposition'].value
     );
   }
-  get routeProfile(): RouteProfileDto {
+  private getRouteProfile(): RouteProfileDto {
     return this.routeProfiles.find(
       route => route.id === this.form.controls['routeProfile'].value
     );
   }
-  get site(): SiteDto {
+  private getSite(): SiteDto {
     return this.sites.find(
       site => site.id === this.form.controls['site'].value
     );

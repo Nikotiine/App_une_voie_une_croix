@@ -30,6 +30,7 @@ import { LanguageService } from '../../../core/app/services/language.service';
   styleUrls: ['./site-form.component.scss'],
 })
 export class SiteFormComponent implements OnInit {
+  public readonly ICON = Icons;
   public form: FormGroup;
   public displayMap: boolean = false;
   public mapOptions: MapOptions;
@@ -41,6 +42,7 @@ export class SiteFormComponent implements OnInit {
   public isNew: boolean;
   public showMainParking: boolean = false;
   public showSecondaryParking: boolean = false;
+
   private readonly siteId: number;
 
   // ******** DropDown & MutliSelect ********
@@ -54,9 +56,6 @@ export class SiteFormComponent implements OnInit {
   public regions: RegionDto[] = [];
   public departments: DepartmentDataDto[] = [];
   public routeFoots: RouteFootDto[] = [];
-
-  // **************ICONS*************************
-  public readonly ICON = Icons;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -161,7 +160,7 @@ export class SiteFormComponent implements OnInit {
       expositions: this.form.controls['expositions'].value,
       rockType: this.form.controls['rockType'].value,
       routeProfiles: this.form.controls['routeProfiles'].value,
-      department: this.department,
+      department: this.getDataDepartment(),
       region: this.form.controls['region'].value,
       water: this.form.controls['water'].value,
       wc: this.form.controls['wc'].value,
@@ -169,7 +168,7 @@ export class SiteFormComponent implements OnInit {
       river: this.form.controls['river'].value,
       sectors: this.form.controls['sectorArray'].value,
       author: this.userProfileService.getUserProfile(),
-      routeFoot: this.routeFoot,
+      routeFoot: this.getRouteFoot(),
     };
     if (!this.displayP2) {
       site.secondaryParkingLat = site.mainParkingLat;
@@ -258,7 +257,6 @@ export class SiteFormComponent implements OnInit {
 
   /**
    * En cas d'edition du site , pre-rempli les champs avec les donnee deja presente
-   * @private
    */
   private loadSite(): void {
     this.siteService
@@ -319,7 +317,6 @@ export class SiteFormComponent implements OnInit {
   /**
    * Envoie la requete POST en cas de nouveau site
    * @param site SiteCreateDto
-   * @private
    */
   private createNewSite(site: SiteCreateDto): void {
     this.siteService
@@ -357,7 +354,6 @@ export class SiteFormComponent implements OnInit {
   /**
    * Envoie la requete PUT en cas d'edition d'un site
    * @param site SiteCreateDto
-   * @private
    */
   private editSite(site: SiteCreateDto): void {
     this.siteService
@@ -400,7 +396,7 @@ export class SiteFormComponent implements OnInit {
 
   // Initialise le marker de carte par rapport a la prefecture du departement choisi (lat/lng renseigner en bdd)
   public onChangeDepartment(): void {
-    this.initMarker(this.department.lat, this.department.lng);
+    this.initMarker(this.getDataDepartment().lat, this.getDataDepartment().lng);
   }
 
   /**
@@ -426,7 +422,6 @@ export class SiteFormComponent implements OnInit {
 
   /**
    * Quand le site est en edition, rempli le formArray avec les secteurs deja existants
-   * @private
    * @param sector SectorDto
    */
   private addExistingSector(sector: SectorDto): void {
@@ -439,14 +434,14 @@ export class SiteFormComponent implements OnInit {
   }
 
   // Renvoie l'objet DepartmentDataDto en fonction du departement choisi
-  get department(): DepartmentDataDto {
+  private getDataDepartment(): DepartmentDataDto {
     return this.departments.find(
       department => department.id === this.form.controls['department'].value
     );
   }
 
   // Renvoie l'objet RouteFootDto en fonction du type de pied de voie choisi
-  get routeFoot(): RouteFootDto {
+  private getRouteFoot(): RouteFootDto {
     return this.routeFoots.find(
       routeFoot => routeFoot.id === this.form.controls['routeFoot'].value
     );

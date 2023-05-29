@@ -56,10 +56,4 @@ export class AppNotebookService {
   public getRoutesRatings(): Observable<RatingRouteDto[]> {
     return this.notebookService.notebookControllerGetAllRatingsRoutes();
   }
-  public getRoutesRatingsBySite(id: number): Observable<RatingRouteDto[]> {
-    console.log('notebok');
-    return this.notebookService.notebookControllerGetAllRatingsRoutesBySite({
-      id: id,
-    });
-  }
 }

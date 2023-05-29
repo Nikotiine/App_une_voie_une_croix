@@ -64,7 +64,6 @@ export class NotebookFormComponent implements OnInit {
 
   /**
    * Charge les données des notebook ainsi que les traductions des toast et confirm dialog
-   * @private
    */
   private loadData(): void {
     forkJoin([
@@ -90,10 +89,10 @@ export class NotebookFormComponent implements OnInit {
   public submit(): void {
     const notebook: AppNotebook = {
       trials: this.form.controls['trials'].value,
-      route: this.route,
+      route: this.getRoute(),
       commentary: this.form.controls['commentary'].value,
       succeedAt: this.form.controls['succeedAt'].value,
-      achievementType: this.achievement,
+      achievementType: this.getAchievement(),
       ranking: this.form.controls['ranking'].value,
     };
     this.appNotebookService.newNotebook(notebook).subscribe({
@@ -121,12 +120,13 @@ export class NotebookFormComponent implements OnInit {
     });
   }
 
-  private get achievement(): AchievementType {
+  private getAchievement(): AchievementType {
     const achievement = this.achievementTypes.find(
       a => a.value === this.form.controls['achievement'].value
     );
     return achievement.name;
   }
+
   public onChangeSite(id: number): void {
     this.siteService
       .siteControllerGetSite({
@@ -148,7 +148,7 @@ export class NotebookFormComponent implements OnInit {
         },
       });
   }
-  private get route(): RouteListDto {
+  private getRoute(): RouteListDto {
     return this.routes.find(
       route => route.id === this.form.controls['routes'].value
     );
