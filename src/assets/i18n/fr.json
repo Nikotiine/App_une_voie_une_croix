@@ -1,5 +1,5 @@
 {
-  "siteTitle": "Une voie Une Croix",
+  "mainTitle": "Une voie Une Croix",
   "cancel": "Annuler",
   "validate": "Valider",
   "edit": "Editer",
@@ -12,19 +12,19 @@
     "addSite": "Ajouter un site",
     "routes": "Voies",
     "routesList": "Liste des voies",
-    "routeSearch": "Recherche une voie",
+    "routeSearch": "Rechercher une voie",
     "addRoute": "Ajouter une voie",
     "notebook": "Mon carnet",
     "notebookList": "Voir tout",
     "addNotebook": "Ajouter une croix",
     "confirmationMessage": "Changer la langue pour",
-    "confirmationHeader": "Service Langage"
+    "confirmationHeader": "Gestion des langues"
   },
   "auth": {
     "connexion": "Connexion",
     "notRegistered": "Pas encore de compte ?",
     "password": "Mot de passe",
-    "createAccount": "Creer un compte",
+    "createAccount": "Créer un compte",
     "loginPage": "Page de connexion"
 
   },
@@ -32,7 +32,7 @@
     "myAccount": "Mon compte",
     "email": "Email",
     "lastName": "Nom",
-    "firstName": "Prenom",
+    "firstName": "Prénom",
     "birthday": "Date de naissance",
     "contribution": "Mes contributions"
   },
@@ -40,7 +40,7 @@
     "title": "Administration",
     "users": "Utilisateurs",
     "memberSince": "Membre depuis",
-    "lastUpdate": "Mise a jour",
+    "lastUpdate": "Mise à jour",
     "author": "Auteur",
     "dashboard": "Panneau d'adminstration",
     "active": "Actif",
@@ -63,21 +63,20 @@
     "rating": "Note",
     "createdAt": "Date d'ajout",
     "checked": "Cochée",
-    "meter": "Metre",
+    "meter": "Mètre",
     "minute": "Minute",
-    "information": "Informations generales",
-    "backToList": "Retour a la liste",
+    "information": "Informations génerales",
+    "backToList": "Retour à la liste",
     "routes": "Voies",
     "climbingZone": "Site"
   },
   "homepage": {
-
     "memberRegistered": "Membres inscrits",
     "siteAvailable": "Sites disponibles",
     "lastFiveSites": "Les 5 derniers sites enregistrés",
     "routeAvailable": "Voies disponibles",
-    "lastFiveRoutes": "Les 5 dernieres voies enregistrées",
-    "lastFiveCheckedRoutes": "Les 5 dernieres voies cochées"
+    "lastFiveRoutes": "Les 5 dernières voies enregistrées",
+    "lastFiveCheckedRoutes": "Les 5 dernières voies cochées"
   },
   "site": {
     "titleSiteList": "Liste des sites",
@@ -86,8 +85,8 @@
     "name": "Nom du site",
     "averageRouteHeight": "Hauteur moyenne",
     "routeFoot": "Pied des voies",
-    "department": "Departement",
-    "region": "Region",
+    "department": "Département",
+    "region": "Région",
     "defineSitePark": "Definir le parking du site",
     "defineCamPark": "Definir le parking du camion",
     "carPark": "Parking",
@@ -95,8 +94,8 @@
     "longitude": "Longitude",
     "water": "Eau potable",
     "noWater": "Pas d'eau potable",
-    "network": "Reseau 4G",
-    "noNetwork": "Pas de reseau",
+    "network": "Réseau 4G",
+    "noNetwork": "Pas de réseau",
     "toilet": "Toilette",
     "noToilet": "Pas de toilette",
     "river": "Riviere ou lac",
@@ -104,12 +103,12 @@
     "minLevel": "Niveau mini",
     "maxLevel": "Niveau maxi",
     "averageRouteNumber": "Nombre de voies",
-    "sortByRegion": "Trier par region",
+    "sortByRegion": "Trier par région",
     "rockType": "Type de rocher",
-    "chooseRegion": "Choisir la region",
-    "chooseDepartment": "Choisir le departement",
+    "chooseRegion": "Choisir la région",
+    "chooseDepartment": "Choisir le département",
     "validLocation": "Valider la localisation",
-    "genericRegions": "Toutes les regions",
+    "genericRegions": "Toutes les régions",
     "totalSector": "Nombre de secteurs",
     "carParkForNight": "Parking camion",
     "noRouteRegistered": "Aucune voie enregistrée"
@@ -121,7 +120,7 @@
     "name": "Nom de la voie",
     "level": "Niveau",
     "routeHeight": "Hauteur",
-    "quickdraw": "Nombre de degaines",
+    "quickdraw": "Nombre de dégaines",
     "effortType": "Type d'effort",
     "sortBySite": "Trier par site",
     "chooseSite": "Choisir un site",
@@ -134,7 +133,7 @@
     "titleNotebookView": "Detail de la croix",
     "achievementType": "Realisé",
     "trialsNumber": "Nombre d'essais",
-    "trial": "essai",
+    "trial": "Essai",
 
     "chooseRoute": "Choisir la voie",
     "summary": "Mon carnet",
@@ -144,24 +143,23 @@
     "homepage": {
       "summary": "Page d'accueil"
     },
-
     "notebook": {
       "summary": "Gestion du carnet",
       "create": "Croix enregistrée bravo",
       "unCheck": "Decocher",
-      "unCheckRoute": "Decocher la voie ?",
-      "unCheckedRoute": "Voie decoché",
-      "alreadyChecked": "Voie deja cochée"
+      "unCheckRoute": "Décocher la voie ?",
+      "unCheckedRoute": "Voie decochée",
+      "alreadyChecked": "Voie déjà cochée"
     },
     "site": {
       "summary": "Gestion des sites",
       "create": "Nouveau site enregistré",
-      "edit": "Site mis a jour"
+      "edit": "Site mis à jour"
     },
     "route": {
       "summary": "Gestion des voies",
       "create": "Nouvelle voie enregistré",
-      "edit": "Voie mis a jour"
+      "edit": "Voie mise à jour"
     },
     "cancelAction": "Action annulée",
     "deleteError": "Suppression impossible"

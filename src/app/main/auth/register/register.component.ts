@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../core/api/services/user.service';
 import { AuthRoutingModule } from '../auth-routing.module';
 import { ToastConfig } from '../../../core/app/config/toast.config';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class RegisterComponent {
     private readonly fb: FormBuilder,
     private readonly userService: UserService,
     private readonly messageService: MessageService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly languageService: LanguageService
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],

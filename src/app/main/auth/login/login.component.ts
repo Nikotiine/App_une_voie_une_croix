@@ -53,8 +53,8 @@ export class LoginComponent {
         })
       )
       .subscribe({
-        next: data => {
-          this.userProfileService.setUserProfile(data);
+        next: userProfile => {
+          this.userProfileService.setUserProfile(userProfile);
           return this.router.navigate([MainRoutingModule.HOME]);
         },
         error: err => {
