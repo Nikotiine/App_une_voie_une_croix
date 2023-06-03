@@ -146,7 +146,7 @@
     "notebook": {
       "summary": "Gestion du carnet",
       "create": "Croix enregistrée bravo",
-      "unCheck": "Decocher",
+      "unCheck": "Décocher",
       "unCheckRoute": "Décocher la voie ?",
       "unCheckedRoute": "Voie decochée",
       "alreadyChecked": "Voie déjà cochée"

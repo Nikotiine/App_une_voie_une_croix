@@ -65,7 +65,7 @@ export class LanguageService {
     this.initLabel();
     this.useLanguage();
   }
-  get language(): string {
+  private getUserlanguage(): string {
     return this.userLanguage;
   }
 
@@ -73,7 +73,8 @@ export class LanguageService {
    * Permet de switcher entre les 2 langues supporté
    */
   public switchLanguage(): void {
-    const language = this.language === this.keyFr ? this.keyEn : this.keyFr;
+    const language =
+      this.getUserlanguage() === this.keyFr ? this.keyEn : this.keyFr;
     this.setLanguage(language);
     this.initLabel();
   }
