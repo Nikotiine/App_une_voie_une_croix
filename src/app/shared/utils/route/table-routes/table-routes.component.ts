@@ -69,7 +69,6 @@ export class TableRoutesComponent implements OnInit {
 
   /**
    * Si l'utilsateur est connecter , charge ses croix et affiche ou non le status checked a la voie
-   * @private
    */
   private loadMyNoteBook(): void {
     this.appNotebookService.getMyNotebook().subscribe({
@@ -92,7 +91,6 @@ export class TableRoutesComponent implements OnInit {
   /**
    * Charge toutes les note disponible en bdd
    * un fois fais , creer les view models
-   * @private
    */
   private loadRating(): void {
     this.appNotebookService.getRoutesRatings().subscribe({
@@ -118,7 +116,6 @@ export class TableRoutesComponent implements OnInit {
   /**
    * Transforme le model de RouteListDto en RouteViewModel
    * Ajoute les champs de notation et le status coche ou non de la voie
-   * @private
    */
   private makeRouteViewModels(): void {
     this.routesVM = this.routes.map(route => {
@@ -134,7 +131,6 @@ export class TableRoutesComponent implements OnInit {
    * Fait la moyenne des voie par rapport au note attribue lors des coches.
    * la moyenne est toujours arrondi a un chiffre entier
    * @param id
-   * @private
    */
   private setRatingForRoute(id: number): number {
     let rating: number = 0;

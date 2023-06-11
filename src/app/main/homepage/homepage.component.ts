@@ -8,6 +8,7 @@ import { SiteListDto } from '../../core/api/models/site-list-dto';
 import { RouteListDto } from '../../core/api/models/route-list-dto';
 import { TableSiteOptions } from '../../core/app/models/TableOptions.model';
 import { LanguageService } from '../../core/app/services/language.service';
+import { AppMessageService } from '../../core/app/services/app-message.service';
 
 @Component({
   selector: 'app-homepage',
@@ -26,7 +27,8 @@ export class HomepageComponent implements OnInit {
   constructor(
     private readonly publicService: PublicService,
     private readonly messageService: MessageService,
-    private readonly languageService: LanguageService
+    private readonly languageService: LanguageService,
+    private readonly appMessage: AppMessageService
   ) {
     this.sitesOptions = {
       loading: true,
@@ -52,6 +54,7 @@ export class HomepageComponent implements OnInit {
         this.totalUsers = data.totalUsers;
         this.loaded = !this.loaded;
         this.sitesOptions.loading = false;
+        this.appMessage.addSuccess('test', 'rtde');
       },
       error: err => {
         this.messageService.add({

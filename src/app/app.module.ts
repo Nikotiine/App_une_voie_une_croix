@@ -11,6 +11,7 @@ import { UtilsModule } from './shared/utils/utils.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppMessageService } from './core/app/services/app-message.service';
 
 @NgModule({
   declarations: [AppComponent],

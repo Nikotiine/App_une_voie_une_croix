@@ -13,6 +13,7 @@ import { ChartModule } from 'primeng/chart';
 import { CarouselModule } from 'primeng/carousel';
 import { TranslateModule } from '@ngx-translate/core';
 import { UtilsModule } from '../shared/utils/utils.module';
+import { AppMessageService } from '../core/app/services/app-message.service';
 
 @NgModule({
   declarations: [LayoutComponent, HomepageComponent],
@@ -27,7 +28,7 @@ import { UtilsModule } from '../shared/utils/utils.module';
     TranslateModule,
     UtilsModule,
   ],
-  providers: [MessageService, UserResolver],
+  providers: [UserResolver],
   exports: [HomepageComponent],
 })
 export class MainModule {}
