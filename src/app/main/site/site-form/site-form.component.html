@@ -1,5 +1,5 @@
 <p-dialog
-  header="{{ dialogMapHeader }}"
+  header="{{ 'site.carPark' | translate }}"
   [(visible)]="displayMap"
   *ngIf="displayMap">
   <app-map
@@ -9,18 +9,24 @@
     <button
       pButton
       type="button"
-      label="Valider localisation"
+      label="{{ 'site.validLocation' | translate }}"
       class="p-button-icon mt-2"
       (click)="validate(selectedParking)"></button>
   </ng-template>
 </p-dialog>
-<h1 class="has-text-centered title mt-5">{{ title }}</h1>
+<h1 class="has-text-centered title mt-5">
+  {{
+    isNew
+      ? ('site.titleSiteFormEdit' | translate)
+      : ('site.titleSiteFormAdd' | translate)
+  }}
+</h1>
 <form [formGroup]="form">
   <div class="form-register">
     <div class="input-label">
       <label for="lastName" class="label">
         <span class="has-text-info">
-          <i class="{{ iconSite }} mr-1"></i>Nom du site :
+          <i class="{{ ICON.SITE }} mr-1"></i>{{ 'site.name' | translate }}
         </span></label
       >
       <span class="p-input-icon-left">
@@ -33,53 +39,61 @@
       <div class="input-label">
         <label for="exposition" class="label">
           <span class="has-text-info">
-            <i class="{{ iconExposition }} mr-1"></i>Exposition :
+            <i class="{{ ICON.EXPOSITION }} mr-1"></i>
+            {{ 'common.exposition' | translate }}
           </span>
         </label>
         <p-multiSelect
           [options]="expositions"
           optionLabel="label"
-          placeholder="-- Expositions -- "
+          id="exposition"
+          placeholder="-- {{ 'common.exposition' | translate }} -- "
           formControlName="expositions"
           inputId="exposition"></p-multiSelect>
       </div>
       <div class="input-label">
         <label for="routeProfiles" class="label">
           <span class="has-text-info">
-            <i class="{{ iconRoute }} mr-1"></i>Type de voies :
+            <i class="{{ ICON.ROUTE }} mr-1"></i
+            >{{ 'common.routeProfile' | translate }}
           </span>
         </label>
         <p-multiSelect
           [options]="routeProfiles"
           optionLabel="label"
-          placeholder="-- Type de voies -- "
+          id="routeProfiles"
+          placeholder="-- {{ 'common.routeProfile' | translate }} -- "
           formControlName="routeProfiles"
           inputId="routeProfiles"></p-multiSelect>
       </div>
       <div class="input-label">
         <label for="minLevel" class="label">
           <span class="has-text-info">
-            <i class="{{ iconMinLevel }} mr-1"></i> Niveau mini :
+            <i class="{{ ICON.MIN_LEVEL }} mr-1"></i>
+            {{ 'site.minLevel' | translate }}
           </span>
         </label>
         <p-dropdown
           [options]="levels"
           optionLabel="label"
-          placeholder="-- Niveau mini -- "
+          id="minLevel"
+          placeholder="-- {{ 'site.minLevel' | translate }} -- "
           formControlName="minLevel"
           inputId="minLevel"></p-dropdown>
       </div>
       <div class="input-label">
         <label for="maxLevel" class="label">
           <span class="has-text-info">
-            <i class="{{ iconMaxLevel }} mr-1"></i> Niveau maxi :
+            <i class="{{ ICON.MAX_LEVEL }} mr-1"></i>
+            {{ 'site.maxLevel' | translate }}
           </span>
         </label>
         <p-dropdown
           [options]="levels"
           optionLabel="label"
+          id="maxLevel"
           formControlName="maxLevel"
-          placeholder="-- Niveau maxi --"
+          placeholder="-- {{ 'site.maxLevel' | translate }} --"
           inputId="maxLevel"></p-dropdown>
       </div>
     </div>
@@ -87,60 +101,85 @@
     <div class="input-label">
       <label for="rockType" class="label">
         <span class="has-text-info">
-          <i class="{{ iconRockType }} mr-1"></i> Type de rocher :
+          <i class="{{ ICON.ROCK_TYPE }} mr-1"></i>
+          {{ 'site.rockType' | translate }}
         </span>
       </label>
       <p-dropdown
         [options]="rockTypes"
         optionLabel="label"
-        placeholder="-- Type de rocher -- "
+        id="rockType"
+        placeholder="-- {{ 'site.rockType' | translate }} -- "
         formControlName="rockType"
         inputId="rockType"></p-dropdown>
     </div>
     <div class="input-label">
       <label for="equipments" class="label">
         <span class="has-text-info">
-          <i class="{{ iconEquipment }} mr-1"></i> Equipement :
+          <i class="{{ ICON.EQUIPMENT }} mr-1"></i>
+          {{ 'common.equipment' | translate }}
         </span>
       </label>
       <p-dropdown
         [options]="equipments"
         optionLabel="label"
+        id="equipments"
         formControlName="equipment"
-        placeholder="-- Equipement --"
+        placeholder="-- {{ 'common.equipment' | translate }} --"
         inputId="equipments"></p-dropdown>
     </div>
     <div class="input-label">
       <label for="engagements" class="label"
         ><span class="has-text-info">
-          <i class="{{ iconEngagement }} mr-1"></i> Engagement :
+          <i class="{{ ICON.ENGAGEMENT }} mr-1"></i>
+          {{ 'common.engagement' | translate }}
         </span>
       </label>
       <p-dropdown
         [options]="engagements"
         optionLabel="label"
+        id="engagements"
         formControlName="engagement"
-        placeholder="-- Engagement --"
+        placeholder="-- {{ 'common.engagement' | translate }} --"
         inputId="engagements"></p-dropdown>
     </div>
     <div class="input-label">
       <label for="approachTypes" class="label"
         ><span class="has-text-info">
-          <i class="{{ iconApproachType }} mr-1"></i>Type d'approche :
+          <i class="{{ ICON.APPROACH_TYPE }} mr-1"></i
+          >{{ 'common.approachType' | translate }}
         </span>
       </label>
       <p-dropdown
         [options]="approachTypes"
         optionLabel="label"
+        id="approachTypes"
         formControlName="approachType"
-        placeholder="-- Approche --"
+        placeholder="-- {{ 'common.approachType' | translate }} --"
         inputId="approachTypes"></p-dropdown>
+    </div>
+    <div class="input-label">
+      <label for="routeFoots" class="label"
+        ><span class="has-text-info">
+          <i class="{{ ICON.ROUTE_FOOT }} mr-1"></i
+          >{{ 'site.routeFoot' | translate }}
+        </span>
+      </label>
+      <p-dropdown
+        [options]="routeFoots"
+        optionLabel="label"
+        id="routeFoots"
+        formControlName="routeFoot"
+        optionValue="id"
+        placeholder="-- {{ 'site.routeFoot' | translate }} --"
+        inputId="routeFoots"></p-dropdown>
     </div>
     <div class="wrapper-input">
       <div class="input-label">
         <label for="averageRouteNumber" class="label">
           <span class="has-text-info">
-            <i class="{{ iconRouteNumber }} mr-1"></i>Nombre de voies :
+            <i class="{{ ICON.ROUTE_NUMBER }} mr-1"></i
+            >{{ 'site.averageRouteNumber' | translate }}
           </span>
         </label>
 
@@ -154,7 +193,8 @@
       <div class="input-label">
         <label for="approachTime" class="label"
           ><span class="has-text-info">
-            <i class="{{ iconApproachTime }} mr-1"></i>Temps d'approche :
+            <i class="{{ ICON.APPROACH_TIME }} mr-1"></i>
+            {{ 'common.approachTime' | translate }}
           </span>
         </label>
 
@@ -162,7 +202,7 @@
           id="approachTime"
           [showButtons]="true"
           [step]="5"
-          suffix=" minute"
+          suffix="  {{ 'common.minute' | translate }}"
           formControlName="approachTime"></p-inputNumber>
       </div>
     </div>
@@ -170,14 +210,16 @@
     <div class="input-label">
       <label for="averageRouteHeight" class="label"
         ><span class="has-text-info">
-          <i class="{{ iconRouteHeight }} mr-1"></i>Hauteur moyenne des voies :
+          <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>
+          {{ 'site.averageRouteHeight' | translate }}
+          :
         </span></label
       >
       <p-inputNumber
         id="averageRouteHeight"
         [showButtons]="true"
         [step]="10"
-        suffix=" mètres"
+        suffix=" {{ 'common.meter' | translate }}"
         formControlName="averageRouteHeight"></p-inputNumber>
     </div>
     <fieldset>
@@ -185,7 +227,8 @@
       <div class="input-label">
         <label for="region" class="label"
           ><span class="has-text-info">
-            <i class="{{ iconRegion }} mr-1"></i>Région :
+            <i class="{{ ICON.REGION }} mr-1"></i
+            >{{ 'site.region' | translate }}
           </span></label
         >
         <p-dropdown
@@ -193,13 +236,14 @@
           optionLabel="name"
           (onChange)="onChangeRegion($event)"
           formControlName="region"
-          placeholder="-- Choisir la region -- "
+          placeholder="-- {{ 'site.chooseRegion' | translate }} -- "
           id="region"></p-dropdown>
       </div>
       <div class="input-label">
         <label for="department" class="label"
           ><span class="has-text-info">
-            <i class="{{ iconDepartment }} mr-1"></i>Département :
+            <i class="{{ ICON.DEPARTMENT }} mr-1"></i>
+            {{ 'site.department' | translate }}
           </span></label
         >
         <p-dropdown
@@ -207,8 +251,9 @@
           optionLabel="name"
           formControlName="department"
           (onChange)="onChangeDepartment()"
-          placeholder="-- Choisir le département -- "
+          placeholder="-- {{ 'site.chooseDepartment' | translate }} -- "
           optionValue="id"
+          id="department"
           inputId="department"></p-dropdown>
       </div>
       <div class="wrapper-localisation">
@@ -216,18 +261,20 @@
           *ngIf="showMainParking"
           pButton
           type="button"
-          label="Définir le {{ dialogMapHeader }} du site"
+          label="{{ 'site.defineSitePark' | translate }}"
           icon="pi pi-search"
           iconPos="right"
           (click)="chooseLocalisation(1)"
           class="p-button p-button-outlined"></button>
         <p *ngIf="coordinateP1.length > 0 && displayP1">
           <span
-            ><span class="has-text-info">Latitude: </span
+            ><span class="has-text-info"
+              >{{ 'site.latitude' | translate }} </span
             >{{ coordinateP1[0] | number }}</span
           >
           <span
-            ><span class="has-text-info">Longitude: </span
+            ><span class="has-text-info"
+              >{{ 'site.longitude' | translate }} </span
             >{{ coordinateP1[1] | number }}
           </span>
         </p>
@@ -238,21 +285,25 @@
           <div class="switch-label label">
             <label for="water"
               ><span class="has-text-info">
-                <i class="{{ iconWater }} mr-1"></i>Eau potable :
+                <i class="{{ ICON.WATER }} mr-1"></i
+                >{{ 'site.water' | translate }}
               </span></label
             >
             <p-inputSwitch
               formControlName="water"
+              id="water"
               inputId="water"></p-inputSwitch>
           </div>
           <div class="switch-label label">
             <label for="network"
               ><span class="has-text-info ml-3">
-                <i class="{{ iconNetwork }} mr-1"></i>Réseau 4G :
+                <i class="{{ ICON.NETWORK }} mr-1"></i
+                >{{ 'site.network' | translate }}
               </span></label
             >
             <p-inputSwitch
               formControlName="network"
+              id="network"
               inputId="network"></p-inputSwitch>
           </div>
         </div>
@@ -262,19 +313,25 @@
           <div class="switch-label label">
             <label for="wc"
               ><span class="has-text-info">
-                <i class="{{ iconWc }} mr-1"></i>Toilettes :
+                <i class="{{ ICON.WC }} mr-1"></i
+                >{{ 'site.toilet' | translate }}
               </span></label
             >
-            <p-inputSwitch formControlName="wc" inputId="wc"></p-inputSwitch>
+            <p-inputSwitch
+              formControlName="wc"
+              inputId="wc"
+              id="wc"></p-inputSwitch>
           </div>
           <div class="switch-label label">
             <label for="river"
               ><span class="has-text-info ml-3">
-                <i class="{{ iconRiver }} mr-1"></i>Eau à proximité :
+                <i class="{{ ICON.RIVER }} mr-1"></i
+                >{{ 'site.river' | translate }}
               </span></label
             >
             <p-inputSwitch
               formControlName="river"
+              id="river"
               inputId="river"></p-inputSwitch>
           </div>
         </div>
@@ -284,28 +341,30 @@
           pButton
           *ngIf="showSecondaryParking"
           type="button"
-          label="Définir le {{ dialogMapHeader }} pour la nuit"
+          label="{{ 'site.defineCamPark' | translate }}"
           icon="pi pi-search"
           iconPos="right"
           (click)="chooseLocalisation(2)"
           class="p-button p-button-outlined"></button>
         <p *ngIf="coordinateP2.length > 0 && displayP2">
-          <span class="has-text-info">Latitude: </span
+          <span class="has-text-info">{{ 'site.latitude' | translate }} </span
           >{{ coordinateP2[0] | number }}
-          <span class="has-text-info">Longitude: </span
+          <span class="has-text-info">{{ 'site.longitude' | translate }} </span
           >{{ coordinateP2[1] | number }}
         </p>
       </div>
     </fieldset>
     <div class="is-flex is-flex-direction-column w-100 mt-2">
-      <h3 class="subtitle has-text-black has-text-centered mb-1">Secteurs</h3>
+      <h3 class="subtitle has-text-black has-text-centered mb-1">
+        {{ 'common.sectors' | translate }}
+      </h3>
       <ng-container formArrayName="sectorArray">
         <div
           class="input-label"
           *ngFor="let sector of sectorArray.controls; let i = index"
           [formGroupName]="i">
           <label for="secteur-{{ i }}" class="has-text-info label"
-            >Secteur n°{{ i + 1 }}
+            >{{ 'common.sector' | translate }} n°{{ i + 1 }}
           </label>
           <div class="wrapper-sector">
             <input
@@ -338,13 +397,13 @@
       <button
         pButton
         type="button"
-        label="Annuler"
+        label="{{ 'cancel' | translate }}"
         class="p-button-secondary p-button-outlined"
         [routerLink]="['']"></button>
       <button
         pButton
         type="submit"
-        label="Valider"
+        label="{{ 'validate' | translate }}"
         (click)="submit()"
         [disabled]="formIsInvalid()"
         class="p-button p-button-outlined"></button>

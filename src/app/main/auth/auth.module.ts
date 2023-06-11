@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CalendarModule,
     ButtonModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
 })
 export class AuthModule {}

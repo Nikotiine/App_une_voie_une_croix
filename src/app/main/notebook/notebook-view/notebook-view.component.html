@@ -1,0 +1,83 @@
+<h2 class="has-text-centered title">
+  {{ 'notebook.titleNotebookView' | translate }}
+</h2>
+<div class="is-flex is-flex-direction-column" *ngIf="notebook">
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.ROUTE }} mr-1"></i>{{ 'route.name' | translate }}:
+    </span>
+    {{ notebook.route.name }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.SITE }} mr-1"></i>{{ 'site.name' | translate }} -
+      {{ 'common.sector' | translate }}:
+    </span>
+    {{ notebook.route.sector.site.name }} - {{ notebook.route.sector.name }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.LEVEL }} mr-1"></i>{{ 'route.level' | translate }} :
+    </span>
+    {{ notebook.route.level.label }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.CHECK }} mr-1"></i>
+      {{ 'notebook.achievementType' | translate }} :
+    </span>
+    {{ notebook.achievementType }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.TRIALS }} mr-1"></i
+      >{{ 'notebook.trialsNumber' | translate }} :
+    </span>
+    {{ notebook.trials }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.CALENDAR }} mr-1"></i>
+      {{ 'common.createdAt' | translate }} :
+    </span>
+    {{ notebook.succeedAt | date : 'dd/MM/yyyy' }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.ROUTE_HEIGHT }} mr-1"></i>
+      {{ 'route.level' | translate }} :
+    </span>
+    {{ notebook.route.height }} {{ 'common.meter' | translate }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.ENGAGEMENT }} mr-1"></i>
+      {{ 'common.engagement' | translate }} :
+    </span>
+    {{ notebook.route.engagement.label }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.QUICK_DRAW }} mr-1"></i>
+      {{ 'route.quickdraw' | translate }} :
+    </span>
+    {{ notebook.route.quickdraw }}
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.RATING }} mr-1"></i> {{ 'common.rating' | translate }} :
+    </span>
+    <p-rating
+      [(ngModel)]="notebook.ranking"
+      [readonly]="true"
+      [stars]="3"
+      [cancel]="false"></p-rating>
+  </p>
+  <p class="subtitle">
+    <span class="has-text-info">
+      <i class="{{ ICON.COMMENTARY }} mr-1"></i>
+      {{ 'common.commentary' | translate }} :
+    </span>
+    {{ notebook.commentary }}
+  </p>
+</div>

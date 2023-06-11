@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { SiteService } from '../../../core/api/services/site.service';
 import { MessageService } from 'primeng/api';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { MapOptions } from '../../../core/app/models/MapOptions';
-
 import { DepartmentService } from '../../../core/api/services/department.service';
-
 import { SiteCreateDto } from '../../../core/api/models/site-create-dto';
-
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { SiteRoutingModule } from '../site-routing.module';
 import { Icons } from '../../../core/app/enum/Icons.enum';
@@ -22,11 +17,12 @@ import { LevelDto } from '../../../core/api/models/level-dto';
 import { RockTypeDto } from '../../../core/api/models/rock-type-dto';
 import { RouteProfileDto } from '../../../core/api/models/route-profile-dto';
 import { RegionDto } from '../../../core/api/models/region-dto';
-
 import { CommonService } from '../../../core/api/services/common.service';
-import { SecteurDto } from '../../../core/api/models/secteur-dto';
 import { DepartmentDataDto } from '../../../core/api/models/department-data-dto';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
+import { RouteFootDto } from '../../../core/api/models/route-foot-dto';
+import { SectorDto } from '../../../core/api/models/sector-dto';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-site-form',
@@ -34,11 +30,21 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
   styleUrls: ['./site-form.component.scss'],
 })
 export class SiteFormComponent implements OnInit {
+  public readonly ICON = Icons;
   public form: FormGroup;
-  public dialogMapHeader: string = 'Parking';
-  public titleEdit: string = 'Edition du site';
-  public titleCreate: string = "Ajout d'un site";
   public displayMap: boolean = false;
+  public mapOptions: MapOptions;
+  public coordinateP1: number[] = [];
+  public coordinateP2: number[] = [];
+  public selectedParking: number = 0;
+  public displayP1: boolean = false;
+  public displayP2: boolean = false;
+  public isNew: boolean;
+  public showMainParking: boolean = false;
+  public showSecondaryParking: boolean = false;
+
+  private readonly siteId: number;
+
   // ******** DropDown & MutliSelect ********
   public expositions: ExpositionDto[] = [];
   public approachTypes: ApproachTypeDto[] = [];
@@ -49,47 +55,18 @@ export class SiteFormComponent implements OnInit {
   public routeProfiles: RouteProfileDto[] = [];
   public regions: RegionDto[] = [];
   public departments: DepartmentDataDto[] = [];
+  public routeFoots: RouteFootDto[] = [];
 
-  // ******** DropDown & MutliSelect ********
-  public mapOptions: MapOptions;
-  public coordinateP1: number[] = [];
-  public coordinateP2: number[] = [];
-  public selectedParking: number = 0;
-  public displayP1: boolean = false;
-  public displayP2: boolean = false;
-  public title: string;
-  public showMainParking: boolean = false;
-  public showSecondaryParking: boolean = false;
-  private readonly siteId: number;
-  // **************ICONS*************************
-  public iconRoute: string = Icons.ROUTE;
-  public iconRouteNumber: string = Icons.ROUTE_NUMBER;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconExposition: string = Icons.EXPOSITION;
-  public iconRockType: string = Icons.ROCK_TYPE;
-  public iconMinLevel: string = Icons.MIN_LEVEL;
-  public iconMaxLevel: string = Icons.MAX_LEVEL;
-  public iconEquipment: string = Icons.EQUIPMENT;
-  public iconEngagement: string = Icons.ENGAGMENT;
-  public iconApproachTime: string = Icons.APPROACH_TIME;
-  public iconApproachType: string = Icons.APPROACH_TYPE;
-  public iconRegion: string = Icons.REGION;
-  public iconDepartment: string = Icons.DEPARTMENT;
-  public iconWater: string = Icons.WATER;
-  public iconNetwork: string = Icons.NETWORK;
-  public iconRiver: string = Icons.RIVER;
-  public iconWc: string = Icons.WC;
-  public iconSite: string = Icons.SITE;
-  // **************ICONS*************************
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private readonly siteService: SiteService,
     private readonly commonService: CommonService,
     private readonly messageService: MessageService,
     private readonly departmentService: DepartmentService,
     private readonly userProfileService: UserProfileService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router,
+    private readonly languageService: LanguageService
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -106,6 +83,7 @@ export class SiteFormComponent implements OnInit {
       rockType: ['', Validators.required],
       region: ['', Validators.required],
       department: ['', Validators.required],
+      routeFoot: ['', Validators.required],
       water: [false],
       wc: [false],
       network: [false],
@@ -118,16 +96,17 @@ export class SiteFormComponent implements OnInit {
       lng: 5.667857,
     };
     this.siteId = parseInt(this.activatedRoute.snapshot.params['id']);
-    this.title = this.siteId ? this.titleEdit : this.titleCreate;
+    this.isNew = !!this.siteId;
     this.form.controls['department'].disable();
   }
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadData();
     if (!this.siteId) {
       this.addNewSector();
     }
   }
 
+  // Valide le choix des coordonees gps
   public chooseLocalisation(parking: number): void {
     this.selectedParking = parking;
     this.displayMap = !this.displayMap;
@@ -145,22 +124,24 @@ export class SiteFormComponent implements OnInit {
         this.engagements = data.engagements;
         this.routeProfiles = data.routeProfiles;
         this.regions = data.regions;
-      },
-      error: err => {
-        this.messageService.add({
-          severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.SITE_SUMMARY,
-          detail: err.error.message,
-        });
-      },
-      complete: () => {
+        this.routeFoots = data.routeFoots;
         if (this.siteId) {
           this.loadSite();
         }
       },
+      error: err => {
+        this.messageService.add({
+          severity: ToastConfig.TYPE_ERROR,
+          summary: this.languageService.toastTranslate(
+            LanguageService.KEY_TOAST_SITE
+          ).summary,
+          detail: err.error.message,
+        });
+      },
     });
   }
 
+  // Sousmission du formulaire
   public submit(): void {
     const site: SiteCreateDto = {
       name: this.form.controls['name'].value,
@@ -179,14 +160,15 @@ export class SiteFormComponent implements OnInit {
       expositions: this.form.controls['expositions'].value,
       rockType: this.form.controls['rockType'].value,
       routeProfiles: this.form.controls['routeProfiles'].value,
-      department: this.department,
+      department: this.getDataDepartment(),
       region: this.form.controls['region'].value,
       water: this.form.controls['water'].value,
       wc: this.form.controls['wc'].value,
       network: this.form.controls['network'].value,
       river: this.form.controls['river'].value,
-      secteurs: this.form.controls['sectorArray'].value,
+      sectors: this.form.controls['sectorArray'].value,
       author: this.userProfileService.getUserProfile(),
+      routeFoot: this.getRouteFoot(),
     };
     if (!this.displayP2) {
       site.secondaryParkingLat = site.mainParkingLat;
@@ -227,6 +209,10 @@ export class SiteFormComponent implements OnInit {
     this.displayMap = !this.displayMap;
   }
 
+  /**
+   * Recupere les departements associés a la region
+   * @param regionId id de la region
+   */
   public getDepartment(regionId: number): void {
     this.departmentService
       .departmentControllerGetByRegion({
@@ -240,18 +226,27 @@ export class SiteFormComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
         },
       });
   }
 
+  /**
+   * Initialise le marker de la carte en fonction des coordonnee du departement choisi
+   * @param lat latitude
+   * @param lng longitude
+   */
   public initMarker(lat: number, lng: number): void {
     this.mapOptions.lat = lat;
     this.mapOptions.lng = lng;
     this.showMainParking = !this.showMainParking;
   }
+
+  // Si les coordonnes du parking principal ne sont pas rempli invalid le formulaire
   public formIsInvalid(): boolean {
     let isInvalid: boolean = true;
     if (this.coordinateP1.length > 1 && this.form.valid) {
@@ -260,6 +255,9 @@ export class SiteFormComponent implements OnInit {
     return isInvalid;
   }
 
+  /**
+   * En cas d'edition du site , pre-rempli les champs avec les donnee deja presente
+   */
   private loadSite(): void {
     this.siteService
       .siteControllerGetSite({
@@ -299,14 +297,16 @@ export class SiteFormComponent implements OnInit {
             data.secondaryParkingLng,
           ];
           this.displayP2 = !this.displayP2;
-          data.secteurs.forEach(s => {
+          data.sectors.forEach(s => {
             this.addExistingSector(s);
           });
         },
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
           return this.router.navigate([SiteRoutingModule.SITE_NEW]);
@@ -314,7 +314,11 @@ export class SiteFormComponent implements OnInit {
       });
   }
 
-  private createNewSite(site: SiteCreateDto) {
+  /**
+   * Envoie la requete POST en cas de nouveau site
+   * @param site SiteCreateDto
+   */
+  private createNewSite(site: SiteCreateDto): void {
     this.siteService
       .siteControllerCreateSite({
         body: site,
@@ -323,22 +327,35 @@ export class SiteFormComponent implements OnInit {
         next: data => {
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
-            summary: ToastConfig.SITE_SUMMARY,
-            detail: ToastConfig.SITE_DETAIL_NEW + ' ' + data.name,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
+            detail:
+              this.languageService.toastTranslate(
+                LanguageService.KEY_TOAST_SITE
+              ).create +
+              ' ' +
+              data.name,
           });
           return this.router.navigate([SiteRoutingModule.SITE_LIST]);
         },
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
         },
       });
   }
 
-  private editSite(site: SiteCreateDto) {
+  /**
+   * Envoie la requete PUT en cas d'edition d'un site
+   * @param site SiteCreateDto
+   */
+  private editSite(site: SiteCreateDto): void {
     this.siteService
       .siteControllerEditSite({
         id: this.siteId,
@@ -348,15 +365,24 @@ export class SiteFormComponent implements OnInit {
         next: data => {
           this.messageService.add({
             severity: ToastConfig.TYPE_SUCCESS,
-            summary: ToastConfig.SITE_SUMMARY,
-            detail: ToastConfig.SITE_DETAIL_EDIT + ' ' + data.name,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
+            detail:
+              this.languageService.toastTranslate(
+                LanguageService.KEY_TOAST_SITE
+              ).edit +
+              ' ' +
+              data.name,
           });
           return this.router.navigate([SiteRoutingModule.SITE_LIST]);
         },
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.SITE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_SITE
+            ).summary,
             detail: err.error.message,
           });
         },
@@ -370,8 +396,9 @@ export class SiteFormComponent implements OnInit {
 
   // Initialise le marker de carte par rapport a la prefecture du departement choisi (lat/lng renseigner en bdd)
   public onChangeDepartment(): void {
-    this.initMarker(this.department.lat, this.department.lng);
+    this.initMarker(this.getDataDepartment().lat, this.getDataDepartment().lng);
   }
+
   /**
    * Creation du Array pour les differents secteur du site
    */
@@ -387,6 +414,7 @@ export class SiteFormComponent implements OnInit {
       })
     );
   }
+
   // Suppression d'un secteur ( sauf le 1 obligatoire )
   public removeSector(i: number): void {
     this.sectorArray.removeAt(i);
@@ -394,20 +422,28 @@ export class SiteFormComponent implements OnInit {
 
   /**
    * Quand le site est en edition, rempli le formArray avec les secteurs deja existants
-   * @param secteur SecteurListDto
-   * @private
+   * @param sector SectorDto
    */
-  private addExistingSector(secteur: SecteurDto): void {
+  private addExistingSector(sector: SectorDto): void {
     this.sectorArray.push(
       this.fb.group({
-        id: [secteur.id],
-        name: [secteur.name],
+        id: [sector.id],
+        name: [sector.name],
       })
     );
   }
-  get department(): DepartmentDataDto {
+
+  // Renvoie l'objet DepartmentDataDto en fonction du departement choisi
+  private getDataDepartment(): DepartmentDataDto {
     return this.departments.find(
-      d => d.id === this.form.controls['department'].value
+      department => department.id === this.form.controls['department'].value
+    );
+  }
+
+  // Renvoie l'objet RouteFootDto en fonction du type de pied de voie choisi
+  private getRouteFoot(): RouteFootDto {
+    return this.routeFoots.find(
+      routeFoot => routeFoot.id === this.form.controls['routeFoot'].value
     );
   }
 }

@@ -9,6 +9,8 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TranslateModule } from '@ngx-translate/core';
+import { UtilsModule } from '../../shared/utils/utils.module';
 @NgModule({
   declarations: [DashboardComponent],
   imports: [
@@ -20,6 +22,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     InputTextModule,
     FormsModule,
     ConfirmDialogModule,
+    TranslateModule,
+    UtilsModule,
   ],
 })
 export class AdminModule {}

@@ -50,6 +50,12 @@ const routes: Routes = [
           import('./admin/admin.module').then(m => m.AdminModule),
         canActivate: [AdminGuard],
       },
+      {
+        path: 'notebook',
+        loadChildren: () =>
+          import('./notebook/notebook.module').then(m => m.NotebookModule),
+        canActivate: [AuthGuard],
+      },
     ],
   },
 ];

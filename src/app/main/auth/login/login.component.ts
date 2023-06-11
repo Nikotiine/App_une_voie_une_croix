@@ -17,30 +17,31 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  public registerUrl: string;
+  public registerUrl: string = AuthRoutingModule.REGISTER;
   public form: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly securityService: SecurityService,
-    private messageService: MessageService,
-    private userProfileService: UserProfileService,
-    private router: Router
+    private readonly messageService: MessageService,
+    private readonly userProfileService: UserProfileService,
+    private readonly router: Router
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
-    this.registerUrl = AuthRoutingModule.REGISTER;
   }
 
+  /**
+   * Connextion de l'utlisateur
+   */
   public submit(): void {
     const credentials: UserCredentialsDto = {
       email: this.form.controls['email'].value,
       password: this.form.controls['password'].value,
     };
-
     this.authService
       .authControllerLogin({
         body: credentials,
@@ -52,8 +53,8 @@ export class LoginComponent {
         })
       )
       .subscribe({
-        next: data => {
-          this.userProfileService.setUserProfile(data);
+        next: userProfile => {
+          this.userProfileService.setUserProfile(userProfile);
           return this.router.navigate([MainRoutingModule.HOME]);
         },
         error: err => {

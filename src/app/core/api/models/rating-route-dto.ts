@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface SecteurDto {
+export interface RatingRouteDto {
   id: number;
-  name: string;
+  rating: number;
 }

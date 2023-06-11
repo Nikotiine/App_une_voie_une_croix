@@ -33,7 +33,7 @@ export class UserService extends BaseService {
   /**
    * Register new user.
    *
-   * Create new user in database / by default the user have role USER
+   * Entry point to post new user -> by default the role is UserRole.USER
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerCreateUser()` instead.
@@ -71,7 +71,7 @@ export class UserService extends BaseService {
   /**
    * Register new user.
    *
-   * Create new user in database / by default the user have role USER
+   * Entry point to post new user -> by default the role is UserRole.USER
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userControllerCreateUser$Response()` instead.
@@ -100,9 +100,9 @@ export class UserService extends BaseService {
   static readonly UserControllerGetUserPath = '/api/user/{id}';
 
   /**
-   * Get user resource by id.
+   * Get user profile.
    *
-   * The user can show his own profile
+   * Return user profile find by id
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerGetUser()` instead.
@@ -138,9 +138,9 @@ export class UserService extends BaseService {
   }
 
   /**
-   * Get user resource by id.
+   * Get user profile.
    *
-   * The user can show his own profile
+   * Return user profile find by id
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userControllerGetUser$Response()` instead.
@@ -171,7 +171,7 @@ export class UserService extends BaseService {
   /**
    * Edit user profile.
    *
-   * The user can edit his profile / JWT required
+   * Entry point to edit user profile
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `userControllerEditUser()` instead.
@@ -215,7 +215,7 @@ export class UserService extends BaseService {
   /**
    * Edit user profile.
    *
-   * The user can edit his profile / JWT required
+   * Entry point to edit user profile
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userControllerEditUser$Response()` instead.
@@ -335,7 +335,7 @@ export class UserService extends BaseService {
     id: number;
 
     /**
-     * The Description for the Post Body. Please look into the DTO UserRegisterDto
+     * The Description for the Post Body. Please look into the DTO UserEditPasswordDto
      */
     body: UserEditPasswordDto
   },
@@ -379,7 +379,7 @@ export class UserService extends BaseService {
     id: number;
 
     /**
-     * The Description for the Post Body. Please look into the DTO UserRegisterDto
+     * The Description for the Post Body. Please look into the DTO UserEditPasswordDto
      */
     body: UserEditPasswordDto
   },

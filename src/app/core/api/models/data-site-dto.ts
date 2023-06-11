@@ -7,6 +7,7 @@ import { ExpositionDto } from './exposition-dto';
 import { LevelDto } from './level-dto';
 import { RegionDto } from './region-dto';
 import { RockTypeDto } from './rock-type-dto';
+import { RouteFootDto } from './route-foot-dto';
 import { RouteProfileDto } from './route-profile-dto';
 export interface DataSiteDto {
   approachTypes: Array<ApproachTypeDto>;
@@ -16,5 +17,6 @@ export interface DataSiteDto {
   levels: Array<LevelDto>;
   regions: Array<RegionDto>;
   rockTypes: Array<RockTypeDto>;
+  routeFoots: Array<RouteFootDto>;
   routeProfiles: Array<RouteProfileDto>;
 }

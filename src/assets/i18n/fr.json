@@ -1,0 +1,167 @@
+{
+  "mainTitle": "Une voie Une Croix",
+  "cancel": "Annuler",
+  "validate": "Valider",
+  "edit": "Editer",
+  "search": "Rechercher",
+  "navbar": {
+    "home": "Accueil",
+    "sites": "Sites",
+    "sitesList": "Liste des sites",
+    "sitesMap": "Carte des sites",
+    "addSite": "Ajouter un site",
+    "routes": "Voies",
+    "routesList": "Liste des voies",
+    "routeSearch": "Rechercher une voie",
+    "addRoute": "Ajouter une voie",
+    "notebook": "Mon carnet",
+    "notebookList": "Voir tout",
+    "addNotebook": "Ajouter une croix",
+    "confirmationMessage": "Changer la langue pour",
+    "confirmationHeader": "Gestion des langues"
+  },
+  "auth": {
+    "connexion": "Connexion",
+    "notRegistered": "Pas encore de compte ?",
+    "password": "Mot de passe",
+    "createAccount": "Créer un compte",
+    "loginPage": "Page de connexion"
+
+  },
+  "user": {
+    "myAccount": "Mon compte",
+    "email": "Email",
+    "lastName": "Nom",
+    "firstName": "Prénom",
+    "birthday": "Date de naissance",
+    "contribution": "Mes contributions"
+  },
+  "admin": {
+    "title": "Administration",
+    "users": "Utilisateurs",
+    "memberSince": "Membre depuis",
+    "lastUpdate": "Mise à jour",
+    "author": "Auteur",
+    "dashboard": "Panneau d'adminstration",
+    "active": "Actif",
+    "notActive": "Inactif"
+  },
+  "language": {
+    "french": "Francais",
+    "english": "Anglais"
+  },
+  "common": {
+    "exposition": "Exposition",
+    "approachTime": "Temps d'approche",
+    "approachType": "Type d'approche",
+    "routeProfile": "Profil de voie",
+    "engagement": "Engagement",
+    "equipment": "Equipement",
+    "commentary": "Commentaires",
+    "sector": "Secteur",
+    "sectors": "Secteurs",
+    "rating": "Note",
+    "createdAt": "Date d'ajout",
+    "checked": "Cochée",
+    "meter": "Mètre",
+    "minute": "Minute",
+    "information": "Informations génerales",
+    "backToList": "Retour à la liste",
+    "routes": "Voies",
+    "climbingZone": "Site"
+  },
+  "homepage": {
+    "memberRegistered": "Membres inscrits",
+    "siteAvailable": "Sites disponibles",
+    "lastFiveSites": "Les 5 derniers sites enregistrés",
+    "routeAvailable": "Voies disponibles",
+    "lastFiveRoutes": "Les 5 dernières voies enregistrées",
+    "lastFiveCheckedRoutes": "Les 5 dernières voies cochées"
+  },
+  "site": {
+    "titleSiteList": "Liste des sites",
+    "titleSiteFormAdd": "Ajout d'un site",
+    "titleSiteFormEdit": "Edition d'un site",
+    "name": "Nom du site",
+    "averageRouteHeight": "Hauteur moyenne",
+    "routeFoot": "Pied des voies",
+    "department": "Département",
+    "region": "Région",
+    "defineSitePark": "Definir le parking du site",
+    "defineCamPark": "Definir le parking du camion",
+    "carPark": "Parking",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "water": "Eau potable",
+    "noWater": "Pas d'eau potable",
+    "network": "Réseau 4G",
+    "noNetwork": "Pas de réseau",
+    "toilet": "Toilette",
+    "noToilet": "Pas de toilette",
+    "river": "Riviere ou lac",
+    "noRiver": "Pas d'eau à proximité",
+    "minLevel": "Niveau mini",
+    "maxLevel": "Niveau maxi",
+    "averageRouteNumber": "Nombre de voies",
+    "sortByRegion": "Trier par région",
+    "rockType": "Type de rocher",
+    "chooseRegion": "Choisir la région",
+    "chooseDepartment": "Choisir le département",
+    "validLocation": "Valider la localisation",
+    "genericRegions": "Toutes les régions",
+    "totalSector": "Nombre de secteurs",
+    "carParkForNight": "Parking camion",
+    "noRouteRegistered": "Aucune voie enregistrée"
+  },
+  "route": {
+    "titleRouteList": "Liste des voies",
+    "titleRouteFormAdd": "Ajout d'une voie",
+    "titleRouteFormEdit": "Edition d'une voie",
+    "name": "Nom de la voie",
+    "level": "Niveau",
+    "routeHeight": "Hauteur",
+    "quickdraw": "Nombre de dégaines",
+    "effortType": "Type d'effort",
+    "sortBySite": "Trier par site",
+    "chooseSite": "Choisir un site",
+    "chooseSector": "Choisir un secteur"
+  },
+  "notebook": {
+    "titleNotebookList": "Mon carnet de croix",
+    "titleNotebookFormAdd": "Ajout d'une croix",
+    "titleNotebookFormEdit": "Edition d'une croix",
+    "titleNotebookView": "Detail de la croix",
+    "achievementType": "Realisé",
+    "trialsNumber": "Nombre d'essais",
+    "trial": "Essai",
+
+    "chooseRoute": "Choisir la voie",
+    "summary": "Mon carnet",
+    "create": "Croix enregistrée bravo"
+  },
+  "toast": {
+    "homepage": {
+      "summary": "Page d'accueil"
+    },
+    "notebook": {
+      "summary": "Gestion du carnet",
+      "create": "Croix enregistrée bravo",
+      "unCheck": "Décocher",
+      "unCheckRoute": "Décocher la voie ?",
+      "unCheckedRoute": "Voie decochée",
+      "alreadyChecked": "Voie déjà cochée"
+    },
+    "site": {
+      "summary": "Gestion des sites",
+      "create": "Nouveau site enregistré",
+      "edit": "Site mis à jour"
+    },
+    "route": {
+      "summary": "Gestion des voies",
+      "create": "Nouvelle voie enregistré",
+      "edit": "Voie mise à jour"
+    },
+    "cancelAction": "Action annulée",
+    "deleteError": "Suppression impossible"
+  }
+}

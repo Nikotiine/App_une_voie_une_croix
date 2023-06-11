@@ -6,9 +6,11 @@ import { ExpositionDto } from './exposition-dto';
 import { LevelDto } from './level-dto';
 import { RockTypeDto } from './rock-type-dto';
 import { RouteProfileDto } from './route-profile-dto';
-import { SecteurSiteDto } from './secteur-site-dto';
+import { SectorSiteDto } from './sector-site-dto';
 export interface RouteViewDto {
+  commentary: string;
   createdAt: string;
+  effortType: null | 'Resi' | 'Bloc' | 'Conti';
   engagement: EngagementDto;
   equipment: EquipmentDto;
   exposition: ExpositionDto;
@@ -19,5 +21,5 @@ export interface RouteViewDto {
   quickdraw: number;
   rockType: RockTypeDto;
   routeProfile: RouteProfileDto;
-  secteur: SecteurSiteDto;
+  sector: SectorSiteDto;
 }

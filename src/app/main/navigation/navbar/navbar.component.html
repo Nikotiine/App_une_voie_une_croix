@@ -6,7 +6,7 @@
       pRipple
       *ngIf="!isLogged"
       type="button"
-      icon="{{ iconLogin }}"
+      icon="{{ ICON.LOGIN }}"
       [routerLink]="[loginUrl]"
       class="p-button p-button-rounded p-button-outlined"></button>
     <button
@@ -15,15 +15,22 @@
       *ngIf="isLogged"
       type="button"
       [routerLink]="[userProfileUrl]"
-      icon="{{ iconUser }}"
+      icon="{{ ICON.USER }}"
       class="p-button-info p-button-rounded p-button-outlined mr-2"></button>
     <button
       pButton
       pRipple
       *ngIf="isLogged"
       type="button"
-      icon="{{ iconLogin }}"
+      icon="{{ ICON.LOGIN }}"
       (click)="logout()"
-      class="p-button-danger p-button-rounded p-button-outlined"></button
+      class="p-button-danger p-button-rounded p-button-outlined"></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="{{ ICON.LANGUAGE }}"
+      (click)="switchLanguage()"
+      class="p-button p-button-rounded p-button-outlined ml-2"></button
   ></ng-template>
 </p-menubar>

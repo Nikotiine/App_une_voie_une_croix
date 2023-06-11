@@ -1,28 +1,38 @@
-<h1 class="title has-text-centered mt-1">Une Voie une Croix</h1>
+<h1 class="title has-text-centered mt-1">{{ 'mainTitle' | translate }}</h1>
 <div class="" *ngIf="loaded">
   <div class="box">
-    <p>Grimpeurs inscrits :</p>
+    <p>{{ 'homepage.memberRegistered' | translate }}:</p>
     <p class="has-text-centered">{{ totalUsers }}</p>
   </div>
-  <div class="box w-15">
-    <p>Sites disponibles :</p>
-    <p class="has-text-centered">{{ totalSite }}</p>
-  </div>
   <div class="box">
-    <p>Dernier site ajouté :</p>
-    <p class="has-text-centered">
-      {{ lastSiteRegister ? lastSiteRegister.name : '' }}
+    <p class="has-text-centered title is-4">
+      {{ 'homepage.siteAvailable' | translate }} :
+      <span class="has-text-centered ml-2 has-text-info">{{ totalSite }}</span>
     </p>
+
+    <p class="my-3 subtitle has-text-info">
+      {{ 'homepage.lastFiveSites' | translate }} :
+    </p>
+    <app-table-site
+      [sites]="lastFiveSite"
+      [options]="sitesOptions"></app-table-site>
   </div>
 
   <div class="box">
-    <p>Nombre de voie enregistrée:</p>
-    <p class="has-text-centered">{{ totalRoute }}</p>
+    <p>
+      {{ 'homepage.routeAvailable' | translate }}:
+      <span class="has-text-centered has-text-info ml-2">{{ totalRoute }}</span>
+    </p>
+
+    <p class="my-3">{{ 'homepage.lastFiveRoutes' | translate }} :</p>
+    <app-table-routes
+      [routes]="lastFiveRoute"
+      [options]="sitesOptions"></app-table-routes>
   </div>
   <div class="box">
-    <p>Derniere voie enregistrée :</p>
-    <p class="has-text-centered">
-      {{ lastRouteRegister ? lastRouteRegister.name : '' }}
-    </p>
+    <p class="my-3">{{ 'homepage.lastFiveCheckedRoutes' | translate }} :</p>
+    <app-table-routes
+      [routes]="lastFiveCheckedRoute"
+      [options]="sitesOptions"></app-table-routes>
   </div>
 </div>

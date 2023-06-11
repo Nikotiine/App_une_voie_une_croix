@@ -13,6 +13,10 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { UtilsModule } from '../../shared/utils/utils.module';
+import { RatingModule } from 'primeng/rating';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [RouteFormComponent, RouteViewComponent, RouteListComponent],
@@ -28,6 +32,10 @@ import { TabViewModule } from 'primeng/tabview';
     TableModule,
     FormsModule,
     TabViewModule,
+    InputTextareaModule,
+    UtilsModule,
+    RatingModule,
+    TranslateModule,
   ],
 })
 export class RouteModule {}

@@ -1,20 +1,32 @@
 <div class="mt-4 user-view">
-  <h1 class="title has-text-centered mt-3 p-3">Mon compte</h1>
+  <h1 class="title has-text-centered mt-3 p-3">
+    {{ 'user.myAccount' | translate }}
+  </h1>
   <p-tabView>
     <p-tabPanel>
-      <ng-template pTemplate="header"> Information generale </ng-template>
+      <ng-template pTemplate="header">
+        {{ 'common.information' | translate }}
+      </ng-template>
       <div *ngIf="user">
         <div class="subtitle">
-          <span class="has-text-info mr-2">Prenom :</span> {{ user.firstName }}
+          <span class="has-text-info mr-2"
+            >{{ 'user.firstName' | translate }} :</span
+          >
+          {{ user.firstName }}
         </div>
         <div class="subtitle">
-          <span class="has-text-info mr-2">Nom :</span>{{ user.lastName }}
+          <span class="has-text-info mr-2"
+            >{{ 'user.lastName' | translate }} :</span
+          >{{ user.lastName }}
         </div>
         <div class="subtitle">
-          <span class="has-text-info mr-2">Email :</span>{{ user.email }}
+          <span class="has-text-info mr-2"
+            >{{ 'user.email' | translate }} :</span
+          >{{ user.email }}
         </div>
         <div class="subtitle">
-          <span class="has-text-info mr-2">Date de naissance :</span
+          <span class="has-text-info mr-2"
+            >{{ 'user.birthday' | translate }} :</span
           >{{ user.birthday | date : 'dd/MM/yyyy' }}
         </div>
         <div class="">
@@ -22,7 +34,7 @@
             pButton
             type="button"
             icon="{{ iconEdit }}"
-            label="Editer"
+            label="{{ 'edit' | translate }}"
             iconPos="left"
             class="p-button-outlined p-button-danger"
             [routerLink]="[editUserUrl + user.id]"></button>
@@ -30,28 +42,35 @@
       </div>
     </p-tabPanel>
     <p-tabPanel>
-      <ng-template pTemplate="header"> Mes contributions </ng-template>
+      <ng-template pTemplate="header">
+        {{ 'user.contribution' | translate }}
+      </ng-template>
       <div>
-        <h3 class="title is-5">Sites ({{ sites.length }})</h3>
+        <h3 class="title is-5">
+          {{ 'navbar.sites' | translate }} ({{ sites.length }})
+        </h3>
         <p *ngFor="let site of sites">
           {{ site.name }}
         </p>
       </div>
       <div class="mt-3">
-        <h3 class="title is-5">Voies</h3>
+        <h3 class="title is-5">{{ 'navbar.routes' | translate }}</h3>
         <p *ngFor="let route of routes">
-          {{ route.name }} --- {{ route.secteur.site.name }} ---
-          {{ route.secteur.name }}
+          {{ route.name }} --- {{ route.sector.site.name }} ---
+          {{ route.sector.name }}
         </p>
       </div>
     </p-tabPanel>
     <p-tabPanel>
-      <ng-template pTemplate="header"> Voies realisées </ng-template>Content 3
+      <ng-template pTemplate="header">
+        {{ 'notebook.titleNotebookList' | translate }}
+      </ng-template>
+      <app-notebook-list [fullView]="false"></app-notebook-list>
     </p-tabPanel>
     <p-tabPanel header="Administration" *ngIf="isAdmin">
       <ng-template pTemplate="header">
         <a class="has-text-danger" [routerLink]="[adminDashboardUrl]">
-          <i class="{{ iconAdmin }} mr-2"></i>Administration</a
+          <i class="{{ iconAdmin }} mr-2"></i>{{ 'admin.title' | translate }}</a
         >
       </ng-template>
     </p-tabPanel>

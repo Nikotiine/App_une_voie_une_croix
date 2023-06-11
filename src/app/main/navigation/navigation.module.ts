@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
 import { RippleModule } from 'primeng/ripple';
-import { SpeedDialModule } from 'primeng/speeddial';
 
 @NgModule({
   declarations: [NavbarComponent],

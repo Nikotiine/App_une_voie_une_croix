@@ -7,3 +7,4 @@ export { RegionService } from './services/region.service';
 export { CommonService } from './services/common.service';
 export { AdminService } from './services/admin.service';
 export { PublicService } from './services/public.service';
+export { NotebookService } from './services/notebook.service';

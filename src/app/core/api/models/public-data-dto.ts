@@ -1,10 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
-import { RouteDto } from './route-dto';
-import { SiteDto } from './site-dto';
+import { RouteListDto } from './route-list-dto';
+import { SiteListDto } from './site-list-dto';
 export interface PublicDataDto {
-  lastRoute: RouteDto;
-  lastSite: SiteDto;
+  lastFiveCheckedRoutes: Array<RouteListDto>;
+  lastFiveRoute: Array<RouteListDto>;
+  lastFiveSite: Array<SiteListDto>;
   totalRoutes: number;
   totalSites: number;
   totalUsers: number;

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../core/api/services/user.service';
 import { AuthRoutingModule } from '../auth-routing.module';
 import { ToastConfig } from '../../../core/app/config/toast.config';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-register',
@@ -14,14 +15,14 @@ import { ToastConfig } from '../../../core/app/config/toast.config';
 })
 export class RegisterComponent {
   public form: FormGroup;
-  public loginUrl: string;
-  //private attribute
+  public loginUrl: string = AuthRoutingModule.LOGIN;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private readonly userService: UserService,
-    private messageService: MessageService,
-    private router: Router
+    private readonly messageService: MessageService,
+    private readonly router: Router,
+    private readonly languageService: LanguageService
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
@@ -30,7 +31,6 @@ export class RegisterComponent {
       password: ['', Validators.required],
       birthday: ['', Validators.required],
     });
-    this.loginUrl = AuthRoutingModule.LOGIN;
   }
 
   public submit(): void {

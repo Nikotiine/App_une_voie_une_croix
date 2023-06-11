@@ -1,0 +1,172 @@
+{
+  "mainTitle": "One route One Cross",
+  "cancel": "Cancel",
+  "validate": "Validate",
+  "edit": "Edit",
+  "search": "Search",
+  "navbar": {
+      "home": "Home",
+      "sites": "Climbing Zone",
+      "sitesList": "List of all",
+      "sitesMap": "Climbing zone map",
+      "addSite": "New climbing zone",
+      "routes": "Route",
+      "routesList": "List of all routes",
+      "routeSearch": "Search route",
+      "addRoute": "Add new route",
+      "notebook": "My notebook",
+      "notebookList": "Show all",
+      "addNotebook": "Add Notebook",
+      "confirmationMessage": "Change language",
+      "confirmationHeader": "Language service"
+    },
+  "auth": {
+    "connexion": "Connexion",
+    "notRegistered": "Not Registered ?",
+    "password": "Password",
+    "createAccount": "Create Account",
+    "loginPage": "Login page"
+
+  },
+  "user": {
+    "myAccount": "My account",
+    "email": "Email",
+    "lastName": "Lastname",
+    "firstName": "Firstname",
+    "birthday": "Bithday",
+    "contribution": "My contribution"
+  },
+  "admin": {
+    "title": "Administration",
+    "users": "Users",
+    "memberSince": "Member since",
+    "lastUpdate": "Last update",
+    "author": "Author",
+    "dashboard": "Admin dashboard",
+    "active": "Active",
+    "notActive": "Not active"
+  },
+  "language": {
+    "french": "French",
+    "english": "English"
+  },
+  "common": {
+    "exposition": "Exposition",
+    "approachTime": "Approach time",
+    "approachType": "Approach type",
+    "routeProfile": "Route profile",
+    "engagement": "Engagement",
+    "equipment": "Equipment",
+    "commentary": "Commentary",
+    "sector": "Sector",
+    "sectors": "Sectors",
+    "rating": "Rating",
+    "createdAt": "Added at",
+    "checked": "Checked",
+    "meter": "Meter",
+    "minute": "Minute",
+    "information": "General Information",
+    "backToList": "Back to list",
+    "routes": "Routes",
+    "climbingZone": "Climbing zone"
+  },
+  "homepage": {
+
+    "memberRegistered": "Member registered",
+    "siteAvailable": "Climbing zone available",
+    "lastFiveSites": "Last 5 Climbing zone recorded",
+    "routeAvailable": "Routes available",
+    "lastFiveRoutes": "Last 5 route recorded",
+    "lastFiveCheckedRoutes": "Last 5 routes checked"
+  },
+  "site": {
+    "titleSiteList": "List of climbing zone",
+    "titleSiteFormAdd": "Create new Climbing Zone",
+    "titleSiteFormEdit": "Edit Climbing Zone",
+    "name": "Climbing Zone name",
+    "averageRouteHeight": "Average height",
+    "routeFoot": "Route foot ",
+    "department": "Department",
+    "region": "Region",
+    "defineSitePark": "Define climbing zone park",
+    "defineCamPark": "Define park for night",
+    "carPark": "Car park",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "water": "Fresh water",
+    "noWater": "No fresh water",
+    "network": "Network",
+    "noNetwork": "No network available",
+    "toilet": "Toilet",
+    "noToilet": "No toilet",
+    "river": "River",
+    "noRiver": "No proximity river",
+    "minLevel": "Minimum level",
+    "maxLevel": "Maximum level",
+    "averageRouteNumber": "Average route number",
+    "sortByRegion": "Sort By region",
+    "rockType": "Rock type",
+    "chooseRegion": "Choose region",
+    "chooseDepartment": "Choose department",
+    "validLocation": "Valid the location",
+    "genericRegions": "All regions",
+    "totalSector": "Total of sectors",
+    "carParkForNight": "Car park for night",
+    "noRouteRegistered": "No route registered"
+  },
+  "route": {
+    "titleRouteList": "List of routes",
+    "titleRouteFormAdd": "Create new route",
+    "titleRouteFormEdit": "Edit route",
+    "name": "Route name",
+    "level": "Level",
+    "routeHeight": "Heigth",
+    "quickdraw": "Quickdraw",
+    "effortType": "Effort Type",
+    "sortBySite": "Sort by Climbing zone",
+    "chooseSite": "Select a climbing zone",
+    "chooseSector": "Select a sector"
+  },
+  "notebook": {
+    "titleNotebookList": "All my notebook",
+    "titleNotebookFormAdd": "Add new notebook",
+    "titleNotebookFormEdit": "Edit notebook",
+    "titleNotebookView": "Notebook detail",
+    "achievementType": "Do on",
+    "trialsNumber": "Trials",
+    "trial": "trial",
+    "unCheck": "Uncheck",
+    "unCheckRoute": "Uncheck the notebook ?",
+    "unCheckedRoute": "Route unchecked",
+    "chooseRoute": "Choose the route",
+    "summary": "Notebook service",
+    "detail": {
+      "create": "Notebook saved you're good"
+    }
+  },
+  "toast": {
+    "homepage": {
+      "summary": "Homepage"
+    },
+    "notebook": {
+      "summary": "Notebook service",
+      "create": "Notebook saved you're good",
+      "unCheck": "Uncheck",
+      "unCheckRoute": "Uncheck the route ?",
+      "unCheckedRoute": "Route unchecked",
+      "alreadyChecked": "Route already checked"
+    },
+    "site": {
+      "summary": "Site service",
+      "create": "New climbing zone added",
+      "edit": "Climbing zone updated"
+    },
+    "route": {
+      "summary": "Route service",
+      "create": "New route added",
+      "edit": "Route updated"
+    },
+    "cancelAction": "Action canceled",
+    "deleteError": "Impossible to delete"
+  }
+}

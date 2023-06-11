@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouteService } from '../../../core/api/services/route.service';
-
 import { Icons } from '../../../core/app/enum/Icons.enum';
 import { RouteRoutingModule } from '../route-routing.module';
 import { RouteViewDto } from '../../../core/api/models/route-view-dto';
@@ -8,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastConfig } from '../../../core/app/config/toast.config';
 import { MessageService } from 'primeng/api';
 import { UserProfileService } from '../../../core/app/services/user-profile.service';
+import { LanguageService } from '../../../core/app/services/language.service';
 
 @Component({
   selector: 'app-route-view',
@@ -16,36 +16,31 @@ import { UserProfileService } from '../../../core/app/services/user-profile.serv
 })
 export class RouteViewComponent implements OnInit {
   public route!: RouteViewDto;
-  public iconRockType: string = Icons.ROCK_TYPE;
-  public iconEdit: string = Icons.EDIT;
-  public iconRoute: string = Icons.ROUTE;
-  public iconLevel: string = Icons.LEVEL;
-  public iconInformation: string = Icons.INFORMATION;
-  public iconSite: string = Icons.SITE;
-  public iconRouteHeight: string = Icons.ROUTE_HEIGHT;
-  public iconQuickdraw: string = Icons.QUICK_DRAW;
-  public iconExposition: string = Icons.EXPOSITION;
-  public iconSector: string = Icons.SECTOR;
-  public iconEquipment: string = Icons.EQUIPMENT;
-  public iconEngagement: string = Icons.ENGAGMENT;
+  public readonly ICON = Icons;
   public routeListUrl: string = RouteRoutingModule.ROUTE_LIST;
   public routeEditUrl: string = RouteRoutingModule.ROUTE_EDIT;
   public isAdmin: boolean;
-  public iconVan: string = Icons.VAN;
+
   constructor(
     private readonly routeService: RouteService,
-    private activatedRoute: ActivatedRoute,
-    private userProfileService: UserProfileService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly userProfileService: UserProfileService,
     private readonly messageService: MessageService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly languageService: LanguageService
   ) {
     this.isAdmin = this.userProfileService.isAdmin();
   }
-  ngOnInit(): void {
-    const id = parseInt(this.activatedRoute.snapshot.params['id']);
+  public ngOnInit(): void {
+    const id: number = parseInt(this.activatedRoute.snapshot.params['id']);
     this.loadRoute(id);
   }
 
+  /**
+   * Charge la voie avec son id en param
+   * @param id number, id de la voie
+   *
+   */
   private loadRoute(id: number): void {
     this.routeService
       .routeControllerGetRoute({
@@ -58,7 +53,9 @@ export class RouteViewComponent implements OnInit {
         error: err => {
           this.messageService.add({
             severity: ToastConfig.TYPE_ERROR,
-            summary: ToastConfig.ROUTE_SUMMARY,
+            summary: this.languageService.toastTranslate(
+              LanguageService.KEY_TOAST_ROUTE
+            ).summary,
             detail: err.error.message,
           });
           return this.router.navigate([this.routeListUrl]);

@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { SiteService } from '../../core/api/services/site.service';
-import { SiteDto } from '../../core/api/models/site-dto';
+
 import { MessageService } from 'primeng/api';
 import { ToastConfig } from '../../core/app/config/toast.config';
-import { RouteDto } from '../../core/api/models/route-dto';
+
 import { PublicService } from '../../core/api/services/public.service';
+import { SiteListDto } from '../../core/api/models/site-list-dto';
+import { RouteListDto } from '../../core/api/models/route-list-dto';
+import { TableSiteOptions } from '../../core/app/models/TableOptions.model';
+import { LanguageService } from '../../core/app/services/language.service';
+import { AppMessageService } from '../../core/app/services/app-message.service';
 
 @Component({
   selector: 'app-homepage',
@@ -13,38 +17,51 @@ import { PublicService } from '../../core/api/services/public.service';
 })
 export class HomepageComponent implements OnInit {
   public totalSite: number = 0;
-  public lastSiteRegister!: SiteDto;
+  public lastFiveSite: SiteListDto[] = [];
   public totalRoute: number = 0;
-  public lastRouteRegister!: RouteDto;
+  public lastFiveRoute: RouteListDto[] = [];
   public totalUsers: number = 0;
   public loaded: boolean = false;
+  public lastFiveCheckedRoute: RouteListDto[] = [];
+  public sitesOptions: TableSiteOptions;
   constructor(
     private readonly publicService: PublicService,
-    private readonly messageService: MessageService
-  ) {}
+    private readonly messageService: MessageService,
+    private readonly languageService: LanguageService,
+    private readonly appMessage: AppMessageService
+  ) {
+    this.sitesOptions = {
+      loading: true,
+      forAdmin: false,
+      fullView: false,
+    };
+  }
   ngOnInit(): void {
     this.loadData();
   }
 
-  private loadData() {
+  /**
+   * Charge les donnee publique de la homepage
+   */
+  private loadData(): void {
     this.publicService.publicControllerGetDataForHomePage().subscribe({
       next: data => {
-        console.log(data);
+        this.lastFiveCheckedRoute = data.lastFiveCheckedRoutes;
         this.totalSite = data.totalSites;
-        this.lastSiteRegister = data.lastSite;
+        this.lastFiveSite = data.lastFiveSite;
         this.totalRoute = data.totalRoutes;
-        this.lastRouteRegister = data.lastRoute;
+        this.lastFiveRoute = data.lastFiveRoute;
         this.totalUsers = data.totalUsers;
+        this.loaded = !this.loaded;
+        this.sitesOptions.loading = false;
+        this.appMessage.addSuccess('test', 'rtde');
       },
       error: err => {
         this.messageService.add({
           severity: ToastConfig.TYPE_ERROR,
-          summary: ToastConfig.HOME_SUMMARY,
+          summary: this.languageService.toastTranslate('homepage').summary,
           detail: err.error.message,
         });
-      },
-      complete: () => {
-        this.loaded = !this.loaded;
       },
     });
   }

@@ -8,8 +8,10 @@ import { ExpositionDto } from './exposition-dto';
 import { LevelDto } from './level-dto';
 import { RegionDto } from './region-dto';
 import { RockTypeDto } from './rock-type-dto';
+import { RouteFootDto } from './route-foot-dto';
+import { RouteListDto } from './route-list-dto';
 import { RouteProfileDto } from './route-profile-dto';
-import { SecteurDto } from './secteur-dto';
+import { SectorDto } from './sector-dto';
 export interface SiteViewDto {
   approachTime: number;
   approachType: ApproachTypeDto;
@@ -29,10 +31,12 @@ export interface SiteViewDto {
   region: RegionDto;
   river: boolean;
   rockType: RockTypeDto;
+  routeFoot: RouteFootDto;
   routeProfiles: Array<RouteProfileDto>;
+  routes: Array<RouteListDto>;
   secondaryParkingLat: number;
   secondaryParkingLng: number;
-  secteurs: Array<SecteurDto>;
+  sectors: Array<SectorDto>;
   water: boolean;
   wc: boolean;
 }
