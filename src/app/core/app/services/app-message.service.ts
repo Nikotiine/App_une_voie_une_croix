@@ -6,6 +6,7 @@ import { LanguageService } from './language.service';
   providedIn: 'root',
 })
 export class AppMessageService {
+  //TODO : implmenter ce service dans tout les composant qui se servent de MessageService
   constructor(
     private readonly messageService: MessageService,
     private readonly languageService: LanguageService

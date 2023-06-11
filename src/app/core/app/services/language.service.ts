@@ -58,6 +58,7 @@ export class LanguageService {
   /**
    * Fonction pour mettre a jour la langue choisi , met a jour le cookie de langue utilisateur
    * @param language string
+   * TODO: Refact le service pour permettre plus de langues
    */
   public setLanguage(language: string): void {
     this.userLanguage = language;
